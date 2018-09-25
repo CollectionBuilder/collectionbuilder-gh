@@ -1,0 +1,13 @@
+<script src="{{ '/assets/js/jquery.lazyload.js' | relative_url }}"></script>
+<script>
+    var $imgs = $("img.lazy");
+    // Lazy Load images when they appear in DOM
+    $imgs.lazyload({ 
+       effect: "fadeIn",
+       failure_limit: Math.max($imgs.length - 1, 0)
+    });
+    // init tooltips
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })    
+</script>

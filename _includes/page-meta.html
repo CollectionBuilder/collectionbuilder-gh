@@ -1,0 +1,12 @@
+<meta name="author" content="{{ site.author }}" >
+<meta name="keywords" content="{{ site.keywords }}" >
+<meta name="description" content="{{ site.description }}">
+<!-- Open Graph meta -->
+<meta property="og:title" content="{% if page.title %}{{ page.title | escape }}{% else %}{{ site.title | escape }}{% endif %}" />
+<meta property="og:description" content="{{ site.description }}" />
+{% if page.featured-image %}<meta property="og:image" content="{{ page.featured-image | absolute_url }}" />{% endif %}
+<meta property="og:site_name" content="{{ site.title }}" />
+<meta property="og:url" content="{{ page.url | absolute_url }}" />
+<meta property="og:locale" content="en_US" />
+<!-- schema.org JSON-LD -->
+<script type="application/ld+json">{ "@context":"http://schema.org", "@type":"WebPage", "headline":"{% if page.title %}{{ page.title | escape }}{% else %}{{ site.title | escape }}{% endif %}", "author": { "@type":"Person", "name":"{{ site.author }}"}, "description":"{{ site.description }}", {% if page.featured-image %}"image": "{{ page.featured-image | absolute_url }}",{% endif %} "url":"{{ page.url | absolute_url }}" }</script> 

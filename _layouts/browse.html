@@ -1,0 +1,40 @@
+---
+layout: page 
+---
+{% assign items = site.data.metadata %}
+
+{{ content }}
+
+<h2 class="text-center">
+    <input type="text" id="quicksearch" placeholder="Filter ... " > 
+    <input class="btn btn-success align-top" title="Search" type="submit" value="Go" alt="Search" id="goButton" onclick="filterItems()"> 
+    <a class="btn btn-secondary align-top filter" href="#" data-filter="">Reset Search</a>
+    <br class="hidden-md-up">
+    <span class="info2"><span id="numberof">{{ items | size }}</span> of {{ items | size }} items</span>
+</h2>
+
+<div class="row" id="browse-items">
+    {% for item in items %}
+    <div class="item col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-12 mb-2" >
+        <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}">
+            <img class="card-img-top lazy" {% if forloop.index < 20 %}src="{{ item.indexid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}"{% else %}data-original="{{ item.indexid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}"{% endif %} alt="collection object image">
+        </a>
+        <div class="card text-center">
+            <h3 class="card-title">{{ item.title }}</h3>
+            <p class="card-text"><strong>Date:</strong> {{ item.date }}</p>
+            <p>
+                {%- assign subjects = item.subject | split: ';' -%}
+                {%- assign location = item.place | split: ';' -%}
+                {%- assign topics = subjects | concat: location -%}
+                {% for topic in topics %}{% if topic !=" " %}
+                <a class="btn btn-sm btn-secondary m-1 filter" data-filter="{{ topic | trim |escape }}" href="{{ topic | trim | uri_escape | prepend: '/browse/#' | relative_url }}">{{ topic }}</a> 
+                {% endif %}{% endfor %} 
+            </p>
+            <p class="card-text">{{item.description | truncatewords: 20}}</p>
+            <p>
+                <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}" class="btn btn-info" title="link to {{ item.title | escape }}">View Item</a>
+            </p>
+         </div>
+    </div>
+    {% endfor %}
+</div>

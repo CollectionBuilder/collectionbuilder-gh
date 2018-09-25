@@ -1,0 +1,25 @@
+<script src="{{ '/assets/datatables/datatables.min.js' | relative_url }}"></script>
+<script>
+    /* use jquery to initialize DataTables and load collection data */
+    $(document).ready(function() {
+        $('#item-table').DataTable( {
+            // use DataTables ajax load 
+            ajax: { url: '{{ "/data/metadata.json" | relative_url }}', dataSrc: 'documents' },
+            // get the data from the metadata.json
+            columns: [ { data: 'title' }, { data: 'date' }, { data: 'subjects' }, { data: 'description' }, { data: 'link' } ],
+            columnDefs: [ 
+                // combine link and title for first column
+                { "render": function ( data, type, row ) { return '<a href="' + row.link +'">'+ data +'</a>'; },"targets": 0 },
+                // join the subjects array to print nicely
+                { "render": function ( data, type, row ) { return data.join("; "); },"targets": 2 },
+                // hide the link column
+                { "visible": false,  "targets": [ 4 ] }
+            ],
+            // sort based on the date
+            order: [[ 1, "desc" ]],
+            // add download features
+            dom: 'Blfrtip', 
+            buttons: [ 'excelHtml5', 'csvHtml5' ]
+        });
+    });
+</script>

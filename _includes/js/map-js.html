@@ -1,0 +1,56 @@
+{%- assign items = site.data.metadata -%}
+<!-- load leaflet dependencies -->
+<script src="{{ '/assets/leaflet/leaflet.js' | relative_url }}"></script>
+<script src="{{ '/assets/leaflet/fuse.min.js' | relative_url }}"></script>
+<script src="{{ '/assets/leaflet/leaflet.fusesearch.js' | relative_url }}"></script>
+
+<!-- add collection map data -->
+<script>
+    var geodata = { "type": "FeatureCollection", "features": [
+{% for item in items %}{% if item.latitude %}
+    { "type":"Feature", "geometry":{ "type":"Point", "coordinates":[{{ item.longitude }},{{ item.latitude }}] }, "properties":{ "title": {{ item.title | jsonify }}, "creator": {{ item.creator | jsonify }}, "date": {{ item.date | jsonify }}, "subjects": {{ item.subject | split: ";" | join: "; " | jsonify }}, "place": {{ item.place | jsonify }}, "id": {{ item.indexid | jsonify }} } }{% if forloop.last == false %}, {% endif %}{% endif %}{% endfor %}
+    ]};
+</script>
+
+<!-- int map and search -->
+<script>
+    /* map init and set zoom */
+    var map = L.map('map').setView([{{page.mapcenter}}], {{page.zoom}});
+
+    /* load map layer.
+    For a demo of possible map layers, see http://leaflet-extras.github.io/leaflet-providers/preview/
+    Copy the tile layer demo code below */
+    /*
+    var Esri_NatGeoWorldMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC',
+        maxZoom: 16
+    });
+    Esri_NatGeoWorldMap.addTo(map);
+    */
+    var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+    });
+    Esri_WorldStreetMap.addTo(map);
+
+    /* add search, https://github.com/naomap/leaflet-fusesearch */
+    var options = {
+        title: 'Search items',
+        placeholder: 'Search items...',
+        threshold: 0.35 // 1 = anything, 0 = exact match
+    };
+    var searchCtrl = L.control.fuseSearch(options);
+    searchCtrl.addTo(map);
+    searchCtrl.indexFeatures(geodata.features, ['title', 'creator', 'date', 'subjects', 'place']);
+
+    /* add geojson marker and popup to map */
+    L.geoJson(geodata, {
+        pointToLayer: function(feature,latlng){
+            var marker = L.marker(latlng);
+            marker.bindPopup('<h3>' + feature.properties.title + '</h3>' + '<img class="" src="{{ "/objects/thumbs/" | relative_url }}' +  feature.properties.id + '_sm.jpg" alt="thumbnail">' + '<p>Date: ' + feature.properties.date + '<br>Subjects: ' + feature.properties.subjects + '<br>Location: ' + feature.properties.place + '</p><h4><a href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + '" >View Item</a><h4>');
+            return marker;
+        },
+        onEachFeature: function (feature, layer) {
+            feature.layer = layer;
+        }
+    }).addTo(map);
+</script>

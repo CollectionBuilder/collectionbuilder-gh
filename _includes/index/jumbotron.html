@@ -1,0 +1,11 @@
+<style>
+.feature {
+    background-image: url('{{ page.featured-image | relative_url }}');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+</style>
+<div class="jumbotron feature text-white">
+    <h2 class="display-4">{{ site.title }}</h2>
+    <p>{{ site.tagline }}</p>
+</div>

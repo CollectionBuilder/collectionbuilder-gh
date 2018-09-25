@@ -1,0 +1,9 @@
+{% if layout.gallery == true %}<link rel="stylesheet" href="{{ '/assets/lightgallery/css/lightgallery.min.css' | absolute_url }}" type="text/css">{% endif %}
+{% if page.layout == "data" %}<link rel="stylesheet" type="text/css" href="{{ '/assets/datatables/datatables.min.css' | relative_url }}">{% endif %}
+{% if page.layout == "map" %}<style>
+    #map { height: 750px; z-index: 98; }
+    .leaflet-popup-content img { max-width: 100%;}
+    b { font-weight: bold; }
+</style>
+<link rel="stylesheet" href="{{ '/assets/leaflet/leaflet.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/leaflet/leaflet.fusesearch.css' | relative_url }}">{%- endif -%}

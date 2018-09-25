@@ -1,0 +1,14 @@
+field,display-name
+title,Item title
+creator,Creator
+date,Date Created
+description,Description
+subject,Subjects
+place,Location
+latitude,Latitude
+longitude,Longitude
+collection,Source Collection
+identifier,Source Identifier
+type,Type
+format,Format
+rightsstatement,Rights

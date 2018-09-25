@@ -1,0 +1,76 @@
+<script src="{{ '/assets/js/jquery.lazyload.js' | relative_url }}"></script>
+<script>
+  var $imgs = $("img.lazy");
+  // Lazy Load images when they appear in DOM
+  $imgs.lazyload({ 
+        effect: "fadeIn",
+        failure_limit: Math.max($imgs.length - 1, 0)
+  });
+
+  function filterItems() {
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("quicksearch");
+    filter = input.value.toUpperCase();
+    itemcontainer = document.getElementById("browse-items");
+    item = itemcontainer.getElementsByTagName("div");
+    for (i = 0; i < item.length; i++) {
+      itemcontents = item[i].getElementsByTagName("div")[0];
+      if (itemcontents) {
+        if (itemcontents.innerHTML.toUpperCase().indexOf(filter) > -1) {
+          item[i].style.display = "";
+        } else {
+          item[i].style.display = "none";
+        }
+      }       
+    }
+    var numberofint = $('div.card:visible').length;
+    $("#numberof").html(numberofint);
+  }
+
+  // filter items by entering value of button or link pushed into quicksearch box
+  var filterit = function() {
+    $('#quicksearch').val('');
+    $(this).addClass('active');
+    $('a.filter').not(this).removeClass('active');
+      var filterValue = $(this).attr('data-filter');
+      var filterClass = $(this).attr('data-filter').replace(" ","-").replace(" ","-");
+    $('#quicksearch').val($('#quicksearch').val() + filterValue);
+    $('#goButton').click();
+        window.location.hash = filterValue; 
+      var filterValueclass = "." + filterClass;
+    $(filterValueclass).addClass('active');
+    $imgs.lazyload();
+  };
+  // run filterit function when link/button with class filter clicked
+  $('a.filter').click(filterit);
+
+  // trigger imgs to lazy load upon click of go button
+  $('#goButton').click( function() {
+    $imgs.lazyload();
+  });
+
+  // click goButton to search if return pressed in search box
+  $('#quicksearch').keypress(function(e){
+    if(e.which == 13){//Enter key pressed
+        $('#goButton').click();
+        $imgs.lazyload();
+        //Trigger search button click event
+      }
+  });
+
+  // get hash from url
+  var hashfilter = location.hash.substr(1).replace(/%20/g, " ");
+  var hashfilterclass = "." + location.hash.substr(1).replace("%20","-").replace("%20","-").replace("%20","-").replace(" ","-").replace(" ","-").replace(" ","-"); 
+
+  $(document).ready(function() {
+    $("#quicksearch").focus();
+    if(window.location.hash) {
+    // code to be executed if a hash is contained in the url
+    $('#quicksearch').val($('#quicksearch').val() + hashfilter);
+    $('#goButton').click();
+    $(hashfilterclass).addClass('active');
+    $imgs.lazyload();
+    }
+    else{ }
+  });
+</script>

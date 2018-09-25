@@ -1,0 +1,38 @@
+---
+layout: page
+---
+{%- if page.year-navigation -%}
+{%- assign navYears = page.year-navigation | split: ";" -%}
+<ul class="nav nav-pills float-right" id="year-nav">
+  <li class="nav-item dropdown ">
+    <a class="nav-link active dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Year</a>
+    <div class="dropdown-menu">
+      {% for y in navYears %}
+      <a class="dropdown-item" href="#{{ y }}">{{ y }}</a>{% endfor %}
+    </div>
+  </li>
+</ul>
+{%- endif -%}
+
+{{ content }}
+
+{% assign items = site.data.metadata %}
+{% assign raw-dates = site.data.metadata | map: 'date' | compact%}
+{% capture clean-years %}{% for date in raw-dates %}{% if date contains "-" %}{{date | split: "-" | first }}{% elsif date contains "/" %}{{ date | split: "/" | last }}{% else %}{{ date }}{% endif %}{% unless forloop.last %};{% endunless %}{%- endfor -%}{% endcapture %}
+{%- assign years = clean-years | split: ";" | sort  -%}
+{%- assign uniqueYears = years | uniq | sort -%}
+
+<h3><a href="#{{ years | first }}">{{ years | first }}</a> to <a href="#{{ years | last }}">{{ years | last }}</a></h3>
+
+<table class="table table-striped">
+  {% for year in uniqueYears %}
+  <tr>
+    <th><h3 id="{{ year }}">{{ year }}</h2></th>
+    <td>
+    {% for item in items %}{% if item.date contains year %}
+    <a href="{{ '/browse/item.html' | relative_url | append: '?id=' | append: item.indexid }}" ><img class="lazy img-thumbnail m-1" data-original="{{ item.indexid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}" alt="{{ item.title | escape }}" data-toggle="tooltip" data-placement="bottom" title="{{ item.title | escape }} | {{ item.date | escape }}"/></a>
+    {% endif %}{% endfor %}
+    </td>
+  </tr>
+  {% endfor %}
+</table>

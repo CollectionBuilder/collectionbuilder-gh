@@ -1,0 +1,75 @@
+<script src="{{ '/assets/js/lunr.min.js' | absolute_url }}"></script>
+<script src="{{ '/assets/js/lunr-store.js' | absolute_url }}"></script>
+<script>
+/* initialize lunr */
+var idx = lunr(function () {
+  this.ref('id')
+  this.field('title')
+  this.field('creator')
+  this.field('subjects')
+  this.field('description')
+  this.field('date')
+  this.field('place')
+
+  //this.pipeline.remove(lunr.trimmer)
+
+  for (var item in store) {
+    this.add({
+      title: store[item].title,
+      creator: store[item].creator,
+      subjects: store[item].subjects.join("; "),
+      description: store[item].description,
+      date: store[item].date,
+      place: store[item].place,
+      id: item
+    })
+  }
+});
+
+/* search function */
+function lunr_search () {
+  var resultdiv = $('#results');
+  var query = $('input#search').val();//.toLowerCase();
+  /* basic search that supports operators */
+  var result = idx.search(query); 
+  /* more fuzzy search, but doesn't support operators:
+  var result =
+    idx.query(function (q) {
+      query.split(lunr.tokenizer.separator).forEach(function (term) {
+        q.term(term, { boost: 100 })
+        if(query.lastIndexOf(" ") != query.length-1){
+          q.term(term, {  usePipeline: false, wildcard: lunr.Query.wildcard.TRAILING, boost: 10 })
+        }
+        if (term != ""){
+          q.term(term, {  usePipeline: false, editDistance: 1, boost: 1 })
+        }
+      })
+    });*/
+  resultdiv.empty();
+  resultdiv.prepend('<p class="">' + result.length + ' Result(s) found</p>');
+  for (var item in result) {
+    var ref = result[item].ref;
+    var searchitem =
+      '<tr>'+
+          '<td class="">' +
+            '<p class="h4"><a href="{{ site.baseurl }}/browse/item.html?id=' + store[ref].indexId + '">' + store[ref].title+ '</a></p>' +
+            '<p class="ml-3">' +
+            store[ref].date + '. ' +
+            store[ref].description.split(" ").splice(0,20).join(" ") + '...<br>' +
+            'Subjects: ' + store[ref].subjects.join("; ") + '. ' +
+            store[ref].place +
+            '</p></td>' +
+      '</tr>';
+    resultdiv.append(searchitem);
+  }
+}
+/* init search box and get query string */
+$(document).ready(function() {
+  $('input#search').on('keyup', lunr_search );
+  var queryString = window.location.search.substring(1).split("=")[1];
+  if (queryString) { 
+    $('input#search').val(queryString);
+    lunr_search (); 
+  }
+});
+</script>

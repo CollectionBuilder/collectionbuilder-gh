@@ -2,4 +2,4 @@
 
 Template page types / visualizations
 
-Navigation configuration using `nav-configuration.csv`
+Navigation configuration using `nav-config.csv`

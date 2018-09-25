@@ -18,7 +18,7 @@ Similar learning experiences use [Omeka](https://omeka.org/) or other DAMS/[CMS]
 Although CMS feature familiar GUI administration interfaces, they are not simple to learn and customize.
 These experiences must focus on teaching the specific tool rather than general web skills and the heavy infrastructure is a barrier to adoption and further development.
 
-`collectionbuilder-gh` aims to be well documented and easy to configure by following the example, with the potential to scaffold to learn a multitude of transferable digital skills.
+`collectionbuilder-gh` aims to be well documented and easy to configure by following the example, with the potential to scaffold to learn a multitude of transferable digital and data skills.
 A project in "minimal computing", it provides a depth of learning opportunities, allowing users to take complete ownership over the project and make their work open to the world.
 
 Learn about:
@@ -30,6 +30,7 @@ Learn about:
 - GitHub collaboration and project management
 - [Jekyll](https://jekyllrb.com/) basics
 - working in the Open, open source and open data
+- digital libraries concepts such as "collections as data", minimal computing, data-driven design
 
 **Note:** 
 Since `collectionbuilder-gh` uses [GitHub Pages](https://pages.github.com/), it is only suitable for small collections, with lower resolution images.

@@ -1,0 +1,11 @@
+<!-- Optional JS for Bootstrap: jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="{{ '/assets/js/jquery-3.3.1.min.js' | relative_url }}"></script>
+<script src="{{ '/assets/js/bootstrap.bundle.min.js' | relative_url }}"></script>
+<!-- load other js -->
+{% if page.layout == "data" %}{% include js/table-js.html %}{% endif %}
+{% if page.layout == "map" %}{% include js/map-js.html %}{% endif %}
+{% if page.layout == "subjects" %}{% include js/subjects-js.html %}{% endif %}
+{% if page.layout == "search" %}{% include js/lunr-js.html %}{% endif %}
+{% if page.layout == "browse" %}{% include js/browse-js.html %}{% endif %}
+{% if page.layout == "timeline" %}{% include js/timeline-js.html %}{% endif %}
+{% if layout.gallery == true %}{% include js/gallery-js.html %}{% endif %}

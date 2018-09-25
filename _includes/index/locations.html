@@ -1,0 +1,15 @@
+<div class="card mb-3">
+  <div class="card-body">
+    <h5 class="card-title">Locations</h5>
+    <div class="row">
+      <div class="col-md-8">
+        <p class="card-text text-center"><a href="{{ '/map/' | relative_url }}" title="collection map"><img class="img-fluid rounded" src="{{ '/objects/map.jpg' | relative_url }}" alt="collection map"></a></p>
+      </div>
+      <div class="col-md-4">
+        {%- assign topLocations = page.featured-places | split: ";" -%}
+        {% for l in topLocations %}<a class="btn btn-sm btn-outline-secondary m-1" href="{{ l | strip | uri_escape | prepend: '/browse/#' | absolute_url }}">{{ l | strip }}</a><br>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

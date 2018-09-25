@@ -1,0 +1,22 @@
+---
+layout: page
+---
+{%- assign items = site.data.metadata -%}
+
+{% include index/jumbotron.html %}
+
+<div class="row">
+  <div class="col-md-4">  
+
+    {% include index/documents.html %}
+    {% include index/time.html %}
+    {% include index/subjects.html %}
+
+  </div>
+  <div class="col-md-8">
+
+  {% include index/description.html %}
+  {% include index/locations.html %}
+
+  </div>
+</div>
