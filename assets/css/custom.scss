@@ -1,0 +1,16 @@
+---
+# front matter
+---
+@charset "utf-8";
+
+// base variables
+
+$text-color:       #111;
+$background-color: #fdfdfd;
+$brand-color:      #B06048;
+
+$grey-color:       #828282;
+$grey-color-light: lighten($grey-color, 40%);
+$grey-color-dark:  darken($grey-color, 25%);
+
+@import "custom";
