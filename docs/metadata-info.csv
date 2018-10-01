@@ -1,18 +1,18 @@
-field,dc-map,description,example,required,used-by
-indexID,na,a unique string with no spaces or special characters that will be used as id in the website,ts104,yes,everything
-filename,na,"the name of the file in the objects directory. Should have extension, no spaces or special characters.",ts104.pdf,yes,Item-page
-title,dcterms:title,primary name of the object,First item,yes,table
-creator,dcterms:creator,"creator/author of the object. Usually given Last, First, with multiple authors separated using semi-colon","Will, Evan",suggested,
-date,dc:date,"date of creation of original object, given in ISO 8601 format",1901-03-01,suggested,table
-description,dcterms:description,description or abstract of the object,Black and white photograph of white pines in forest,suggested,
-subject,dcterms:subject,"topics represented in the object, should use a controlled vocabulary. multiple subjects separated by a semi-colon",Forestry;Idaho,no,subject-page
-place,dcterms:spatial,"spatial characteristics of what the object is about, subject-like locations and geographical terms.",Idaho,,
-latitude,na,lat should be _ digits,,,
-longitude,na,longitude should be _ digits,,,
-collection,dcterms:isPartOf,a collection or aggregation that the item is part of,Northwest Historical Postcards Collection,no,
-identifier,dcterms:identifier,ID of object in its original context,PG3 108a,no,
-Type,dcterm:type,"general genre of object, following DCMI type vocabulary",Image;StillImage,yes,sorting
-format,dc:format,"medium of the object, usually the digital file type",image/jpeg,no,
-language,dcterms:language,"language used in the object, ISO 639-3",eng,no,
-rights,dc:rights,free text description of rights status,Public domain,no,
-rights-statement,dcterms:RightsStatement,a standardized statement URI from http://rightsstatements.org/en/,http://rightsstatements.org/vocab/NoC-US/1.0/,no, 
+Field,Display-name,Definition,dc-map,Notes,Example,Required,used-by
+indexID,,a unique string with no spaces or special characters that will be used as id in the website,na,must be unique in the project,ts104,yes,everything
+filename,,the name of the corresponding file in the project’s objects directory. ,na,"Should have the extension (.jpg or .pdf), no spaces or special characters.",ts104.pdf,yes,Item
+title,Item Title,A name given to the resource. (OCA),dcterms:title,primary name of the object,First item,yes,"Browse,Map,Timeline,Data,Item"
+creator,Creator,An entity primarily responsible for making the resource. (OCA) ,dcterms:creator,"creator/author of the object. Usually given Last, First, with multiple authors separated using semi-colon","Will, Evan",suggested,Item
+date,Date Created,A point or period of time associated with an event in the lifecycle of the resource. (OCA) ,dc:date,"date of creation of original object, given in ISO 8601 format. In this simple project, please use only a single date.",1901-03-01,suggested,"Browse,Timeline,Data,Item"
+description,Description,An account of the resource. (OCA) ,dcterms:description,"A free text description or abstract of the object. Anything significant about the digital resource not covered elsewhere. Use standard punctuation and grammar to describe the item’s history, physical appearance, contents, abstract, etc.",Black and white photograph of white pines in forest,suggested,"Browse,Data,Item"
+subject,Subjects,The topic of the resource. (OCA) ,dcterms:subject,"topics represented in the object, should use a controlled vocabulary. multiple subjects should be separated by a semi-colon",Forestry;Idaho,no,"Subjects,Browse,Data"
+place,Locations,A geographic location to which the resource applies. (DCMI) ,dcterms:spatial,"spatial characteristics of what the object is about, subject-like locations and geographical terms.","Sandpoint, Idaho; Lake Pend Oreille",,Item
+latitude,Latitude,A geographic coordinate that specifies the north-south position of an item's place. (DCMI) ,na,"lat should expressed in decimal degree format (rather than degrees, minutes, seconds), with 6 decimal points.",46.731643,,"Map,Item"
+longitude,Longitude,A geographic coordinate that specifies the east-west position of an item's place. (DCMI) ,na,"longitude should expressed in decimal degree format (rather than degrees, minutes, seconds), with 6 decimal points.",-117.165625,,"Map,Item"
+collection,Source Collection,A related resource from which the described resource is derived. (DCMI) ,dcterms:isPartOf,"a collection or aggregation that the item is part of, generally a specific collection and the source archives where the materials were digitized from. ","PG 5, University of Idaho Library Special Collections and Archives",no,Item
+identifier,Source Identifier,An unambiguous reference to the resource within a given context. (OCA) ,dcterms:identifier,"The identifier of object in its original context, as it is labeled in the source collection.",PG3 108a,no,Item
+type,Type,The nature or genre of the resource. (OCA) ,dcterm:type,"The general genre of object, using the DCMI type vocabulary.",Image;StillImage,yes,Item
+format,Format,The digital file format of the resource. (OCA) ,dc:format,"Use for the digital format of the resource, form as an Internet Media Type (IMT) term. For multiple formats, separate values with a semicolon.",image/jpeg; application/pdf,no,Item
+language,Language,,dcterms:language,"language used in the object, ISO 639-3",eng,no,Item
+rights,Rights,Information about the copyright of the resource. (OCA) ,dc:rights,Free text description of rights status,Public domain,no,Item
+rights-statement,Standardized rights,Information about the copyright of the resource. (OCA) ,dcterms:RightsStatement,A standardized statement URI from http://rightsstatements.org/en/,http://rightsstatements.org/vocab/NoC-US/1.0/,no,Item
