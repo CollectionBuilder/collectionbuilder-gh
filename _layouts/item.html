@@ -2,9 +2,6 @@
 layout: default
 ---
 {%- assign fields = site.data.metadata-config -%}
-<style>
-    #item-image img { width: 100%; }
-</style>
 
 <div class="container mt-2">
     <ul class="breadcrumb">
@@ -46,7 +43,7 @@ var record = items[queryString];
 var itemTitle = record.title;
 document.getElementById("bc-title").innerHTML = itemTitle;
 document.getElementById("item-title").innerHTML = itemTitle;
-var itemImage = '<img class="img-thumbnail" src="{{ site.baseurl }}/objects/thumbs/' + queryString + '_sm.jpg" alt="item thumbnail">';
+var itemImage = '<img class="img-fluid img-thumbnail" src="{{ site.baseurl }}/objects/thumbs/' + queryString + '_sm.jpg" alt="item thumbnail">';
 document.getElementById("item-image").innerHTML = itemImage;
 var itemLink = '<a href="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank" class="btn btn-primary" title="Object download">Download Object</a>';
 document.getElementById("item-link").innerHTML = itemLink;
