@@ -1,0 +1,12 @@
+---
+# find and count unique subjects used in the metadata
+---
+{%- assign raw-subjects = site.data.metadata | map: "subject" | join: ";" | split: ";" -%}
+{%- capture subjects -%}{% for s in raw-subjects %}{% if s != "" %}{{ s | strip | downcase }};{% endif %}{%- endfor -%}{%- endcapture -%}
+{%- assign subjects = subjects | split: ";" -%}
+{%- assign uniqueSubjects = subjects | uniq | sort -%}
+subject,count,link
+{% for unique in uniqueSubjects %}
+{%- assign count = subjects | where_exp: "item", "item == unique" | size -%}
+"{{ unique  | capitalize }}",{{ count }},"{{ unique | uri_escape | prepend: "/browse/#" | absolute_url }}"
+{% endfor %}

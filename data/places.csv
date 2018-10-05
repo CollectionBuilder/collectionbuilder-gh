@@ -1,0 +1,12 @@
+---
+# find all unique locations used in the metadata
+---
+{%- assign raw-locations = site.data.metadata | map: "place" | join: ";" | split: ";" -%}
+{%- capture locations -%}{% for s in raw-locations %}{% if s != "" %}{{ s | strip }};{% endif %}{%- endfor -%}{%- endcapture -%}
+{%- assign locations = locations | split: ";" -%}
+{%- assign uniqueLocations = locations | uniq | sort -%}
+location,count,link
+{% for unique in uniqueLocations %}
+{%- assign count = locations | where_exp: "item", "item == unique" | size -%}
+"{{ unique }}",{{ count }},"{{ unique | uri_escape | prepend: "/browse/#" | absolute_url }}"
+{% endfor %}

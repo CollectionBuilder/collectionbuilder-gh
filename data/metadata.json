@@ -1,0 +1,15 @@
+---
+# metadata for table ajax
+---
+{%- assign items = site.data.metadata -%}
+{ "documents": [
+    {%- for item in items -%}
+    {
+        "title": {{ item.title | jsonify }},
+        "date": {{ item.date | jsonify }},
+        "subjects": {{ item.subject | split: ';' | jsonify }},
+        "description": {{ item.description | truncatewords: 20 | jsonify }},
+        "link": {{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+] }

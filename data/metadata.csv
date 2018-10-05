@@ -1,0 +1,8 @@
+---
+# create custom metadata csv for download
+---
+{%- assign items = site.data.metadata -%}
+{%- assign fields = site.data.metadata-config | map: "field" -%}
+{{ fields | join: "," }}
+{% for item in items %}{% for f in fields %}"{{ item[f] }}"{% if forloop.last != true %},{% endif %}{% endfor %}
+{% endfor %}
