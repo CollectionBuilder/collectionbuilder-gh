@@ -5,12 +5,12 @@
 # Site settings
 
 # title of site appears in banner
-title: GH-Pages Collection
+title: CollectionBuilder Demo
 # tagline appears in banner
 tagline: a theme for building simple digital exhibits
 # description appears in meta tags and other locations
 # this description might appear in search result lists, keep around 160 characters max
-description: "A more complete description that will appear in meta tags and other locations where appropriate"
+description: "CollectionBuilder-GH is a template for creating small digital collection exhibits on GitHub Pages designed for teaching digital library skills"
 # keywords appear in meta tags
 keywords: "university of idaho, digital collections, digital humanities"
 # creator of the digital collection, to appear in meta tags
@@ -30,7 +30,7 @@ repository: https://github.com/CollectionBuilder/collectionbuilder-gh
 # google services [optional!]
 # leave these blank or comment out to NOT include google code
 google-tracking-id: "UA-74844011-1"
-google-cse-id: "002151703305773322890:1pu3smhw1t8"
+# google-cse-id: "002151703305773322890:1pu3smhw1t8"
 
 # build settings
 permalink: pretty
