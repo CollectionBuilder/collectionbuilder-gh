@@ -7,7 +7,7 @@
 {%- assign uniqueSubjects = subjects | uniq | sort -%}
 { "subjects": [
     
-    {% for unique in uniqueSubjects %}{% assign count = subjects | where_exp: "item", "item == unique" | size %}{ "subject" : {{ unique | capitalize | jsonify }}, "count" : {{ count | jsonify}}, "link" : {{ unique | uri_escape | prepend: "/browse/#" | absolute_url | jsonify }} }{% unless forloop.last %},
+    {% for unique in uniqueSubjects %}{% assign count = subjects | where_exp: 'item', 'item == unique' | size %}{ "subject" : {{ unique | capitalize | jsonify }}, "count" : {{ count | jsonify}}, "link" : {{ unique | url_param_escape | prepend: '/browse/#' | absolute_url | jsonify }} }{% unless forloop.last %},
     {% endunless %}{% endfor %}
 ]
 
