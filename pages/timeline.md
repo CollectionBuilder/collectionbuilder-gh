@@ -1,6 +1,6 @@
 ---
 title: Timeline
-year-navigation: "1924;1931;1942;1979"
+year-navigation: "1900;1905;1910;1915;1920"
 layout: timeline
 permalink: /timeline/
 ---
