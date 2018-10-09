@@ -14,8 +14,8 @@
             </ul>
             <script>
                 function site_search() {
-                    var query = document.getElementById("site-search").value;
-                    window.open("{{ '/search/index.html' | absolute_url }}?q=" + query, "_self" );
+                    var query = document.getElementById("site-search").value
+                    window.open("{{ '/search/index.html' | absolute_url }}?q=" + encodeURIComponent(query), "_self" );
                 }
             </script>
             <form class="form-inline my-2 my-lg-0" role="search" id="search" onsubmit="site_search(); return false;">
