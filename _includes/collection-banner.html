@@ -1,3 +1,19 @@
+{% if page.layout == "home-infographic" and page.banner-image %}
+<style>
+#home-banner {
+    background-image: url('{{ page.banner-image | relative_url }}');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+</style>
+<div class="jumbotron feature text-white p-0 mb-0 rounded-0" id="home-banner">
+    <div class="jumbo-text p-4 container">
+        <h1 class="display-4">{{ site.title }}</h1>
+        <p>{{ site.tagline }}</p>
+    </div>
+</div>
+{% else %}
 <div class="container">
     <div class="row mt-2">
         <div class="col-md-12">
@@ -8,3 +24,4 @@
         </div>
     </div>	
 </div>
+{% endif %}
