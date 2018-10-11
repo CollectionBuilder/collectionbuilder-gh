@@ -27,6 +27,10 @@ baseurl: /collectionbuilder-gh
 # repository is the github repository's full url
 repository: https://github.com/CollectionBuilder/collectionbuilder-gh
 
+# theme with Bootswatch (https://github.com/thomaspark/bootswatch)
+# Choose from: cerulean; cosmo; cyborg; darkly; flatly; journal; litera; lumen; lux; materia; minty; pulse; sandstone; simplex; sketchy; slate; solar; spacelab; superhero; united; yeti 
+bootswatch: # leave blank or comment out for plain bootstrap
+
 # google services [optional!]
 # leave these blank or comment out to NOT include google code
 google-tracking-id: "UA-74844011-1"

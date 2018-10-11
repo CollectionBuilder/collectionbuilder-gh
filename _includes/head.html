@@ -6,7 +6,7 @@
 {% if page.layout == "page" %}{% include page-meta.html %}{% endif %}
 {% if page.layout == "item" %}{% include item-meta.html %}{% endif %}
 
-<link rel="stylesheet" href="{{ '/assets/css/bootstrap.min.css' | absolute_url }}" type="text/css">
+<link rel="stylesheet" href="{% if site.bootswatch %}{{ site.bootswatch | prepend: '/assets/bootswatch/' | append: '/bootstrap.min.css' | absolute_url }}{% else %}{{ '/assets/css/bootstrap.min.css' | absolute_url }}{% endif %}" type="text/css">
 <link rel="stylesheet" href="{{ '/assets/css/custom.css' | absolute_url }}" type="text/css">
 {% include other-css.html %}
 <!--<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>-->
