@@ -1,5 +1,5 @@
 {%- assign raw-dates = items | map: 'date' -%}
-{% capture clean-dates %}{% for date in raw-dates %}{% if date != "" %}{% if date contains "-" %}{{date | split: "-" | first }}{% elsif date contains "/" %}{{ date | split: "/" | last }}{% else %}{{ date }}{% endif %}{% unless forloop.last %};{% endunless %}{% endif %}{%- endfor -%}{% endcapture %}
+{% capture clean-dates %}{% for date in raw-dates %}{% if date %}{% if date contains "-" %}{{date | split: "-" | first }}{% elsif date contains "/" %}{{ date | split: "/" | last }}{% else %}{{ date }}{% endif %}{% unless forloop.last %};{% endunless %}{% endif %}{%- endfor -%}{% endcapture %}
 {%- assign date-range = clean-dates | split: ";" | sort  -%}
 <a class="card mb-3" href="{{ '/timeline/' | relative_url }}">
   <div class="card-body">
