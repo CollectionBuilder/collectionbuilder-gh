@@ -5,15 +5,17 @@ layout: page
 
 {{ content }}
 
-<div class="text-center mb-3">
-    <div class="input-group input-group-lg">
-        <input type="text" class="form-control form-control-lg" id="quicksearch" placeholder="Filter ... " > 
-        <div class="input-group-append">
-            <input class="btn btn-success" title="Search" type="submit" value="Search" alt="Search" id="goButton" onclick="filterItems()"> 
-            <a class="btn btn-secondary filter" href="#" data-filter="">Reset</a>    
+<div class="row mb-3 justify-content-center">
+    <div class="col-md-8 text-center">
+        <div class="input-group input-group-lg">
+            <input type="text" class="form-control form-control-lg" id="quicksearch" placeholder="Filter ... " > 
+            <div class="input-group-append">
+                <button class="btn btn-success" type="button" title="Search" alt="Search" id="goButton" onclick="filterItems()">Search</button>
+                <a class="btn btn-outline-secondary filter" href="#" data-filter="">Reset</a>    
+            </div>
         </div>
+        <span class="info2 h2"><span id="numberof">{{ items | size }}</span> of {{ items | size }} items</span>
     </div>
-    <span class="info2 h2"><span id="numberof">{{ items | size }}</span> of {{ items | size }} items</span>
 </div>
 
 <div class="row" id="browse-items">

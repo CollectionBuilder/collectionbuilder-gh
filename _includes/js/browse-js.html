@@ -33,13 +33,12 @@
     $(this).addClass('active');
     $('a.filter').not(this).removeClass('active');
       var filterValue = $(this).attr('data-filter');
-      var filterClass = $(this).attr('data-filter').replace(" ","-").replace(" ","-");
+      
     $('#quicksearch').val($('#quicksearch').val() + filterValue);
     $('#goButton').click();
-        window.location.hash = filterValue; 
-      var filterValueclass = "." + filterClass;
-    $(filterValueclass).addClass('active');
+    
     $imgs.lazyload();
+    $("#quicksearch").focus();
   };
   // run filterit function when link/button with class filter clicked
   $('a.filter').click(filterit);
