@@ -10,7 +10,7 @@ featured-image: "objects/test001.jpg"
 
 # About {{ site.title }}
 
-This site is generated using `collectionbuilder-gh`, a project to generate a free and simple digital collection using [gh-pages](https://pages.github.com/) from:
+This site is generated using `collectionbuilder-gh`, a project to generate a free and simple digital collection using [GitHub Pages](https://pages.github.com/) from:
 
 - a CSV of collection metadata
 - a folder of JPEG images or PDF documents
@@ -23,13 +23,14 @@ Although CMS feature familiar GUI administration interfaces, they are not simple
 `collectionbuilder-gh` aims to be well documented and easy to configure by following the example.
 A project in "minimal computing", it provides a depth of learning opportunities, allowing users to take complete ownership over the project and make their work open to the world.
 
-### Technical
+## Learn about:
 
-This website was created by UI Library's [Digital Initiatives](https://www.lib.uidaho.edu/digital/) using the open source static site generator [Jekyll](https://jekyllrb.com/).
-The basic frame work is created using [Bootstrap](https://getbootstrap.com/) and [jQuery](https://jquery.com/).
-Metadata visualizations are created using [DataTables](https://datatables.net/) and [Leafletjs](http://leafletjs.com/).
-Document metadata is exposed using [Schema.org](http://schema.org) and [Open Graph protocol](http://ogp.me/) standards.
+- Git and GitHub basics for collaboration and project management
+- [Markdown](https://guides.github.com/features/mastering-markdown/) for plaintext writing and content creation
+- HTML, CSS, and JS literacy
+- commandline literacy
+- [Jekyll](https://jekyllrb.com/) basics
+- working in the Open, open source and open data
+- digital libraries concepts such as "collections as data", minimal computing, data-driven design
 
-Get the [Source code]({{ site.repository }})!
-
-Last build date: {{ site.time | date: "%Y-%m-%d" }}.
+{% include credits.md %}
