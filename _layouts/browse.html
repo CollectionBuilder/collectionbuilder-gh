@@ -5,13 +5,16 @@ layout: page
 
 {{ content }}
 
-<h2 class="text-center">
-    <input type="text" id="quicksearch" placeholder="Filter ... " > 
-    <input class="btn btn-success align-top" title="Search" type="submit" value="Go" alt="Search" id="goButton" onclick="filterItems()"> 
-    <a class="btn btn-secondary align-top filter" href="#" data-filter="">Reset Search</a>
-    <br class="hidden-md-up">
-    <span class="info2"><span id="numberof">{{ items | size }}</span> of {{ items | size }} items</span>
-</h2>
+<div class="text-center mb-3">
+    <div class="input-group input-group-lg">
+        <input type="text" class="form-control form-control-lg" id="quicksearch" placeholder="Filter ... " > 
+        <div class="input-group-append">
+            <input class="btn btn-success" title="Search" type="submit" value="Search" alt="Search" id="goButton" onclick="filterItems()"> 
+            <a class="btn btn-secondary filter" href="#" data-filter="">Reset</a>    
+        </div>
+    </div>
+    <span class="info2 h2"><span id="numberof">{{ items | size }}</span> of {{ items | size }} items</span>
+</div>
 
 <div class="row" id="browse-items">
     {% for item in items %}
