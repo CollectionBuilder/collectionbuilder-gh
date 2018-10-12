@@ -1,9 +1,13 @@
+<style>
+    #imageCarousel .carousel-item { height: {{ include.height | default: '300px' }}; }
+    #imageCarousel img { height: {{ include.height | default: '300px' }}; }
+</style>
 <div class="card mb-3">
     <div class="card-body">
         <h5 class="card-title">Sample Items</h5>
         <div class="row">
             <div class="col-md-12 pb-3">
-                <div id="imageCarousel" class="carousel slide" data-ride="carousel">
+                <div id="imageCarousel" class="carousel slide bg-secondary rounded" data-ride="carousel">
                     <ol class="carousel-indicators">
                         {% for i in (1..9) %}
                         <li data-target="#imageCarousel" data-slide-to="{{ forloop.index }}" class="{% if forloop.first %}active{% endif %}"></li>

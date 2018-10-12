@@ -1,0 +1,10 @@
+<div class="card mb-3">
+  <div class="card-body">
+    <h5 class="card-title">Locations</h5>
+    {%- assign topLocations = page.featured-places | split: ";" -%}
+    <p class="card-text">
+        {% for l in topLocations %}<a class="btn btn-sm btn-outline-secondary m-1" href="{{ l | strip | uri_escape | prepend: '/browse/#' | absolute_url }}">{{ l | strip }}</a>
+        {% endfor %}
+    </p>
+  </div>
+</div>
