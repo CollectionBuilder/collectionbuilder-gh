@@ -1,7 +1,6 @@
 ---
 layout: default
 ---
-{%- assign fields = site.data.metadata-config -%}
 
 <div class="container mt-2">
     <ul class="breadcrumb">
@@ -31,22 +30,3 @@ layout: default
         <a class="btn btn-secondary" href="{{ '/browse/' | relative_url }}">&laquo; Back to Collection Browse</a>
     </div>
 </div>
-
-<script>
-var items = { 
-    {%- for item in site.data.metadata -%}
-    {{ item.indexid | jsonify }} : { "filename": {{ item.filename | jsonify }}, {% for f in fields %}"{{ f.field }}": {{ item[f.field] | jsonify }}{% unless forloop.last %}, {% endunless %}{% endfor %} }{% unless forloop.last %}, {% endunless %}
-    {% endfor %}
-};
-var queryString = window.location.search.substring(1).split("=")[1];
-var record = items[queryString];
-var itemTitle = record.title;
-document.getElementById("bc-title").innerHTML = itemTitle;
-document.getElementById("item-title").innerHTML = itemTitle;
-var itemImage = '<img class="img-fluid img-thumbnail" src="{{ site.baseurl }}/objects/thumbs/' + queryString + '_sm.jpg" alt="item thumbnail">';
-document.getElementById("item-image").innerHTML = itemImage;
-var itemLink = '<a href="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank" class="btn btn-primary" title="Object download">Download Object</a>';
-document.getElementById("item-link").innerHTML = itemLink;
-var fields = '<table class="table">' + {% for f in fields %}'<tr><th scope="row" class="field">{{ f.display-name }}:</th> <td class="field-value">' + record.{{ f.field }} + '</td></tr>' + {% endfor %}'</table>';
-document.getElementById("item-metadata").innerHTML = fields;
-</script>
