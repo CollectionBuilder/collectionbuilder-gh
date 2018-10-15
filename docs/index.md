@@ -13,7 +13,7 @@
 
 ## Quick version
 
-Create a new GitHub repository by importing or forking this repo.
+Create a new GitHub repository by importing this repo.
 
 Edit the `_config.yml` with your collection and repository info.
 
@@ -33,3 +33,7 @@ Create thumbs for your objects in the `objects/thumbnails` folder, ensuring they
 Edit the about page text.
 
 Edit the home page text.
+
+Push your changes to GitHUb. 
+
+Activate GitHub Pages in your repo settings options. 

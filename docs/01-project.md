@@ -15,3 +15,5 @@ Create a new GitHub repository by importing or forking this repo.
 Clone repo
 
 how to commit and push
+
+Activate GitHub Pages in the settings
