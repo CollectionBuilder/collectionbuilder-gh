@@ -3,6 +3,6 @@
 ---
 {%- assign items = site.data.metadata -%}
 {%- assign fields = site.data.metadata-config | map: "field" -%}
-{{ fields | join: "," }}
-{% for item in items %}{% for f in fields %}"{{ item[f] }}"{% if forloop.last != true %},{% endif %}{% endfor %}
+{{ fields | join: "," }},link
+{% for item in items %}{% for f in fields %}"{{ item[f] }}",{% endfor %}"{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}"
 {% endfor %}
