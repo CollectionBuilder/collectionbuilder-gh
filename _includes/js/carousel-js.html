@@ -1,6 +1,6 @@
 {%- assign carousel-items = site.data.metadata -%}
 <script> 
-    var carouselItems = [ {% for c in carousel-items %}{ "id": "{{ c.indexid }}", "title": "{{ c.title }}" }{% unless forloop.last %}, {% endunless %}{% endfor %}];
+    var carouselItems = [ {% for c in carousel-items %}{ "id": {{ c.indexid | jsonify }}, "title": {{ c.title | jsonify }} }{% unless forloop.last %}, {% endunless %}{% endfor %}];
     var carousel = document.getElementById("carouselInner");
     carouselItems.sort(function() { return 0.5 - Math.random() });
     var i;
