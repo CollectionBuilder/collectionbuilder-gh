@@ -25,7 +25,7 @@ layout: page
             <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}">
                 <img class="card-img-top lazy" {% if forloop.index < 20 %}src="{{ item.indexid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}"{% else %}data-original="{{ item.indexid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}"{% endif %} alt="collection object image">
             </a>
-            <div class="text-center">
+            <div class="card-body text-center">
                 <h3 class="card-title">{{ item.title }}</h3>
                 <p class="card-text"><strong>Date:</strong> {{ item.date }}</p>
                 <p>
