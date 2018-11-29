@@ -5,7 +5,7 @@
     carouselItems.sort(function() { return 0.5 - Math.random() });
     var i;
     for (i=0; i < 9; i++) {
-        slide = "<div class='carousel-item text-center p-2'><img class='image-fluid mx-auto' alt='image highlight' src='{{ '/objects/thumbs' | relative_url }}/" + carouselItems[i].id + "_sm.jpg'> <div class='carousel-caption'> <h5><a href='{{ '/browse/item.html' | absolute_url | append: '?id=' }}" + carouselItems[i].id + "' class='btn btn-sm btn-primary'>View Item</a></h5></div> </div>";
+        slide = "<div class='carousel-item text-center py-2'><img class='image-fluid mx-auto h-100' alt='image highlight' src='{{ '/objects/thumbs' | relative_url }}/" + carouselItems[i].id + "_sm.jpg'> <div class='carousel-caption'> <h5><a href='{{ '/browse/item.html' | absolute_url | append: '?id=' }}" + carouselItems[i].id + "' class='btn btn-sm btn-primary'>View Item</a></h5></div> </div>";
         carousel.innerHTML += slide;
     }
     $(".carousel-item").first().addClass("active");
