@@ -12,11 +12,11 @@
     input = document.getElementById("quicksearch");
     filter = input.value.toUpperCase();
     itemcontainer = document.getElementById("browse-items");
-    item = itemcontainer.getElementsByTagName("div");
+    item = itemcontainer.getElementsByClassName("item");
     for (i = 0; i < item.length; i++) {
-      itemcontents = item[i].getElementsByTagName("div")[0];
+      itemcontents = item[i].getElementsByClassName("search")[0];
       if (itemcontents) {
-        if (itemcontents.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        if (itemcontents.innerText.toUpperCase().indexOf(filter) > -1) {
           item[i].style.display = "";
         } else {
           item[i].style.display = "none";
