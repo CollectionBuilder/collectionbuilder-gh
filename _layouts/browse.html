@@ -33,7 +33,7 @@ layout: page
                     {%- assign location = item.place | split: ';' -%}
                     {%- assign topics = subjects | concat: location -%}
                     {% for topic in topics %}{% if topic !=" " %}
-                    <a class="btn btn-sm btn-secondary m-1 filter" data-filter="{{ topic | trim |escape }}" href="{{ topic | trim | url_param_escape | prepend: '/browse/#' | relative_url }}">{{ topic }}</a> 
+                    <a class="btn btn-sm btn-secondary m-1 filter" data-filter="{{ topic | strip | escape }}" href="{{ topic | strip | url_param_escape | prepend: '/browse/#' | relative_url }}">{{ topic }}</a> 
                     {% endif %}{% endfor %} 
                 </p>
                 <p class="card-text">{{item.description | truncatewords: 20}}</p>
