@@ -1,12 +1,16 @@
 {%- assign carousel-items = site.data.metadata -%}
-<script> 
+<script>
+(function(){
+    /* add item data and shuffle */
     var carouselItems = [ {% for c in carousel-items %}{ "id": {{ c.indexid | jsonify }}, "title": {{ c.title | jsonify }} }{% unless forloop.last %}, {% endunless %}{% endfor %}];
-    var carousel = document.getElementById("carouselInner");
     carouselItems.sort(function() { return 0.5 - Math.random() });
+    /* add items to carousel */
+    var carousel = document.getElementById("carouselInner");
     var i;
     for (i=0; i < 9; i++) {
         slide = "<div class='carousel-item text-center py-2'><img class='image-fluid mx-auto h-100' alt='image highlight' src='{{ '/objects/thumbs' | relative_url }}/" + carouselItems[i].id + "_sm.jpg'> <div class='carousel-caption'> <h5><a href='{{ '/browse/item.html' | absolute_url | append: '?id=' }}" + carouselItems[i].id + "' class='btn btn-sm btn-primary'>View Item</a></h5></div> </div>";
         carousel.innerHTML += slide;
     }
     $(".carousel-item").first().addClass("active");
+})();
 </script>

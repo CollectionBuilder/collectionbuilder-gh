@@ -4,16 +4,17 @@
 <script src="{{ '/assets/leaflet/fuse.min.js' | relative_url }}"></script>
 <script src="{{ '/assets/leaflet/leaflet.fusesearch.js' | relative_url }}"></script>
 
-<!-- add collection map data -->
 <script>
-    var geodata = { "type": "FeatureCollection", "features": [
+/* add collection map data */
+var geodata = { "type": "FeatureCollection", "features": [
 {% for item in items %}{% if item.latitude and item.longitude %}
     { "type":"Feature", "geometry":{ "type":"Point", "coordinates":[{{ item.longitude | strip }},{{ item.latitude | strip }}] }, "properties":{ "title": {{ item.title | jsonify }}, "creator": {{ item.creator | jsonify }}, "date": {{ item.date | jsonify }}, "subjects": {{ item.subject | split: ";" | join: "; " | jsonify }}, "place": {{ item.place | jsonify }}, "id": {{ item.indexid | jsonify }} } }{% if forloop.last == false %}, {% endif %}{% endif %}{% endfor %}
     ]};
 </script>
 
-<!-- int map and search -->
 <script>
+/* int leaflet map and search */
+(function(){    
     /* map init and set zoom */
     var map = L.map('map').setView([{{page.mapcenter}}], {{page.zoom}});
 
@@ -53,4 +54,5 @@
             feature.layer = layer;
         }
     }).addTo(map);
+})();
 </script>
