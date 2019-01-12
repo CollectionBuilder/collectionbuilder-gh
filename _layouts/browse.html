@@ -10,7 +10,7 @@ layout: page
         <div class="input-group input-group-lg">
             <input type="text" class="form-control form-control-lg" id="quicksearch" placeholder="Filter ... " > 
             <div class="input-group-append">
-                <button class="btn btn-success" type="button" title="Search" alt="Search" id="goButton" onclick="filterItems()">Search</button>
+                <button class="btn btn-success" type="button" title="Search" alt="Search" id="goButton" >Search</button>
                 <a class="btn btn-outline-secondary filter" href="#" data-filter="">Reset</a>    
             </div>
         </div>
@@ -23,7 +23,7 @@ layout: page
     <div class="item col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-12 mb-2" >
         <div class="card">
             <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}">
-                <img class="card-img-top lazy" {% if forloop.index < 20 %}src="{{ item.indexid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}"{% else %}data-original="{{ item.indexid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}"{% endif %} alt="collection object image">
+                <img class="card-img-top lazy" {% if forloop.index < 5 %}src="{{ item.indexid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}"{% else %}data-original="{{ item.indexid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}"{% endif %} alt="collection object image">
             </a>
             <div class="card-body text-center search">
                 <h3 class="card-title">{{ item.title }}</h3>
@@ -33,7 +33,7 @@ layout: page
                     {%- assign location = item.place | split: ';' -%}
                     {%- assign topics = subjects | concat: location -%}
                     {% for topic in topics %}{% if topic !=" " %}
-                    <a class="btn btn-sm btn-secondary m-1 filter" data-filter="{{ topic | strip | escape }}" href="{{ topic | strip | url_param_escape | prepend: '/browse/#' | relative_url }}">{{ topic }}</a> 
+                    <a class="btn btn-sm btn-secondary m-1 filter" href="{{ topic | strip | url_param_escape | prepend: '/browse/#' | relative_url }}">{{ topic }}</a> 
                     {% endif %}{% endfor %} 
                 </p>
                 <p class="card-text">{{item.description | truncatewords: 20}}</p>
