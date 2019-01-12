@@ -11,7 +11,7 @@
   /* set up browse filter function */
   function filterItems() {
     var input, filter, table, tr, td, i;
-    input = document.getElementById("quicksearch");
+    input = document.getElementById("quickSearch");
     filter = input.value.toUpperCase();
     itemcontainer = document.getElementById("browse-items");
     item = itemcontainer.getElementsByClassName("item");
@@ -28,28 +28,28 @@
     var numberofint = $('div.card:visible').length;
     $("#numberof").html(numberofint);
     $imgs.lazyload();
-    $("#quicksearch").focus();
+    $("#goButton").focus();
   }
   /* filter if hash in initial URL */ 
   var hashfilter = decodeURIComponent(location.hash.substr(1));
   if(window.location.hash) {
-    $('#quicksearch').val(hashfilter);
+    $('#quickSearch').val(hashfilter);
     filterItems();
   }
   /* add hash if search button clicked */ 
   $('#goButton').click( function() {
-    window.location.hash = encodeURIComponent($('#quicksearch').val());
+    window.location.hash = encodeURIComponent($('#quickSearch').val());
   });
   /* add hash if if enter is pressed */
-  $('#quicksearch').keypress(function(e){
+  $('#quickSearch').keypress(function(e){
     if(e.which == 13){
-        window.location.hash = encodeURIComponent($('#quicksearch').val());
+        window.location.hash = encodeURIComponent($('#quickSearch').val());
       }
   });
   /* filter if hash changes */ 
   $(window).on("hashchange", function() {
     var hashfilter = decodeURIComponent(location.hash.substr(1));
-    $('#quicksearch').val(hashfilter);
+    $('#quickSearch').val(hashfilter);
     filterItems();
   });
 
