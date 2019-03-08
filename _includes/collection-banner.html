@@ -6,11 +6,18 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+.title-card {
+    background-color: #ffffffd1;
+}
 </style>
-<div class="jumbotron text-white pb-0 mb-0 rounded-0" id="home-banner">
-    <div class="jumbo-text p-4 container">
-        <h1 class="display-4">{{ site.title }}</h1>
-        <p>{{ site.tagline }}</p>
+<div class="jumbotron pb-0 mb-0 rounded-0" id="home-banner">
+    <div class="row py-4">
+        <div id="home-title-box" class="col-md-8 mx-auto display-block text-center">
+            <div class="card title-card ">
+                <h1 class="display-4">{{ site.title }}</h1>
+                <p>{{ site.tagline }}</p>
+            </div>
+        </div>
     </div>
 </div>
 {%- else -%}
