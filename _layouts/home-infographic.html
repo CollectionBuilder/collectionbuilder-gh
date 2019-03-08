@@ -4,6 +4,13 @@ layout: page
 {%- assign items = site.data.metadata -%}
 
 <div class="row">
+  
+  <div class="col-md-8">
+
+  {% include index/description.html %}
+  {% include index/carousel.html %}
+  
+  </div>
   <div class="col-md-4">  
 
     {% include index/documents.html %}
@@ -11,12 +18,6 @@ layout: page
     {% include index/subjects.html %}
     {% include index/locations-sm.html %}
 
-  </div>
-  <div class="col-md-8">
-
-  {% include index/description.html %}
-  {% include index/carousel.html %}
-  
   </div>
   
 </div>
