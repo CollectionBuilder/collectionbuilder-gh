@@ -1,0 +1,26 @@
+{%- assign formats = site.data.metadata | map: "format" -%}
+{%- assign types = "image;audio;video;application" | split: ";" -%}
+<div class="card mb-3" >
+  <div class="card-body">
+    <h5 class="card-title">Objects</h5>
+    <p class="card-text">
+      {% for t in types %}
+      {%- assign count = formats | where_exp: 'item','item contains t' | size -%}
+      {% if count > 0 %}
+      {{ count }}
+      {% case t %}
+      {% when 'image' %}
+      Images <span class="far fa-image"></span><br>
+      {% when 'audio' %}
+      Audio <span class="far fa-file-audio"></span><br>
+      {% when 'video' %}
+      Videos <span class="far fa-file-video"></span><br>
+      {% else %}
+      Documents <span class="far fa-file"></span><br>
+      {%- endcase -%}
+      {%- endif -%}
+      {%- endfor -%}
+      <a class="btn btn-sm btn-light" href="{{ '/data/' | relative_url }}">View data</a>
+    </p>
+  </div>
+</div>
