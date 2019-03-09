@@ -11,7 +11,7 @@ layout: page
             <input type="text" class="form-control form-control-lg" id="quickSearch" placeholder="Filter ... " > 
             <div class="input-group-append">
                 <button class="btn btn-success" type="button" title="Search" alt="Search" id="goButton" >Search</button>
-                <a class="btn btn-outline-secondary filter" href="#" data-filter="">Reset</a>    
+                <a class="btn btn-outline-secondary" href="#" >Reset</a>    
             </div>
         </div>
         <span class="info2 h2"><span id="numberOf">{{ items | size }}</span> of {{ items | size }} items</span>
@@ -20,25 +20,29 @@ layout: page
 
 <div class="row" id="browseItems">
     {% for item in items %}
-    <div class="item col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-12 mb-2" >
+    <div class="item col-xl-3 col-lg-4 col-md-6 mb-2" >
         <div class="card">
             <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}">
-                <img class="card-img-top lazy" {% if forloop.index < 5 %}src="{{ item.indexid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}"{% else %}data-original="{{ item.indexid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}"{% endif %} alt="collection object image">
+                <img class="card-img-top lazyload" {% if forloop.index < 5 %}src="{{ item.indexid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}"{% else %}data-original="{{ item.indexid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}"{% endif %} alt="Image of {{ item.title | escape }}">
             </a>
             <div class="card-body text-center search">
                 <h3 class="card-title">{{ item.title }}</h3>
-                <p class="card-text"><strong>Date:</strong> {{ item.date }}</p>
+                <p class="card-text">
+                    {% if item.date %}<strong>Date:</strong> {{ item.date }}{% endif %}
+                    {%- assign extension = item.format | strip | split: '/' | last | downcase -%}
+                    <br><small>Type: <a href="{{ extension | prepend: '/browse/#' | relative_url }}" class="filter">{{ extension | upcase }} <span class="far {% if item.format contains 'image' %}fa-image{% elsif item.format contains 'audio' %}fa-file-audio{% elsif item.format contains 'video' %}fa-file-video{%else%}fa-file{% endif %}"></span></a></small>
+                </p>
                 <p>
                     {%- assign subjects = item.subject | split: ';' -%}
                     {%- assign location = item.place | split: ';' -%}
                     {%- assign topics = subjects | concat: location -%}
                     {% for topic in topics %}{% if topic !=" " %}
-                    <a class="btn btn-sm btn-secondary m-1 filter" href="{{ topic | strip | url_param_escape | prepend: '/browse/#' | relative_url }}">{{ topic }}</a> 
+                    <a class="btn btn-sm btn-secondary text-wrap m-1" href="{{ topic | strip | url_param_escape | prepend: '/browse/#' | relative_url }}">{{ topic }}</a> 
                     {% endif %}{% endfor %} 
                 </p>
                 <p class="card-text">{{item.description | truncatewords: 20}}</p>
                 <p>
-                    <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}" class="btn btn-info" title="link to {{ item.title | escape }}">View Item</a>
+                    <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}" class="btn btn-sm btn-info" title="link to {{ item.title | escape }}">View Item</a>
                 </p>
             </div>
         </div>

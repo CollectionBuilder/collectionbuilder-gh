@@ -2,7 +2,7 @@
 <script>
 (function(){ 
   /* lazy load images */
-  var $imgs = $("img.lazy");
+  var $imgs = $("img.lazyload");
   $imgs.lazyload({ 
         effect: "fadeIn",
         failure_limit: Math.max($imgs.length - 1, 0)
