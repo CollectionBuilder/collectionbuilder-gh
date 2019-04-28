@@ -6,6 +6,11 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+{% if page.banner-y-padding %}
+#home-title-box {
+    padding-top: {{ page.banner-y-padding }};
+    padding-bottom: {{ page.banner-y-padding }};
+}{% endif %}
 .title-card {
     background-color: #ffffffd1;
 }
