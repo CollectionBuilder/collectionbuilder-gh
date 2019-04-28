@@ -3,8 +3,7 @@
 <title>{{ page.title }} | {{ site.title }}</title>
 <link rel="shortcut icon" type="image/x-icon" href="{{ '/favicon.ico' | absolute_url }}">
 <meta http-equiv="Content-Language" content="en-us" >
-{% if page.layout == "page" %}{% include page-meta.html %}{% endif %}
-{% if page.layout == "item" %}{% include item-meta.html %}{% endif %}
+{% include page-meta.html %}
 
 <link rel="stylesheet" href="{% if site.bootswatch %}{{ site.bootswatch | prepend: '/assets/bootswatch/' | append: '/bootstrap.min.css' | absolute_url }}{% else %}{{ '/assets/css/bootstrap.min.css' | absolute_url }}{% endif %}" type="text/css">
 <link rel="stylesheet" href="{{ '/assets/css/custom.css' | absolute_url }}" type="text/css">

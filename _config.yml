@@ -27,6 +27,12 @@ baseurl: /collectionbuilder-gh
 # repository is the github repository's full url
 repository: https://github.com/CollectionBuilder/collectionbuilder-gh
 
+# Featured Image
+# featured-image appears in meta tags for search and social media
+# give filename including folder
+featured-image: objects/test001.jpg
+featured-image-alt: "Administration Building, University of Idaho"
+
 # Theme Options
 # navbar text color
 # Choose from "navbar-light" for use with light background colors, or "navbar-dark" for dark background colors
