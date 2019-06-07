@@ -1,26 +1,22 @@
+{%- assign fields = site.data.search-config -%}
 <script src="{{ '/assets/js/lunr.min.js' | absolute_url }}"></script>
 <script src="{{ '/assets/js/lunr-store.js' | absolute_url }}"></script>
 <script>
 /* initialize lunr */
 var idx = lunr(function () {
+  /* add index fields from config */
   this.ref('id')
-  this.field('title')
-  this.field('creator')
-  this.field('subjects')
-  this.field('description')
-  this.field('date')
-  this.field('place')
+  {% for f in fields %}{% if f.index == 'true' %}
+  this.field('{{ f.field }}')
+  {% endif %}{% endfor %}
 
   //this.pipeline.remove(lunr.trimmer)
 
   for (var item in store) {
     this.add({
-      title: store[item].title,
-      creator: store[item].creator,
-      subjects: store[item].subjects.join("; "),
-      description: store[item].description,
-      date: store[item].date,
-      place: store[item].place,
+      {% for f in fields %}{% if f.index == 'true' %}
+      {{ f.field }}: store[item].{{ f.field }},
+      {% endif %}{% endfor %}
       id: item
     })
   }
@@ -46,18 +42,20 @@ function lunr_search () {
       })
     });*/
   resultdiv.empty();
-  resultdiv.prepend('<p class="">' + result.length + ' Result(s) found</p>');
+  resultdiv.prepend('<tr><td><h4 class="mt-3">' + result.length + ' Result(s) found</h4></td></tr>');
   for (var item in result) {
     var ref = result[item].ref;
     var searchitem =
       '<tr>'+
           '<td class="">' +
-            '<p class="h4"><a href="{{ site.baseurl }}/browse/item.html?id=' + store[ref].indexId + '">' + store[ref].title+ '</a></p>' +
+            {% assign display = fields | where: 'display','true' %}
+            {% for d in display %}
+            {% if forloop.first %}
+            '<p class="h4"><a href="{{ site.baseurl }}/browse/item.html?id=' + store[ref].id + '">' + store[ref].{{ fields[0].field }}  + '</a></p>' +
             '<p class="ml-3">' +
-            store[ref].date + '. ' +
-            store[ref].description.split(" ").splice(0,20).join(" ") + '...<br>' +
-            'Subjects: ' + store[ref].subjects.join("; ") + '. ' +
-            store[ref].place +
+              {% else %}
+              store[ref].{{ d.field }} + '<br> ' +
+              {% endif %}{% endfor %}
             '</p></td>' +
       '</tr>';
     resultdiv.append(searchitem);
