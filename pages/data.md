@@ -2,6 +2,7 @@
 title: Data
 layout: data
 permalink: /data/
+# see _data/table-config.csv for display options
 ---
 
 ## Collection Metadata
