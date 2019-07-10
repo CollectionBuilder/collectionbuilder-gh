@@ -1,0 +1,9 @@
+---
+# metadata for table ajax
+---
+{%- assign items = site.data.metadata -%}
+{%- assign fields = site.data.table-config | map: 'field' -%}
+{ "objects": [
+{%- for item in items -%}[ {% for f in fields %}{% if item[f] %}{{ item[f] | jsonify }}{% else %}"n/a"{% endif %},{% endfor %} {{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid | jsonify }} ]{% unless forloop.last %},{% endunless %}
+{% endfor %}
+] }

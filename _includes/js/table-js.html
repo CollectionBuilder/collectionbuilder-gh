@@ -1,22 +1,25 @@
+{% assign fcount = site.data.table-config | size %}
 <script src="{{ '/assets/datatables/datatables.min.js' | relative_url }}"></script>
 <script>
-/* use jquery to initialize DataTables and display collection data */
+/* use jquery to initialize DataTables and load collection data */
 (function(){
     $('#item-table').DataTable( {
-        // use DataTables ajax to load data
-        ajax: { url: '{{ "/data/metadata.json" | relative_url }}', dataSrc: 'documents' },
+        // use DataTables ajax load 
+        ajax: { url: '{{ "/data/metadata_min.json" | relative_url }}', dataSrc: 'objects' },
+        // defer render to speed up large sets
+        "deferRender": true,
         // get the data from the metadata.json
-        columns: [ { data: 'title' }, { data: 'date' }, { data: 'subjects' }, { data: 'description' }, { data: 'link' } ],
+        columns: [ {% for i in (0..fcount) %}{ data: '{{ i }}' }{% unless forloop.last %},{% endunless %}{% endfor %} ],
         columnDefs: [ 
-            // combine link and title for first column
-            { "render": function ( data, type, row ) { return '<a href="' + row.link +'">'+ data +'</a>'; },"targets": 0 },
-            // join the subjects array to print nicely
-            { "render": function ( data, type, row ) { return data.join("; "); },"targets": 2 },
+            // combine link with first column
+            { "render": function ( data, type, row ) { return '<a href="' + row['{{ fcount }}'] +'">'+ data +'</a>'; },"targets": 0 },
             // hide the link column
-            { "visible": false,  "targets": [ 4 ] }
+            { "visible": false,  "targets": [ {{ fcount }} ] }
         ],
-        // sort based on the date
-        order: [[ 1, "desc" ]],
+        "paging": true,
+        "lengthMenu": [[ 25, 50, 100, -1], [ 25, 50, 100, "All"]],
+        // sort based on the second column
+        order: [[ 1, "asc" ]],
         // add download features
         dom: 'Blfrtip', 
         buttons: [ 'excelHtml5', 'csvHtml5' ]
