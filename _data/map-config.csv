@@ -1,0 +1,5 @@
+field,display,search
+date,Date,true
+creator,Creator,true
+subject,Subjects,true
+place,Location,true

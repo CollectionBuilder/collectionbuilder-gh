@@ -3,8 +3,11 @@ layout: default
 ---
 <style>
     #map { height: 750px; z-index: 98; }
-    .leaflet-popup-content img { max-width: 100%;}
-    b { font-weight: bold; }
+    .mapthumb {
+        height: 100px;
+        max-width: 100%;
+        box-shadow: 2px 2px 2px grey;
+    }
 </style>
 <link rel="stylesheet" href="{{ '/assets/leaflet/leaflet.css' | relative_url }}">
 <link rel="stylesheet" href="{{ '/assets/leaflet/leaflet.fusesearch.css' | relative_url }}">
