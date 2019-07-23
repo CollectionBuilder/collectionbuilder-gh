@@ -1,4 +1,4 @@
-{%- assign formats = site.data.metadata | map: "format" -%}
+{%- assign formats = site.data.theme.metadata | map: "format" -%}
 {%- assign types = "image;audio;video;application" | split: ";" -%}
 <div class="card mb-3" >
   <div class="card-body">

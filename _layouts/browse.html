@@ -1,7 +1,7 @@
 ---
 layout: page 
 ---
-{% assign items = site.data.metadata %}
+{% assign items = site.data[site.data.theme.metadata] %}
 {%- assign fields = site.data.browse-config -%}
 
 {{ content }}

@@ -1,7 +1,7 @@
-{%- if page.featured-subjects -%}
-{%- assign topSubjects = page.featured-subjects | split: ";" -%}
+{%- if site.data.theme.featured-subjects -%}
+{%- assign topSubjects = site.data.theme.featured-subjects | split: ";" -%}
 {%- else -%}
-{%- assign raw-subjects = site.data.metadata | map: "subject" | join: ";" | split: ";" -%}
+{%- assign raw-subjects = site.data[site.data.theme.metadata] | map: "subject" | join: ";" | split: ";" -%}
 {%- capture subjects -%}{%- for s in raw-subjects -%}{%- if s != "" and s != " " -%}{{ s | strip | downcase }};{%- endif -%}{%- endfor -%}{%- endcapture -%}
 {%- assign subjects = subjects | split: ";" -%}
 {%- assign uniqueSubjects = subjects | uniq | sort -%}

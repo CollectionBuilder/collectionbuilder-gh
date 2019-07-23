@@ -16,8 +16,8 @@ layout: page
 
 {{ content }}
 
-{%- assign items = site.data.metadata -%}
-{%- assign raw-dates = site.data.metadata | map: 'date' | compact | uniq -%}
+{%- assign items = site.data[site.data.theme.metadata] -%}
+{%- assign raw-dates = site.data[site.data.theme.metadata] | map: 'date' | compact | uniq -%}
 {%- capture clean-years -%}{% for date in raw-dates %}{% if date contains "-" %}{{date | split: "-" | first }}{% elsif date contains "/" %}{{ date | split: "/" | last }}{% else %}{{ date }}{% endif %}{% unless forloop.last %};{% endunless %}{%- endfor -%}{%- endcapture -%}
 {%- assign uniqueYears = clean-years | split: ";" | uniq | sort -%}
 <style>#timeline .img-thumbnail { height: 175px;}</style>

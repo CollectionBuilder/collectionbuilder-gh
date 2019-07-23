@@ -8,7 +8,7 @@ featured-image: "objects/test001.jpg"
 
 {% include index/jumbotron.html %}
 
-# About {{ site.title }}
+# About {{ site.data.theme.title }}
 
 This site is generated using `collectionbuilder-gh`, a project to generate a free and simple digital collection using [GitHub Pages](https://pages.github.com/) from:
 

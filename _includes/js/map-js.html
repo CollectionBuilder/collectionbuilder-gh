@@ -1,4 +1,4 @@
-{%- assign items = site.data.metadata -%}
+{%- assign items = site.data[site.data.theme.metadata] -%}
 {%- assign fields = site.data.map-config -%}
 <!-- load leaflet dependencies -->
 <script src="{{ '/assets/leaflet/leaflet.js' | relative_url }}"></script>
