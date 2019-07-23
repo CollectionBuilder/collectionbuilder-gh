@@ -18,7 +18,7 @@
     /* int leaflet map and search */
     
     /* map init and set zoom */
-    var map = L.map('map').setView([{{ page.mapcenter }}],{{page.zoom }});
+    var map = L.map('map').setView([{{ site.data.theme.latitude | default: 46.727485 }},{{ site.data.theme.longitude | default: -117.014185 }}],{{ site.data.theme.zoom-level | default: 5 }});
 
     /* load map layer.
     For a demo of possible map layers, see http://leaflet-extras.github.io/leaflet-providers/preview/

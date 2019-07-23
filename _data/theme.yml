@@ -57,12 +57,12 @@ browse-buttons: true # true / false, adds previous/next arrows to items, but dou
 # see _data/map-config.csv for field display options
 latitude: 46.727485 #to determine center of map
 longitude: -117.014185 #to determine center of map
-zoom-level: 5 # zoom level for map 
+zoom-level: 7 # zoom level for map 
 
 # Subject page
 subjects-off: false # true / false, turns off subject generation to lower dev build time (then page doesn't work!)
 subject-min: 1 # min size for subject cloud, too many terms = slow load time!
-stopwords: boxers;boxing;boxer # set of subjects separated by ;, e.g. boxers;boxing
+stopwords: # boxers;boxing;boxer # set of subjects separated by ;, e.g. boxers;boxing
 
 # Locations page
 locations-on: # true/false
