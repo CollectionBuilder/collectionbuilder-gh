@@ -1,36 +1,41 @@
 ---
 layout: page
 ---
-{%- if page.year-navigation -%}
-{%- assign navYears = page.year-navigation | split: ";" -%}
-<ul class="nav nav-pills float-right" id="year-nav">
-  <li class="nav-item dropdown ">
-    <a class="nav-link active dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Year</a>
-    <div class="dropdown-menu">
-      {% for y in navYears %}
-      <a class="dropdown-item" href="#{{ y }}">{{ y }}</a>{% endfor %}
-    </div>
-  </li>
-</ul>
+{%- assign items = site.data[site.data.theme.metadata] -%}
+{%- assign raw-dates = site.data[site.data.theme.metadata] | map: 'date' | compact | uniq -%}
+{%- capture clean-years -%}{% for date in raw-dates %}{% if date contains "-" %}{{ date | strip | split: "-" | first }}{% elsif date contains "/" %}{{ date | strip | split: "/" | last }}{% else %}{{ date | strip }}{% endif %}{% unless forloop.last %};{% endunless %}{%- endfor -%}{%- endcapture -%}
+{%- assign uniqueYears = clean-years | split: ";" | uniq | sort -%}
+{%- if site.data.theme.year-navigation -%}
+{%- assign navYears = site.data.theme.year-navigation | split: ";" -%}
+{%- else -%}
+{%- capture navYears -%}
+{%- for i in uniqueYears -%}{%- assign t = i | modulo: site.data.theme.year-nav-increment -%}
+{%- if t == 0 -%}{{ i }}{% unless forloop.last %};{% endunless %}{% endif %}{% endfor %}{%- endcapture -%}
+{%- assign navYears = navYears | split: ";" -%}
 {%- endif -%}
+<div class="dropdown float-right" id="year-nav">
+  <button class="btn btn-primary dropdown-toggle" type="button" id="yearButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Year
+  </button>
+  <div class="dropdown-menu" aria-labelledby="yearButton">
+    {% for y in navYears %}
+    <a class="dropdown-item" href="#{{ y }}">{{ y }}</a>{% endfor %}
+  </div>
+</div>
 
 {{ content }}
 
-{%- assign items = site.data[site.data.theme.metadata] -%}
-{%- assign raw-dates = site.data[site.data.theme.metadata] | map: 'date' | compact | uniq -%}
-{%- capture clean-years -%}{% for date in raw-dates %}{% if date contains "-" %}{{date | split: "-" | first }}{% elsif date contains "/" %}{{ date | split: "/" | last }}{% else %}{{ date }}{% endif %}{% unless forloop.last %};{% endunless %}{%- endfor -%}{%- endcapture -%}
-{%- assign uniqueYears = clean-years | split: ";" | uniq | sort -%}
-<style>#timeline .img-thumbnail { height: 175px;}</style>
 <h3><a href="#{{ uniqueYears | first }}">{{ uniqueYears | first }}</a> to <a href="#{{ uniqueYears | last }}">{{ uniqueYears | last }}</a></h3>
 
 <table class="table table-striped" id="timeline">
   {% for year in uniqueYears %}
-  <tr>
-    <th><h3 id="{{ year }}">{{ year }}</h3></th>
+  <tr id="{{ year }}">
+    <th><h3 >{{ year }}</h3></th>
     <td>
-    {% for item in items %}{% if item.date contains year %}
+    {%- assign inYear = items | where_exp: 'item', 'item.date contains year' -%}
+    {% for item in inYear %}
       <a href="{{ '/browse/item.html' | relative_url | append: '?id=' | append: item.indexid }}" ><img class="lazyload img-thumbnail m-1" data-original="{{ item.indexid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}" alt="{{ item.title | escape }}" data-toggle="tooltip" data-placement="bottom" title="{{ item.title | escape }} | {{ item.date | escape }}"/></a>
-    {% endif %}{% endfor %}
+    {% endfor %}
     </td>
   </tr>
   {% endfor %}
