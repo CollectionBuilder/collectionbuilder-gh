@@ -23,14 +23,28 @@ layout: page
     {% for item in items %}
     <div class="item col-xl-3 col-lg-4 col-md-6 mb-2" >
         <div class="card">
+            {%- assign extension = item.format | strip | split: '/' | last | downcase -%}
+            {%- if item.format contains 'image' or item.format contains 'video' -%}
             <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}">
                 <img class="card-img-top lazyload" {% if forloop.index < 5 %}src="{{ item.indexid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}"{% else %}data-original="{{ item.indexid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}"{% endif %} alt="Image of {{ item.title | escape }}">
             </a>
+            {%- endif -%}
             <div class="card-body text-center search">
                 <h3 class="card-title">{{ item.title }}</h3>
                 <p class="card-text">
-                    {%- assign extension = item.format | strip | split: '/' | last | downcase -%}
-                    <small>Type: <a href="{{ extension | prepend: '/browse/#' | relative_url }}" class="filter">{{ extension | upcase }} <span class="far {% if item.format contains 'image' %}fa-image{% elsif item.format contains 'audio' %}fa-file-audio{% elsif item.format contains 'video' %}fa-file-video{%else%}fa-file{% endif %}"></span></a></small>
+                    {% if site.data.theme.mediatypes contains ";" %}
+                    <small>Type: <a href="{{ extension | prepend: '/browse/#' | relative_url }}" class="filter">{{ extension | upcase }} <span class="far {% if item.format contains 'image' %}fa-image{% elsif item.format contains 'audio' %}fa-file-audio{% elsif item.format contains 'video' %}fa-file-video{%else%}fa-file{% endif %}"></span></a></small>{% endif %}
+                </p>
+                {%- unless item.format contains 'image' or item.format contains 'video' -%}
+                <p>
+                    <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}"><img class="thumb lazyload" data-original="{{ item.indexid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}" alt="item thumbnail"></a>
+                </p>
+                {%- endunless -%}
+                <p class="card-text">
+                    {% for f in fields %}{% if f.display-name-or-btn != 'btn' %}{% if item[f.field] %}
+                    {% if f.display-name-or-btn %}<strong>{{ f.display-name-or-btn }}:</strong> {% endif %}{{ item[f.field] | truncatewords: 30 | replace: '""','"' }}
+                    {% unless forloop.last %}<br>{% endunless %}  
+                    {% endif %}{% endif %}{% endfor %}
                 </p>
                 <p>
                     {%- capture btns -%}{% for f in fields %}{% if f.display-name-or-btn == 'btn' %}{{ item[f.field] | strip }};{% endif %}{% endfor %}{%- endcapture -%}
@@ -38,12 +52,6 @@ layout: page
                     {% for b in btns %}{% if b !=" " and b != "" %}
                     <a class="btn btn-sm btn-secondary m-1 filter text-wrap" href="{{ b | strip | url_param_escape | prepend: '/browse/#' | relative_url }}">{{ b }}</a> 
                     {% endif %}{% endfor %} 
-                </p>
-                <p class="card-text">
-                    {% for f in fields %}{% if f.display-name-or-btn != 'btn' %}{% if item[f.field] %}
-                    {% if f.display-name-or-btn %}<strong>{{ f.display-name-or-btn }}:</strong> {% endif %}{{ item[f.field] | truncatewords: 30 | replace: '""','"' }}
-                    {% unless forloop.last %}<br>{% endunless %}  
-                    {% endif %}{% endif %}{% endfor %}
                 </p>
                 <p>
                     <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}" class="btn btn-sm btn-info" title="link to {{ item.title | escape }}">View Item</a>
