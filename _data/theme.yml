@@ -38,7 +38,7 @@ featured-subjects-max: 6 # set number of top subjects to display if auto generat
 # add top locations, for list see data/places.csv
 featured-locations: Moscow, Idaho; Tacoma, Washington; Pullman, Washington; Spokane, Washingto #separate by semi-colon(';') - if left blank, will be automatically generated to create top 5 locations
 featured-locations-max: 3
-mediatypes: images #options[documents,images,video,sound,data] separate semi-colon(';'). If semi-colon is present, the browse items on the browse page will display a type field. If only one media type (and thus no semi-colon), no type field will display
+mediatypes: images;documents #options[documents,images,video,sound,data] separate semi-colon(';'). If semi-colon is present, the browse items on the browse page will display a type field. If only one media type (and thus no semi-colon), no type field will display
 
 # Featured Image
 # featured-image appears in meta tags for search and social media
