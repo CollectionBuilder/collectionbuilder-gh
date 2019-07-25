@@ -4,7 +4,7 @@
 {
     "type": "FeatureCollection",
     "features": [ 
-        {% for item in site.data.theme.metadata %}{% if item.latitude and item.longitude %}
+        {% for item in site.data[site.data.theme.metadata] %}{% if item.latitude and item.longitude %}
         {
             "type":"Feature",
             "geometry":{

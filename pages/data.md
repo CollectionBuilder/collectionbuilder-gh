@@ -5,8 +5,6 @@ permalink: /data/
 # see _data/table-config.csv for display options
 ---
 
-## Collection Metadata
+### Search/Sort Collection Metadata
 
-The table below provides sorting and basic search of the collection contents. 
-Use the "CSV" button below to download the filtered metadata you see on the page. 
-Alternatively, click the "Download" button at the top right to view the full collection metadata in various formats. 
+The table below provides sorting and basic search of selected metadata from the collection contents. Use the "CSV" or "Excel" button below to download the filtered metadata you see on the page in your preferred format.

@@ -24,6 +24,7 @@ layout: page
     <div class="item col-xl-3 col-lg-4 col-md-6 mb-2" >
         <div class="card">
             {%- assign extension = item.format | strip | split: '/' | last | downcase -%}
+            {%- assign format-for-browse = item.format | strip | split: '/' | first | downcase -%}
             {%- if item.format contains 'image' or item.format contains 'video' -%}
             <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}">
                 <img class="card-img-top lazyload" {% if forloop.index < 5 %}src="{{ item.indexid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}"{% else %}data-original="{{ item.indexid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}"{% endif %} alt="Image of {{ item.title | escape }}">
@@ -31,10 +32,6 @@ layout: page
             {%- endif -%}
             <div class="card-body text-center search">
                 <h3 class="card-title"><a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}" class="text-dark" title="link to {{ item.title | escape }}">{{ item.title }}</a></h3>
-                <p class="card-text">
-                    {% if site.data.theme.mediatypes contains ";" %}
-                    <small>Type: <a href="{{ extension | prepend: '/browse/#' | relative_url }}" class="filter">{{ extension | upcase }} <span class="far {% if item.format contains 'image' %}fa-image{% elsif item.format contains 'audio' %}fa-file-audio{% elsif item.format contains 'video' %}fa-file-video{%else%}fa-file{% endif %}"></span></a></small>{% endif %}
-                </p>
                 {%- unless item.format contains 'image' or item.format contains 'video' -%}
                 <p>
                     <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}"><img class="thumb lazyload img-thumbnail" data-original="{{ item.indexid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}" alt="item thumbnail"></a>
@@ -53,9 +50,15 @@ layout: page
                     <a class="btn btn-sm btn-secondary m-1 filter text-wrap" href="{{ b | strip | url_param_escape | prepend: '/browse/#' | relative_url }}">{{ b }}</a> 
                     {% endif %}{% endfor %} 
                 </p>
+                <p class="card-text">
+                    {% if site.data.theme.mediatypes contains ";" %}
+                    <small><a href="{{ extension | prepend: '/browse/#' | relative_url }}" class="filter btn btn-sm btn-outline-secondary">{{ extension | upcase }} <span class="far {% if item.format contains 'image' %}fa-image{% elsif item.format contains 'audio' %}fa-file-audio{% elsif item.format contains 'video' %}fa-file-video{%else%}fa-file{% endif %}"></span></a></small>{% endif %}
+                    <span class="hidden-format-for-browse">{{format-for-browse | replace: "application", "application document"}}</span>
+                </p>
+               
                 <hr/>
                 <p>
-                    <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}" class="btn btn-sm btn-light text-info" title="link to {{ item.title | escape }}">View Full Record</a>
+                    <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}" class="btn btn-sm btn-light text-info" title="link to {{ item.title | escape }}">View Full Record </a>
                 </p>
             </div>
         </div>

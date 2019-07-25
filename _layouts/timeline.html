@@ -14,8 +14,8 @@ layout: page
 {%- assign navYears = navYears | split: ";" -%}
 {%- endif -%}
 <div class="dropdown float-right" id="year-nav">
-  <button class="btn btn-primary dropdown-toggle" type="button" id="yearButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Year
+  <button class="btn btn-outline-info dropdown-toggle" type="button" id="yearButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Skip to Year
   </button>
   <div class="dropdown-menu" aria-labelledby="yearButton">
     {% for y in navYears %}

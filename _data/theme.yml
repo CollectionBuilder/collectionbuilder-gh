@@ -4,7 +4,7 @@
 # title of site appears in banner
 title: Collection Builder GH
 # choose metadata, be sure to also change page_gen data setting!
-metadata: metadata # check against cdm-collection-id below -- this should be used in config file as well
+metadata: collection-metadata # check against cdm-collection-id below -- this should be used in config file as well
 
 # repository variables (leave blank if self-contained)
 # url for our CDM server
