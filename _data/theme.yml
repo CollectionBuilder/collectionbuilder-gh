@@ -2,7 +2,7 @@
 
 # Site settings
 # title of site appears in banner
-title: Collection Builder GH
+title: CollectionBuilder-GH Demo Collection
 # choose metadata, be sure to also change page_gen data setting!
 metadata: collection-metadata # check against cdm-collection-id below -- this should be used in config file as well
 
