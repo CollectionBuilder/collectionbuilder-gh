@@ -30,14 +30,14 @@ layout: page
             </a>
             {%- endif -%}
             <div class="card-body text-center search">
-                <h3 class="card-title">{{ item.title }}</h3>
+                <h3 class="card-title"><a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}" class="text-dark" title="link to {{ item.title | escape }}">{{ item.title }}</a></h3>
                 <p class="card-text">
                     {% if site.data.theme.mediatypes contains ";" %}
                     <small>Type: <a href="{{ extension | prepend: '/browse/#' | relative_url }}" class="filter">{{ extension | upcase }} <span class="far {% if item.format contains 'image' %}fa-image{% elsif item.format contains 'audio' %}fa-file-audio{% elsif item.format contains 'video' %}fa-file-video{%else%}fa-file{% endif %}"></span></a></small>{% endif %}
                 </p>
                 {%- unless item.format contains 'image' or item.format contains 'video' -%}
                 <p>
-                    <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}"><img class="thumb lazyload img-fluid" data-original="{{ item.indexid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}" alt="item thumbnail"></a>
+                    <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}"><img class="thumb lazyload img-thumbnail" data-original="{{ item.indexid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}" alt="item thumbnail"></a>
                 </p>
                 {%- endunless -%}
                 <p class="card-text">
@@ -53,8 +53,9 @@ layout: page
                     <a class="btn btn-sm btn-secondary m-1 filter text-wrap" href="{{ b | strip | url_param_escape | prepend: '/browse/#' | relative_url }}">{{ b }}</a> 
                     {% endif %}{% endfor %} 
                 </p>
+                <hr/>
                 <p>
-                    <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}" class="btn btn-sm btn-info" title="link to {{ item.title | escape }}">View Item</a>
+                    <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}" class="btn btn-sm btn-outline-primary" title="link to {{ item.title | escape }}">View Full Record</a>
                 </p>
             </div>
         </div>

@@ -3,7 +3,7 @@ layout: page
 ---
 <link rel="stylesheet" type="text/css" href="{{ '/assets/datatables/datatables.min.css' | relative_url }}">
 {% assign fields = site.data.table-config | map: 'display_name' %}
-<button type="button" class="btn btn-primary btn-lg float-md-right" data-toggle="modal" data-target="#data">Download</button>
+<button type="button" class="btn btn-info btn-lg float-md-right" data-toggle="modal" data-target="#data">Download</button>
 <!-- Modal -->
 <div class="modal fade" id="data" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
