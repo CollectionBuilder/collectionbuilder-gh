@@ -3,9 +3,9 @@ layout: default
 ---
 
 <div class="container mt-2">
-    <ul class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ '/' | absolute_url }}">{{ site.data.theme.title }}</a></li>
-        <li class="breadcrumb-item"><a href="{{ '/browse/' | absolute_url }}">Browse</a></li>
+    <ul class="breadcrumb h6">
+        <li class="breadcrumb-item"><a class="text-dark" href="{{ '/' | absolute_url }}">{{ site.data.theme.title }}</a></li>
+        <li class="breadcrumb-item text-secondary"><a class="text-dark" href="{{ '/browse/' | absolute_url }}">Browse</a></li>
         <li id="bc-title" class="breadcrumb-item active">Not found?</li>
     </ul>
 
@@ -30,6 +30,6 @@ layout: default
     </div>
 
     <div class="text-center">
-        <a class="btn btn-info" href="{{ '/browse/' | relative_url }}">&laquo; Back to Collection Browse</a>
+        <a class="btn btn-outline-info" href="{{ '/browse/' | relative_url }}">&laquo; Back to Collection Browse</a>
     </div>
 </div>
