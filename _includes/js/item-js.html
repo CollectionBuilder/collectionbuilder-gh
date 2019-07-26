@@ -10,20 +10,21 @@
     /* get query id from URL */
     var queryString = window.location.search.substring(1).split("=")[1];
     var record = items[queryString];
+    var format = record.format;
     /* add item metadata to page */
     var itemTitle = record.title;
     document.getElementById("bc-title").innerHTML = itemTitle;
     document.getElementById("item-title").innerHTML = itemTitle;
-    if (record.format == 'image/jpeg') {
+    if (record.format.includes('image')) {
         var itemImage = '<a href="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank"  title="Object download"><img class="img-fluid img-thumbnail" src="{{ "/objects/thumbs/" | relative_url }}' + queryString + '_sm.jpg" alt="item thumbnail"></a>';
         var itemLink = '<a href="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank" class="btn btn-dark btn-lg" title="Object download">Download Object</a>';
-    } else if (record.format == 'application/pdf') {
+    } else if (record.format.includes('application')) {
         var itemImage = '<a href="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank"  title="Object download"><img class="img-fluid img-thumbnail" src="{{ "/objects/thumbs/" | relative_url }}' + queryString + '_sm.jpg" alt="item thumbnail"></a>';
         var itemLink = '<a href="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank" class="btn btn-dark btn-lg" title="Object download">Download Object</a>';
-    } else if (record.format == 'audio/mpeg') {
+    } else if (record.format.includes('audio')) {
         var itemImage = '<audio controls class="mp3-item-player"><source src="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank" type="audio/mpeg">Your browser does not support the audio element.</audio>';
         var itemLink = '<a href="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank" class="btn btn-dark btn-lg" title="Object download">Download Object</a>';
-    } else if (record.format == 'youtube') {
+    } else if (record.format.includes('video')) {
         var itemImage = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://www.youtube.com/embed/' + record.filename + '?rel=0" allowfullscreen></iframe></div>';
         var itemLink = '<a href="https://www.youtube.com/embed/' + record.filename + '?rel=0" target="_blank" class="btn btn-dark btn-lg" title="Object download">Download Object</a>';
     } else {
