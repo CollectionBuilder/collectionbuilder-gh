@@ -11,59 +11,31 @@
     var queryString = window.location.search.substring(1).split("=")[1];
     var record = items[queryString];
     /* add item metadata to page */
+    var itemTitle = record.title;
+    document.getElementById("bc-title").innerHTML = itemTitle;
+    document.getElementById("item-title").innerHTML = itemTitle;
     if (record.format == 'image/jpeg') {
-        var itemTitle = record.title;
-        document.getElementById("bc-title").innerHTML = itemTitle;
-        document.getElementById("item-title").innerHTML = itemTitle;
         var itemImage = '<a href="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank"  title="Object download"><img class="img-fluid img-thumbnail" src="{{ "/objects/thumbs/" | relative_url }}' + queryString + '_sm.jpg" alt="item thumbnail"></a>';
-        document.getElementById("item-image").innerHTML = itemImage;
         var itemLink = '<a href="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank" class="btn btn-dark btn-lg" title="Object download">Download Object</a>';
-        document.getElementById("item-link").innerHTML = itemLink;
-        var fields = '<dl>' + {% for f in fields %}'<dt class="field">{{ f.display-name }}:</dt> <dd class="field-value">' + record.{{ f.field }} + '</dd>' + {% endfor %}'</dl>';
-        document.getElementById("item-metadata").innerHTML = fields;
     } else if (record.format == 'application/pdf') {
-        var itemTitle = record.title;
-        document.getElementById("bc-title").innerHTML = itemTitle;
-        document.getElementById("item-title").innerHTML = itemTitle;
         var itemImage = '<a href="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank"  title="Object download"><img class="img-fluid img-thumbnail" src="{{ "/objects/thumbs/" | relative_url }}' + queryString + '_sm.jpg" alt="item thumbnail"></a>';
-        document.getElementById("item-image").innerHTML = itemImage;
         var itemLink = '<a href="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank" class="btn btn-dark btn-lg" title="Object download">Download Object</a>';
-        document.getElementById("item-link").innerHTML = itemLink;
-        var fields = '<dl>' + {% for f in fields %}'<dt class="field">{{ f.display-name }}:</dt> <dd class="field-value">' + record.{{ f.field }} + '</dd>' + {% endfor %}'</dl>';
-        document.getElementById("item-metadata").innerHTML = fields;
     } else if (record.format == 'audio/mpeg') {
-        var itemTitle = record.title;
-        document.getElementById("bc-title").innerHTML = itemTitle;
-        document.getElementById("item-title").innerHTML = itemTitle;
         var itemImage = '<audio controls class="mp3-item-player"><source src="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank" type="audio/mpeg">Your browser does not support the audio element.</audio>';
-        document.getElementById("item-image").innerHTML = itemImage;
         var itemLink = '<a href="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank" class="btn btn-dark btn-lg" title="Object download">Download Object</a>';
-        document.getElementById("item-link").innerHTML = itemLink;
-        var fields = '<dl>' + {% for f in fields %}'<dt class="field">{{ f.display-name }}:</dt> <dd class="field-value">' + record.{{ f.field }} + '</dd>' + {% endfor %}'</dl>';
-        document.getElementById("item-metadata").innerHTML = fields;
-    } else if (record.format == 'video/mp4') {
-        var itemTitle = record.title;
-        document.getElementById("bc-title").innerHTML = itemTitle;
-        document.getElementById("item-title").innerHTML = itemTitle;
-        var itemImage = '<video width="320" height="240" controls><source src="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank" type="video/mp4">Your browser does not support the video tag.</video>';
-        document.getElementById("item-image").innerHTML = itemImage;
-        var itemLink = '<a href="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank" class="btn btn-dark btn-lg" title="Object download">Download Object</a>';
-        document.getElementById("item-link").innerHTML = itemLink;
-        var fields = '<dl>' + {% for f in fields %}'<dt class="field">{{ f.display-name }}:</dt> <dd class="field-value">' + record.{{ f.field }} + '</dd>' + {% endfor %}'</dl>';
-        document.getElementById("item-metadata").innerHTML = fields;
     } else if (record.format == 'youtube') {
-        var itemTitle = record.title;
-        document.getElementById("bc-title").innerHTML = itemTitle;
-        document.getElementById("item-title").innerHTML = itemTitle;
         var itemImage = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://www.youtube.com/embed/' + record.filename + '?rel=0" allowfullscreen></iframe></div>';
-        document.getElementById("item-image").innerHTML = itemImage;
         var itemLink = '<a href="https://www.youtube.com/embed/' + record.filename + '?rel=0" target="_blank" class="btn btn-dark btn-lg" title="Object download">Download Object</a>';
-        document.getElementById("item-link").innerHTML = itemLink;
-        var fields = '<dl>' + {% for f in fields %}'<dt class="field">{{ f.display-name }}:</dt> <dd class="field-value">' + record.{{ f.field }} + '</dd>' + {% endfor %}'</dl>';
-        document.getElementById("item-metadata").innerHTML = fields;
     } else {
         document.getElementById("item-metadata").innerHTML = '<h3>Sorry, item not found.</h3>';
     }
+
+    document.getElementById("item-image").innerHTML = itemImage;
+    
+    document.getElementById("item-link").innerHTML = itemLink;
+
+    var fields = '<dl>' + {% for f in fields %}'<dt class="field">{{ f.display-name }}:</dt> <dd class="field-value">' + record.{{ f.field }} + '</dd>' + {% endfor %}'</dl>';
+    document.getElementById("item-metadata").innerHTML = fields;
 
     $("#loading").hide();
 })();
