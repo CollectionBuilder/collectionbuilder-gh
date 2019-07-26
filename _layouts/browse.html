@@ -11,7 +11,7 @@ layout: page
         <div class="input-group input-group-lg">
             <input type="text" class="form-control form-control-lg" id="quickSearch" placeholder="Filter ... " > 
             <div class="input-group-append">
-                <button class="btn btn-success" type="button" title="Search" alt="Search" id="goButton" >Search</button>
+                <button class="btn btn-primary" type="button" title="Search" alt="Search" id="goButton" >Search</button>
                 <a class="btn btn-outline-secondary" href="#" >Reset</a>  
             </div>
         </div>
@@ -58,7 +58,7 @@ layout: page
                
                 <hr/>
                 <p>
-                    <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}" class="btn btn-sm btn-light text-info" title="link to {{ item.title | escape }}">View Full Record </a>
+                    <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}" class="btn btn-sm btn-light text-primary" title="link to {{ item.title | escape }}">View Full Record </a>
                 </p>
             </div>
         </div>

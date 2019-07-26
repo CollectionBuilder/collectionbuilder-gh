@@ -1,46 +1,14 @@
 ---
 layout: page
 ---
-<link rel="stylesheet" type="text/css" href="{{ '/assets/datatables/datatables.min.css' | relative_url }}">
-{% assign fields = site.data.table-config | map: 'display_name' %}
-
-<h2>Collection as Data</h2>
-<p>Click any of the buttons below to view the full collection metadata in the format indicated.</p> 
-      <div class="mb-4">
-        <a class="btn btn-outline-primary mr-2 ml-0" href="{{ '/data/metadata.csv' | absolute_url }}" target="_blank">CSV spreadsheet</a>
- 
-        <a class="btn btn-outline-primary mx-2" href="{{ '/data/metadata.json' | absolute_url }}" target="_blank">JSON</a>
-   
-        <a class="btn btn-outline-primary mx-2" href="{{ '/data/geodata.json' | absolute_url }}" target="_blank">GeoJSON</a>
-
-        <a class="btn btn-outline-primary mx-2" href="{{ '/data/subjects.json' | absolute_url }}" target="_blank">Subjects JSON</a>
-       
-        <a class="btn btn-outline-primary mx-2" href="{{ '/data/subjects.csv' | absolute_url }}" target="_blank">Subjects CSV</a>
- 
-        <a class="btn btn-outline-primary mx-2" href="{{ '/data/places.csv' | absolute_url }}" target="_blank">Places CSV</a>
-   
-        <!--<a class="btn btn-secondary col-md-6 col-md-offset-3" href="#">Download All Items</a>-->
-        <a class="btn btn-outline-primary mx-2" href="{{ site.data.theme.repository }}" target="_blank">Source Code</a>
-  
-    </div>
-<hr >
 {{ content }}
 
+{% assign datafiles = site.data.datafile-config  %}
 
-      <div class="table-responsive-md">
-        <table id="item-table" class="table table-striped">
-            <thead>
-                <tr>
-                    {% for f in fields %}
-                    <th scope="col">{{ f }}</th>
-                    {% endfor %}
-                    <th>Link</th>
-                </tr>
-            </thead>
-        </table>
+      <div class="mb-4">
+{%for datafile in datafiles%}
+        <a class="btn btn-lg btn-outline-primary m-2" href="{% if datafile.object == 'github-link' %}{{site.data.theme.repository}}{%else%}{{ datafile.object | prepend: '/data/' | absolute_url }}{%endif%}" target="_blank">{{datafile.display-name}}</a>
+ {%endfor%}
+      
+  
     </div>
-
-
-
-
-

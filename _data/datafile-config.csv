@@ -1,0 +1,9 @@
+object,type,display-name
+metadata.csv,csv,CSV Spreadsheet
+metadata.json,json,JSON
+geodata.json,json,GeoJSON
+subjects.json,json,Subjects JSON
+subjects.json,csv,Subjects CSV
+places.json,csv,Places CSV
+github-link,link,Source Code
+all.zip,zip,All Objects (zip)

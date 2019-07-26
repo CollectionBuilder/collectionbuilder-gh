@@ -19,7 +19,7 @@
         document.getElementById("item-image").innerHTML = itemImage;
         var itemLink = '<a href="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank" class="btn btn-dark btn-lg" title="Object download">Download Object</a>';
         document.getElementById("item-link").innerHTML = itemLink;
-        var fields = '<table class="table">' + {% for f in fields %}'<tr><th scope="row" class="field">{{ f.display-name }}:</th> <td class="field-value">' + record.{{ f.field }} + '</td></tr>' + {% endfor %}'</table>';
+        var fields = '<dl>' + {% for f in fields %}'<dt class="field">{{ f.display-name }}:</dt> <dd class="field-value">' + record.{{ f.field }} + '</dd>' + {% endfor %}'</dl>';
         document.getElementById("item-metadata").innerHTML = fields;
     } else if (record.format == 'application/pdf') {
         var itemTitle = record.title;
@@ -29,7 +29,7 @@
         document.getElementById("item-image").innerHTML = itemImage;
         var itemLink = '<a href="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank" class="btn btn-dark btn-lg" title="Object download">Download Object</a>';
         document.getElementById("item-link").innerHTML = itemLink;
-        var fields = '<table class="table">' + {% for f in fields %}'<tr><th scope="row" class="field">{{ f.display-name }}:</th> <td class="field-value">' + record.{{ f.field }} + '</td></tr>' + {% endfor %}'</table>';
+        var fields = '<dl>' + {% for f in fields %}'<dt class="field">{{ f.display-name }}:</dt> <dd class="field-value">' + record.{{ f.field }} + '</dd>' + {% endfor %}'</dl>';
         document.getElementById("item-metadata").innerHTML = fields;
     } else if (record.format == 'audio/mpeg') {
         var itemTitle = record.title;
@@ -39,7 +39,7 @@
         document.getElementById("item-image").innerHTML = itemImage;
         var itemLink = '<a href="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank" class="btn btn-dark btn-lg" title="Object download">Download Object</a>';
         document.getElementById("item-link").innerHTML = itemLink;
-        var fields = '<table class="table">' + {% for f in fields %}'<tr><th scope="row" class="field">{{ f.display-name }}:</th> <td class="field-value">' + record.{{ f.field }} + '</td></tr>' + {% endfor %}'</table>';
+        var fields = '<dl>' + {% for f in fields %}'<dt class="field">{{ f.display-name }}:</dt> <dd class="field-value">' + record.{{ f.field }} + '</dd>' + {% endfor %}'</dl>';
         document.getElementById("item-metadata").innerHTML = fields;
     } else if (record.format == 'video/mp4') {
         var itemTitle = record.title;
@@ -49,7 +49,7 @@
         document.getElementById("item-image").innerHTML = itemImage;
         var itemLink = '<a href="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank" class="btn btn-dark btn-lg" title="Object download">Download Object</a>';
         document.getElementById("item-link").innerHTML = itemLink;
-        var fields = '<table class="table">' + {% for f in fields %}'<tr><th scope="row" class="field">{{ f.display-name }}:</th> <td class="field-value">' + record.{{ f.field }} + '</td></tr>' + {% endfor %}'</table>';
+        var fields = '<dl>' + {% for f in fields %}'<dt class="field">{{ f.display-name }}:</dt> <dd class="field-value">' + record.{{ f.field }} + '</dd>' + {% endfor %}'</dl>';
         document.getElementById("item-metadata").innerHTML = fields;
     } else if (record.format == 'youtube') {
         var itemTitle = record.title;
@@ -59,7 +59,7 @@
         document.getElementById("item-image").innerHTML = itemImage;
         var itemLink = '<a href="https://www.youtube.com/embed/' + record.filename + '?rel=0" target="_blank" class="btn btn-dark btn-lg" title="Object download">Download Object</a>';
         document.getElementById("item-link").innerHTML = itemLink;
-        var fields = '<table class="table">' + {% for f in fields %}'<tr><th scope="row" class="field">{{ f.display-name }}:</th> <td class="field-value">' + record.{{ f.field }} + '</td></tr>' + {% endfor %}'</table>';
+        var fields = '<dl>' + {% for f in fields %}'<dt class="field">{{ f.display-name }}:</dt> <dd class="field-value">' + record.{{ f.field }} + '</dd>' + {% endfor %}'</dl>';
         document.getElementById("item-metadata").innerHTML = fields;
     } else {
         document.getElementById("item-metadata").innerHTML = '<h3>Sorry, item not found.</h3>';

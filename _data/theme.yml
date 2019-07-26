@@ -2,15 +2,12 @@
 
 # Site settings
 # title of site appears in banner
-title: CollectionBuilder-GH Demo Collection
+title: CollectionBuilder-GH 
 # choose metadata, be sure to also change page_gen data setting!
 metadata: collection-metadata # check against cdm-collection-id below -- this should be used in config file as well
 
-# repository variables (leave blank if self-contained)
-# url for our CDM server
-cdm-url: 
-# contentdm collection name 
-cdm-collection-id: 
+# repository is the github repository's full url
+repository: https://github.com/CollectionBuilder/collectionbuilder-gh
 
 # header and head metadata
 # tagline appears in banner
@@ -22,6 +19,7 @@ description: "CollectionBuilder-GH is a template for creating small digital coll
 keywords: "university of idaho, digital collections, digital humanities"
 # creator of the digital collection, to appear in meta tags
 author: evanwill
+
 
 # Home page
 # give full filename including folder
@@ -90,5 +88,3 @@ navbar-background: bg-dark
 # Choose from: cerulean; cosmo; cyborg; darkly; flatly; journal; litera; lumen; lux; materia; minty; pulse; sandstone; simplex; sketchy; slate; solar; spacelab; superhero; united; yeti 
 bootswatch: # leave blank or comment out for plain bootstrap
 
-# repository is the github repository's full url
-repository: https://github.com/CollectionBuilder/collectionbuilder-gh

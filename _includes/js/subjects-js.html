@@ -25,7 +25,7 @@ $.getJSON("{{ '/data/subjects.json' | relative_url }}", function(json){
         var item;
         for (i = 0; i < array.length; i++) {
             var size = mapSize(array[i].count)
-            item = '<a class="btn btn-outline-info m-2 wrd tagcloud' + size + '" href="' + array[i].link + '">' + array[i].subject + '</a>';
+            item = '<a class="btn btn-outline-primary m-2 wrd tagcloud' + size + '" href="' + array[i].link + '">' + array[i].subject + '</a>';
             cloud.innerHTML += item;
         }
     }

@@ -1,4 +1,4 @@
-{% if page.layout == "home-infographic" %}
+{% if page.layout == "home-primarygraphic" %}
 <style>
 #home-banner {
     background-image: url('{{ site.data.theme.home-banner-image | relative_url }}');
@@ -34,7 +34,7 @@
         <div class="col-md-12">
             <h1 class="h3">
                 <a href="{{ '/' | absolute_url }}" class="text-dark text-uppercase">{{ site.data.theme.title }}</a>
-                <small class="text-muted text-truncate">| {{ site.data.theme.tagline }}</small>
+                <small class="text-muted">| {{ site.data.theme.tagline }}</small>
             </h1>
         </div>
     </div>	
