@@ -25,14 +25,22 @@ layout: page
         <div class="card">
             {%- assign extension = item.format | strip | split: '/' | last | downcase -%}
             {%- assign format-for-browse = item.format | strip | split: '/' | first | downcase -%}
-            {%- if item.format contains 'image' or item.format contains 'video' -%}
+            {%- if item.format contains 'image' -%}
             <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}">
                 <img class="card-img-top lazyload" {% if forloop.index < 5 %}src="{{ item.indexid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}"{% else %}data-original="{{ item.indexid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}"{% endif %} alt="Image of {{ item.title | escape }}">
+            </a>
+            {%- elsif item.format contains 'audio' -%}
+            <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}">
+                <img class="card-img-top lazyload p-3" {% if forloop.index < 5 %}src="{{ '/objects/svg/audio.svg' | relative_url }}"{% else %}data-original="{{ '/objects/svg/audio.svg' | relative_url }}"{% endif %} alt="Image of {{ item.title | escape }}">
+            </a>
+            {%- elsif item.format contains 'video' -%}
+            <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}">
+                <img class="card-img-top lazyload p-3" {% if forloop.index < 5 %}src="{{ '/objects/svg/video.svg' | relative_url }}"{% else %}data-original="{{ '/objects/svg/video.svg' | relative_url }}"{% endif %} alt="Image of {{ item.title | escape }}">
             </a>
             {%- endif -%}
             <div class="card-body text-center search">
                 <h3 class="card-title"><a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}" class="text-dark" title="link to {{ item.title | escape }}">{{ item.title }}</a></h3>
-                {%- unless item.format contains 'image' or item.format contains 'video' -%}
+                {%- unless item.format contains 'image' or item.format contains 'audio' or item.format contains 'video' -%}
                 <p>
                     <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}"><img class="thumb lazyload img-thumbnail" data-original="{{ item.indexid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}" alt="item thumbnail"></a>
                 </p>
