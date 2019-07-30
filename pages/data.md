@@ -7,4 +7,4 @@ permalink: /data/
 
 ## Collection as Data
 
-Click any of the buttons below to view the full collection metadata in the format indicated.
+View this collection's data in a variety of formats.

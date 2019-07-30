@@ -1,9 +1,9 @@
-object,type,display-name
-metadata.csv,csv,CSV Spreadsheet
-metadata.json,json,JSON
-geodata.json,json,GeoJSON
-subjects.json,json,Subjects JSON
-subjects.json,csv,Subjects CSV
-places.json,csv,Places CSV
-github-link,link,Source Code
-all.zip,zip,All Objects (zip)
+object,type,display-name,description
+metadata.csv,csv,CSV Spreadsheet,Collection metadata as Comma-Separated Values (CSV) file
+metadata.json,json,JSON,Collection metadata as JavaScript Object Notation (JSON) file
+geodata.json,json,GeoJSON,Collection geographic data as JSON file
+subjects.json,json,Subjects JSON,Collection subjects data as JSON file
+subjects.csv,csv,Subjects CSV,Collection subjects data as CSV file
+places.json,csv,Places CSV,Collection locations data as CSV file
+github-link,link,Source Code,CollectionBuilder-GH source code
+all.zip,zip,All Objects (zip),All collection data
