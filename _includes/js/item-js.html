@@ -26,7 +26,7 @@
         var itemLink = '<a href="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank" class="btn btn-dark btn-lg" title="Object download">Download Object</a>';
     } else if (record.format.includes('video')) {
         var itemImage = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://www.youtube.com/embed/' + record.filename + '?rel=0" allowfullscreen></iframe></div>';
-        var itemLink = '<a href="https://www.youtube.com/embed/' + record.filename + '?rel=0" target="_blank" class="btn btn-dark btn-lg" title="Object download">Download Object</a>';
+        var itemLink = '<a href="https://youtu.be/' + record.filename + '" target="_blank" class="btn btn-dark btn-lg" title="Object download">Download Object</a>';
     } else {
         document.getElementById("item-metadata").innerHTML = '<h3>Sorry, item not found.</h3>';
     }
