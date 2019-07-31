@@ -1,9 +1,9 @@
-object,type,display-name,description
-metadata.csv,csv,CSV Spreadsheet,Collection metadata as Comma-Separated Values (CSV) file
-metadata.json,json,JSON,Collection metadata as JavaScript Object Notation (JSON) file
-geodata.json,json,GeoJSON,Collection geographic data as JSON file
-subjects.json,json,Subjects JSON,Collection subjects data as JSON file
-subjects.csv,csv,Subjects CSV,Collection subjects data as CSV file
-places.json,csv,Places CSV,Collection locations data as CSV file
-github-link,link,Source Code,CollectionBuilder-GH source code
-all.zip,zip,All Objects (zip),All collection data
+object,type,display-name,extended-name,description
+metadata.csv,csv,CSV Spreadsheet,All Items Metadata in CSV Spreadsheet,"All metadata fields for all collection items in a Comma-Separated Values (CSV) format file, usable in Excel, Google Sheets and similar programs."
+metadata.json,json,JSON,All Items Metadata in JSON,"All metadata fields for all collection items in a JavaScript Object Notation (JSON) format file, for ease of use when transfering data between a server and web application."
+geodata.json,json,GeoJSON,Geographic Metadata in JSON,"Geographic metadata for all collection items in a JSON format file, useful for further exploration and analysis of this collection through a geographical lense."
+subjects.json,json,Subjects JSON,Subject Metadata in JSON,"Subject metadata for all collection items in a JSON format file, useful for further analyzing the content of this collection."
+subjects.csv,csv,Subjects CSV,Subject Metadata in CSV Spreadsheet,"Subject metadata for all collection items in a CSV format file, useful for further analyzing the content of this collection."
+places.json,csv,Places CSV,Locations Metadata in CSV Spreadsheet,"Location metadata for all collection items in a CSV format file, useful for further visualization and analysis of this collection's place names."
+github-link,link,Source Code,CollectionBuilder-GH Source Code,"GitHub repository containing source code and documentation for CollectionBuilder-GH."
+all.zip,zip,All Objects (zip),All Collection Data,"Download all forms of metadata listed above in one zip file."

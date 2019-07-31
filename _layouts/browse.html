@@ -39,12 +39,12 @@ layout: page
                 {%- elsif item.format contains 'audio' -%}
                 <p>
                     <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}">
-                        <img class="thumb lazyload img-thumbnail mediatype" data-original="{{ '/objects/svg/audio.svg' | relative_url }}" alt="Image of {{ item.title | escape }}">
+                        <img class="thumb lazyload img-thumbnail media-image" data-original="{{ '/objects/svg/audio.svg' | relative_url }}" alt="Image of {{ item.title | escape }}">
                     </a>
                 </p>
                 {%- elsif item.format contains 'video' -%}
                 <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}">
-                    <img class="thumb lazyload img-thumbnail mediatype" data-original="{{ '/objects/svg/video.svg' | relative_url }}" alt="Image of {{ item.title | escape }}">
+                    <img class="thumb lazyload img-thumbnail media-image" data-original="{{ '/objects/svg/video.svg' | relative_url }}" alt="Image of {{ item.title | escape }}">
                 </a>
                 {%- endif -%}
                 <p class="card-text">
