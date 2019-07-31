@@ -4,45 +4,17 @@
 
 # Site settings
 
-# title of site appears in banner
-title: Collection Builder GH
-# tagline appears in banner
-tagline: a template for creating simple digital exhibits
-# description appears in meta tags and other locations
-# this description might appear in search result lists, keep around 160 characters max
-description: "CollectionBuilder-GH is a template for creating small digital collection exhibits on GitHub Pages designed for teaching digital library skills"
-# keywords appear in meta tags
-keywords: "university of idaho, digital collections, digital humanities"
-# creator of the digital collection, to appear in meta tags
-author: evanwill
+
 # creator contact email for meta tags
 email: ewilliamson@uidaho.edu
 # collection project date, when did you publish this
-collection-date: "2018"
+collection-date: "2019"
 
 # url is your gh-pages base, following the pattern: username.github.io
 url: https://collectionbuilder.github.io
 # baseurl is your github repository's name prefixed with a /
 baseurl: /collectionbuilder-gh
-# repository is the github repository's full url
-repository: https://github.com/CollectionBuilder/collectionbuilder-gh
 
-# Featured Image
-# featured-image appears in meta tags for search and social media
-# give filename including folder
-featured-image: objects/test001.jpg
-featured-image-alt: "Administration Building, University of Idaho"
-
-# Theme Options
-# navbar text color
-# Choose from "navbar-light" for use with light background colors, or "navbar-dark" for dark background colors
-navbar-color: navbar-dark
-# navbar background color
-# Choose from bg-primary, bg-secondary, bg-success, bg-danger, bg-warning, bg-info, bg-light, bg-dark, bg-white
-navbar-background: bg-secondary
-# theme with Bootswatch (https://github.com/thomaspark/bootswatch)
-# Choose from: cerulean; cosmo; cyborg; darkly; flatly; journal; litera; lumen; lux; materia; minty; pulse; sandstone; simplex; sketchy; slate; solar; spacelab; superhero; united; yeti 
-bootswatch: # leave blank or comment out for plain bootstrap
 
 # google services [optional!]
 # leave these blank or comment out to NOT include google code

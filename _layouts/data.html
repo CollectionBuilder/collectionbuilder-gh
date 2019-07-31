@@ -1,51 +1,29 @@
 ---
 layout: page
 ---
-<link rel="stylesheet" type="text/css" href="{{ '/assets/datatables/datatables.min.css' | relative_url }}">
-{% assign fields = site.data.table-config | map: 'display_name' %}
-<button type="button" class="btn btn-primary btn-lg float-md-right" data-toggle="modal" data-target="#data">Download</button>
-<!-- Modal -->
-<div class="modal fade" id="data" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Download Metadata</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body text-center">
-                <a class="btn btn-primary col-md-6 col-md-offset-3" href="{{ '/data/metadata.csv' | absolute_url }}" target="_blank">CSV spreadsheet</a>
-                <br>
-                <a class="btn btn-primary col-md-6 col-md-offset-3 mt-2" href="{{ '/data/metadata.json' | absolute_url }}" target="_blank">JSON</a>
-                <br>
-                <a class="btn btn-primary col-md-6 col-md-offset-3 mt-2" href="{{ '/data/geodata.json' | absolute_url }}" target="_blank">GeoJSON</a>
-                <br>
-                <a class="btn btn-primary col-md-6 col-md-offset-3 mt-2" href="{{ '/data/subjects.json' | absolute_url }}" target="_blank">Subjects JSON</a>
-                <br>
-                <a class="btn btn-primary col-md-6 col-md-offset-3 mt-2" href="{{ '/data/subjects.csv' | absolute_url }}" target="_blank">Subjects CSV</a>
-                <br>
-                <a class="btn btn-primary col-md-6 col-md-offset-3 mt-2" href="{{ '/data/places.csv' | absolute_url }}" target="_blank">Places CSV</a>
-                <br>
-                <!--<a class="btn btn-secondary col-md-6 col-md-offset-3 mt-2" href="#">Download All Items</a>-->
-                <a class="btn btn-primary col-md-6 col-md-offset-3 mt-2" href="{{ site.repository }}" target="_blank">Source Code</a>
-                <br>
-            </div>
-        </div>
-    </div>
-</div>
-
 {{ content }}
 
-<div class="table-responsive-md">
-    <table id="item-table" class="table table-striped">
-        <thead>
-            <tr>
-                {% for f in fields %}
-                <th scope="col">{{ f }}</th>
-                {% endfor %}
-                <th>Link</th>
-            </tr>
-        </thead>
-    </table>
+{% assign datafiles = site.data.datafile-config  %}
+
+<div class="my-4">
+
+      <table class="table table-bordered">
+            <thead>
+                  <tr>
+                        <th scope="col">Data Type</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Download</th>
+                  </tr>
+            </thead>
+            {%for datafile in datafiles%}
+            <tbody>
+                  <tr class="table-font">
+                        <th scope="row"><strong>{{datafile.extended-name}}:</strong></th>
+                        <td>{{datafile.description}}</td>
+                        <td class="text-center"><a class="btn btn-lg btn-outline-primary m-2" href="{% if datafile.object == 'github-link' %}{{site.data.theme.repository}}{%else%}{{ datafile.object | prepend: '/data/' | absolute_url }}{%endif%}" target="_blank">{{datafile.display-name}}</a></td>
+                  </tr>
+            </tbody>
+            {%endfor%}
+      </table>
+
 </div>

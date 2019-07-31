@@ -1,0 +1,25 @@
+---
+layout: page
+---
+<link rel="stylesheet" type="text/css" href="{{ '/assets/datatables/datatables.min.css' | relative_url }}">
+{% assign fields = site.data.table-config | map: 'display_name' %}
+{{ content }}
+
+
+      <div class="table-responsive-md">
+        <table id="item-table" class="table table-striped">
+            <thead>
+                <tr>
+                    {% for f in fields %}
+                    <th scope="col">{{ f }}</th>
+                    {% endfor %}
+                    <th>Link</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+
+
+
+

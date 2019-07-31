@@ -1,12 +1,12 @@
 <style>
 #jumbo-feature {
-    background-image: url('{{ page.featured-image | relative_url }}');
+    background-image: url('{{ site.data.theme.featured-image | relative_url }}');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
 }
 </style>
 <div class="jumbotron feature text-white" id="jumbo-feature">
-    <h2 class="display-4">{{ site.title }}</h2>
-    <p>{{ site.tagline }}</p>
+    <h2 class="display-4">{{ site.data.theme.title }}</h2>
+    <p>{{ site.data.theme.tagline }}</p>
 </div>

@@ -1,0 +1,90 @@
+# Jekyll Digital Collection Generator
+
+# Site settings
+# title of site appears in banner
+title: CollectionBuilder-GH 
+# choose metadata, be sure to also change page_gen data setting!
+metadata: collection-metadata # check against cdm-collection-id below -- this should be used in config file as well
+
+# repository is the github repository's full url
+repository: https://github.com/CollectionBuilder/collectionbuilder-gh
+
+# header and head metadata
+# tagline appears in banner
+tagline: a template for creating simple digital exhibits
+# description appears in meta tags and other locations
+# this description might appear in search result lists, keep around 160 characters max
+description: "CollectionBuilder-GH is a template for creating small digital collection exhibits on GitHub Pages designed for teaching digital library skills"
+# keywords appear in meta tags
+keywords: "university of idaho, digital collections, digital humanities"
+# creator of the digital collection, to appear in meta tags
+author: evanwill
+
+
+# Home page
+# give full filename including folder
+home-banner-image: "objects/test001.jpg"
+home-banner-image-link:  # leave blank unless no cdm number to generate item
+# give title of the image for accessibility
+home-banner-image-title: Administration Building, University of Idaho # for accessibility 
+# optional: add extra padding around title for larger image feature
+home-title-y-padding: 5em # the margin from the top your title portion will appear
+carousel-height: # in px, but don't include the "px"; default is 300.
+# add top subjects, for list see data/subjects.csv
+featured-subjects: Buildings; Campuses; Picture postcards; County courthouses; Farms; Schools #separate semi-colon(';') - if left blank, will be automatically generated to create top 5 subjects
+featured-subjects-max: 6 # set number of top subjects to display if auto generating
+# add top locations, for list see data/places.csv
+featured-locations: Moscow, Idaho; Tacoma, Washington; Pullman, Washington; Spokane, Washingto #separate by semi-colon(';') - if left blank, will be automatically generated to create top 5 locations
+featured-locations-max: 3
+mediatypes: images;documents #options[documents,images,video,sound,data] separate semi-colon(';'). If semi-colon is present, the browse items on the browse page will display a type field. If only one media type (and thus no semi-colon), no type field will display
+
+# Featured Image
+# featured-image appears in meta tags for search and social media
+# give filename including folder
+featured-image: objects/test001.jpg
+featured-image-alt: "Administration Building, University of Idaho"
+
+# Browse page
+# see _data/browse-config.csv for field display options
+# fields given the "btn" option can be multivalued with ";" such as subjects.
+
+# Item page 
+browse-buttons: true # true / false, adds previous/next arrows to items, but doubles build time
+
+# Map page
+# see _data/map-config.csv for field display options
+latitude: 46.727485 #to determine center of map
+longitude: -117.014185 #to determine center of map
+zoom-level: 7 # zoom level for map 
+
+# Subject page
+subjects-off: false # true / false, turns off subject generation to lower dev build time (then page doesn't work!)
+subject-min: 1 # min size for subject cloud, too many terms = slow load time!
+stopwords: # boxers;boxing;boxer # set of subjects separated by ;, e.g. boxers;boxing
+
+# Locations page
+locations-on: # true/false
+
+# Timeline
+year-navigation: #"1900;1905;1910;1915;1920" # set years to appear in dropdown nav
+year-nav-increment: 5 # set increments when auto gen nav years
+
+# About page
+about-off: false # true / false, if true will not show link to about page on front. Need to erase link in nav-configuration as well. 
+
+# images 
+image-percentage-large: # default 70
+image-percentage-medium: # default 40 
+image-percentage-small: # default 20
+
+# Theme Options
+# navbar text color
+# Choose from "navbar-light" for use with light background colors, or "navbar-dark" for dark background colors
+navbar-color: navbar-dark
+# navbar background color
+# Choose from bg-primary, bg-secondary, bg-success, bg-danger, bg-warning, bg-info, bg-light, bg-dark, bg-white
+navbar-background: bg-dark
+# theme with Bootswatch (https://github.com/thomaspark/bootswatch)
+# Choose from: cerulean; cosmo; cyborg; darkly; flatly; journal; litera; lumen; lux; materia; minty; pulse; sandstone; simplex; sketchy; slate; solar; spacelab; superhero; united; yeti 
+bootswatch: # leave blank or comment out for plain bootstrap
+

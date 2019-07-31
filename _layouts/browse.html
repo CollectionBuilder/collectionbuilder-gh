@@ -1,7 +1,7 @@
 ---
 layout: page 
 ---
-{% assign items = site.data.metadata %}
+{% assign items = site.data[site.data.theme.metadata] %}
 {%- assign fields = site.data.browse-config -%}
 
 {{ content }}
@@ -11,7 +11,7 @@ layout: page
         <div class="input-group input-group-lg">
             <input type="text" class="form-control form-control-lg" id="quickSearch" placeholder="Filter ... " > 
             <div class="input-group-append">
-                <button class="btn btn-success" type="button" title="Search" alt="Search" id="goButton" >Search</button>
+                <button class="btn btn-primary" type="button" title="Search" alt="Search" id="goButton" >Search</button>
                 <a class="btn btn-outline-secondary" href="#" >Reset</a>  
             </div>
         </div>
@@ -23,14 +23,35 @@ layout: page
     {% for item in items %}
     <div class="item col-xl-3 col-lg-4 col-md-6 mb-2" >
         <div class="card">
+            {%- assign extension = item.format | strip | split: '/' | last | downcase -%}
+            {%- assign format-for-browse = item.format | strip | split: '/' | first | downcase -%}
+            {%- if item.format contains 'image' -%}
             <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}">
                 <img class="card-img-top lazyload" {% if forloop.index < 5 %}src="{{ item.indexid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}"{% else %}data-original="{{ item.indexid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}"{% endif %} alt="Image of {{ item.title | escape }}">
             </a>
+            {%- endif -%}
             <div class="card-body text-center search">
-                <h3 class="card-title">{{ item.title }}</h3>
+                <h3 class="card-title"><a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}" class="text-dark" title="link to {{ item.title | escape }}">{{ item.title }}</a></h3>
+                {%- if item.format contains 'application' -%}
+                <p>
+                    <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}"><img class="thumb lazyload img-thumbnail" data-original="{{ item.indexid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}" alt="item thumbnail"></a>
+                </p>
+                {%- elsif item.format contains 'audio' -%}
+                <p>
+                    <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}">
+                        <img class="thumb lazyload img-thumbnail media-image" data-original="{{ '/objects/svg/audio.svg' | relative_url }}" alt="Image of {{ item.title | escape }}">
+                    </a>
+                </p>
+                {%- elsif item.format contains 'video' -%}
+                <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}">
+                    <img class="thumb lazyload img-thumbnail media-image" data-original="{{ '/objects/svg/video.svg' | relative_url }}" alt="Image of {{ item.title | escape }}">
+                </a>
+                {%- endif -%}
                 <p class="card-text">
-                    {%- assign extension = item.format | strip | split: '/' | last | downcase -%}
-                    <small>Type: <a href="{{ extension | prepend: '/browse/#' | relative_url }}" class="filter">{{ extension | upcase }} <span class="far {% if item.format contains 'image' %}fa-image{% elsif item.format contains 'audio' %}fa-file-audio{% elsif item.format contains 'video' %}fa-file-video{%else%}fa-file{% endif %}"></span></a></small>
+                    {% for f in fields %}{% if f.display-name-or-btn != 'btn' %}{% if item[f.field] %}
+                    {% if f.display-name-or-btn %}<strong>{{ f.display-name-or-btn }}:</strong> {% endif %}{{ item[f.field] | truncatewords: 30 | replace: '""','"' }}
+                    {% unless forloop.last %}<br>{% endunless %}  
+                    {% endif %}{% endif %}{% endfor %}
                 </p>
                 <p>
                     {%- capture btns -%}{% for f in fields %}{% if f.display-name-or-btn == 'btn' %}{{ item[f.field] | strip }};{% endif %}{% endfor %}{%- endcapture -%}
@@ -40,13 +61,14 @@ layout: page
                     {% endif %}{% endfor %} 
                 </p>
                 <p class="card-text">
-                    {% for f in fields %}{% if f.display-name-or-btn != 'btn' %}{% if item[f.field] %}
-                    {% if f.display-name-or-btn %}<strong>{{ f.display-name-or-btn }}:</strong> {% endif %}{{ item[f.field] | truncatewords: 30 | replace: '""','"' }}
-                    {% unless forloop.last %}<br>{% endunless %}  
-                    {% endif %}{% endif %}{% endfor %}
+                    {% if site.data.theme.mediatypes contains ";" %}
+                    <small><a href="{{ extension | prepend: '/browse/#' | relative_url }}" class="filter btn btn-sm btn-outline-secondary">{{ extension | upcase }} <span class="far {% if item.format contains 'image' %}fa-image{% elsif item.format contains 'audio' %}fa-file-audio{% elsif item.format contains 'video' %}fa-file-video{%else%}fa-file{% endif %}"></span></a></small>{% endif %}
+                    <span class="hidden-format-for-browse">{{format-for-browse | replace: "application", "application document"}}</span>
                 </p>
+               
+                <hr/>
                 <p>
-                    <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}" class="btn btn-sm btn-info" title="link to {{ item.title | escape }}">View Item</a>
+                    <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid }}" class="btn btn-sm btn-light text-primary" title="link to {{ item.title | escape }}">View Full Record </a>
                 </p>
             </div>
         </div>

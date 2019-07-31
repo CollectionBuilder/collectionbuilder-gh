@@ -1,11 +1,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>{{ page.title }} | {{ site.title }}</title>
+<title>{{ page.title }} | {{ site.data.theme.title }}</title>
 <link rel="shortcut icon" type="image/x-icon" href="{{ '/favicon.ico' | absolute_url }}">
 <meta http-equiv="Content-Language" content="en-us" >
 {% include page-meta.html %}
 
-<link rel="stylesheet" href="{% if site.bootswatch %}{{ site.bootswatch | prepend: '/assets/bootswatch/' | append: '/bootstrap.min.css' | absolute_url }}{% else %}{{ '/assets/css/bootstrap.min.css' | absolute_url }}{% endif %}" type="text/css">
+<link rel="stylesheet" href="{% if site.data.theme.bootswatch %}{{ site.data.theme.bootswatch | prepend: '/assets/bootswatch/' | append: '/bootstrap.min.css' | absolute_url }}{% else %}{{ '/assets/css/bootstrap.min.css' | absolute_url }}{% endif %}" type="text/css">
 <link rel="stylesheet" href="{{ '/assets/css/custom.css' | absolute_url }}" type="text/css">
 {% if layout.gallery == true %}<link rel="stylesheet" href="{{ '/assets/lightgallery/css/lightgallery.min.css' | absolute_url }}" type="text/css">{% endif %}
 <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>

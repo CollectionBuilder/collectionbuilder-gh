@@ -1,7 +1,8 @@
 ---
 # find and count unique subjects used in the metadata
 ---
-{%- assign raw-subjects = site.data.metadata | map: "subject" | join: ";" | split: ";" -%}
+{%- if site.data.theme.subjects-off == false -%}
+{%- assign raw-subjects = site.data[site.data.theme.metadata] | map: "subject" | join: ";" | split: ";" -%}
 {%- capture subjects -%}{%- for s in raw-subjects -%}{%- if s != "" and s != " " -%}{{ s | strip | downcase }};{%- endif -%}{%- endfor -%}{%- endcapture -%}
 {%- assign subjects = subjects | split: ";" -%}
 {%- assign uniqueSubjects = subjects | uniq | sort -%}
@@ -9,4 +10,4 @@
     {% for unique in uniqueSubjects %}{% assign count = subjects | where_exp: 'item', 'item == unique' | size %}{ "subject" : {{ unique | capitalize | jsonify }}, "count" : {{ count | jsonify}}, "link" : {{ unique | url_param_escape | prepend: '/browse/#' | absolute_url | jsonify }} }{% unless forloop.last %},
     {% endunless %}{% endfor %}
 ]
-}
+}{%- endif -%}
