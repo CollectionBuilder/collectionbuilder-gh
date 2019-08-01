@@ -6,4 +6,4 @@ subjects.json,json,Subjects JSON,Subject Metadata in JSON,"Subject metadata for 
 subjects.csv,csv,Subjects CSV,Subject Metadata in CSV Spreadsheet,"Subject metadata for all collection items in a CSV format file, useful for further analyzing the content of this collection."
 places.json,csv,Places CSV,Locations Metadata in CSV Spreadsheet,"Location metadata for all collection items in a CSV format file, useful for further visualization and analysis of this collection's place names."
 github-link,link,Source Code,CollectionBuilder-GH Source Code,"GitHub repository containing source code and documentation for CollectionBuilder-GH."
-all.zip,zip,All Objects (zip),All Collection Data,"Download all forms of metadata listed above in one zip file."
+metadata-template.csv,csv,Metadata Template CSV,Template CollectionBuilder Metadata,"Template for creating your own CollectionBuilder metadata (includes fields and an example record)."
