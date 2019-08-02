@@ -1,5 +1,5 @@
 <style>
-    #imageCarousel .carousel-item { height: {{ include.height | default: '300px' }}; }
+    #imageCarousel .carousel-item img { height: {{ site.data.theme.carousel-height | default: "500" }}px; }
 </style>
 <div class="card mb-3">
     <div class="card-body">
@@ -8,7 +8,7 @@
             <div class="col-md-12 pb-3">
                 <div id="imageCarousel" class="carousel slide bg-dark rounded" data-ride="carousel">
                     <ol class="carousel-indicators">
-                        {% for i in (1..9) %}
+                        {% for i in (1..5) %}
                         <li data-target="#imageCarousel" data-slide-to="{{ forloop.index }}" class="{% if forloop.first %}active{% endif %}"></li>
                         {% endfor %}
                     </ol>
