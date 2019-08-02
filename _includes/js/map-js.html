@@ -13,7 +13,7 @@
     {% for item in items %}{% if item.latitude and item.longitude %}
     { "type":"Feature", "geometry":{ "type":"Point", "coordinates":[{{ item.longitude | strip }},{{ item.latitude | strip }}] }, "properties":
     { "title": {{ item.title | jsonify }}, 
-    {% for f in fields %}"{{ f.field }}": {{ item[f.field] | jsonify }},{% endfor %} "id": {{ item.indexid | jsonify }} } }{% unless forloop.last %}, {% endunless %}{% endif %}{% endfor %}
+    {% for f in fields %}"{{ f.field }}": {{ item[f.field] | jsonify }},{% endfor %} "id": {{ item.objectid | jsonify }} } }{% unless forloop.last %}, {% endunless %}{% endif %}{% endfor %}
     ]};
     /* int leaflet map and search */
     

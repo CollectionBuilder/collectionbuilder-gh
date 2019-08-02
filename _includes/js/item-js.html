@@ -4,7 +4,7 @@
     /* add item data */
     var items = { 
         {%- for item in site.data[site.data.theme.metadata] -%}
-        {{ item.indexid | jsonify }} : { "filename": {{ item.filename | jsonify }}, {% for f in fields %}"{{ f.field }}": {% if item[f.field] %}{{ item[f.field] | jsonify }}{% else %}"N/A"{% endif %}{% unless forloop.last %}, {% endunless %}{% endfor %} }{% unless forloop.last %}, {% endunless %}
+        {{ item.objectid | jsonify }} : { "filename": {{ item.filename | jsonify }}, {% for f in fields %}"{{ f.field }}": {% if item[f.field] %}{{ item[f.field] | jsonify }}{% else %}"N/A"{% endif %}{% unless forloop.last %}, {% endunless %}{% endfor %} }{% unless forloop.last %}, {% endunless %}
         {% endfor %}
     };
     /* get query id from URL */

@@ -34,7 +34,7 @@ layout: page
     <td>
     {%- assign inYear = items | where_exp: 'item', 'item.date contains year' -%}
     {% for item in inYear %}
-      <a href="{{ '/browse/item.html' | relative_url | append: '?id=' | append: item.indexid }}" ><img class="lazyload img-thumbnail m-1" data-original="{{ item.indexid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}" alt="{{ item.title | escape }}" data-toggle="tooltip" data-placement="bottom" title="{{ item.title | escape }} | {{ item.date | escape }}"/></a>
+      <a href="{{ '/browse/item.html' | relative_url | append: '?id=' | append: item.objectid }}" ><img class="lazyload img-thumbnail m-1" data-original="{{ item.objectid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}" alt="{{ item.title | escape }}" data-toggle="tooltip" data-placement="bottom" title="{{ item.title | escape }} | {{ item.date | escape }}"/></a>
     {% endfor %}
     </td>
   </tr>
