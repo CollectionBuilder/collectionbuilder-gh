@@ -19,7 +19,7 @@
         var itemImage = '<a href="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank"  title="Object download"><img class="img-fluid img-thumbnail" src="{{ "/objects/thumbs/" | relative_url }}' + queryString + '_sm.jpg" alt="item thumbnail"></a>';
         var itemLink = '<a href="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank" class="btn btn-dark btn-lg" title="Object download">Download Image</a>';
     } else if (format.includes('application')) {
-        var itemImage = '<object  data="{{ "/objects/" | absolute_url }}' + record.filename + '" type="application/pdf" class="col-12" height="300px" typemustmatch><p>The PDF is not rendering in your browser. Please use the button below to download the PDF.</p></object>';
+        var itemImage = '<object  data="{{ "/objects/" | absolute_url }}' + record.filename + '" type="application/pdf" class="col-12" height="450px" typemustmatch><p>The PDF is not rendering in your browser. Please use the button below to download the PDF.</p></object>';
         var itemLink = '<a href="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank" class="btn btn-dark btn-lg" title="Object download">Download PDF</a>';
     } else if (format.includes('audio')) {
         var itemImage = '<audio controls class="mp3-item-player"><source src="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank" type="audio/mpeg">Your browser does not support the audio element.</audio>';
