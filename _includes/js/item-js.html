@@ -40,8 +40,6 @@
 
     $("#loading").hide();
 
-    {%- if site.data.theme.browse-buttons == true -%}
-    
     /* index array of objects */
     var last = Object.keys(items)[Object.keys(items).length-1];
     var itemArray = Object.keys(items);
@@ -82,7 +80,5 @@
     document.getElementById("prev-button").innerHTML = prevButton;
     
     document.getElementById("for-button").innerHTML = forButton;
-
-    {%- endif -%}  
 })();
 </script>

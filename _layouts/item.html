@@ -29,6 +29,7 @@ layout: default
         </div> 
     </div>
 
+    {%- if site.data.theme.browse-buttons == true -%}
     <div class="text-center">
         <a id="prev-button"></a>
         <a class="btn btn-secondary" href="{{ '/browse/' | relative_url }}" role="button">| Back to browse |</a>
@@ -41,5 +42,9 @@ layout: default
             <div id="next-button"></div>
         </div>
     </div>
-
+    {% else %}
+    <div class="text-center">
+        <a class="btn btn-outline-primary" href="{{ '/browse/' | relative_url }}">&laquo; Back to Collection Browse</a>
+    </div>
+    {% endif %}
 </div>
