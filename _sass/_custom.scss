@@ -29,5 +29,17 @@ body{font-size:1.2em;}
 /* browse page audio and video thumbnails */
 .media-image{width:75%;}
 
-/* font size on data.html */
+/* data page */
 .table-font{font-size:18px;}
+
+/* item page */
+#item-nav {
+    a { 
+        position: absolute;
+        top:500px;
+        opacity:.3;
+        &:hover{opacity:1}
+    }
+    .previous { left:10px; }
+    .next{ right:10px; }
+}

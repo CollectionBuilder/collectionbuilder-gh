@@ -30,6 +30,16 @@ layout: default
     </div>
 
     <div class="text-center">
-        <a class="btn btn-outline-primary" href="{{ '/browse/' | relative_url }}">&laquo; Back to Collection Browse</a>
+        <a id="prev-button"></a>
+        <a class="btn btn-secondary" href="{{ '/browse/' | relative_url }}" role="button">| Back to browse |</a>
+        <a id="for-button"></a>
     </div>
+
+    <div id="item-nav">
+        <div class="d-none d-md-block">
+            <div id="back-button"></div>
+            <div id="next-button"></div>
+        </div>
+    </div>
+
 </div>
