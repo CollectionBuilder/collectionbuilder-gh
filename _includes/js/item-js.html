@@ -80,5 +80,16 @@
     document.getElementById("prev-button").innerHTML = prevButton;
     
     document.getElementById("for-button").innerHTML = forButton;
+    document.onkeydown = function(evt) {
+    evt = evt || window.event;
+    switch (evt.keyCode) {
+        case 37:
+        location.href = backUrl;
+            break;
+        case 39:
+        location.href = forwardUrl;
+            break;
+    }};
 })();
+
 </script>
