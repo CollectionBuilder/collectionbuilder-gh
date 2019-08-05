@@ -13,7 +13,7 @@
     {% for item in items %}{% if item.latitude and item.longitude %}
     { "type":"Feature", "geometry":{ "type":"Point", "coordinates":[{{ item.longitude | strip }},{{ item.latitude | strip }}] }, "properties":
     { "title": {{ item.title | jsonify }}, 
-    {% for f in fields %}"{{ f.field }}": {{ item[f.field] | jsonify }},{% endfor %} "id": {{ item.objectid | jsonify }} } }{% unless forloop.last %}, {% endunless %}{% endif %}{% endfor %}
+    {% for f in fields %}"{{ f.field }}": {{ item[f.field] | jsonify }},{% endfor %} "filename": {{ item.filename | jsonify }}, "id": {{ item.objectid | jsonify }} } }{% unless forloop.last %}, {% endunless %}{% endif %}{% endfor %}
     ]};
     /* int leaflet map and search */
     
@@ -64,7 +64,7 @@
     L.geoJson(geodata, {
         pointToLayer: function(feature,latlng){
             var marker = L.marker(latlng);
-            marker.bindPopup('<h4>' + feature.properties.title + '</h4><img class="mapthumb d-block mx-auto" src="{{ "/objects/thumbs/" | relative_url }}' +  feature.properties.id + '_sm.jpg" alt="item thumbnail"><p>' + 
+            marker.bindPopup('<h4>' + feature.properties.title + '</h4><img class="mapthumb d-block mx-auto" src="{{ "/objects/" | relative_url }}' +  feature.properties.filename + '" alt="item thumbnail"><p>' + 
             {% for f in fields %}{% if f.display %}
             '<br><strong>{{ f.display }}:</strong> ' + feature.properties.{{ f.field }} + {% endif %}{% endfor %}
             '<br><a class="btn btn-light" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + '" >View Item</a></p>');

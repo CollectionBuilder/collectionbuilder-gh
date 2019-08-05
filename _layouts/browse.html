@@ -27,7 +27,7 @@ layout: page
             {%- assign format-for-browse = item.format | strip | split: '/' | first | downcase -%}
             {%- if item.format contains 'image' -%}
             <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.objectid }}">
-                <img class="card-img-top lazyload" {% if forloop.index < 5 %}src="{{ item.objectid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}"{% else %}data-original="{{ item.objectid | append: '_sm.jpg' | prepend: '/objects/thumbs/' | relative_url }}"{% endif %} alt="Image of {{ item.title | escape }}">
+                <img class="card-img-top lazyload" {% if forloop.index < 5 %}src="{{ item.filename | prepend: '/objects/' | relative_url }}"{% else %}data-original="{{ item.filename | prepend: '/objects/' | relative_url }}"{% endif %} alt="Image of {{ item.title | escape }}">
             </a>
             {%- endif -%}
             <div class="card-body text-center search">

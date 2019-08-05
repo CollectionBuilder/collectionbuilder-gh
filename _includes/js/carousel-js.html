@@ -2,13 +2,13 @@
 <script>
 (function(){
     /* add item data and shuffle */
-    var carouselItems = [ {% for c in carousel-items %}{% if c.format contains 'image' %}{ "id": {{ c.objectid | jsonify }}, "title": {{ c.title | jsonify }} }{% unless forloop.last %}, {% endunless %}{% endif %}{% endfor %}];
+    var carouselItems = [ {% for c in carousel-items %}{% if c.format contains 'image' %}{ "id": {{ c.filename | jsonify }}, "title": {{ c.title | jsonify }}, "objectid": {{ c.objectid | jsonify }} }{% unless forloop.last %}, {% endunless %}{% endif %}{% endfor %}];
     carouselItems.sort(function() { return 0.5 - Math.random() });
     /* add items to carousel */
     var carousel = document.getElementById("carouselInner");
     var i;
     for (i=0; i < 5; i++) {
-        slide = "<div class='carousel-item'><a href='{{ '/browse/item.html' | absolute_url | append: '?id=' }}" + carouselItems[i].id + "'><img alt='image highlight'  src='{{ '/objects/' | relative_url }}/" + carouselItems[i].id + ".jpg'></a> <div class='carousel-caption'><h5>" + carouselItems[i].title + "</h5> <h5><a href='{{ '/browse/item.html' | absolute_url | append: '?id=' }}" + carouselItems[i].id + "' class='btn btn-sm btn-outline-light'>View Item</a></h5></div> </div>";
+        slide = "<div class='carousel-item text-center'><a href='{{ '/browse/item.html' | absolute_url | append: '?id=' }}" + carouselItems[i].id + "'><img alt='image highlight'  src='{{ '/objects/' | relative_url }}/" + carouselItems[i].id + "'></a> <div class='carousel-caption'><h5>" + carouselItems[i].title + "</h5> <h5><a href='{{ '/browse/item.html' | absolute_url | append: '?id=' }}" + carouselItems[i].objectid + "' class='btn btn-sm btn-outline-light'>View Item</a></h5></div> </div>";
         carousel.innerHTML += slide;
     }
     $(".carousel-item").first().addClass("active");
