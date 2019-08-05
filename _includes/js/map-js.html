@@ -64,10 +64,18 @@
     L.geoJson(geodata, {
         pointToLayer: function(feature,latlng){
             var marker = L.marker(latlng);
-            marker.bindPopup('<h4>' + feature.properties.title + '</h4><img class="mapthumb d-block mx-auto" src="{{ "/objects/" | relative_url }}' +  feature.properties.filename + '" alt="item thumbnail"><p>' + 
+            if (feature.properties.format.includes("image")) {marker.bindPopup('<h4>' + feature.properties.title + '</h4><img class="mapthumb d-block mx-auto" src="{{ "/objects/" | relative_url }}' +  feature.properties.filename + '" alt="item thumbnail"><p>' + 
             {% for f in fields %}{% if f.display %}
             '<br><strong>{{ f.display }}:</strong> ' + feature.properties.{{ f.field }} + {% endif %}{% endfor %}
-            '<br><a class="btn btn-light" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + '" >View Item</a></p>');
+            '<br><a class="btn btn-light" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + '" >View Item</a></p>');}
+            else  if (feature.properties.format.includes("pdf")) {marker.bindPopup('<h4>' + feature.properties.title + '</h4><img class="mapthumb d-block mx-auto" src="{{ "/objects/svg/pdf.svg" | relative_url }}" alt="item thumbnail"><p>' + 
+            {% for f in fields %}{% if f.display %}
+            '<br><strong>{{ f.display }}:</strong> ' + feature.properties.{{ f.field }} + {% endif %}{% endfor %}
+            '<br><a class="btn btn-light" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + '" >View Item</a></p>');}
+            else {marker.bindPopup('<h4>' + feature.properties.title + '</h4><img class="mapthumb d-block mx-auto" src="{{ "/objects/svg/" | relative_url }}' +  feature.properties.format.substring(0,feature.properties.format.indexOf("/")) + '.svg" alt="item thumbnail"><p>' + 
+            {% for f in fields %}{% if f.display %}
+            '<br><strong>{{ f.display }}:</strong> ' + feature.properties.{{ f.field }} + {% endif %}{% endfor %}
+            '<br><a class="btn btn-light" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + '" >View Item</a></p>');}
             return marker;
         },
         onEachFeature: function (feature, layer) {
