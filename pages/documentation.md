@@ -93,3 +93,6 @@ Congratulations! You've built a CollectionBuilder site! You probably have some m
     - `metadata-config.csv`: edit the metadata fields that appear on the site's item pages
     - `nav-config.csv`: add or remove pages
 {% include figure.html img="md-config.jpg" alt="md-config" width="75%" %}
+- Navigate to the `pages` directory and find the file `about.md`. Add some context to your collection by editing this file.
+    - Note: this page is written in [Markdown](https://guides.github.com/features/mastering-markdown/)
+{% include figure.html img="about.jpg" alt="about" width="75%" %}
