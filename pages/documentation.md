@@ -41,7 +41,7 @@ A step-by-step guide on how to create your own digital collection using Collecti
 ---
 
 ### Create your metadata
-- Describe your objects using the [CollectionBuilder metadata template]( {{ '/data/metadata-template.csv' | relative_url }} ). You can follow the example of the first record in the template (and delete it when you've added your own records), or look at the [CollectionBuilder Metadata Guidelines]({{ '/data/metadata-guidelines.pdf' | relative_url }}) as a guide for formatting your data.
+- Describe your objects using the [CollectionBuilder metadata template]( {{ '/data/metadata-template.csv' | relative_url }} ). You can follow the example of the first record in the template (and delete it when you've added your own records), or look at the [CollectionBuilder Metadata Guidelines]({{ '/docs/metadata-guidelines.pdf' | relative_url }}) as a guide for formatting your data.
 {% include figure.html img="metadata-template.jpg" alt="metadata-template" width="75%" %}
 - We recommend uploading the metadata to [Google Sheets](https://www.google.com/sheets/about/){:target='_blank'} and working with it there.
 - Once you've finished creating your metadata, in Google Sheets click "File" and select "Download as CSV."
