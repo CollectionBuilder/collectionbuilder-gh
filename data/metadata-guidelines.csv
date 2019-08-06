@@ -1,6 +1,8 @@
 Field,Display-Name,Example-Value,Definition,Data-Type,Input-Rules,Obligation,Search
 objectid,,test001,A unique ID given to each object in the collection,Text,Each objectid must be unique. Each objectid property should have a single value.,Required,No
-filename,,pg1_440.jpg,The digital object's filename.,Text,Each filename property should have a single value and end with a file extension,Required,No
+filename,,"jpg, pdf, mp3: include file extension (pg1_440.jpg)
+
+YouTube: include youtube id (Mw0K0u_gBDs)",The digital object's filename.,Text,"Each filename property should have a single value and end with a file extension unless that file is a YouTube video, in which case the filename should be the YouTube ID, with no file extension attached.",Required,No
 title,Item title,"Haystack Rock
 
 White Pass & Yukon Railroad train stopped at the summit of White Pass, ca. 1914",A name given to the resource.,Text,Each title property should have a single title value.,Required,Yes
