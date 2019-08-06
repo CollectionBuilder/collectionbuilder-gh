@@ -1,0 +1,50 @@
+Field,Display-Name,Example-Value,Definition,Data-Type,Input-Rules,Obligation,Search
+objectid,,test001,A unique ID given to each object in the collection,Text,Each objectid must be unique. Each objectid property should have a single value.,Required,No
+filename,,pg1_440.jpg,The digital object's filename.,Text,Each filename property should have a single value and end with a file extension,Required,No
+title,Item title,"Haystack Rock
+
+White Pass & Yukon Railroad train stopped at the summit of White Pass, ca. 1914",A name given to the resource.,Text,Each title property should have a single title value.,Required,Yes
+creator,Creator,"For multiple creators, separate values with a semicolon. ",An entity primarily responsible for making the resource.,Text,"For multiple creators, separate values with a semicolon.",Recommended,Yes
+date,Date Created,"Year: YYYY (1997)
+
+Year and month: YYYY-MM (1997-07)
+
+Complete date:
+YYYY-MM-DD (1997-07-16)",A point or period of time associated with an event in the lifecycle of the resource.,Integer,"A resource may have several dates associated with it. The date covered by this table refers to the creation of the original resource, that is, when the resource was first created, before undergoing any conversion.
+
+If the date is unknown, specify an estimated date or date range.",Required,Yes
+description,Description,"Camp II Bus Station at Poston with a Japanese flair.
+
+Postcard of the Memorial Gymnasium on the University of Idaho campus in Moscow, Idaho.",An account of the resource. ,Text,"Anything significant about the digital resource not covered elsewhere. Use standard punctuation and grammar to describe the item’s history, physical appearance, contents, abstract, etc.",Recommended,Yes
+subject,Subjects,"Dentistry
+
+Dogs; Cats; Zebras",The topic of the resource.,Text,"For multiple subjects, separate values with a semicolon.",Recommended,Yes
+place,Location,"Pullman, Washington",A geographic location to which the resource applies.,Text,Use for human readable place name.,Recommended,Yes
+latitude,Latitude,46.731643,A geographic coordinate that specifies the north-south position of an item's place.,Decimal,Expressed as decimal degrees instead of degrees-minutes-seconds format.,Recommended,No
+longitude,Longitude,-117.165625,A geographic coordinate that specifies the east-west position of an item's place.,Decimal,Expressed as decimal degrees instead of degrees-minutes-seconds format.,Recommended,No
+collection,Source Collection,"PG 5, University of Idaho Library Special Collections and Archives",A related resource from which the described resource is derived.,Text,"Expressed as collection name followed by a comma, then followed by holding library.",Required,No
+identifier,Source Identifier,"Postcard_023
+
+ARG-02-16-1993",An unambiguous reference to the resource within a given context.,Text,"
+
+Use to reflect unique naming given by source collection",Required,No
+type,Type,"Image; Black-and-white photographs
+
+Image; MovingImage
+
+Sound; Text
+
+Text; Articles",The nature or genre of the resource.,Text,"Use to describe the type of the resource with at least one value from DCMI Type vocabulary. For multiple values, either repeat the property or separate values with a semicolon. Optional: Use to refine the selected DCMI Type value with one or more genre value(s). Use of AAT genre terms is preferred. Adding genre values is optional and is in addition to the required type value(s).",Required,No
+format,Format,"audio/mp4
+
+application/pdf
+
+image/tiff
+
+video/avi",The digital file format of the resource.,Text,"Use for the digital format of the resource, form as an Internet Media Type (IMT) term. For multiple formats, either repeat the property or separate values with a semicolon.",Required,No
+language,Language,eng,A language of the resource,Text,Recommended best practice is to use a controlled vocabulary such as https://www.ietf.org/rfc/rfc4646.txt,Recommended,No
+rights,Rights,"Educational use includes non-commercial use of text and images in materials for teaching and research purposes. Digital reproduction rights granted by the University of Idaho Library. For other uses beyond free use, please contact University of Idaho Library Special Collections and Archives Department at libspec@uidaho.edu.",Information about rights held in and over the resource.,Text,A free-text rights statement that complements the selected standardized rights statement.,Recommended,No
+rightsstatement,Rights,http://rightsstatements.org/vocab/NoC-US/1.0/,"A standardized rights statement, present as a creativecommons.org URI or Orbis Cascade Alliance Version 2.3 (January 2018) RightsStatements.org URI ",URL,"When choosing a standardized rights statement: 
+Use a rightsstatements.org statement to express the rights status if your institution does not hold the rights, or if your institution holds the rights but does not wish to use a Creative Commons license. 
+Use a Creative Commons license if your institution hold the rights and you’re authorized to make that determination. If the creator already assigned one, use they one they assigned. 
+For materials in the public domain, use a rightsstatement.org statement or the Creative Commons Public Domain Mark. ",Required,No

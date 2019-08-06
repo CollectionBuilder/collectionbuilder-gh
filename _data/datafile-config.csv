@@ -7,3 +7,4 @@ subjects.csv,csv,Subjects CSV,Subject Metadata in CSV Spreadsheet,"Subject metad
 places.json,csv,Places CSV,Locations Metadata in CSV Spreadsheet,"Location metadata for all collection items in a CSV format file, useful for further visualization and analysis of this collection's place names."
 github-link,link,Source Code,CollectionBuilder-GH Source Code,"GitHub repository containing source code and documentation for CollectionBuilder-GH."
 metadata-template.csv,csv,Metadata Template CSV,Template CollectionBuilder Metadata,"Template for creating your own CollectionBuilder metadata (includes fields and an example record)."
+metadata-guidelines.csv,csv,Metadata Guidelines CSV,CollectionBuilder Metadata Guidelines,"Guidelines for structuring metadata so that it works with CollectionBuilder."
