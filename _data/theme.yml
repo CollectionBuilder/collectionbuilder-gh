@@ -34,7 +34,7 @@ carousel-height: 500 # in px, but don't include the "px"; default is 300.
 featured-subjects: Buildings; Campuses; Picture postcards; County courthouses; Farms; Schools #separate semi-colon(';') - if left blank, will be automatically generated to create top 5 subjects
 featured-subjects-max: 6 # set number of top subjects to display if auto generating
 # add top locations, for list see data/places.csv
-featured-locations: Moscow, Idaho; Tacoma, Washington; Pullman, Washington; Spokane, Washingto #separate by semi-colon(';') - if left blank, will be automatically generated to create top 5 locations
+featured-locations: Moscow, Idaho; Tacoma, Washington; Pullman, Washington; Spokane, Washington #separate by semi-colon(';') - if left blank, will be automatically generated to create top 5 locations
 featured-locations-max: 3
 mediatypes: images;documents #options[documents,images,video,sound,data] separate semi-colon(';'). If semi-colon is present, the browse items on the browse page will display a type field. If only one media type (and thus no semi-colon), no type field will display
 
