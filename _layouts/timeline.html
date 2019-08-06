@@ -33,17 +33,29 @@ layout: page
     <th><h3 >{{ year }}</h3></th>
     <td>
     {%- assign inYear = items | where_exp: 'item', 'item.date contains year' -%}
-    {% for item in inYear %}{%if item.format contains 'image' %}
-      <a href="{{ '/browse/item.html' | relative_url | append: '?id=' | append: item.objectid }}" ><img class="lazyload img-thumbnail m-1 col-6 col-md-3" data-original="{{ item.filename | prepend: '/objects/' | relative_url }}" alt="{{ item.title | escape }}" data-toggle="tooltip" data-placement="bottom" title="{{ item.title | escape }} | {{ item.date | escape }}"/></a>
-      
-    {%elsif item.format contains 'application'%}
-    <a href="{{ '/browse/item.html' | relative_url | append: '?id=' | append: item.objectid }}" ><img class="lazyload img-thumbnail m-1 col-md-3 col-10" data-original="{{ '/objects/svg/pdf.svg' | relative_url }}"  alt="SVG PDF Icon for {{ item.title | escape }}" data-toggle="tooltip" data-placement="bottom" title="{{ item.title | escape }} | {{ item.date | escape }}"/></a>
-
-    {%elsif item.format contains 'audio'%}
-    <a href="{{ '/browse/item.html' | relative_url | append: '?id=' | append: item.objectid }}" ><img class="lazyload img-thumbnail m-1 col-md-3 col-10" data-original="{{ '/objects/svg/audio.svg' | relative_url }}"  alt="SVG Audio Icon for {{ item.title | escape }}" data-toggle="tooltip" data-placement="bottom" title="{{ item.title | escape }} | {{ item.date | escape }}"/></a>
-
+    {% for item in inYear %}
+    {%if item.format contains 'image' %}
+      <a href="{{ '/browse/item.html' | relative_url | append: '?id=' | append: item.objectid }}" ><img class="lazyload img-thumbnail border-0 m-1 col-6 col-md-3" data-original="{{ item.filename | prepend: '/objects/' | relative_url }}" alt="{{ item.title | escape }}" data-toggle="tooltip" data-placement="bottom" title="{{ item.title | escape }} | {{ item.date | escape }}"/></a>
     {%elsif item.format contains 'video'%}
-    <a href="{{ '/browse/item.html' | relative_url | append: '?id=' | append: item.objectid }}" ><img class="lazyload img-thumbnail m-1 col-md-3 col-10" data-original="{{ '/objects/svg/video.svg' | relative_url }}"  alt="SVG Video Icon for {{ item.title | escape }}" data-toggle="tooltip" data-placement="bottom" title="{{ item.title | escape }} | {{ item.date | escape }}"/></a>
+      <a href="{{ '/browse/item.html' | relative_url | append: '?id=' | append: item.objectid }}" ><img class="lazyload img-thumbnail border-0 m-1 col-md-3 col-10" data-original="{{ item.filename | prepend: 'http://i3.ytimg.com/vi/' | append: '/maxresdefault.jpg' | relative_url }}"  alt="SVG Video Icon for {{ item.title | escape }}" data-toggle="tooltip" data-placement="bottom" title="{{ item.title | escape }} | {{ item.date | escape }}"/></a>  
+    {%elsif item.format contains 'application'%}
+    <div class="card col-8 col-md-6 col-lg-3 float-left"> 
+        <div class="card-body text-center">
+            <h3 class="card-title"><a class="text-dark" href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.objectid }}">{{item.title}}</a></h3>
+      <p>
+      <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.objectid }}">
+          <img class="thumb lazyload img-thumbnail col-8" data-original="{{ '/objects/svg/pdf.svg' | relative_url }}" alt="audio filetype thumbnail">
+      </a>
+  </p></div></div>
+    {%elsif item.format contains 'audio'%}
+    <div class="card col-8 col-md-6 col-lg-3 float-left"> 
+        <div class="card-body text-center">
+            <h3 class="card-title"><a class="text-dark" href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.objectid }}">{{item.title}}</a></h3>
+      <p>
+      <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.objectid }}">
+          <img class="thumb lazyload img-thumbnail col-8 " data-original="{{ '/objects/svg/audio.svg' | relative_url }}" alt="audio filetype thumbnail">
+      </a>
+  </p></div></div>
     {% endif %}
       {% endfor %}
     </td>

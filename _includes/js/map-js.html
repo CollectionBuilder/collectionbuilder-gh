@@ -59,7 +59,7 @@
     var searchCtrl = L.control.fuseSearch(options);
     searchCtrl.addTo(map);
     searchCtrl.indexFeatures(geodata.features, {{ fields | where: 'search','true' | map: 'field' | unshift: 'title' | jsonify }});
-
+    {{ item.filename | prepend: 'http://i3.ytimg.com/vi/' | append: '/maxresdefault.jpg' | relative_url }}
     /* add geojson marker and popup to map */
     L.geoJson(geodata, {
         pointToLayer: function(feature,latlng){
@@ -69,6 +69,10 @@
             '<br><strong>{{ f.display }}:</strong> ' + feature.properties.{{ f.field }} + {% endif %}{% endfor %}
             '<br><a class="btn btn-light" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + '" >View Item</a></p>');}
             else  if (feature.properties.format.includes("pdf")) {marker.bindPopup('<h4>' + feature.properties.title + '</h4><img class="mapthumb d-block mx-auto" src="{{ "/objects/svg/pdf.svg" | relative_url }}" alt="item thumbnail"><p>' + 
+            {% for f in fields %}{% if f.display %}
+            '<br><strong>{{ f.display }}:</strong> ' + feature.properties.{{ f.field }} + {% endif %}{% endfor %}
+            '<br><a class="btn btn-light" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + '" >View Item</a></p>');}
+            else if (feature.properties.format.includes("video")) {marker.bindPopup('<h4>' + feature.properties.title + '</h4><img class="mapthumb d-block mx-auto" src="http://i3.ytimg.com/vi/' +  feature.properties.filename + '/maxresdefault.jpg" alt="item thumbnail"><p>' + 
             {% for f in fields %}{% if f.display %}
             '<br><strong>{{ f.display }}:</strong> ' + feature.properties.{{ f.field }} + {% endif %}{% endfor %}
             '<br><a class="btn btn-light" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + '" >View Item</a></p>');}

@@ -29,7 +29,11 @@ layout: page
             <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.objectid }}">
                 <img class="card-img-top lazyload" {% if forloop.index < 5 %}src="{{ item.filename | prepend: '/objects/' | relative_url }}"{% else %}data-original="{{ item.filename | prepend: '/objects/' | relative_url }}"{% endif %} alt="Image of {{ item.title | escape }}">
             </a>
-            {%- endif -%}
+            {%- elsif item.format contains 'video' -%}
+            <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.objectid }}">
+                <img class="card-img-top lazyload" {% if forloop.index < 5 %}src="{{ item.filename | prepend: 'http://i3.ytimg.com/vi/' | append: '/maxresdefault.jpg' | relative_url }}"{% else %}data-original="{{ item.filename | prepend: 'http://i3.ytimg.com/vi/' | append: '/maxresdefault.jpg' | relative_url }}"{% endif %} alt="Image of {{ item.title | escape }}">
+            </a>
+                      {%- endif -%}
             <div class="card-body text-center search">
                 <h3 class="card-title"><a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.objectid }}" class="text-dark" title="link to {{ item.title | escape }}">{{ item.title }}</a></h3>
                 {%- if item.format contains 'application' -%}
@@ -42,10 +46,6 @@ layout: page
                         <img class="thumb lazyload img-thumbnail col-md-8 col-4" data-original="{{ '/objects/svg/audio.svg' | relative_url }}" alt="audio filetype thumbnail">
                     </a>
                 </p>
-                {%- elsif item.format contains 'video' -%}
-                <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.objectid }}">
-                    <img class="thumb lazyload img-thumbnail col-md-8 col-4" data-original="{{ '/objects/svg/video.svg' | relative_url }}" alt="video filetype thumbnail">
-                </a>
                 {%- endif -%}
                 <p class="card-text">
                     {% for f in fields %}{% if f.display-name-or-btn != 'btn' %}{% if item[f.field] %}
