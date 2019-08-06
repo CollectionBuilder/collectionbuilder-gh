@@ -14,7 +14,7 @@ This site is generated using `collectionbuilder-gh`, a project to generate a fre
 - a CSV of collection metadata
 - a folder of JPEG images or PDF documents
 
-<button type="button" class="btn btn-primary btn-lg my-3" data-toggle="modal" data-target="#data">Click here to start creating your metadata</button>
+<button type="button" class="btn btn-primary btn-lg my-3" data-toggle="modal" data-target="#data">Click Here to Create Your Collection</button>
 <!-- Modal -->
 <div class="modal fade" id="data" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -27,6 +27,7 @@ This site is generated using `collectionbuilder-gh`, a project to generate a fre
             </div>
             <div class="modal-body text-center">
                 <p>Add your metadata to the <a href="{{ '/data/metadata-template.csv' | absolute_url }}" target="_blank">Metadata Template</a>. Follow the formatting of the example record in the template, or download the <a href="{{ '/data/metadata-guidelines.pdf' | absolute_url }}" target="_blank">CollectionBuilder Metadata Guidelines</a> for more information on how to structure your data so it works with CollectionBuilder.</p>
+                <p>For step-by-step instructions on how to build your digital collection, see the <a href="{{ '/documentation/' | absolute_url }}" target="_blank">CollectionBuilder-GH Documentation</a></p>
                 <br>
             </div>
         </div>
