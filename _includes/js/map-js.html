@@ -13,7 +13,7 @@
     {% for item in items %}{% if item.latitude and item.longitude %}
     { "type":"Feature", "geometry":{ "type":"Point", "coordinates":[{{ item.longitude | strip }},{{ item.latitude | strip }}] }, "properties":
     { "title": {{ item.title | jsonify }}, 
-    {% for f in fields %}"{{ f.field }}": {{ item[f.field] | jsonify }},{% endfor %} "id": {{ item.indexid | jsonify }} } }{% unless forloop.last %}, {% endunless %}{% endif %}{% endfor %}
+    {% for f in fields %}"{{ f.field }}": {{ item[f.field] | jsonify }},{% endfor %} "filename": {{ item.filename | jsonify }}, "id": {{ item.objectid | jsonify }} } }{% unless forloop.last %}, {% endunless %}{% endif %}{% endfor %}
     ]};
     /* int leaflet map and search */
     
@@ -59,15 +59,27 @@
     var searchCtrl = L.control.fuseSearch(options);
     searchCtrl.addTo(map);
     searchCtrl.indexFeatures(geodata.features, {{ fields | where: 'search','true' | map: 'field' | unshift: 'title' | jsonify }});
-
+    {{ item.filename | prepend: 'http://i3.ytimg.com/vi/' | append: '/maxresdefault.jpg' | relative_url }}
     /* add geojson marker and popup to map */
     L.geoJson(geodata, {
         pointToLayer: function(feature,latlng){
             var marker = L.marker(latlng);
-            marker.bindPopup('<h4>' + feature.properties.title + '</h4><img class="mapthumb d-block mx-auto" src="{{ "/objects/thumbs/" | relative_url }}' +  feature.properties.id + '_sm.jpg" alt="item thumbnail"><p>' + 
+            if (feature.properties.format.includes("image")) {marker.bindPopup('<h4><a class="text-dark" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + '">' + feature.properties.title + '</a></h4><a class="btn btn-light" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + '" ><img class="mapthumb d-block mx-auto" src="{{ "/objects/" | relative_url }}' +  feature.properties.filename + '" alt="item thumbnail"></a><p>' + 
             {% for f in fields %}{% if f.display %}
             '<br><strong>{{ f.display }}:</strong> ' + feature.properties.{{ f.field }} + {% endif %}{% endfor %}
-            '<br><a class="btn btn-light" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + '" >View Item</a></p>');
+            '<br><a class="btn btn-light" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + '" >View Item</a></p>');}
+            else  if (feature.properties.format.includes("pdf")) {marker.bindPopup('<h4><a class="text-dark" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + '">' + feature.properties.title + '</a></h4><a class="btn btn-light" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + '" ><img class="mapthumb d-block mx-auto" src="{{ "/objects/svg/pdf.svg" | relative_url }}" alt="item thumbnail"></a><p>' + 
+            {% for f in fields %}{% if f.display %}
+            '<br><strong>{{ f.display }}:</strong> ' + feature.properties.{{ f.field }} + {% endif %}{% endfor %}
+            '<br><a class="btn btn-light" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + '" >View Item</a></p>');}
+            else if (feature.properties.format.includes("video")) {marker.bindPopup('<h4><a class="text-dark" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + '">' + feature.properties.title + '</a></h4><a class="btn btn-light" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + '" ><img class="mapthumb d-block mx-auto" src="http://i3.ytimg.com/vi/' +  feature.properties.filename + '/maxresdefault.jpg" alt="item thumbnail"></a><p>' + 
+            {% for f in fields %}{% if f.display %}
+            '<br><strong>{{ f.display }}:</strong> ' + feature.properties.{{ f.field }} + {% endif %}{% endfor %}
+            '<br><a class="btn btn-light" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + '" >View Item</a></p>');}
+            else {marker.bindPopup('<h4><a class="text-dark" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + '">' + feature.properties.title + '</a></h4><a class="btn btn-light" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + '" ><img class="mapthumb d-block mx-auto" src="{{ "/objects/svg/" | relative_url }}' +  feature.properties.format.substring(0,feature.properties.format.indexOf("/")) + '.svg" alt="item thumbnail"></a><p>' + 
+            {% for f in fields %}{% if f.display %}
+            '<br><strong>{{ f.display }}:</strong> ' + feature.properties.{{ f.field }} + {% endif %}{% endfor %}
+            '<br><a class="btn btn-light" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + '" >View Item</a></p>');}
             return marker;
         },
         onEachFeature: function (feature, layer) {

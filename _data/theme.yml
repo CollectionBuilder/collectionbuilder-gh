@@ -23,25 +23,26 @@ author: evanwill
 
 # Home page
 # give full filename including folder
-home-banner-image: "objects/test001.jpg"
+home-banner-image: "objects/test011.jpg"
 home-banner-image-link:  # leave blank unless no cdm number to generate item
 # give title of the image for accessibility
-home-banner-image-title: Administration Building, University of Idaho # for accessibility 
+home-banner-image-title: Snowstorm Concentrator, Troy, Montana. No. 6. # for accessibility 
 # optional: add extra padding around title for larger image feature
 home-title-y-padding: 5em # the margin from the top your title portion will appear
-carousel-height: # in px, but don't include the "px"; default is 300.
+carousel-height: 500 # in px, but don't include the "px"; default is 300.
 # add top subjects, for list see data/subjects.csv
 featured-subjects: Buildings; Campuses; Picture postcards; County courthouses; Farms; Schools #separate semi-colon(';') - if left blank, will be automatically generated to create top 5 subjects
 featured-subjects-max: 6 # set number of top subjects to display if auto generating
 # add top locations, for list see data/places.csv
-featured-locations: Moscow, Idaho; Tacoma, Washington; Pullman, Washington; Spokane, Washingto #separate by semi-colon(';') - if left blank, will be automatically generated to create top 5 locations
+featured-locations: Moscow, Idaho; Tacoma, Washington; Pullman, Washington; Spokane, Washington #separate by semi-colon(';') - if left blank, will be automatically generated to create top 5 locations
 featured-locations-max: 3
 mediatypes: images;documents #options[documents,images,video,sound,data] separate semi-colon(';'). If semi-colon is present, the browse items on the browse page will display a type field. If only one media type (and thus no semi-colon), no type field will display
 
-# Featured Image
-# featured-image appears in meta tags for search and social media
+# About page
+about-off: false # true / false, if true will not show link to about page on front. Need to erase link in nav-configuration as well. 
+# Featured image on About page - appears in meta tags for search and social media
 # give filename including folder
-featured-image: objects/test001.jpg
+featured-image: objects/test012.jpg
 featured-image-alt: "Administration Building, University of Idaho"
 
 # Browse page
@@ -68,9 +69,6 @@ locations-on: # true/false
 # Timeline
 year-navigation: #"1900;1905;1910;1915;1920" # set years to appear in dropdown nav
 year-nav-increment: 5 # set increments when auto gen nav years
-
-# About page
-about-off: false # true / false, if true will not show link to about page on front. Need to erase link in nav-configuration as well. 
 
 # images 
 image-percentage-large: # default 70

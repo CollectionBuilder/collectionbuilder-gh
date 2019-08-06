@@ -1,7 +1,20 @@
+{%- if site.data.theme.featured-locations -%}
+{%- assign topLocations = site.data.theme.featured-locations | split: ";" -%}
+{%- else -%}
+{%- assign raw-locations = site.data[site.data.theme.metadata] | map: "place" | join: ";" | split: ";" -%}
+{%- capture locations -%}{%- for l in raw-locations -%}{%- if l != "" and l != " " -%}{{ l | strip | downcase }};{%- endif -%}{%- endfor -%}{%- endcapture -%}
+{%- assign locations = locations | split: ";" -%}
+{%- assign uniqueLocations = locations | uniq | sort -%}
+{%- capture locations-count -%}{% for unique in uniqueLocations %}{% assign count = locations | where_exp: 'item', 'item == unique' | size %}{{ count | prepend: '0000' | slice: -4, 4 }}||{{ unique | capitalize }}{% unless forloop.last %};{% endunless %}{% endfor %}{%- endcapture -%}
+{%- assign locations-count = locations-count | split: ";" | sort | reverse -%}
+{%- capture topLocations -%}
+{% for i in locations-count limit:6 %}{{ i | split: "||" | last }};{% endfor %}{% endcapture %}
+{%- assign topLocations = topLocations | split: ";" -%}
+{%- endif -%}
+
 <div class="card mb-3">
   <div class="card-body">
     <h5 class="card-title">Locations</h5>
-    {%- assign topLocations = site.data.theme.featured-locations | split: ";" -%}
     <p class="card-text">
         {% for l in topLocations %}<a class="btn btn-sm btn-outline-secondary m-1" href="{{ l | strip | uri_escape | prepend: '/browse/#' | absolute_url }}">{{ l | strip }}</a>
         {% endfor %}

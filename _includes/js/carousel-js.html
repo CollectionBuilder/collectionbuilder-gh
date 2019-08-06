@@ -1,14 +1,14 @@
-{%- assign carousel-items = site.data[site.data.theme.metadata] -%}
+{%- assign carousel-items = site.data[site.data.theme.metadata ] -%}
 <script>
 (function(){
     /* add item data and shuffle */
-    var carouselItems = [ {% for c in carousel-items %}{ "id": {{ c.indexid | jsonify }}, "title": {{ c.title | jsonify }} }{% unless forloop.last %}, {% endunless %}{% endfor %}];
+    var carouselItems = [ {% for c in carousel-items %}{% if c.format contains 'image' %}{ "id": {{ c.filename | jsonify }}, "title": {{ c.title | jsonify }}, "objectid": {{ c.objectid | jsonify }} }{% unless forloop.last %}, {% endunless %}{% endif %}{% endfor %}];
     carouselItems.sort(function() { return 0.5 - Math.random() });
     /* add items to carousel */
     var carousel = document.getElementById("carouselInner");
     var i;
-    for (i=0; i < 9; i++) {
-        slide = "<div class='carousel-item text-center py-2'><a href='{{ '/browse/item.html' | absolute_url | append: '?id=' }}" + carouselItems[i].id + "'><img class='image-fluid mx-auto {{ site.data.theme.carousel-height | default: '300' }}' alt='image highlight' src='{{ '/objects/thumbs' | relative_url }}/" + carouselItems[i].id + "_sm.jpg'></a> <div class='carousel-caption'> <h5><a href='{{ '/browse/item.html' | absolute_url | append: '?id=' }}" + carouselItems[i].id + "' class='btn btn-sm btn-outline-light'>View Item</a></h5></div> </div>";
+    for (i=0; i < 5; i++) {
+        slide = "<div class='carousel-item text-center'><a href='{{ '/browse/item.html' | absolute_url | append: '?id=' }}" + carouselItems[i].id + "'><img alt='image highlight'  src='{{ '/objects/' | relative_url }}/" + carouselItems[i].id + "'></a> <div class='carousel-caption'><h5>" + carouselItems[i].title + "</h5> <h5><a href='{{ '/browse/item.html' | absolute_url | append: '?id=' }}" + carouselItems[i].objectid + "' class='btn btn-sm btn-outline-light'>View Item</a></h5></div> </div>";
         carousel.innerHTML += slide;
     }
     $(".carousel-item").first().addClass("active");

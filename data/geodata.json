@@ -18,7 +18,7 @@
                 "subject": {{ item.subject | jsonify}},
                 "place": {{ item.place | jsonify }},
                 "identifier": {{ item.resource-identifier | jsonify }},
-                "link": {{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.indexid | jsonify }}
+                "link": {{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.objectid | jsonify }}
             }
         }{% unless forloop.last %}, {% endunless %}{% endif %}{% endfor %}
     ]
