@@ -11,4 +11,4 @@
 <meta property="og:url" content="{{ page.url | absolute_url }}" />
 <meta property="og:locale" content="en_US" />
 <!-- schema.org JSON-LD -->
-<script type="application/ld+json">{"@context":"http://schema.org","@type":"WebPage","headline":"{% if page.title %}{{ page.title | escape }} | {% endif %}{{ site.data.theme.title | escape }}","author":{"@type":"Person","name":"{{ site.data.theme.author | escape }}"},"description":"{{ site.data.theme.description | escape }}",{% if site.featured-image %}"image":"{{ site.featured-image | absolute_url }}",{% endif %}"url":"{{ page.url | absolute_url }}"}</script>
+<script type="application/ld+json">{"@context":"http://schema.org","@type":"WebPage","headline":"{% if page.title %}{{ page.title | escape }} | {% endif %}{{ site.data.theme.title | escape }}","author":{"@type":"Person","name":"{{ site.data.theme.author | escape }}"},"description":"{{ site.data.theme.description | escape }}",{% if site.data.theme.home-banner-image %}"image":"{{ site.data.theme.home-banner-image | absolute_url }}",{% endif %}"url":"{{ page.url | absolute_url }}"}</script>

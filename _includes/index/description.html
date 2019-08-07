@@ -2,6 +2,6 @@
   <div class="card-body">
     <h5 class="card-title">Description</h5>
     <p class="card-text">{{ site.data.theme.description }}</p>
-    <a class="btn btn-outline-primary" href="{{ '/about/' | relative_url }}" >Learn More &raquo;</a>
+    {%if site.data.theme.about-page == true %}<a class="btn btn-outline-primary" href="{{ '/about/' | relative_url }}" >Learn More &raquo;</a>{%endif%}
   </div>
 </div>
