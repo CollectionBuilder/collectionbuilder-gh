@@ -4,9 +4,9 @@ layout: page
 permalink: /about/
 ---
 
-{% include index/jumbotron.html %}
+{% include about/jumbotron.html %}
 <!--Delete the bracketed "include" below when creating your own About Page, or fill out the "about-page-feature-card.html" to highlight or link to a specific feature of your collection" -->
-{% include about-page-feature-card.html %}
+{% include about/feature-card.html %}
 
 # About {{ site.data.theme.title }}.
 
@@ -34,4 +34,4 @@ A project in "minimal computing," it provides a depth of learning opportunities,
 - working in the Open, open source and open data
 - digital libraries concepts such as "collections as data", minimal computing, data-driven design
 
-{% include credits.md %}
+{% include about/credits.md %}
