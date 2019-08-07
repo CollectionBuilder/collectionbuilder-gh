@@ -22,10 +22,12 @@
             <div id="home-title-box" class="col-md-10">
                 <div class="text-dark title-card p-2 rounded text-center">
                     <h1 class="display-4">{{ site.data.theme.title }}</h1>
-                    {% if site.data.theme.tagline %}<p>{{ site.data.theme.tagline }}</p>{% endif %}
+                    {% if site.data.theme.tagline %}<p class="mb-0">{{ site.data.theme.tagline }}</p>{% endif %}
+                    {% if site.data.theme.home-banner-image-objectid %}<div class="text-right p-0 mt-0"><small><a  class="text-info" href="{{ site.data.theme.home-banner-image-objectid | prepend: '/browse/item.html?id=' | relative_url }}">Featured Image</a></small></div>{% endif %}
                 </div>
             </div>
         </div>
+        
     </div>
 </div>
 {%- else -%}

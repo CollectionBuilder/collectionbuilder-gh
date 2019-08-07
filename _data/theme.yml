@@ -25,7 +25,7 @@ author: evanwill
 # give full filename including folder. This image will also appear in meta tags for search and social media
 home-banner-image: "objects/test011.jpg"
 # enter object-id of the above item in order to link to the featured image
-home-banner-image-link: test011 
+home-banner-image-objectid: test011 
 # give title of the image for accessibility
 home-banner-image-title: Snowstorm Concentrator, Troy, Montana. No. 6. 
 # optional: add extra padding around collection title for a larger image feature
