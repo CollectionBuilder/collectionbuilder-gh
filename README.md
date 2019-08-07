@@ -9,7 +9,7 @@ A project to generate a free and simple digital collection site using [GitHub Pa
 - a CSV of collection metadata
 - a folder of JPEG images or PDF documents
 
-See [Getting Started Docs](docs/index.md) for detailed information.
+See [Getting Started Docs]({{ '/documentation/' | relative_url }}) for detailed information.
 
 `collectionbuilder-gh` is intended as a simple template for hands-on teaching about digital libraries.
 It can be used in a workshop setting to take participants through digitization and metadata creation, to having a live collection site hosted on GitHub.
