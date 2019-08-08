@@ -1,11 +1,10 @@
 # CollectionBuilder-GH Digital Collection Generator
 
-# Site settings
+# SITE SETTINGS
 # title of site appears in banner
 title: CollectionBuilder-GH 
 # choose metadata: this is the name of the csv file in your _data directory that describes the objects in your collection
 metadata: collection-metadata # 
-
 # repository is the github repository's full url: 
 # replace CollectionBuilder with your GitHub username and replace 'collectionbuilder-gh' with the name of your repository
 repository: https://github.com/CollectionBuilder/collectionbuilder-gh
@@ -51,35 +50,35 @@ about-page: true # options [true / false]
 about-featured-image: objects/test012.jpg
 about-featured-image-alt: "Administration Building, University of Idaho"
 
-# Browse page
+# BROWSE PAGE
 # see _data/browse-config.csv for field display options
 # fields given the "btn" option can be multivalued with ";" such as subjects.
 
-# Map page
+# MAP PAGE
 # see _data/map-config.csv for field display options
 latitude: 46.727485 #to determine center of map
 longitude: -117.014185 #to determine center of map
 zoom-level: 7 # zoom level for map 
 
-# Subject page
+# SUBJECT PAGE
 subjects-off: false # true / false, turns off subject generation to lower dev build time (then page doesn't work!)
 subject-min: 1 # min size for subject cloud, too many terms = slow load time!
 stopwords: # boxers;boxing;boxer # set of subjects separated by ;, e.g. boxers;boxing
 
-# Locations page
-locations-on: # true/false
-
-# Timeline
+# TIMELINE PAGE
 year-navigation: #"1900;1905;1910;1915;1920" # set years to appear in dropdown nav
 year-nav-increment: 5 # set increments when auto gen nav years
 
-# Item page 
+# ITEM PAGE
+# see _data/metadata-config.csv to define the metadata fields that will display.
 browse-buttons: true # true / false, adds previous/next arrows to items, but doubles build time
 
-# Theme Options
+# BOOTSWATCH THEMES
 # You can replace the current plain Bootstrap theme with a Bootswatch (https://github.com/thomaspark/bootswatch) option
 # Enter one of the following options below: cerulean; cosmo; cyborg; darkly; flatly; journal; litera; lumen; lux; materia; minty; pulse; sandstone; simplex; sketchy; slate; solar; spacelab; superhero; united; yeti 
 bootswatch: # leave blank or comment out for plain bootstrap
+
+# NAVBAR COLORS
 # If you'd like to change the color of the nav-bar and links therein, adjust the below. 
 # Use the below to change the navbar's background color.
 # Choose from bg-primary (blue), bg-secondary (gray), bg-success (green), bg-danger (red), bg-warning (yellow), bg-info (light blue), bg-light (light gray), bg-dark (black, default), bg-white
