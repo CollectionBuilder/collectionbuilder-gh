@@ -7,28 +7,22 @@
     background-position: center;
 }
 #home-title-box {
-    padding-top: {{ site.data.theme.home-title-y-padding }};
-    padding-bottom: {{ site.data.theme.home-title-y-padding }};
-}
-.title-card {
-    background-color: #fff; /* fallback for IE */
-    background-color: rgba(255, 255, 255, 0.86);
-    border: 2px solid #191919;
+    padding-top: {{ site.data.theme.home-title-y-padding | default: '8em' }};
+    padding-bottom: {{ site.data.theme.home-title-y-padding | default: '8em' }};
 }
 </style>
-<div id="home-banner" class="jumbotron jumbotron-fluid mb-0" aria-label="">
-    <div class="container">
+<div id="home-banner" class="jumbotron jumbotron-fluid mb-0 p-0" aria-label="">
+    <div class="container-fluid">
         <div class="row justify-content-center">
-            <div id="home-title-box" class="col-md-10">
-                <div class="text-dark title-card p-2 rounded text-center">
+            <div id="home-title-box" class="col-md-12">
+                <div class="title-card p-2 rounded text-center">
                     <h1 class="display-4">{{ site.data.theme.title }}</h1>
                     {% if site.data.theme.tagline %}<p class="mb-0">{{ site.data.theme.tagline }}</p>{% endif %}
-                    {% if site.data.theme.home-banner-image-objectid %}<div class="text-right p-0 mt-0"><small><a  class="text-info" href="{{ site.data.theme.home-banner-image-objectid | prepend: '/browse/item.html?id=' | relative_url }}">Featured Image</a></small></div>{% endif %}
-                </div>
+                   </div>
             </div>
         </div>
-        
     </div>
+    {% if site.data.theme.home-banner-image-objectid %}<div class="text-right p-0 mt-0"><small><a style="background:rgb(0,0,0,.5);padding:.5em"  class="text-info" href="{{ site.data.theme.home-banner-image-objectid | prepend: '/browse/item.html?id=' | relative_url }}">Featured Image</a></small></div>{% endif %}
 </div>
 {%- else -%}
 <div class="container">
