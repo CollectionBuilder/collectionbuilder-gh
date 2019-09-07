@@ -76,7 +76,7 @@ browse-buttons: true # true / false, adds previous/next arrows to items, but dou
 # BOOTSWATCH THEMES
 # You can replace the current plain Bootstrap theme with a Bootswatch (https://github.com/thomaspark/bootswatch) option
 # Enter one of the following options below: cerulean; cosmo; cyborg; darkly; flatly; journal; litera; lumen; lux; materia; minty; pulse; sandstone; simplex; sketchy; slate; solar; spacelab; superhero; united; yeti 
-bootswatch: # leave blank or comment out for plain bootstrap
+bootswatch: sketchy # leave blank or comment out for plain bootstrap
 
 # NAVBAR COLORS
 # If you'd like to change the color of the nav-bar and links therein, adjust the below. 

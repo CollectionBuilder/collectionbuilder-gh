@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Language" content="en-us" >
 {% include page-meta.html %}
 
-<link rel="stylesheet" href="{% if site.data.theme.bootswatch %}{{ site.data.theme.bootswatch | prepend: '/assets/bootswatch/' | append: '/bootstrap.min.css' | absolute_url }}{% else %}{{ '/assets/css/bootstrap.min.css' | absolute_url }}{% endif %}" type="text/css">
+<link rel="stylesheet" href="{% if site.data.theme.bootswatch %}https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/{{ site.data.theme.bootswatch }}/bootstrap.min.css{% else %}{{ '/assets/css/bootstrap.min.css' | absolute_url }}{% endif %}" type="text/css">
 <link rel="stylesheet" href="{{ '/assets/css/custom.css' | absolute_url }}" type="text/css">
 {% if layout.gallery == true %}<link rel="stylesheet" href="{{ '/assets/lightgallery/css/lightgallery.min.css' | absolute_url }}" type="text/css">{% endif %}
 <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
