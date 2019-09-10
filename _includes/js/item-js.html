@@ -35,8 +35,9 @@
     
     document.getElementById("item-link").innerHTML = itemLink;
 
-    var fields = '<dl>' + {% for f in fields %}'<dt class="field">{{ f.display-name }}:</dt> <dd class="field-value">' + record.{{ f.field }} + '</dd>' + {% endfor %}'</dl>';
+    var fields = '<dl>' + {% for f in fields %}'<span><dt class="field">{{ f.display-name }}:</dt> <dd class="field-value">' + record.{{ f.field }} + '</dd></span>' + {% endfor %}'</dl>';
     document.getElementById("item-metadata").innerHTML = fields;
+    $( "dd:contains('N/A')" ).closest("span").addClass( "d-none" );
 
     $("#loading").hide();
 
