@@ -10,89 +10,99 @@
     /* get query id from URL */
     var queryString = window.location.search.substring(1).split("=")[1];
     var record = items[queryString];
-    var format = record.format;
-    /* add item metadata to page */
-    var itemTitle = record.title;
-    document.getElementById("bc-title").innerHTML = itemTitle;
-    document.getElementById("item-title").innerHTML = itemTitle;
-    if (format.includes('image')) {
-        var itemImage = '<a href="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank"  title="Object download"><img class="img-fluid img-thumbnail" src="{{ "/objects/" | relative_url }}' + record.filename + '" alt="item thumbnail"></a>';
-        var itemLink = '<a href="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank" class="btn btn-dark btn-lg" title="Object download">Download Image</a>';
-    } else if (format.includes('application')) {
-        var itemImage = '<object  data="{{ "/objects/" | absolute_url }}' + record.filename + '" type="application/pdf" class="col-12" height="450px" typemustmatch><p>The PDF is not rendering in your browser. Please use the button below to download the PDF.</p></object>';
-        var itemLink = '<a href="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank" class="btn btn-dark btn-lg" title="Object download">Download PDF</a>';
-    } else if (format.includes('audio')) {
-        var itemImage = '<audio controls class="mp3-item-player"><source src="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank" type="audio/mpeg">Your browser does not support the audio element.</audio>';
-        var itemLink = '<a href="{{ "/objects/" | absolute_url }}' + record.filename + '" target="_blank" class="btn btn-dark btn-lg" title="Object download">Download Audio File</a>';
-    } else if (format.includes('video')) {
-        var itemImage = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://www.youtube.com/embed/' + record.filename + '?rel=0" allowfullscreen></iframe></div>';
-        var itemLink = '<a href="https://youtu.be/' + record.filename + '" target="_blank" class="btn btn-dark btn-lg" title="Object download">Download Object</a>';
+
+    if (record) {
+        /* add item title */
+        var itemTitle = record.title;
+        document.getElementById("bc-title").innerHTML = itemTitle;
+        document.getElementById("item-title").innerHTML = itemTitle;
+        /* add object */ 
+        var format = record.format;
+        var objectLink = '{{ "/objects/" | absolute_url }}' + record.filename;
+        if (format.includes('image')) {
+            var itemImage = '<a href="' + objectLink + '" target="_blank"  title="Object download"><img class="img-fluid img-thumbnail" src="{{ "/objects/" | relative_url }}' + record.filename + '" alt="item thumbnail"></a>';
+            var itemLink = '<a href="' + objectLink + '" target="_blank" class="btn btn-dark btn-lg" title="Object download">Download Image</a>';
+        } else if (format.includes('application')) {
+            var itemImage = '<object data="' + objectLink + '" type="application/pdf" width="100%" height="450px" typemustmatch><p>The PDF is not rendering in your browser. Please use the button below to download the PDF.</p></object>';
+            var itemLink = '<a href="' + objectLink + '" target="_blank" class="btn btn-dark btn-lg" title="Object download">Download PDF</a>';
+        } else if (format.includes('audio')) {
+            var itemImage = '<audio controls class="mp3-item-player"><source src="' + objectLink + '" target="_blank" type="audio/mpeg">Your browser does not support the audio element.</audio>';
+            var itemLink = '<a href="' + objectLink + '" target="_blank" class="btn btn-dark btn-lg" title="Object download">Download Audio File</a>';
+        } else if (format.includes('video')) {
+            var itemImage = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://www.youtube.com/embed/' + record.filename + '?rel=0" allowfullscreen></iframe></div>';
+            var itemLink = '<a href="https://youtu.be/' + record.filename + '" target="_blank" class="btn btn-dark btn-lg" title="Object download">View on YouTube</a>';
+        } else {
+            // add no object warning?
+        }
+        document.getElementById("item-image").innerHTML = itemImage;
+        document.getElementById("item-link").innerHTML = itemLink;
+
+        /* add item metadata */
+        var fields = '<dl>';
+        {% for f in fields %}if (record.{{ f.field }} !="N/A") { fields += '<dt class="field">{{ f.display-name }}:</dt> <dd class="field-value">' + record.{{ f.field }} + '</dd>'; }
+        {% endfor %}
+        fields += '</dl>';
+        document.getElementById("item-metadata").innerHTML = fields;
+
+        /* add prev/next nav */
+        /* index array of objects */
+        var last = Object.keys(items)[Object.keys(items).length-1];
+        var itemArray = Object.keys(items);
+        var indexNumber = itemArray.indexOf(queryString);
+        var arrLength = itemArray.length;
+        /* create back and next urls */
+        if (indexNumber == 0) {
+            var back = last;
+        } else {
+            var back = (function(){
+                var minusIndex = indexNumber - 1;
+                var minusLocation = itemArray[minusIndex];
+                return minusLocation;
+            })();
+        }
+        if (indexNumber == arrLength - 1) {
+            var forward = itemArray[0];
+        } else {
+            var forward = (function(){
+                var plusIndex = indexNumber + 1;
+                var plusLocation = itemArray[plusIndex];
+                return plusLocation;
+            })();
+        }
+        var backUrl = "{{ '/browse/item.html?id=' | relative_url }}" + back;
+        var forwardUrl = "{{ '/browse/item.html?id=' | relative_url }}" + forward;
+        /* add side buttons to page */
+        var backButton = '<a class="previous bg-secondary text-white  btn btn-lg" href="' + backUrl + '" class="text-white">&laquo;</a>';
+        var nextButton = '<a class="next bg-secondary text-white btn btn-lg" href="' + forwardUrl +'" class="text-white">&raquo;</a>';
+        /* add bottom buttons to page */
+        var prevButton = '<a class="btn btn-secondary" href="' + backUrl + '" role="button">&laquo; Previous</a>';
+        var forButton = '<a class="btn btn-secondary" href="' + forwardUrl + '" role="button">Next &raquo;</a>';
+        
+        document.getElementById("back-button").innerHTML = backButton;
+        document.getElementById("next-button").innerHTML = nextButton;
+        document.getElementById("prev-button").innerHTML = prevButton;
+        document.getElementById("for-button").innerHTML = forButton;
+
+        /* add back forward key press */
+        document.onkeydown = function(evt) {
+        evt = evt || window.event;
+        switch (evt.keyCode) {
+            case 37:
+            location.href = backUrl;
+                break;
+            case 39:
+            location.href = forwardUrl;
+                break;
+        }};
+        
     } else {
-        document.getElementById("item-metadata").innerHTML = '<h3>Sorry, item not found.</h3>';
+        /* no item with that ID */
+        document.getElementById("item-title").innerHTML = 'Sorry, item not found.';
     }
 
-    document.getElementById("item-image").innerHTML = itemImage;
-    
-    document.getElementById("item-link").innerHTML = itemLink;
-
-    var fields = '<dl>';
-    {% for f in fields %}if (record.{{ f.field }} !="N/A") { fields += '<dt class="field">{{ f.display-name }}:</dt> <dd class="field-value">' + record.{{ f.field }} + '</dd>'; }
-    {% endfor %}
-    fields += '</dl>';
-    document.getElementById("item-metadata").innerHTML = fields;
-
+    /* all done, so hide loading animation */
     document.getElementById("loading").style.display = "none";
 
-    /* index array of objects */
-    var last = Object.keys(items)[Object.keys(items).length-1];
-    var itemArray = Object.keys(items);
-    var indexNumber = itemArray.indexOf(queryString);
-    var arrLength = itemArray.length;
-    /* create back and next urls */
-    if (indexNumber == 0) {
-        var back = last;
-    } else {
-        var back = (function(){
-            var minusIndex = indexNumber - 1;
-            var minusLocation = itemArray[minusIndex];
-            return minusLocation;
-        })();
-    }
-    if (indexNumber == arrLength - 1) {
-        var forward = itemArray[0];
-    } else {
-        var forward = (function(){
-            var plusIndex = indexNumber + 1;
-            var plusLocation = itemArray[plusIndex];
-            return plusLocation;
-        })();
-    }
-    var backUrl = "{{ '/browse/item.html?id=' | relative_url }}" + back;
-    var forwardUrl = "{{ '/browse/item.html?id=' | relative_url }}" + forward;
-    /* add side buttons to page */
-    var backButton = '<a class="previous bg-secondary text-white  btn btn-lg" href="' + backUrl + '" class="text-white">&laquo;</a>';
-    var nextButton = '<a class="next bg-secondary text-white btn btn-lg" href="' + forwardUrl +'" class="text-white">&raquo;</a>';
-    /* add bottom buttons to page */
-    var prevButton = '<a class="btn btn-secondary" href="' + backUrl + '" role="button">&laquo; Previous</a>';
-    var forButton = '<a class="btn btn-secondary" href="' + forwardUrl + '" role="button">Next &raquo;</a>';
-    
-    document.getElementById("back-button").innerHTML = backButton;
-
-    document.getElementById("next-button").innerHTML = nextButton;
-
-    document.getElementById("prev-button").innerHTML = prevButton;
-    
-    document.getElementById("for-button").innerHTML = forButton;
-    document.onkeydown = function(evt) {
-    evt = evt || window.event;
-    switch (evt.keyCode) {
-        case 37:
-        location.href = backUrl;
-            break;
-        case 39:
-        location.href = forwardUrl;
-            break;
-    }};
 })();
 
 </script>
