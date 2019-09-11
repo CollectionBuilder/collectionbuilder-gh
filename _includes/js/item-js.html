@@ -35,11 +35,13 @@
     
     document.getElementById("item-link").innerHTML = itemLink;
 
-    var fields = '<dl>' + {% for f in fields %}'<span><dt class="field">{{ f.display-name }}:</dt> <dd class="field-value">' + record.{{ f.field }} + '</dd></span>' + {% endfor %}'</dl>';
+    var fields = '<dl>';
+    {% for f in fields %}if (record.{{ f.field }} !="N/A") { fields += '<dt class="field">{{ f.display-name }}:</dt> <dd class="field-value">' + record.{{ f.field }} + '</dd>'; }
+    {% endfor %}
+    fields += '</dl>';
     document.getElementById("item-metadata").innerHTML = fields;
-    $( "dd:contains('N/A')" ).closest("span").addClass( "d-none" );
 
-    $("#loading").hide();
+    document.getElementById("loading").style.display = "none";
 
     /* index array of objects */
     var last = Object.keys(items)[Object.keys(items).length-1];
