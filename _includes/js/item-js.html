@@ -4,7 +4,7 @@
     /* add item data */
     var items = { 
         {%- for item in site.data[site.data.theme.metadata] -%}
-        {{ item.objectid | jsonify }} : { "filename": {{ item.filename | jsonify }}, {% for f in fields %}"{{ f.field }}": {% if item[f.field] %}{{ item[f.field] | jsonify }}{% else %}"N/A"{% endif %}{% unless forloop.last %}, {% endunless %}{% endfor %} }{% unless forloop.last %}, {% endunless %}
+        {{ item.objectid | jsonify }} : { {% for f in fields %}"{{ f.field }}": {% if item[f.field] %}{{ item[f.field] | jsonify }}{% else %}"N/A"{% endif %},{% endfor %} "filename": {{ item.filename | jsonify }} }{% unless forloop.last %}, {% endunless %}
         {% endfor %}
     };
     /* get query id from URL */
@@ -45,41 +45,30 @@
         document.getElementById("item-metadata").innerHTML = fields;
 
         /* add prev/next nav */
-        /* index array of objects */
-        var last = Object.keys(items)[Object.keys(items).length-1];
-        var itemArray = Object.keys(items);
-        var indexNumber = itemArray.indexOf(queryString);
-        var arrLength = itemArray.length;
-        /* create back and next urls */
-        if (indexNumber == 0) {
-            var back = last;
-        } else {
-            var back = (function(){
-                var minusIndex = indexNumber - 1;
-                var minusLocation = itemArray[minusIndex];
-                return minusLocation;
-            })();
+        var itemKeys = Object.keys(items);
+        var current = itemKeys.indexOf(queryString);
+        var last = itemKeys.length - 1;
+        var next, forward;
+        if (current === 0) {
+            back = itemKeys[last];
+        } else { 
+            back = itemKeys[current - 1];
         }
-        if (indexNumber == arrLength - 1) {
-            var forward = itemArray[0];
+        if (current === last) {
+            forward = itemKeys[0];
         } else {
-            var forward = (function(){
-                var plusIndex = indexNumber + 1;
-                var plusLocation = itemArray[plusIndex];
-                return plusLocation;
-            })();
+            forward = itemKeys[current + 1];
         }
         var backUrl = "{{ '/browse/item.html?id=' | relative_url }}" + back;
         var forwardUrl = "{{ '/browse/item.html?id=' | relative_url }}" + forward;
         /* add side buttons to page */
-        var backButton = '<a class="previous bg-secondary text-white  btn btn-lg" href="' + backUrl + '" class="text-white">&laquo;</a>';
+        var backButton = '<a class="previous bg-secondary text-white btn btn-lg" href="' + backUrl + '" class="text-white">&laquo;</a>';
         var nextButton = '<a class="next bg-secondary text-white btn btn-lg" href="' + forwardUrl +'" class="text-white">&raquo;</a>';
-        /* add bottom buttons to page */
-        var prevButton = '<a class="btn btn-secondary" href="' + backUrl + '" role="button">&laquo; Previous</a>';
-        var forButton = '<a class="btn btn-secondary" href="' + forwardUrl + '" role="button">Next &raquo;</a>';
-        
         document.getElementById("back-button").innerHTML = backButton;
         document.getElementById("next-button").innerHTML = nextButton;
+        /* add bottom buttons to page */
+        var prevButton = '<a class="btn btn-secondary" href="' + backUrl + '">&laquo; Previous</a>';
+        var forButton = '<a class="btn btn-secondary" href="' + forwardUrl + '">Next &raquo;</a>';
         document.getElementById("prev-button").innerHTML = prevButton;
         document.getElementById("for-button").innerHTML = forButton;
 
@@ -97,6 +86,7 @@
         
     } else {
         /* no item with that ID */
+        document.getElementById("bc-title").innerHTML = 'Not found?';
         document.getElementById("item-title").innerHTML = 'Sorry, item not found.';
     }
 
