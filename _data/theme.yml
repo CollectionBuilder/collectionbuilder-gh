@@ -30,6 +30,8 @@ home-banner-image-objectid: test011
 home-banner-image-title: Snowstorm Concentrator, Troy, Montana. No. 6. 
 # optional: add extra padding around collection title for a larger image feature. 
 home-title-y-padding: # Default is 8em
+# optional: change position of image, center, top, bottom
+home-banner-image-position: # Default is center
 # height of the carousel at the bottom of the home page; this is in px, but just enter a number (don't include "px"). Default is 300
 carousel-height: 500 
 # If you'd like to feature specific subjects on the front page, fill in the below with subjects and separate them by semi-color. 
