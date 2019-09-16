@@ -64,10 +64,10 @@ function lunr_search () {
 /* init search box and get query string */
 $(document).ready(function() {
   $('input#search').on('keyup', lunr_search );
-  var queryString = decodeURIComponent(window.location.search.substring(1).split("=")[1]);
-  if (queryString) { 
+  if (window.location.search) {
+    var queryString = decodeURIComponent(window.location.search.substring(1).split("=")[1]);
     $('input#search').val(queryString);
-    lunr_search (); 
+    lunr_search ();
   }
 });
 </script>
