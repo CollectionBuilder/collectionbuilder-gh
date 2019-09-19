@@ -1,29 +1,25 @@
 ---
 layout: page
 ---
+{% assign datafiles = site.data.datafile-config %}
+
 {{ content }}
 
-{% assign datafiles = site.data.datafile-config  %}
-
-<div class="my-4">
-
-      <table class="table table-bordered">
-            <thead>
-                  <tr>
-                        <th scope="col">Data Type</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Download</th>
-                  </tr>
-            </thead>
-            {%for datafile in datafiles%}
-            <tbody>
-                  <tr class="table-font">
-                        <th scope="row"><strong>{{datafile.extended-name}}:</strong></th>
-                        <td>{{datafile.description}}</td>
-                        <td class="text-center"><a class="btn btn-lg btn-outline-primary m-2" href="{% if datafile.object == 'github-link' %}{{site.data.theme.repository}}{%else%}{{ datafile.object | prepend: '/data/' | absolute_url }}{%endif%}" target="_blank">{{datafile.display-name}}</a></td>
-                  </tr>
-            </tbody>
-            {%endfor%}
-      </table>
-
-</div>
+<table class="table table-bordered my-4">
+    <thead>
+        <tr>
+            <th scope="col">Data Type</th>
+            <th scope="col">Description</th>
+            <th scope="col">Download</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for datafile in datafiles %}
+        <tr class="table-font">
+            <th scope="row"><strong>{{ datafile.extended-name }}:</strong></th>
+            <td>{{ datafile.description }}</td>
+            <td class="text-center"><a class="btn btn-lg btn-outline-primary m-2" href="{% if datafile.object == 'github-link' %}{{ site.data.theme.repository }}{% else %}{{ datafile.object | prepend: '/data/' | absolute_url }}{% endif %}" target="_blank">{{ datafile.display-name }}</a></td>
+        </tr>
+        {%endfor%}
+    </tbody>
+</table>
