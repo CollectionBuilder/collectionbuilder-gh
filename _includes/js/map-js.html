@@ -69,7 +69,7 @@
         {% if site.data.theme.map-search == true %}
         /* bind feature for search */
         feature.layer = layer;{% endif %}
-        /* object thumb */
+        /* object thumb based on format */
         var thumbSrc;
         if (feature.properties.format.includes("image")) {
             thumbSrc = '{{ "/objects/" | relative_url }}' +  feature.properties.filename;
@@ -80,22 +80,26 @@
         } else {
             thumbSrc = '{{ "/objects/svg/" | relative_url }}' +  feature.properties.format.substring(0,feature.properties.format.indexOf("/")) + '.svg';
         }           
-        /* create pop up */
+        /* function to create object pop ups */
         var popupTemplate = '<h4><a class="text-dark" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + '">' +
             feature.properties.title + '</a></h4><div class="text-center"><a class="btn btn-light" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + 
-            '" ><img class="mapthumb" src="' +  thumbSrc + '" alt="item thumbnail"></a></div><p class="mt-0">' + 
-            {% for f in fields %}{% if f.display %}
-            '<strong>{{ f.display }}:</strong> ' + feature.properties.{{ f.field }} + '<br>' +{% endif %}{% endfor %}
-            '<a class="btn btn-light" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + '" >View Item</a></p>';
+            '" ><img class="mapthumb" src="' +  thumbSrc + '" alt="item thumbnail"></a></div><p class="mt-0">';
+        {% for f in fields %}{% if f.display %}
+        if (feature.properties.{{ f.field }}) {
+            popupTemplate += '<strong>{{ f.display }}:</strong> ' + feature.properties.{{ f.field }} + '<br>'; 
+        }
+        {% endif %}{% endfor %}
+        popupTemplate += '</p><div class="text-center"><a class="btn btn-light" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + '" >View Item</a></div>';
         layer.bindPopup(popupTemplate);
     }
+    /* function to add objects to map */
     function objectMarkers(feature,latlng) {
         var marker = L.marker(latlng);
         {% if site.data.theme.map-cluster == true %}markers.addLayer(marker);{% endif %}
         return marker;
     }
 
-    /* add objects from geoJson features */
+    /* use geoJson features to add objects to map */
     L.geoJson(geodata, {
         onEachFeature: objectPopups,
         pointToLayer: objectMarkers
