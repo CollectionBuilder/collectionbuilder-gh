@@ -49,3 +49,9 @@ body{font-size:1.2em;}
     .previous { left:10px; }
     .next{ right:10px; }
 }
+
+/* map */
+#map { height: 750px; z-index: 98; }
+.mapthumb {
+    height: 100px;
+}

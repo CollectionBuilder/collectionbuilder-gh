@@ -4,7 +4,7 @@
 # title of site appears in banner
 title: CollectionBuilder-GH 
 # choose metadata: this is the name of the csv file in your _data directory that describes the objects in your collection
-metadata: collection-metadata # 
+metadata: collection-metadata  
 # repository is the github repository's full url: 
 # replace CollectionBuilder with your GitHub username and replace 'collectionbuilder-gh' with the name of your repository
 repository: https://github.com/CollectionBuilder/collectionbuilder-gh
@@ -61,6 +61,10 @@ about-featured-image-alt: "Administration Building, University of Idaho"
 latitude: 46.727485 #to determine center of map
 longitude: -117.014185 #to determine center of map
 zoom-level: 7 # zoom level for map 
+map-search: true # not suggested with large collections
+map-search-fuzziness: 0.35 # fuzzy search range from 1 = anything to 0 = exact match only
+map-cluster: true # suggested for large collection or with many items in same location
+map-cluster-radius: 25 # size of clusters, from ~ 10 to 80
 
 # SUBJECT PAGE
 subjects-off: false # true / false, turns off subject generation to lower dev build time (then page doesn't work!)
