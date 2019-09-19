@@ -7,6 +7,11 @@
 
 <link rel="stylesheet" href="{% if site.data.theme.bootswatch %}https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/{{ site.data.theme.bootswatch }}/bootstrap.min.css{% else %}{{ '/assets/css/bootstrap.min.css' | absolute_url }}{% endif %}" type="text/css">
 <link rel="stylesheet" href="{{ '/assets/css/custom.css' | absolute_url }}" type="text/css">
+{% if page.layout == 'map' %}<link rel="stylesheet" href="{{ '/assets/leaflet/leaflet.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/leaflet/leaflet.fusesearch.css' | relative_url }}">
+{% if site.data.theme.map-search == true %}<link rel="stylesheet" href="{{ '/assets/leaflet/leaflet.fusesearch.css' | prepend: site.digital-assets }}">{% endif %}
+{% if site.data.theme.map-cluster == true %}<link rel="stylesheet" href="{{ '/assets/leaflet/MarkerCluster.css' | prepend: site.digital-assets }}">
+<link rel="stylesheet" href="{{ '/assets/leaflet/MarkerCluster.Default.css' | prepend: site.digital-assets }}">{% endif %}{% endif %}
 {% if layout.gallery == true %}<link rel="stylesheet" href="{{ '/assets/lightgallery/css/lightgallery.min.css' | absolute_url }}" type="text/css">{% endif %}
 <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 

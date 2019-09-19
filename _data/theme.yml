@@ -4,7 +4,7 @@
 # title of site appears in banner
 title: CollectionBuilder-GH 
 # choose metadata: this is the name of the csv file in your _data directory that describes the objects in your collection
-metadata: collection-metadata # 
+metadata: collection-metadata  
 # repository is the github repository's full url: 
 # replace CollectionBuilder with your GitHub username and replace 'collectionbuilder-gh' with the name of your repository
 repository: https://github.com/CollectionBuilder/collectionbuilder-gh
