@@ -16,7 +16,7 @@
     { "title": {{ item.title | jsonify }}, 
     {% for f in fields %}"{{ f.field }}": {{ item[f.field] | jsonify }},{% endfor %} "filename": {{ item.filename | jsonify }}, "id": {{ item.objectid | jsonify }} } }{% unless forloop.last %}, {% endunless %}{% endif %}{% endfor %}
     ]};
-    
+
     /* init map and set zoom */
     if (window.location.hash) {
         /* if url has a hash, it is split by comma into coordinates that set the view */
@@ -50,7 +50,7 @@
     Esri_WorldStreetMap.addTo(map);
 
     {% if site.data.theme.map-search == true %}
-    /* add search, https://github.com/naomap/leaflet-fusesearch */
+    /* add leaflet-fusesearch */
     var options = {
         title: 'Search Map Items',
         placeholder: 'Search map items...',
@@ -66,26 +66,27 @@
 
     /* function to add object popups */
     function objectPopups(feature, layer) {
-        {% if site.data.theme.map-search == true %}/* bind feature for search */
+        {% if site.data.theme.map-search == true %}
+        /* bind feature for search */
         feature.layer = layer;{% endif %}
         /* object thumb */
         var thumbSrc;
         if (feature.properties.format.includes("image")) {
-            thumbSrc += '{{ "/objects/" | relative_url }}' +  feature.properties.filename;
+            thumbSrc = '{{ "/objects/" | relative_url }}' +  feature.properties.filename;
         } else if (feature.properties.format.includes("pdf")) {
-            thumbSrc += '{{ "/objects/svg/pdf.svg" | relative_url }}';
+            thumbSrc = '{{ "/objects/svg/pdf.svg" | relative_url }}';
         } else if (feature.properties.format.includes("video")) {
-            thumbSrc += 'https://i3.ytimg.com/vi/' +  feature.properties.filename + '/maxresdefault.jpg';
+            thumbSrc = 'https://i3.ytimg.com/vi/' +  feature.properties.filename + '/mqdefault.jpg';
         } else {
-            thumbSrc += '{{ "/objects/svg/" | relative_url }}' +  feature.properties.format.substring(0,feature.properties.format.indexOf("/")) + '.svg';
-        }
+            thumbSrc = '{{ "/objects/svg/" | relative_url }}' +  feature.properties.format.substring(0,feature.properties.format.indexOf("/")) + '.svg';
+        }           
         /* create pop up */
-        var popupTemplate = '<h3><a class="text-dark" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.title + 
-            '</a></h3><p><a class="btn btn-light" href="{% if site.data.theme.repo-link %}{{ site.data.theme.cdm-url }}/cdm/ref/collection/{{ site.data.theme.cdm-collection-id }}/id/' + feature.properties.cdm + '{% else %}{{ site.baseurl }}/items/' + feature.properties.id + '.html{% endif %}" ><img class="mapthumb" src="' +
-            thumbSrc + '" alt="item thumbnail"></a>' +
+        var popupTemplate = '<h4><a class="text-dark" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + '">' +
+            feature.properties.title + '</a></h4><div class="text-center"><a class="btn btn-light" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + 
+            '" ><img class="mapthumb" src="' +  thumbSrc + '" alt="item thumbnail"></a></div><p class="mt-0">' + 
             {% for f in fields %}{% if f.display %}
-            '<br><strong>{{ f.display }}:</strong> ' + feature.properties.{{ f.field }} + {% endif %}{% endfor %}
-            '<br><a class="btn btn-light" href="{% if site.data.theme.repo-link %}{{ site.data.theme.cdm-url }}/cdm/ref/collection/{{ site.data.theme.cdm-collection-id }}/id/' + feature.properties.cdm + '{% else %}{{ site.baseurl }}/items/' + feature.properties.id + '.html{% endif %}" >View Item</a></p>';
+            '<strong>{{ f.display }}:</strong> ' + feature.properties.{{ f.field }} + '<br>' +{% endif %}{% endfor %}
+            '<a class="btn btn-light" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + '" >View Item</a></p>';
         layer.bindPopup(popupTemplate);
     }
     function objectMarkers(feature,latlng) {
