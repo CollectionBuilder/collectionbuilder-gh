@@ -69,6 +69,8 @@
         {% if site.data.theme.map-search == true %}
         /* bind feature for search */
         feature.layer = layer;{% endif %}
+        /* item link */
+        var itemHref = '{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id;
         /* object thumb based on format */
         var thumbSrc;
         if (feature.properties.format.includes("image")) {
@@ -81,15 +83,15 @@
             thumbSrc = '{{ "/objects/svg/" | relative_url }}' +  feature.properties.format.substring(0,feature.properties.format.indexOf("/")) + '.svg';
         }           
         /* function to create object pop ups */
-        var popupTemplate = '<h4><a class="text-dark" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + '">' +
-            feature.properties.title + '</a></h4><div class="text-center"><a class="btn btn-light" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + 
+        var popupTemplate = '<h4><a class="text-dark" href="' + itemHref + '">' +
+            feature.properties.title + '</a></h4><div class="text-center"><a class="btn btn-light" href="' + itemHref + 
             '" ><img class="mapthumb" src="' +  thumbSrc + '" alt="item thumbnail"></a></div><p class="mt-0">';
         {% for f in fields %}{% if f.display %}
         if (feature.properties.{{ f.field }}) {
             popupTemplate += '<strong>{{ f.display }}:</strong> ' + feature.properties.{{ f.field }} + '<br>'; 
         }
         {% endif %}{% endfor %}
-        popupTemplate += '</p><div class="text-center"><a class="btn btn-light" href="{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id + '" >View Item</a></div>';
+        popupTemplate += '</p><div class="text-center"><a class="btn btn-light" href="' + itemHref + '" >View Item</a></div>';
         layer.bindPopup(popupTemplate);
     }
     /* function to add objects to map */
