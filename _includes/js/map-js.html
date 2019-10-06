@@ -53,7 +53,7 @@
     /* add leaflet-fusesearch */
     var options = {
         title: 'Search Map Items',
-        placeholder: 'Search map items...',
+        locationholder: 'Search map items...',
         threshold: {{ site.data.theme.map-search-fuzziness | default: 0.35 }} 
     };
     var searchCtrl = L.control.fuseSearch(options);

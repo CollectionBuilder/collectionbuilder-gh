@@ -4,7 +4,7 @@ metadata.json,json,JSON,All Items Metadata in JSON,"All metadata fields for all 
 geodata.json,json,GeoJSON,Geographic Metadata in JSON,"Geographic metadata for all collection items in a JSON format file, useful for further exploration and analysis of this collection through a geographical lense."
 subjects.json,json,Subjects JSON,Subject Metadata in JSON,"Subject metadata for all collection items in a JSON format file, useful for further analyzing the content of this collection."
 subjects.csv,csv,Subjects CSV,Subject Metadata in CSV Spreadsheet,"Subject metadata for all collection items in a CSV format file, useful for further analyzing the content of this collection."
-places.json,csv,Places CSV,Locations Metadata in CSV Spreadsheet,"Location metadata for all collection items in a CSV format file, useful for further visualization and analysis of this collection's place names."
+locations.csv,csv,Locations CSV,Locations Metadata in CSV Spreadsheet,"Location metadata for all collection items in a CSV format file, useful for further visualization and analysis of this collection's place names."
 github-link,link,Source Code,CollectionBuilder-GH Source Code,"GitHub repository containing source code and documentation for CollectionBuilder-GH."
 metadata-template.csv,csv,Metadata Template CSV,Template CollectionBuilder Metadata,"Template for creating your own CollectionBuilder metadata (includes fields and an example record)."
 metadata-guidelines.csv,csv,Metadata Guidelines CSV,CollectionBuilder Metadata Guidelines,"Guidelines for structuring metadata so that it works with CollectionBuilder."

@@ -1,7 +1,7 @@
 {%- if site.data.theme.featured-locations -%}
 {%- assign topLocations = site.data.theme.featured-locations | split: ";" -%}
 {%- else -%}
-{%- assign raw-locations = site.data[site.data.theme.metadata] | map: "place" | join: ";" | split: ";" -%}
+{%- assign raw-locations = site.data[site.data.theme.metadata] | map: "location" | join: ";" | split: ";" -%}
 {%- capture locations -%}{%- for l in raw-locations -%}{%- if l != "" and l != " " -%}{{ l | strip | downcase }};{%- endif -%}{%- endfor -%}{%- endcapture -%}
 {%- assign locations = locations | split: ";" -%}
 {%- assign uniqueLocations = locations | uniq | sort -%}
