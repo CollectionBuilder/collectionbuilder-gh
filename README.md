@@ -51,4 +51,14 @@ GitHub repositories are limited to 1GB.
 
 ## Build a Digital Collection! 
 
-Check out the [Docs](docs/index.md).
+Check out the [CollectionBuilder-GH tutorial](https://collectionbuilder.github.io/collectionbuilder-gh/documentation/) for how to get started, or visit the [CollectionBuilder home](https://collectionbuilder.github.io/) for more information.
+
+If you are interested in using CollectionBuilder, or are already using it, please drop us a line (**libstatic.uidaho@gmail.com**) since we would love to learn more about it's use in the wild. 
+There are also currently opportunities to [collaborate on CollectionBuilder](https://collectionbuilder.github.io/about.html#the-grant).
+
+## License
+
+CollectionBuilder documentation and general web content is licensed [Creative Commons Attribution-ShareAlike 4.0 International](http://creativecommons.org/licenses/by-sa/4.0/). 
+This license does *NOT* include any objects or images used in digital collections, which may have individually applied licenses described by a "rights" field.
+CollectionBuilder code is licensed [MIT](https://github.com/CollectionBuilder/collectionbuilder-gh/blob/master/LICENSE). 
+This license does not include external dependencies included in the `assets\lib` directory, which are covered by their individual licenses.
