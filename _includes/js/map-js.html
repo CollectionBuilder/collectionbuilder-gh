@@ -1,11 +1,11 @@
 {%- assign items = site.data[site.data.theme.metadata] -%}
 {%- assign fields = site.data.map-config -%}
 <!-- load leaflet dependencies -->
-<script src="{{ '/assets/leaflet/leaflet.js' | relative_url }}"></script>
-{% if site.data.theme.map-search == true %}<script src="{{ '/assets/leaflet/fuse.min.js' | relative_url }}"></script>
-<script src="{{ '/assets/leaflet/leaflet.fusesearch.js' | relative_url }}"></script>{% endif %}
-{% if site.data.theme.map-cluster == true %}<script src="{{ '/assets/leaflet/leaflet.markercluster.js' | relative_url }}"></script>{% endif %}
-{% if site.data.theme.map-search == true and site.data.theme.map-cluster == true %}<script src="{{ '/assets/leaflet/leaflet.markercluster.freezable.js' | relative_url }}"></script>{% endif %}
+<script src="{{ '/assets/lib/leaflet/leaflet.js' | relative_url }}"></script>
+{% if site.data.theme.map-search == true %}<script src="{{ '/assets/lib/leaflet/fuse.min.js' | relative_url }}"></script>
+<script src="{{ '/assets/lib/leaflet/leaflet.fusesearch.js' | relative_url }}"></script>{% endif %}
+{% if site.data.theme.map-cluster == true %}<script src="{{ '/assets/lib/leaflet/leaflet.markercluster.js' | relative_url }}"></script>{% endif %}
+{% if site.data.theme.map-search == true and site.data.theme.map-cluster == true %}<script src="{{ '/assets/lib/leaflet/leaflet.markercluster.freezable.js' | relative_url }}"></script>{% endif %}
 
 <script>
 (function(){
