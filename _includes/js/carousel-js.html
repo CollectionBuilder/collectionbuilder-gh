@@ -8,7 +8,7 @@
     var carousel = document.getElementById("carouselInner");
     var i;
     for (i=0; i < 5; i++) {
-        slide = "<div class='carousel-item text-center'><a href='{{ '/browse/item.html' | absolute_url | append: '?id=' }}" + carouselItems[i].id + "'><img alt='image highlight'  src='{{ '/objects/' | relative_url }}/" + carouselItems[i].id + "'></a> <div class='carousel-caption'><h5>" + carouselItems[i].title + "</h5> <h5><a href='{{ '/browse/item.html' | absolute_url | append: '?id=' }}" + carouselItems[i].objectid + "' class='btn btn-sm btn-outline-light'>View Item</a></h5></div> </div>";
+        slide = "<div class='carousel-item text-center'><a href='{{ '/browse/item.html' | absolute_url | append: '?id=' }}" + carouselItems[i].objectid + "'><img alt='image highlight'  src='{{ '/objects/' | relative_url }}/" + carouselItems[i].id + "'></a> <div class='carousel-caption'><h5>" + carouselItems[i].title + "</h5> <h5><a href='{{ '/browse/item.html' | absolute_url | append: '?id=' }}" + carouselItems[i].objectid + "' class='btn btn-sm btn-outline-light'>View Item</a></h5></div> </div>";
         carousel.innerHTML += slide;
     }
     $(".carousel-item").first().addClass("active");
