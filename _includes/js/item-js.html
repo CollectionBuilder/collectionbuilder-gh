@@ -87,7 +87,7 @@
     } else {
         /* no item with that ID */
         document.getElementById("bc-title").innerHTML = 'Not found?';
-        document.getElementById("item-title").innerHTML = 'Sorry, item not found.';
+        document.getElementById("item-title").innerHTML = 'Sorry, item not found. Please visit <a href="{{ "/browse/" | relative_url }}">Browse page</a> to find an item.';
     }
 
     /* all done, so hide loading animation */
