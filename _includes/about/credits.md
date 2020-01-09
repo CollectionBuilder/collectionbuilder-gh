@@ -9,7 +9,7 @@ CollectionBuilder is a project of University of Idaho Library's [Digital Initiat
 Powered by the open source static site generator [Jekyll](https://jekyllrb.com/) and a modern static web stack, it puts collection metadata to work building beautiful sites.
 
 The basic frame work is created using [Bootstrap](https://getbootstrap.com/) and [jQuery](https://jquery.com/).
-Metadata visualizations are built using open source libraries such as [DataTables](https://datatables.net/), [Leafletjs](http://leafletjs.com/), [lightGallery](http://sachinchoolur.github.io/lightGallery/), [TimelineJS](https://timeline.knightlab.com/), [FontAwesome](https://fontawesome.com/), [lazysizes](https://github.com/aFarkas/lazysizes), and [Lunr.js](https://lunrjs.com/).
+Metadata visualizations are built using open source libraries such as [DataTables](https://datatables.net/), [Leafletjs](https://leafletjs.com/), [lightGallery](https://sachinchoolur.github.io/lightGallery/), [TimelineJS](https://timeline.knightlab.com/), [FontAwesome](https://fontawesome.com/), [lazysizes](https://github.com/aFarkas/lazysizes), and [Lunr.js](https://lunrjs.com/).
 Object metadata is exposed using [Schema.org](http://schema.org) and [Open Graph protocol](http://ogp.me/) standards.
 
 If you are interested in using CollectionBuilder, or are already using it, please drop us a line since we would love to learn more about it's use in the wild. 

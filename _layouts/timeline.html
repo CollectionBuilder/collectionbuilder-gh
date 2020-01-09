@@ -37,7 +37,7 @@ layout: page
     {%if item.format contains 'image' %}
       <a href="{{ '/browse/item.html' | relative_url | append: '?id=' | append: item.objectid }}" ><img class="lazyload col-lg-4 col-md-6 col-8 border-0 m-1 col-6 col-md-3" data-original="{{ item.filename | prepend: '/objects/' | relative_url }}" alt="{{ item.title | escape }}" data-toggle="tooltip" data-placement="bottom" title="{{ item.title | escape }} | {{ item.date | escape }}"/></a>
     {%elsif item.format contains 'video'%}
-      <a href="{{ '/browse/item.html' | relative_url | append: '?id=' | append: item.objectid }}" ><img class="lazyload col-lg-4 col-md-6 col-8 border-0 m-1 col-md-3 col-10" data-original="{{ item.filename | prepend: 'http://i3.ytimg.com/vi/' | append: '/maxresdefault.jpg' | relative_url }}"  alt="SVG Video Icon for {{ item.title | escape }}" data-toggle="tooltip" data-placement="bottom" title="{{ item.title | escape }} | {{ item.date | escape }}"/></a>  
+      <a href="{{ '/browse/item.html' | relative_url | append: '?id=' | append: item.objectid }}" ><img class="lazyload col-lg-4 col-md-6 col-8 border-0 m-1 col-md-3 col-10" data-original="{{ item.filename | prepend: 'https://i3.ytimg.com/vi/' | append: '/maxresdefault.jpg' | relative_url }}"  alt="SVG Video Icon for {{ item.title | escape }}" data-toggle="tooltip" data-placement="bottom" title="{{ item.title | escape }} | {{ item.date | escape }}"/></a>  
     {%elsif item.format contains 'application'%}
     <div class="card col-8 col-md-6 col-lg-3 float-left"> 
         <div class="card-body text-center">
