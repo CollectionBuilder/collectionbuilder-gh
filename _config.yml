@@ -22,8 +22,6 @@ tagline: a template for creating simple digital exhibits
 description: "CollectionBuilder-GH is a template for creating small digital collection exhibits on GitHub Pages designed for teaching digital library skills"
 # creator of the digital collection, to appear in meta tags; we typically use our GitHub usernames but feel free to just use your name
 author: CollectionBuilder
-# collection creator contact email for meta tags
-email: ewilliamson@uidaho.edu
 # collection project date, when did you publish this
 collection-date: "2019"
 
@@ -33,7 +31,7 @@ metadata: collection-metadata
 
 # google services [optional!]
 # leave these blank or comment out to NOT include google code
-# google-tracking-id: "UA-74844011-1"
+# google-analytics-id: "UA-74844011-1"
 # google-cse-id: "002151703305773322890:1pu3smhw1t8"
 
 # Note: use environment variable on build command to include analytics
