@@ -27,8 +27,7 @@ featured-locations-max: 5
 about-page: true # options [true / false] 
 # Featured image on About page - if left blank, CB will use image featured on the home page
 # give filename including folder
-about-featured-image: objects/test012.jpg
-about-featured-image-alt: "Administration Building, University of Idaho"
+about-featured-image: /objects/test001.jpg
 
 # BROWSE PAGE
 # see _data/browse-config.csv for field display options
