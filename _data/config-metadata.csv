@@ -1,17 +1,15 @@
-field,display-name,dc-map,browse-link
-title,Title,DC.title
-creator,Creator,DC.creator
-recipient,Recipient,
-date,Date Created,DCTERMS.created
-date-is-approximate,Approximated Date
-description,Description,DC.description
-item-information,Item Information,
-subject,Subjects,DC.subject,true
+field,display-name,browse-link
+title,Title,
+creator,Creator,
+date,Date Created,
+description,Description,
+subject,Subjects,true
 location,Location
 latitude,Latitude
 longitude,Longitude
 source,Source
 identifier,Source Identifier
-type,Type,DC.type
-format original,Format Original
-format,Format
+type,Type,
+format,Format,
+rights,Rights,
+rightsstatement,Rights Statement,
