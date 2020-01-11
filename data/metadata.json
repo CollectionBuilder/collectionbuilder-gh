@@ -1,7 +1,7 @@
 ---
 # metadata for table ajax
 ---
-{%- assign items = site.data[site.data.theme.metadata] -%}
+{%- assign items = site.data[site.metadata] -%}
 {%- assign fields = site.data.table-config | map: 'field' -%}
 { "objects": [
     {%- for item in items -%}

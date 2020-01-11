@@ -1,7 +1,7 @@
 ---
 # create lunr store for search page
 ---
-{%- assign items = site.data[site.data.theme.metadata] -%}
+{%- assign items = site.data[site.metadata] -%}
 {%- assign fields = site.data.search-config -%}
 var store = [ 
 {%- for item in items -%} 

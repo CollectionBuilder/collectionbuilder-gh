@@ -2,5 +2,7 @@
 title: Browse
 layout: browse
 permalink: /browse/
-# see _data/browse-config.csv for display options
+# see _data/config-browse.csv for display options
 ---
+
+## Browse Items

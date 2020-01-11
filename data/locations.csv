@@ -2,7 +2,7 @@
 # find all unique locations used in the metadata
 ---
 {%- if site.data.theme.locations-on == true -%}
-{%- assign raw-locations = site.data[site.data.theme.metadata] | map: "location" | join: ";" | split: ";" -%}
+{%- assign raw-locations = site.data[site.metadata] | map: "location" | join: ";" | split: ";" -%}
 {%- capture locations -%}{% for s in raw-locations %}{% if s != "" %}{{ s | strip }};{% endif %}{%- endfor -%}{%- endcapture -%}
 {%- assign locations = locations | split: ";" -%}
 {%- assign uniqueLocations = locations | uniq | sort -%}
