@@ -20,7 +20,7 @@ featured-subjects-max: 5
 # Same as subjects above. Leave blank for automatically generated locations. Or add locations you'd like to feature. For list see data/places.csv
 featured-locations: Moscow, Idaho; Tacoma, Washington; Pullman, Washington; Spokane, Washington # separate by semi-colon(';') - if left blank, will be automatically generated to create top 5 locations
 # set number of top locations to display if auto generating
-featured-locations-max: 3
+featured-locations-max: 5
 
 # ABOUT PAGE
 # Turn the about page on or off. "true" means you will have an about page 
@@ -50,8 +50,15 @@ map-cluster-radius: 25 # size of clusters, from ~ 10 to 80
 
 # SUBJECT PAGE
 subjects-page: true # true / false, turns off subject generation to lower build time (then page doesn't work!)
+subjects-field: subject;creator # set the field to be featured in the cloud
 subject-min: 1 # min size for subject cloud, too many terms = slow load time!
 stopwords: # boxers;boxing;boxer # set of subjects separated by ;, e.g. boxers;boxing
+
+# LOCATIONS PAGE
+locations-page: false # true/false
+locations-field: location # set the field to be featured in the cloud
+locations-min: 1 # min size for subject cloud, too many terms = slow load time!
+locations-stopwords: # set of subjects separated by ; that will be removed from display, e.g. boxers;boxing
 
 # TIMELINE PAGE
 year-navigation: #"1900;1905;1910;1915;1920" # set years to appear in dropdown nav
