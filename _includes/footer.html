@@ -1,9 +1,7 @@
 <footer class="navbar navbar-dark bg-dark {% unless page.layout=='map' %}mt-4{% endunless %}">
     <div class="container py-3">
-        <a class="navbar-brand" href="{{ '/' | absolute_url }}">{{ site.data.theme.title }}</a>
+        <a class="navbar-brand" href="{{ '/' | absolute_url }}">{{ site.title }}</a>
         <span class="navbar-text navbar-nav mr-auto">{{ site.collection-date }}</span><br>
-        <span class="navbar-text navbar-nav">built with <a href="https://github.com/CollectionBuilder/collectionbuilder-gh" target="_blank">collectionbuilder-gh <span class="text-success">{% raw  %} 
-            {%}
-            {% endraw %}</span></a> </span>
+        <span class="navbar-text navbar-nav">built with <a href="https://github.com/CollectionBuilder/collectionbuilder-gh" target="_blank">collectionbuilder-gh <span class="text-success">{% raw  %}{%}{% endraw %}</span></a></span>
     </div>
 </footer>
