@@ -39,7 +39,6 @@ metadata: collection-metadata
 # (this is done automatically by gh-pages build)
 
 # build settings
-permalink: pretty
 # ignore stuff
 exclude: [docs/, Rakefile, README.md, LICENSE]
 # compress CSS output
