@@ -18,8 +18,9 @@
 <script>
     /* subject terms + count */
     var terms = [
-        {% for u in uniqueTerms %}{% assign count = terms | where_exp: 'item', 'item == u' | size %}[ {{ u | capitalize | jsonify }}, {{ count | jsonify }}]{% unless forloop.last %}, {% endunless %}{% endfor %}
+        {% for u in uniqueTerms %}{% assign count = terms | where_exp: 'item', 'item == u' | size %}{% if count >= termsMin %}[ {{ u | capitalize | jsonify }}, {{ count | jsonify }}],{% endif %}{% endfor %}[]
     ];
+    terms = terms.slice(0,-1);
 
     {% if include.stopwords %}/* apply stopwords */
     var stopWords = {{ include.stopwords | downcase | split: ';' | jsonify }};
