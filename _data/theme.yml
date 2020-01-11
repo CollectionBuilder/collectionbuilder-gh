@@ -49,13 +49,13 @@ map-cluster-radius: 25 # size of clusters, from ~ 10 to 80
 
 # SUBJECT PAGE
 subjects-page: true # true / false, turns off subject generation to lower build time (then page doesn't work!)
-subjects-field: subject;creator # set the field to be featured in the cloud
+subjects-fields: subject;creator # set the field to be featured in the cloud
 subject-min: 1 # min size for subject cloud, too many terms = slow load time!
 stopwords: # boxers;boxing;boxer # set of subjects separated by ;, e.g. boxers;boxing
 
 # LOCATIONS PAGE
 locations-page: false # true/false
-locations-field: location # set the field to be featured in the cloud
+locations-fields: location # set the field to be featured in the cloud
 locations-min: 1 # min size for subject cloud, too many terms = slow load time!
 locations-stopwords: # set of subjects separated by ; that will be removed from display, e.g. boxers;boxing
 

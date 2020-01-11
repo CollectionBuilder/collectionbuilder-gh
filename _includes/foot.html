@@ -7,7 +7,8 @@
 {% if page.layout == "item" %}{% include js/item-js.html %}{% endif %}
 {% if page.layout == "table" %}{% include js/table-js.html %}{% endif %}
 {% if page.layout == "map" %}{% include js/map-js.html %}{% endif %}
-{% if page.layout == "subjects" %}{% include js/subjects-js.html %}{% endif %}
+{% if page.layout == "subjects" and site.data.theme.subjects-page == true %}{% include js/cloud-js.html fields=site.data.theme.subjects-fields min=site.data.theme.subjects-min stopwords=site.data.theme.subjects-stopwords %}{% endif %}
+{% if page.layout == "locations" and site.data.theme.locations-page == true %}{% include js/cloud-js.html fields=site.data.theme.locations-fields min=site.data.theme.locations-min stopwords=site.data.theme.locations-stopwords %}{% endif %}
 {% if page.layout == "search" %}{% include js/lunr-js.html %}{% endif %}
 {% if page.layout == "browse" %}{% include js/browse-js.html %}{% endif %}
 {% if page.layout == "timeline" %}{% include js/timeline-js.html %}{% endif %}
