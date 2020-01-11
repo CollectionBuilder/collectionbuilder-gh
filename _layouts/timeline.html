@@ -1,5 +1,6 @@
 ---
 layout: page
+lazyload: true
 ---
 {%- assign items = site.data[site.metadata] -%}
 {%- assign raw-dates = site.data[site.metadata] | map: 'date' | compact | uniq -%}
@@ -43,11 +44,11 @@ layout: page
                         <div class="card"> 
                             <div class="card-body text-center">
                                 <h4 class="card-title text-dark">{{ item.title }}</h4>
-                                <img class="lazyload img-thumbnail w-50" data-original="{% if item.format contains 'audio' %}{{ '/assets/img/audio.svg' | relative_url }}{% else %}{{ '/assets/img/pdf.svg' | relative_url }}{% endif %}" alt="{% if item.format contains 'audio' %}audio{% else %}PDF{% endif %} filetype thumbnail">
+                                <img class="lazyload img-thumbnail w-50" data-src="{% if item.format contains 'audio' %}{{ '/assets/img/audio.svg' | relative_url }}{% else %}{{ '/assets/img/pdf.svg' | relative_url }}{% endif %}" alt="{% if item.format contains 'audio' %}audio{% else %}PDF{% endif %} filetype thumbnail">
                             </div>
                         </div>
                         {% else %}
-                        <img class="lazyload img-fluid" data-original="{% if item.format contains 'video' %}{{ item.filename | prepend: 'https://i3.ytimg.com/vi/' | append: '/maxresdefault.jpg' | relative_url }}{% else %}{{ item.filename | prepend: '/objects/' | relative_url }}{% endif %}" alt="{{ item.title | escape }}" data-toggle="tooltip" data-placement="bottom" title="{{ item.title | escape }} | {{ item.date | escape }}">
+                        <img class="lazyload img-fluid" data-src="{% if item.format contains 'video' %}{{ item.filename | prepend: 'https://i3.ytimg.com/vi/' | append: '/maxresdefault.jpg' | relative_url }}{% else %}{{ item.filename | prepend: '/objects/' | relative_url }}{% endif %}" alt="{{ item.title | escape }}" data-toggle="tooltip" data-placement="bottom" title="{{ item.title | escape }} | {{ item.date | escape }}">
                         {% endif %}
                     </a>
                 </div>
