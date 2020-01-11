@@ -1,29 +1,49 @@
+#####
 # collectionbuilder-gh
 # a Jekyll Digital Collection Generator
 # designed for GitHub Pages
+#####
 
-# Site settings
-
-
-# creator contact email for meta tags
-email: ewilliamson@uidaho.edu
-# collection project date, when did you publish this
-collection-date: "2019"
-
+# URL variables
 # url is your gh-pages base, following the pattern: username.github.io
 url: https://collectionbuilder.github.io
 # baseurl is your github repository's name prefixed with a /
 baseurl: /collectionbuilder-gh
+# location of code, the full url to your github repository
+source-code: https://github.com/CollectionBuilder
 
+# Site settings
+# title of site appears in banner
+title: CollectionBuilder-GH 
+# tagline, a short phrase that will appear throughout the site in the top banner
+tagline: a template for creating simple digital exhibits
+# description appears in meta tags and other locations
+# this description might appear in search result lists, keep around 160 characters max
+description: "CollectionBuilder-GH is a template for creating small digital collection exhibits on GitHub Pages designed for teaching digital library skills"
+# creator of the digital collection, to appear in meta tags; we typically use our GitHub usernames but feel free to just use your name
+author: CollectionBuilder
+# collection creator contact email for meta tags
+email: ewilliamson@uidaho.edu
+# collection project date, when did you publish this
+collection-date: "2019"
+
+# Collection settings
+# choose metadata: this is the name of the csv file in your _data directory that describes the objects in your collection
+metadata: collection-metadata 
 
 # google services [optional!]
 # leave these blank or comment out to NOT include google code
 # google-tracking-id: "UA-74844011-1"
 # google-cse-id: "002151703305773322890:1pu3smhw1t8"
 
-# build settings
-permalink: pretty
-
 # Note: use environment variable on build command to include analytics
 # JEKYLL_ENV=production jekyll build
 # (this is done automatically by gh-pages build)
+
+# build settings
+permalink: pretty
+# ignore stuff
+exclude: [docs/, Rakefile, README.md, LICENSE]
+# compress CSS output
+sass:
+  style: compressed
