@@ -1,4 +1,4 @@
-{%- assign formats = site.data[site.data.theme.metadata] | map: "format" -%}
+{%- assign formats = site.data[site.metadata] | map: "format" -%}
 {%- assign types = "image;audio;video;application" | split: ";" -%}
 <div class="card mb-3" >
   <div class="card-body">
@@ -21,7 +21,7 @@
       {%- endcase -%}
       {%- endif -%}
       {%- endfor -%}
-      <a class="btn btn-sm btn-light" href="{{ '/data/' | relative_url }}">View data</a>
+      <a class="btn btn-sm btn-outline-secondary mt-2" href="{{ '/data/' | relative_url }}">View data</a>
     </p>
   </div>
 </div>

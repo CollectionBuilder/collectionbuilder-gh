@@ -1,7 +1,7 @@
 <div class="card mb-3">
   <div class="card-body">
     <h5 class="card-title">Description</h5>
-    <p class="card-text">{{ site.data.theme.description }}</p>
-    {%if site.data.theme.about-page == true %}<a class="btn btn-outline-primary" href="{{ '/about/' | relative_url }}" >Learn More &raquo;</a>{%endif%}
+    <p class="card-text">{{ site.description }}</p>
+    {% if site.data.theme.about-page == true %}<a class="btn btn-outline-primary" href="{{ '/about/' | relative_url }}" >Learn More &raquo;</a>{% endif %}
   </div>
 </div>
