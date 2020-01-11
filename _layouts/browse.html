@@ -1,7 +1,7 @@
 ---
 layout: page 
 ---
-{% assign items = site.data[site.data.theme.metadata] %}
+{% assign items = site.data[site.metadata] %}
 {%- assign fields = site.data.browse-config -%}
 
 {{ content }}
@@ -38,12 +38,12 @@ layout: page
                 <h3 class="card-title"><a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.objectid }}" class="text-dark" title="link to {{ item.title | escape }}">{{ item.title }}</a></h3>
                 {%- if item.format contains 'application' -%}
                 <p>
-                    <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.objectid }}"><img class="thumb lazyload img-thumbnail col-md-8 col-4" data-original="{{ '/objects/svg/pdf.svg' | relative_url }}" alt="pdf filetype thumbnail"></a>
+                    <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.objectid }}"><img class="thumb lazyload img-thumbnail col-md-8 col-4" data-original="{{ '/assets/img/pdf.svg' | relative_url }}" alt="pdf filetype thumbnail"></a>
                 </p>
                 {%- elsif item.format contains 'audio' -%}
                 <p>
                     <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.objectid }}">
-                        <img class="thumb lazyload img-thumbnail col-md-8 col-4" data-original="{{ '/objects/svg/audio.svg' | relative_url }}" alt="audio filetype thumbnail">
+                        <img class="thumb lazyload img-thumbnail col-md-8 col-4" data-original="{{ '/assets/img/audio.svg' | relative_url }}" alt="audio filetype thumbnail">
                     </a>
                 </p>
                 {%- endif -%}

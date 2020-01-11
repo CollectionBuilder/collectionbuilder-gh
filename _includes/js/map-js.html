@@ -75,9 +75,9 @@
         /* find object thumb based on format */
         var thumbSrc;
         if (feature.properties.format.includes("audio")) {
-            thumbSrc = '{{ "/objects/svg/audio.svg" | relative_url }}';
+            thumbSrc = '{{ "/assets/img/audio.svg" | relative_url }}';
         } else if (feature.properties.format.includes("pdf")) {
-            thumbSrc = '{{ "/objects/svg/pdf.svg" | relative_url }}';
+            thumbSrc = '{{ "/assets/img/pdf.svg" | relative_url }}';
         } else if (feature.properties.format.includes("video")) {
             thumbSrc = 'https://i3.ytimg.com/vi/' +  feature.properties.filename + '/mqdefault.jpg';
         } else {
