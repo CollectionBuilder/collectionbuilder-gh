@@ -1,8 +1,8 @@
 ---
-# find and count unique subjects used in the metadata
+# find all unique locations used in the metadata
 ---
-{%- if site.data.theme.subjects-page == true -%}
-{%- assign cloud-fields = site.data.theme.subjects-fields | split: ";" -%}
+{%- if site.data.theme.locations-page == true -%}
+{%- assign cloud-fields = site.data.theme.locations-fields | split: ";" -%}
 {% comment %} Capture all cloud terms {% endcomment %} 
 {%- assign raw-terms = "" -%}
 {%- for c in cloud-fields -%}
@@ -14,7 +14,8 @@
 {%- capture terms -%}{%- for t in raw-terms -%}{%- if t != "" and t != " " -%}{{ t | strip | downcase }};{%- endif -%}{%- endfor -%}{%- endcapture -%}
 {%- assign terms = terms | split: ";" | sort -%}
 {%- assign uniqueTerms = terms | uniq | sort -%}
-subject,count,link
-{% for u in uniqueTerms %}{%- assign count = terms | where_exp: 'item', 'item == u' | size -%}
-"{{ u | capitalize }}",{{ count }},"{{ u | uri_escape | prepend: "/browse/#" | absolute_url }}"
-{% endfor %}{% endif %}
+{ "locations": [
+    {% for u in uniqueTerms %}{% assign count = terms | where_exp: 'item', 'item == u' | size %}{ "location" : {{ u | capitalize | jsonify }}, "count" : {{ count | jsonify}}, "link" : {{ u | url_param_escape | prepend: '/browse/#' | absolute_url | jsonify }} }{% unless forloop.last %},
+    {% endunless %}{% endfor %}
+]
+}{%- endif -%}
