@@ -1,0 +1,37 @@
+---
+# generate time-focused json data suitable for TimelineJS
+---
+{%- assign items = site.data[site.metadata] -%}
+{
+    "title": {
+        "media": {
+          "url": "{% include image/featured-image.html %}",
+          "caption": {{ bannerItem[0].title | jsonify }},
+          "credit": {{ site.title | jsonify }}
+        },
+        "text": {
+          "headline": {{ site.title | append: ' Timeline' | jsonify }},
+          "text": {{ site.description | jsonify }}
+        }
+    },
+    "events": [
+      {% for item in items %}{% if item.date %}{
+        "media": {
+          "url": "{% if item.format contains 'audio' %}{{ '/assets/img/audio.svg' | relative_url }}{% elsif item.format contains 'application' %}{{ '/assets/img/pdf.svg' | relative_url }}{% elsif item.format contains 'video' %}{{ item.filename | prepend: 'https://i3.ytimg.com/vi/' | append: '/maxresdefault.jpg' | relative_url }}{% else %}{{ item.filename | prepend: '/objects/' | relative_url }}{% endif %}",
+          "caption": {{ item.title | jsonify }},
+          "link": "{{ '/browse/item.html' | relative_url | append: '?id=' | append: item.objectid }}",
+          "credit": "{{ site.title }}"
+        },
+        "start_date": { {% if item.date contains '-' %}{% assign dates = item.date | split: '-' %}
+          "month": "{{ dates[1] }}",
+          "day": "{{ dates[2] }}",
+          "year": "{{ dates[0] }}"{% elsif item.date contains '/' %}"year": "{{ item.date | strip | split: '/' | last }}"{% else %}
+          "year": "{{ item.date }}"{% endif %}
+        },
+        "text": {
+          "headline": {{ item.title | jsonify }}{% if item.description %},
+          "text": {{ item.description | jsonify }}{% endif %}
+        }
+      }{% unless forloop.last %},{% endunless %}{% endif %}{% endfor %}
+    ]
+}
