@@ -19,6 +19,9 @@
             {% if stubs contains "timeline" %}
             <a class="btn btn-sm btn-secondary m-2" href="{{ '/data/timelinejs.json' | absolute_url }}" target="_blank">Timeline JSON</a>
             {% endif %}
+            {% if site.data.theme.metadata-facets-fields %}
+            <a class="btn btn-sm btn-secondary m-2" href="{{ '/data/facets.json' | absolute_url }}" target="_blank">Facets JSON</a>
+            {% endif %}
             <a class="btn btn-sm btn-secondary m-2" href="{{ site.source-code }}" rel="noopener" target="_blank">Source Code</a>
         </p>
     </div>
