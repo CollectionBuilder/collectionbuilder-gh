@@ -1,7 +1,37 @@
-<footer class="navbar navbar-dark bg-dark {% unless page.layout=='map' %}mt-4{% endunless %}">
-    <div class="container py-3">
-        <a class="navbar-brand" href="{{ '/' | absolute_url }}">{{ site.title }}</a>
-        <span class="navbar-text navbar-nav mr-auto">{{ site.collection-date }}</span><br>
-        <span class="navbar-text navbar-nav">built with <a href="https://github.com/CollectionBuilder/collectionbuilder-gh" target="_blank">collectionbuilder-gh <span class="text-success">{% raw  %}{%}{% endraw %}</span></a></span>
+<footer class="bg-dark pt-4 container-fluid {% unless page.layout=='map' %}mt-3{% endunless %}">
+
+    <div class="row border-bottom border-white pb-4 mb-2">
+
+        <div class="col-md-7  px-4 mt-2">
+
+            <h4><a href="{{ '/' | absolute_url }}" class="text-white">{{ site.title }}</a></h4>
+            <p class="text-white"><small>{{ site.description }}</small></p>
+            <nav>
+                <ul class="nav nav-pills">
+                    {% for nav in site.data.config-nav %}
+                    <li class="nav-item">
+                        <a class="nav-link text-light {% if page.url == nav.stub %}active{% endif %}" href="{{ nav.stub | relative_url }}">{{ nav.display-text }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </nav>
+
+        </div>
+
+        <div class="col-md-5 mt-2 text-right">
+            <p class="text-white" id="footer-credits">
+                <small><em>built with</em>
+                    <a href="https://collectionbuilder.github.io/" target="_blank" rel="noopener" title="CollectionBuilder">
+                        <img src="{{ '/assets/img/collectionbuilder-logo.png' | relative_url }}" class="img-fluid" alt="CollectionBuilder logo" >
+                    </a>
+                </small>
+            </p>
+        </div>
+
     </div>
+
+    <div class="col-md-12 text-center pt-3 pb-1">
+        <p class="text-white">Last updated {{ site.time | date: '%Y' }}</p>
+    </div>
+
 </footer>
