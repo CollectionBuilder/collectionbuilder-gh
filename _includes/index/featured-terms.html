@@ -11,7 +11,7 @@
 {%- endcomment -%}
 
 {% if include.featured %}
-{% assign topTerms = featured | split: ";" %}
+{% assign topTerms = include.featured | split: ";" %}
 {% else %}
 
 {% comment %} 
