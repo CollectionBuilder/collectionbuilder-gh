@@ -1,0 +1,117 @@
+/* 
+    This is a modified version of Bootstrap Sass for customizing theme colors.
+    It is intended to create an easy means to override basic theme colors for btn- text-, and bg- classes. It is not complete Bootstrap theming! 
+*/
+
+/* Color contrast function from Bootstrap */
+$yiq-contrasted-threshold:  150 !default;
+$yiq-text-dark:             #212529 !default;
+$yiq-text-light:            #fff !default;
+@function color-yiq($color, $dark: $yiq-text-dark, $light: $yiq-text-light) {
+    $r: red($color);
+    $g: green($color);
+    $b: blue($color);
+  
+    $yiq: (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
+  
+    @if ($yiq >= $yiq-contrasted-threshold) {
+      @return $dark;
+    } @else {
+      @return $light;
+    }
+}
+
+/* mixin to generate buttons */
+@mixin theme-button($background, $border, $hover-background: darken($background, 7.5%), $hover-border: darken($border, 10%), $active-background: darken($background, 10%), $active-border: darken($border, 12.5%)) {
+    color: #fff;
+    background-color: $background;
+    border-color: $border;
+    &:hover {
+        color: #fff;
+        background-color: $hover-background;
+        border-color: $hover-border;
+    }
+    &:focus, &.focus {
+        box-shadow: 0 0 0 0.2rem rgba(mix(color-yiq($background), $border, 15%), 0.5);
+    }
+    &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active,
+    .show > &.dropdown-toggle {
+        color: #fff;
+        background-color: $active-background;
+        border-color: $active-border;
+    }
+    &:not(:disabled):not(.disabled):active:focus, &:not(:disabled):not(.disabled).active:focus,
+    .show > &.dropdown-toggle:focus {
+        box-shadow: 0 0 0 0.2rem rgba(mix(color-yiq($background), $border, 15%), 0.5);
+    }
+}
+/* mixin to create btn-outline */
+@mixin theme-button-outline($color, $color-hover: color-yiq($color), $active-background: $color, $active-border: $color) {
+    color: $color;
+    border-color: $color;
+    &:hover {
+        color: $color-hover;
+        background-color: $active-background;
+        border-color: $active-border;
+    }
+    &:focus, &.focus {
+        box-shadow: 0 0 0 0.2rem rgba($color, 0.5);
+    }
+    &.disabled, &:disabled {
+        color: $color;
+        background-color: transparent;
+    }
+    &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active,
+    .show > &.dropdown-toggle {
+        color: color-yiq($active-background);
+        background-color: $active-background;
+        border-color: $active-background;
+    }
+    &:not(:disabled):not(.disabled):active:focus, &:not(:disabled):not(.disabled).active:focus,
+    .show > &.dropdown-toggle:focus {
+        box-shadow: 0 0 0 0.2rem rgba($color, 0.5);
+    }
+}
+/* mixin to create text color variants */
+@mixin theme-text($parent, $color) {
+    #{$parent} {
+        color: $color !important;
+    }
+    a#{$parent} {
+        &:hover, &:focus {
+            color: darken($color, 15%) !important;
+        }
+    }  
+}
+/* mixin to create background variants */ 
+@mixin theme-bg($parent, $color) {
+    #{$parent} {
+        background-color: $color !important;
+    }
+    a#{$parent},
+    button#{$parent} {
+        &:hover, &:focus {
+            background-color: darken($color, 10%) !important;
+        }
+    }
+}
+
+/* each function to create all the buttons */
+@each $color, $value in $theme-colors {
+    .btn-#{$color} {
+        @include theme-button($value, $value);
+    }
+}
+@each $color, $value in $theme-colors {
+    .btn-outline-#{$color} {
+        @include theme-button-outline($value);
+    }
+}
+/* each function to create text colors */
+@each $color, $value in $theme-colors {
+    @include theme-text(".text-#{$color}", $value);
+}
+/* each function to create background colors */ 
+@each $color, $value in $theme-colors {
+    @include theme-bg(".bg-#{$color}", $value);
+}

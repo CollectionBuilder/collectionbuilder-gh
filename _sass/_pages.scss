@@ -1,0 +1,65 @@
+/* index */
+.carousel-item-title{
+    background-color: rgba(37, 36, 36, 0.72);
+}
+
+/* item page */
+.gallery-img {
+    cursor: pointer;
+}
+dt {
+    font-size:20px;
+}
+.mp3-item-player{ width:100%; }
+#item-nav {
+    a { 
+        position: absolute;
+        top:500px;
+        opacity:.3;
+        &:hover{opacity:1}
+        @include media-query($on-palm) {
+            top:200px; 
+        }
+    }
+    .previous { left:10px; }
+    .next{ right:10px; }
+}
+
+/* browse */
+.item .card-title {
+    font-size:1.5rem;
+}
+.hidden-format-for-browse{
+    color:rgba(0, 0, 0, 0);
+    font-size:1px;
+    line-height: 1px;
+}
+
+/* map */
+#map { height: 750px; z-index: 98; }
+.mapthumb {
+    height: 100px;
+}
+.leaflet-fusesearch-panel .header {
+    padding-bottom: 1.5em;
+}
+
+/* timeline */
+#timeline .img-thumbnail { height: 110px; }
+
+/* subjects */
+#cloud {
+    background: none repeat scroll 0% 0% rgb(64, 82, 79); 
+    padding: 4px;
+}
+.tagcloud0{font-size:0.4em;}
+.tagcloud1{font-size:0.5em;}
+.tagcloud2{font-size:0.8em;}
+.tagcloud3{font-size:1.1em;}
+.tagcloud4{font-size:1.4em;}
+.tagcloud5{font-size:1.6em;}
+.tagcloud6{font-size:1.9em;}
+.tagcloud7{font-size:2.2em;}
+.tagcloud8{font-size:2.5em;}
+.tagcloud9{font-size:2.8em;}
+.tagcloud10{font-size:3.0em;}
