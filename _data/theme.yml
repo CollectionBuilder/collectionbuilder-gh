@@ -18,9 +18,9 @@ featured-subjects: # if left blank, will be automatically generated to create to
 # set number of top subjects to display if auto generating
 featured-subjects-max: 5 
 # Same as subjects above. Leave blank for automatically generated locations. Or add locations you'd like to feature. For list see data/places.csv
-featured-locations: Moscow, Idaho; Tacoma, Washington; Pullman, Washington; Spokane, Washington # separate by semi-colon(';') - if left blank, will be automatically generated to create top 5 locations
+featured-locations: # separate by semi-colon(';') - if left blank, will be automatically generated to create top 5 locations
 # set number of top locations to display if auto generating
-featured-locations-max: 5
+featured-locations-max: 3
 
 # ABOUT PAGE
 # Turn the about page on or off. "true" means you will have an about page 
