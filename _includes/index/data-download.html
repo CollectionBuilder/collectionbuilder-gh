@@ -1,0 +1,28 @@
+{%- assign stubs = site.data.config-nav | map: 'stub' | join: ';' -%}
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">Collection as Data <small>(click to download)</small></h5>
+        <p class="card-text text-center">
+            <a class="btn btn-sm btn-secondary m-2" href="{{ '/data/metadata.csv' | absolute_url }}" target="_blank">Metadata CSV</a>
+            <a class="btn btn-sm btn-secondary m-2" href="{{ '/data/metadata.json' | absolute_url }}" target="_blank">Metadata JSON</a>
+            {% if stubs contains "subject" %}
+            <a class="btn btn-sm btn-secondary m-2" href="{{ '/data/subjects.json' | absolute_url }}" target="_blank">Subjects JSON</a>
+            <a class="btn btn-sm btn-secondary m-2" href="{{ '/data/subjects.csv' | absolute_url }}" target="_blank">Subjects CSV</a>
+            {% endif %}
+            {% if stubs contains "map" %}
+            <a class="btn btn-sm btn-secondary m-2" href="{{ '/data/geodata.json' | absolute_url }}" target="_blank">Geodata JSON</a>
+            {% endif %}
+            {% if stubs contains "location" %}
+            <a class="btn btn-sm btn-secondary m-2" href="{{ '/data/locations.csv' | absolute_url }}" target="_blank">Locations CSV</a>
+            <a class="btn btn-sm btn-secondary m-2" href="{{ '/data/locations.json' | absolute_url }}" target="_blank">Locations JSON</a>
+            {% endif %}
+            {% if stubs contains "timeline" %}
+            <a class="btn btn-sm btn-secondary m-2" href="{{ '/data/timelinejs.json' | absolute_url }}" target="_blank">Timeline JSON</a>
+            {% endif %}
+            {% if site.data.theme.metadata-facets-fields %}
+            <a class="btn btn-sm btn-secondary m-2" href="{{ '/data/facets.json' | absolute_url }}" target="_blank">Facets JSON</a>
+            {% endif %}
+            <a class="btn btn-sm btn-secondary m-2" href="{{ site.source-code }}" rel="noopener" target="_blank">Source Code</a>
+        </p>
+    </div>
+</div>

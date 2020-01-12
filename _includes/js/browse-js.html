@@ -1,40 +1,151 @@
-<script src="{{ '/assets/lib/jquery.lazyload.js' | relative_url }}"></script>
+{%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' -%}
+{%- assign fields = site.data.config-browse -%}
 <script>
-(function(){ 
-  /* lazy load images */
-  var $imgs = $("img.lazyload");
-  $imgs.lazyload({ 
-        effect: "fadeIn",
-        failure_limit: Math.max($imgs.length - 1, 0)
-  });
 
-  /* set up browse filter function */
-  function filterItems() {
-    var input, filter, table, tr, td, i;
-    input = document.getElementById("quickSearch");
-    filter = input.value.toUpperCase();
-    itemcontainer = document.getElementById("browseItems");
-    item = itemcontainer.getElementsByClassName("item");
-    for (i = 0; i < item.length; i++) {
-      itemcontents = item[i].getElementsByClassName("search")[0];
-      if (itemcontents) {
-        if (itemcontents.innerText.toUpperCase().indexOf(filter) > -1) {
-          item[i].style.display = "";
-        } else {
-          item[i].style.display = "none";
-        }
-      }       
+function makeCard(obj) {
+    // find item link
+    var itemHref = "{{ '/browse/item.html' | absolute_url | append: '?id=' }}" + obj.id;
+    // find images
+    var imgSrc, thumbSrc;
+    if (obj.format.includes("audio")) {
+        thumbSrc = '{{ "/assets/img/audio.svg" | relative_url }}';
+    } else if (obj.format.includes("pdf")) {
+        thumbSrc = '{{ "/assets/img/pdf.svg" | relative_url }}';
+    } else if (obj.format.includes("video")) {
+        imgSrc = 'https://i3.ytimg.com/vi/' +  obj.filename + '/mqdefault.jpg';
+    } else {
+        imgSrc = '{{ "/objects/" | relative_url }}' +  obj.filename;
+    }  
+    // start card
+    var card = '<div class="item col-lg-4 col-md-6 col-sm-12 mb-2"><div class="card">';
+    // top image for photos
+    if(imgSrc) {
+      card += '<a href="' + itemHref + '"> <img class="card-img-top lazyload" data-src="' + imgSrc + '" alt="Image of ' + obj.title + '"></a>';
     }
-    var numberofint = $('div.card:visible').length;
-    $("#numberOf").html(numberofint);
-    $imgs.lazyload();
-    $("#goButton").focus();
+    // title
+    card += '<div class="card-body text-center"> <h3 class="card-title"><a href="' + itemHref + '" class="text-dark">' + obj.title + '</a></h3>';
+    // thumb for non-photo items
+    if(thumbSrc){
+      card += '<p><a href="' + itemHref + '"><img class="lazyload w-50" data-src="' + thumbSrc + '" alt="Image of ' + obj.title + '"></a></p>';
+    }
+    // other fields
+    card += '<p class="card-text">';
+    {% for f in fields %}{% unless f.hidden == 'true' %}
+    if(obj[{{ f.field | jsonify }}]){
+    {% if f.displayName %}card += '<strong>{{ f.displayName }}:</strong> ';{% endif %}
+    {% if f.btn == 'true' %}
+    var btns = obj[{{ f.field | jsonify }}].split(";");
+    for (var i = 0, len = btns.length; i < len; i++) {
+      if(btns[i] != "") {
+        card += '<a class="btn btn-sm btn-secondary m-1 text-wrap" href="{{ '/browse/' | relative_url }}#' + encodeURIComponent(btns[i].trim()) + '">' + btns[i].trim() + '</a>';
+      }
+    }
+    {% else %}
+    card += obj[{{ f.field | jsonify }}];
+    {% endif %}
+    {% unless forloop.last %}card += '<br>';{% endunless %}
+    }
+    {% endunless %}{% endfor %}
+    card += '</p>';
+    // media type
+    if(obj.format != "") {
+      card += '<p class="card-text"><small><a class="btn btn-sm btn-outline-secondary" href="{{ '/browse/' | relative_url }}#' + encodeURIComponent(obj.format) + '">' + 
+        obj.format.split("/").pop().toUpperCase() + ' <span class="';
+      if(obj.format.includes('image')){
+        card += 'far fa-image';
+      } else if(obj.format.includes('audio')){
+        card += 'far fa-file-audio';
+      } else if(obj.format.includes('video')){
+        card += 'far fa-file-video';
+      } else {
+        card += 'far fa-file';
+      }
+      card += '"></span></a></small></p>';
+    }
+    // view button
+    card += '<hr><a href="' + itemHref + '" class="btn btn-sm btn-light text-primary" title="link to ' + obj.title + '">View Full Record</a>';
+    // close divs
+    card += '</div></div></div>';
+    // send back big string
+    return card;
   }
-  /* filter if hash in initial URL */ 
-  var hashfilter = decodeURIComponent(location.hash.substr(1));
+
+  /* Fisher-Yates shuffle https://bost.ocks.org/mike/shuffle/ */
+  function shuffle(array) {
+    var m = array.length, t, i;
+    while (m) {
+    i = Math.floor(Math.random() * m--);
+    t = array[m];
+    array[m] = array[i];
+    array[i] = t;
+    }
+    return array;
+  }
+
+  /* add items */
+  var items = [
+    {% for i in items %}
+    { "title":{{ i.title | strip | escape | jsonify }}, "format":{% if i.format %}{{ i.format | escape | jsonify }}{% else %}""{% endif %}, {% for f in fields %}{% if i[f.field] %}{{ f.field | escape | jsonify }}:{{ i[f.field] | strip | jsonify }},{% endif %}{% endfor %} "filename": {{ i.filename | jsonify }}, "id":{{ i.objectid | jsonify }} }{% unless forloop.last %},{% endunless %}{% endfor %}
+  ];
+  /* randomize items once at page load */
+  shuffle(items);
+
+  function filterItems(arr,q) {
+    // dont filter if no q 
+    if (q=="") { 
+      var filteredItems = arr; 
+    } else {
+      q = q.trim().toUpperCase(); 
+      // 3 filter options, filter, grep, loop...
+      // js filter
+      /*
+      var filteredItems = arr.filter(function (obj) { return Object.values(obj).join(" ").toUpperCase().includes(q);}); */
+      // jquery grep
+      /*
+      var filteredItems = jQuery.grep(arr, function(obj) { return Object.values(obj).join(" ").toUpperCase().includes(q);}); */
+      // (/keyword/i).test(source)
+      // js loop
+      /*
+      var filteredItems = [];
+      for (var i = 0, len = arr.length; i < len; i++) {
+        if(Object.values(arr[i]).join(" ").toUpperCase().includes(q)){
+          filteredItems.push(arr[i]);
+        }
+      }*/
+      // for compatible indexOf loop seems fastest
+      var filteredItems = [];
+      for (var i = 0, len = arr.length; i < len; i++) {
+        var val = "";
+        for (var k in arr[i]) { val += arr[i][k]; }
+        if(val.toUpperCase().indexOf(q) != -1){
+          filteredItems.push(arr[i]);
+        }
+      }
+    }
+    // add number 
+    $("#numberOf").html(filteredItems.length + " of {{ items | size }} items");
+    
+    // add stuff, make cards first in giant var, then add all at once to speed things up
+    var cards = "";
+    for (var i = 0, len = filteredItems.length; i < len; i++) {
+      cards += makeCard(filteredItems[i]);
+    }
+    $("#browseItems").html(cards);
+
+    // finish
+    $("#goButton").focus();
+    $("#loading").hide();
+  };
+
+  var query = "";
+  /* filter if hash in initial URL */
   if(window.location.hash) {
-    $('#quickSearch').val(hashfilter);
-    filterItems();
+    query = decodeURIComponent(location.hash.substr(1));
+    $('#quickSearch').val(query);
+    filterItems(items,query);
+  } else {
+    query = "";
+    filterItems(items,query);
   }
   /* add hash if search button clicked */ 
   $('#goButton').click( function() {
@@ -48,10 +159,13 @@
   });
   /* filter if hash changes */ 
   $(window).on("hashchange", function() {
-    var hashfilter = decodeURIComponent(location.hash.substr(1));
-    $('#quickSearch').val(hashfilter);
-    filterItems();
+    // show spinner
+    $("#loading").show();
+    // read hash
+    query = decodeURIComponent(location.hash.substr(1));
+    $('#quickSearch').val(query);
+    // filter
+    filterItems(items,query);
   });
 
-})();
 </script>

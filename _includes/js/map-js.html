@@ -1,5 +1,5 @@
-{%- assign items = site.data[site.data.theme.metadata] -%}
-{%- assign fields = site.data.map-config -%}
+{%- assign items = site.data[site.metadata] | where_exp: 'item','item.latitude != nil and item.longitude != nil' -%}
+{%- assign fields = site.data.config-map -%}
 <!-- load leaflet dependencies -->
 <script src="{{ '/assets/lib/leaflet/leaflet.js' | relative_url }}"></script>
 {% if site.data.theme.map-search == true %}<script src="{{ '/assets/lib/leaflet/fuse.min.js' | relative_url }}"></script>
@@ -11,10 +11,11 @@
 (function(){
     /* add collection map data */
     var geodata = { "type": "FeatureCollection", "features": [ 
-    {% for item in items %}{% if item.latitude and item.longitude %}
+    {% for item in items %}
     { "type":"Feature", "geometry":{ "type":"Point", "coordinates":[{{ item.longitude | strip }},{{ item.latitude | strip }}] }, "properties":
-    { "title": {{ item.title | jsonify }}, 
-    {% for f in fields %}"{{ f.field }}": {{ item[f.field] | jsonify }},{% endfor %} "filename": {{ item.filename | jsonify }}, "id": {{ item.objectid | jsonify }} } }{% unless forloop.last %}, {% endunless %}{% endif %}{% endfor %}
+    { "title": {{ item.title | escape | jsonify }}, 
+    {% for f in fields %}"{{ f.field | escape }}": {{ item[f.field] | escape | jsonify }},{% endfor %} 
+    "format": {{ item.format | jsonify }}, "filename": {{ item.filename | jsonify }}, "id": {{ item.objectid | jsonify }} } }{% unless forloop.last %}, {% endunless %}{% endfor %}
     ]};
 
     /* init map and set zoom */
@@ -64,34 +65,37 @@
     /* create cluster group */
     var markers = L.markerClusterGroup({ maxClusterRadius: {{ site.data.theme.cluster-radius | default: 15 }}, singleMarkerMode: true {% if site.data.theme.map-search == true %}, removeOutsideVisibleBounds: false{% endif %} });{% endif %}
 
-    /* function to add object popups */
+    /* function to create object popups */
     function objectPopups(feature, layer) {
         {% if site.data.theme.map-search == true %}
         /* bind feature for search */
         feature.layer = layer;{% endif %}
-        /* item link */
+        /* calculate item link */
         var itemHref = '{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id;
-        /* object thumb based on format */
+        /* find object thumb based on format */
         var thumbSrc;
-        if (feature.properties.format.includes("image")) {
-            thumbSrc = '{{ "/objects/" | relative_url }}' +  feature.properties.filename;
+        if (feature.properties.format.includes("audio")) {
+            thumbSrc = '{{ "/assets/img/audio.svg" | relative_url }}';
         } else if (feature.properties.format.includes("pdf")) {
-            thumbSrc = '{{ "/objects/svg/pdf.svg" | relative_url }}';
+            thumbSrc = '{{ "/assets/img/pdf.svg" | relative_url }}';
         } else if (feature.properties.format.includes("video")) {
             thumbSrc = 'https://i3.ytimg.com/vi/' +  feature.properties.filename + '/mqdefault.jpg';
         } else {
-            thumbSrc = '{{ "/objects/svg/" | relative_url }}' +  feature.properties.format.substring(0,feature.properties.format.indexOf("/")) + '.svg';
-        }           
-        /* function to create object pop ups */
+            thumbSrc = '{{ "/objects/" | relative_url }}' +  feature.properties.filename;
+        }    
+        /* create popup content */
         var popupTemplate = '<h4><a class="text-dark" href="' + itemHref + '">' +
-            feature.properties.title + '</a></h4><div class="text-center"><a class="btn btn-light" href="' + itemHref + 
-            '" ><img class="mapthumb" src="' +  thumbSrc + '" alt="item thumbnail"></a></div><p class="mt-0">';
+            feature.properties.title + '</a></h4><div class="text-center"><a href="' + itemHref + 
+            '" ><img class="mapthumb img-thumb" src="' +  thumbSrc + '" alt="item thumbnail"></a></div><p class="mt-1">';
+        /* add metadata fields */
         {% for f in fields %}{% if f.display %}
         if (feature.properties.{{ f.field }}) {
             popupTemplate += '<strong>{{ f.display }}:</strong> ' + feature.properties.{{ f.field }} + '<br>'; 
         }
         {% endif %}{% endfor %}
+        /* add object link button to popup */
         popupTemplate += '</p><div class="text-center"><a class="btn btn-light" href="' + itemHref + '" >View Item</a></div>';
+        /* add object popup to map layer */
         layer.bindPopup(popupTemplate);
     }
     /* function to add objects to map */

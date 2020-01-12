@@ -1,14 +1,14 @@
-{% if page.layout == "home-infographic" %}
+{% if page.layout == "home-infographic" and site.data.theme.featured-image-objectid or site.data.theme.featured-image-link %}
 <style>
 #home-banner {
-    background-image: url('{{ site.data.theme.home-banner-image | relative_url }}');
+    background-image: url('{% include image/featured-image.html %}');
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: {{ site.data.theme.home-banner-image-position | default: 'center' }};
+    background-position: {{ site.data.theme.home-banner-image-position | default: center }};
 }
 #home-title-box {
-    padding-top: {{ site.data.theme.home-title-y-padding | default: '8em' }};
-    padding-bottom: {{ site.data.theme.home-title-y-padding | default: '8em' }};
+    padding-top: {{ site.data.theme.home-title-y-padding | default: '5em' }};
+    padding-bottom: {{ site.data.theme.home-title-y-padding | default: '5em' }};
 }
 @media screen and (max-width: 576px) {
     #home-title-box {
@@ -20,12 +20,12 @@
 <div id="home-banner" class="container-fluid mb-0 p-0">
     <div id="home-title-box" >
         <div class="title-card p-2 text-center">
-            <h1 class="display-4">{{ site.data.theme.title }}</h1>
-            {% if site.data.theme.tagline %}<p class="mb-0">{{ site.data.theme.tagline }}</p>{% endif %}
+            <h1 class="display-4">{{ site.title }}</h1>
+            {% if site.tagline %}<p class="mb-0">{{ site.tagline }}</p>{% endif %}
         </div>
     </div>
-    {% if site.data.theme.home-banner-image-objectid %}<div class="text-right p-0 mt-0">
-        <small><a class="text-info featured-link" href="{{ site.data.theme.home-banner-image-objectid | prepend: '/browse/item.html?id=' | relative_url }}" title="{{ site.data.theme.home-banner-image-title }}">Featured Image</a></small>
+    {% if site.data.theme.featured-image-objectid %}<div class="text-right p-0 mt-0">
+        <small><a class="text-info featured-link" href="{{ site.data.theme.featured-image-objectid | prepend: '/browse/item.html?id=' | relative_url }}" title="{{ bannerItem[0].title | escape }}">Featured Image</a></small>
     </div>{% endif %}
 </div>
 {%- else -%}
@@ -33,8 +33,8 @@
     <div class="row mt-2">
         <div class="col-md-12">
             <h1 class="h3">
-                <a href="{{ '/' | absolute_url }}" class="text-dark text-uppercase">{{ site.data.theme.title }}</a>
-                <small class="text-muted">| {{ site.data.theme.tagline }}</small>
+                <a href="{{ '/' | absolute_url }}" class="text-dark text-uppercase">{{ site.title }}</a>
+                <small class="text-muted">| {{ site.tagline }}</small>
             </h1>
         </div>
     </div>	

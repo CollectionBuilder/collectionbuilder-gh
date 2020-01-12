@@ -1,5 +1,6 @@
+{%- assign carousel-size = site.data[site.metadata] | size | at_most: 9 -%}
 <style>
-    #imageCarousel .carousel-item img { height: {{ site.data.theme.carousel-height | default: "500" }}px; }
+    #imageCarousel .carousel-item { height: {{ site.data.theme.carousel-height | remove: "px" | default: '300' }}px; }
 </style>
 <div class="card mb-3">
     <div class="card-body">
@@ -8,7 +9,7 @@
             <div class="col-md-12 pb-3">
                 <div id="imageCarousel" class="carousel slide bg-dark rounded" data-ride="carousel">
                     <ol class="carousel-indicators">
-                        {% for i in (1..5) %}
+                        {% for i in (1..carousel-size) %}
                         <li data-target="#imageCarousel" data-slide-to="{{ forloop.index }}" class="{% if forloop.first %}active{% endif %}"></li>
                         {% endfor %}
                     </ol>

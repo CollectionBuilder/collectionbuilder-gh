@@ -2,7 +2,7 @@
 title: Table
 layout: table
 permalink: /table/
-# see _data/table-config.csv for display options
+# see _data/config-table.csv for display options
 ---
 
 ## Search/Sort Collection Metadata

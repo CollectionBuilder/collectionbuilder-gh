@@ -1,10 +1,11 @@
 ---
 layout: page
+lazyload: true
 ---
-{%- assign items = site.data[site.data.theme.metadata] -%}
-{%- assign raw-dates = site.data[site.data.theme.metadata] | map: 'date' | compact | uniq -%}
+{%- assign items = site.data[site.metadata] -%}
+{%- assign raw-dates = site.data[site.metadata] | map: 'date' | compact | uniq -%}
 {%- capture clean-years -%}{% for date in raw-dates %}{% if date contains "-" %}{{ date | strip | split: "-" | first }}{% elsif date contains "/" %}{{ date | strip | split: "/" | last }}{% else %}{{ date | strip }}{% endif %}{% unless forloop.last %};{% endunless %}{%- endfor -%}{%- endcapture -%}
-{%- assign uniqueYears = clean-years | split: ";" | uniq | sort -%}
+{%- assign uniqueYears = clean-years | remove: " " | split: ";" | uniq | sort -%}
 {%- if site.data.theme.year-navigation -%}
 {%- assign navYears = site.data.theme.year-navigation | split: ";" -%}
 {%- else -%}
@@ -14,51 +15,46 @@ layout: page
 {%- assign navYears = navYears | split: ";" -%}
 {%- endif -%}
 <div class="dropdown float-right" id="year-nav">
-  <button class="btn btn-outline-primary dropdown-toggle" type="button" id="yearButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Skip to Year
-  </button>
-  <div class="dropdown-menu" aria-labelledby="yearButton">
-    {% for y in navYears %}
-    <a class="dropdown-item" href="#{{ y }}">{{ y }}</a>{% endfor %}
-  </div>
+    <button class="btn btn-info dropdown-toggle" type="button" id="yearButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Year
+    </button>
+    <div class="dropdown-menu" aria-labelledby="yearButton">
+        {% for y in navYears %}
+        <a class="dropdown-item" href="#{{ y }}">{{ y }}</a>{% endfor %}
+    </div>
 </div>
 
 {{ content }}
 
 <h3><a href="#{{ uniqueYears | first }}">{{ uniqueYears | first }}</a> to <a href="#{{ uniqueYears | last }}">{{ uniqueYears | last }}</a></h3>
 
-<table class="table table-striped" id="timeline">
-  {% for year in uniqueYears %}
-  <tr id="{{ year }}">
-    <th><h3 >{{ year }}</h3></th>
-    <td>
-    {%- assign inYear = items | where_exp: 'item', 'item.date contains year' -%}
-    {% for item in inYear %}
-    {%if item.format contains 'image' %}
-      <a href="{{ '/browse/item.html' | relative_url | append: '?id=' | append: item.objectid }}" ><img class="lazyload col-lg-4 col-md-6 col-8 border-0 m-1 col-6 col-md-3" data-original="{{ item.filename | prepend: '/objects/' | relative_url }}" alt="{{ item.title | escape }}" data-toggle="tooltip" data-placement="bottom" title="{{ item.title | escape }} | {{ item.date | escape }}"/></a>
-    {%elsif item.format contains 'video'%}
-      <a href="{{ '/browse/item.html' | relative_url | append: '?id=' | append: item.objectid }}" ><img class="lazyload col-lg-4 col-md-6 col-8 border-0 m-1 col-md-3 col-10" data-original="{{ item.filename | prepend: 'https://i3.ytimg.com/vi/' | append: '/maxresdefault.jpg' | relative_url }}"  alt="SVG Video Icon for {{ item.title | escape }}" data-toggle="tooltip" data-placement="bottom" title="{{ item.title | escape }} | {{ item.date | escape }}"/></a>  
-    {%elsif item.format contains 'application'%}
-    <div class="card col-8 col-md-6 col-lg-3 float-left"> 
-        <div class="card-body text-center">
-            <h4 class="card-title"><a class="text-dark" href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.objectid }}">{{item.title}}</a></h4>
-      <p>
-      <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.objectid }}">
-          <img class="thumb lazyload img-thumbnail col-lg-6 col-8" data-original="{{ '/objects/svg/pdf.svg' | relative_url }}" alt="audio filetype thumbnail">
-      </a>
-  </p></div></div>
-    {%elsif item.format contains 'audio'%}
-    <div class="card col-8 col-md-6 col-lg-3 float-left"> 
-        <div class="card-body text-center">
-            <h4 class="card-title"><a class="text-dark" href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.objectid }}">{{item.title}}</a></h4>
-      <p>
-      <a href="{{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.objectid }}">
-          <img class="thumb lazyload img-thumbnail  col-lg-6 col-8 " data-original="{{ '/objects/svg/audio.svg' | relative_url }}" alt="audio filetype thumbnail">
-      </a>
-  </p></div></div>
-    {% endif %}
-      {% endfor %}
-    </td>
-  </tr>
-  {% endfor %}
+<table id="timeline" class="table table-striped">
+    {% for year in uniqueYears %}
+    <tr id="{{ year }}">
+        <th>
+            <h3>{{ year }}</h3>
+        </th>
+        <td>
+            <div class="row">
+                {%- assign inYear = items | where_exp: 'item', 'item.date contains year' -%}
+                {% for item in inYear %}
+                <div class="col-lg-4 col-md-6">
+                    <a href="{{ '/browse/item.html' | relative_url | append: '?id=' | append: item.objectid }}" >
+                        {% if item.format contains 'application' or item.format contains 'audio' %}
+                        <div class="card"> 
+                            <div class="card-body text-center">
+                                <h4 class="card-title text-dark">{{ item.title }}</h4>
+                                <img class="lazyload img-thumbnail w-50" data-src="{% if item.format contains 'audio' %}{{ '/assets/img/audio.svg' | relative_url }}{% else %}{{ '/assets/img/pdf.svg' | relative_url }}{% endif %}" alt="{% if item.format contains 'audio' %}audio{% else %}PDF{% endif %} filetype thumbnail">
+                            </div>
+                        </div>
+                        {% else %}
+                        <img class="lazyload img-fluid" data-src="{% if item.format contains 'video' %}{{ item.filename | prepend: 'https://i3.ytimg.com/vi/' | append: '/maxresdefault.jpg' | relative_url }}{% else %}{{ item.filename | prepend: '/objects/' | relative_url }}{% endif %}" alt="{{ item.title | escape }}" data-toggle="tooltip" data-placement="bottom" title="{{ item.title | escape }} | {{ item.date | escape }}">
+                        {% endif %}
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
 </table>

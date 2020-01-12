@@ -8,7 +8,7 @@ permalink: /about/
 <!--Delete the bracketed "include" below when creating your own About Page, or fill out the "about-page-feature-card.html" to highlight or link to a specific feature of your collection" -->
 {% include about/feature-card.html %}
 
-# About {{ site.data.theme.title }}.
+# About {{ site.title }}.
 
 This site is generated using `collectionbuilder-gh`, a project to generate a free and simple digital collection using [GitHub Pages](https://pages.github.com/) from: 
 

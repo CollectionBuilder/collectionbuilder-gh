@@ -1,0 +1,21 @@
+---
+# find all unique locations used in the metadata
+---
+{%- if site.data.theme.locations-page == true -%}
+{%- assign cloud-fields = site.data.theme.locations-fields | split: ";" -%}
+{% comment %} Capture all cloud terms {% endcomment %} 
+{%- assign raw-terms = "" -%}
+{%- for c in cloud-fields -%}
+{% assign new = site.data[site.metadata] | map: c | compact | join: ";" %}
+{% assign raw-terms = raw-terms | append: ";" | append: new %}
+{%- endfor -%}
+{%- assign raw-terms = raw-terms | split: ";" -%}
+{% comment %} Clean up raw terms {% endcomment %} 
+{%- capture terms -%}{%- for t in raw-terms -%}{%- if t != "" and t != " " -%}{{ t | strip | downcase }};{%- endif -%}{%- endfor -%}{%- endcapture -%}
+{%- assign terms = terms | split: ";" | sort -%}
+{%- assign uniqueTerms = terms | uniq | sort -%}
+{ "locations": [
+    {% for u in uniqueTerms %}{% assign count = terms | where_exp: 'item', 'item == u' | size %}{ "location" : {{ u | capitalize | jsonify }}, "count" : {{ count | jsonify}}, "link" : {{ u | url_param_escape | prepend: '/browse/#' | absolute_url | jsonify }} }{% unless forloop.last %},
+    {% endunless %}{% endfor %}
+]
+}{%- endif -%}

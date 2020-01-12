@@ -1,25 +1,23 @@
 ---
 # generate geojson data for collection items with lat-longs
 ---
+{%- assign items = site.data[site.metadata] | where_exp: 'item','item.latitude != nil and item.longitude != nil' -%}
+{%- assign fields = site.data.theme.metadata-export-fields | split: "," -%}
 {
     "type": "FeatureCollection",
     "features": [ 
-        {% for item in site.data[site.data.theme.metadata] %}{% if item.latitude and item.longitude %}
+        {% for item in items %}
         {
             "type":"Feature",
             "geometry":{
                 "type":"Point",
-                "coordinates":[{{ item.longitude | strip }},{{ item.latitude | strip }}]
+                "coordinates":[{{ item.longitude }},{{ item.latitude }}]
             },            
             "properties":{
-                "title": {{ item.title | jsonify }},
-                "creator": {{ item.creator | jsonify }},
-                "date": {{ item.date | jsonify }},
-                "subject": {{ item.subject | jsonify}},
-                "location": {{ item.location | jsonify }},
-                "identifier": {{ item.resource-identifier | jsonify }},
-                "link": {{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.objectid | jsonify }}
+                {% for f in fields %}{% if item[f] %}{{ f | jsonify }}: {{ item[f] | jsonify }},{% endif %}
+                {% endfor %}
+                "reference_url": {{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.objectid | jsonify }}
             }
-        }{% unless forloop.last %}, {% endunless %}{% endif %}{% endfor %}
+        }{% unless forloop.last %}, {% endunless %}{% endfor %}
     ]
 }

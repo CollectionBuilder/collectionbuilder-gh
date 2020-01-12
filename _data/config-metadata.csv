@@ -1,0 +1,15 @@
+field,display-name,browse-link
+title,Title,
+creator,Creator,
+date,Date Created,
+description,Description,
+subject,Subjects,true
+location,Location
+latitude,Latitude
+longitude,Longitude
+source,Source
+identifier,Source Identifier
+type,Type,
+format,Format,
+rights,Rights,
+rightsstatement,Rights Statement,

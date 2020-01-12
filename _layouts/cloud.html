@@ -1,0 +1,11 @@
+---
+layout: page
+---
+
+{{ content }}
+
+<div id="cloud" class="text-center my-4 bg-light border rounded p-2"></div>
+
+{% if page.cloud-fields %}
+{% include js/cloud-js.html fields=page.cloud-fields min=page.cloud-min stopwords=page.cloud-stopwords %}
+{%- endif -%}

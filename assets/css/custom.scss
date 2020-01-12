@@ -4,14 +4,43 @@
 @charset "utf-8";
 
 // base variables
+$base-font-family: {{ site.data.theme.base-font-family | default: '""' }};
+$base-font-size: {{ site.data.theme.base-font-size | default: "1.2em" }};
+$text-color: {{ site.data.theme.text-color | default: "#191919" }};
+$link-color: {{ site.data.theme.link-color | default: "#17a2b8" }};
 
-$text-color:       #111;
-$background-color: #fdfdfd;
-$brand-color:      #B06048;
+// Width of the content area
+$content-width:    1800px;
+$on-palm:          576px;
+$on-laptop:        768px;
+$on-desktop:       992px;
+$on-jumbo:        1200px;
+// Use media queries like this:
+// @include media-query($on-palm) {
+//     .wrapper {
+//         padding-right: $spacing-unit / 2;
+//         padding-left: $spacing-unit / 2;
+//     }
+// }
+@mixin media-query($device) {
+    @media screen and (max-width: $device) {
+        @content;
+    }
+}
 
-$grey-color:       #828282;
-$grey-color-light: lighten($grey-color, 40%);
-$grey-color-dark:  darken($grey-color, 25%);
+/* buttons to theme */
+{% assign btns = site.data.config-theme-colors | where_exp: "item","item.color != nil" %} 
+{% for btn in btns %}
+${{ btn.color_class }}: {{ btn.color }};
+{% endfor %}
+$theme-colors: () !default;
+$theme-colors: map-merge(
+  (
+    {% for btn in btns %}
+    "{{ btn.color_class }}": ${{ btn.color_class }}{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ),
+  $theme-colors
+);
 
-
-@import "custom";
+@import "base", "theme-colors", "pages", "custom";

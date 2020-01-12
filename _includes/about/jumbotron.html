@@ -1,12 +1,12 @@
 <style>
 #jumbo-feature {
-    background-image: url('{%if site.data.theme.about-featured-image%}{{ site.data.theme.about-featured-image | relative_url }}{%else%}{{ site.data.theme.home-banner-image | relative_url }}{%endif%}');
+    background-image: url('{% if site.data.theme.about-featured-image %}{{ site.data.theme.about-featured-image | relative_url }}{% else %}{% include image/featured-image.html %}{% endif %}');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
 }
 </style>
 <div class="jumbotron feature text-white" id="jumbo-feature">
-    <h2 class="display-4">{{ site.data.theme.title }}</h2>
-    <p>{{ site.data.theme.tagline }}</p>
+    <h2 class="display-4">{{ site.title }}</h2>
+    <p>{{ site.tagline }}</p>
 </div>

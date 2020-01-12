@@ -1,0 +1,57 @@
+{%- assign cloud-fields = include.fields | split: ";" -%}
+
+{% comment %} Capture all cloud terms {% endcomment %} 
+{%- assign raw-terms = "" -%}
+{%- for c in cloud-fields -%}
+{% assign new = site.data[site.metadata] | map: c | compact | join: ";" %}
+{% assign raw-terms = raw-terms | append: ";" | append: new %}
+{%- endfor -%}
+{%- assign raw-terms = raw-terms | split: ";" -%}
+
+{% comment %} Clean up raw terms {% endcomment %} 
+{%- capture terms -%}{%- for t in raw-terms -%}{%- if t != "" and t != " " -%}{{ t | strip | downcase }};{%- endif -%}{%- endfor -%}{%- endcapture -%}
+{%- assign terms = terms | split: ";" | sort -%}
+{%- assign uniqueTerms = terms | uniq | sort -%}
+
+{%- assign termsMin = include.min | default: 1 -%}
+
+<script>
+    /* subject terms + count */
+    var terms = [
+        {% for u in uniqueTerms %}{% assign count = terms | where_exp: 'item', 'item == u' | size %}{% if count >= termsMin %}[ {{ u | capitalize | jsonify }}, {{ count | jsonify }}],{% endif %}{% endfor %}[]
+    ];
+    terms = terms.slice(0,-1);
+
+    {% if include.stopwords %}/* apply stopwords */
+    var stopWords = {{ include.stopwords | downcase | split: ';' | jsonify }};
+    terms = terms.filter(function(a) { return stopWords.indexOf(a[0]) < 0;});{% endif %}
+    /* calculate max size */
+    var counts = terms.map(function(obj){ return obj[1]; });
+    var countMax = counts.reduce(function(a, b) { return Math.max(a, b); });
+    var cloud = document.getElementById("cloud");
+    /* Fisher-Yates shuffle https://bost.ocks.org/mike/shuffle/ */
+    /* function shuffle(array) {
+        var m = array.length, t, i;
+        while (m) {
+        i = Math.floor(Math.random() * m--);
+        t = array[m];
+        array[m] = array[i];
+        array[i] = t;
+        }
+        return array;
+    } */
+    function mapSize(x) { return Math.round(x * 9 / countMax + 1); }
+    /* create cloud */
+    function makeGrid(array) {
+        var i, size;
+        var items = "";
+        //shuffle(array);
+        for (i = 0; i < array.length; i++) {
+            size = mapSize(array[i][1]);
+            items += '<a class="btn btn-outline-primary m-2 tagcloud' + size + '" href="{{ "/browse/" | relative_url }}#' + encodeURIComponent(array[i][0]) + '" >' + array[i][0] + '</a>';
+        }
+        cloud.innerHTML = items;
+    }
+    makeGrid(terms);
+
+</script>

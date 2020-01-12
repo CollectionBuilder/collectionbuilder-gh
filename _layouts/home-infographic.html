@@ -1,10 +1,9 @@
 ---
 layout: page
+lazyload: true
 ---
-{%- assign items = site.data[site.data.theme.metadata] -%}
-
+{%- assign items = site.data[site.metadata] -%}
 <div class="row">
-  
   <div class="col-md-8">
 
   {% include index/description.html %}
@@ -15,9 +14,13 @@ layout: page
 
     {% include index/time.html %}
     {% include index/subjects.html %}
-    {% include index/locations-sm.html %}
+    {% include index/locations.html %}
     {% include index/objects.html %}
 
   </div>
-  
+  <div class="col-md-12">
+
+    {% include index/data-download.html %}
+
+  </div>
 </div>
