@@ -34,6 +34,10 @@ metadata: collection-metadata
 # google-analytics-id: "UA-74844011-1"
 # google-cse-id: "002151703305773322890:1pu3smhw1t8"
 
+# Robots exclude
+# set noindex to true if you do NOT want Google to index your site
+# noindex: true 
+
 # Note: use environment variable on build command to include analytics
 # JEKYLL_ENV=production jekyll build
 # (this is done automatically by gh-pages build)
