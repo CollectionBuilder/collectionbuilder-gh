@@ -7,10 +7,6 @@
 .gallery-img {
     cursor: pointer;
 }
-dt {
-    font-size:20px;
-}
-.mp3-item-player{ width:100%; }
 #item-nav {
     a { 
         position: absolute;
@@ -26,14 +22,6 @@ dt {
 }
 
 /* browse */
-.item .card-title {
-    font-size:1.5rem;
-}
-.hidden-format-for-browse{
-    color:rgba(0, 0, 0, 0);
-    font-size:1px;
-    line-height: 1px;
-}
 
 /* map */
 #map { height: 750px; z-index: 98; }
@@ -47,10 +35,6 @@ dt {
 /* timeline */
 
 /* subjects */
-#cloud {
-    background: none repeat scroll 0% 0% rgb(64, 82, 79); 
-    padding: 4px;
-}
 .tagcloud0{font-size:0.4em;}
 .tagcloud1{font-size:0.5em;}
 .tagcloud2{font-size:0.8em;}
