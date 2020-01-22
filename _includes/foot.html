@@ -2,7 +2,7 @@
 <script src="{{ '/assets/lib/jquery-3.4.1.min.js' | relative_url }}"></script>
 <script src="{{ '/assets/lib/bootstrap.bundle.min.js' | relative_url }}"></script>
 <!-- load other js -->
-{% if layout.lazyload == true or page.lazyload == true %}<script src="{{ '/assets/lib/lazysizes.min.js' | absolute_url }}" async></script>{% endif %}
+<script src="{{ '/assets/lib/lazysizes.min.js' | absolute_url }}" async></script>
 {% if layout.gallery == true or page.gallery == true %}{% include js/gallery-js.html %}{% endif %}
 {% if page.layout == "item" %}{% include js/item-js.html %}{% endif %}
 {% if page.layout == "table" %}{% include js/table-js.html %}{% endif %}
