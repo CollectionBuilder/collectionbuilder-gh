@@ -18,7 +18,7 @@
 <script>
     /* subject terms + count */
     var terms = [
-        {% for u in uniqueTerms %}{% assign count = terms | where_exp: 'item', 'item == u' | size %}{% if count >= termsMin %}[ {{ u | capitalize | jsonify }}, {{ count | jsonify }}],{% endif %}{% endfor %}[]
+        {% for u in uniqueTerms %}{% assign count = terms | where_exp: 'item', 'item == u' | size %}{% if count >= termsMin %}[ {{ u | jsonify }}, {{ count | jsonify }}],{% endif %}{% endfor %}[]
     ];
     terms = terms.slice(0,-1);
 
