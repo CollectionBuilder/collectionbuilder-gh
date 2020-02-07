@@ -6,10 +6,10 @@
 {% assign new = site.data[site.metadata] | map: c | compact | join: ";" %}
 {% assign raw-terms = raw-terms | append: ";" | append: new %}
 {%- endfor -%}
-{%- assign raw-terms = raw-terms | split: ";" -%}
+{%- assign raw-terms = raw-terms | downcase | split: ";" -%}
 
 {% comment %} Clean up raw terms {% endcomment %} 
-{%- capture terms -%}{%- for t in raw-terms -%}{%- if t != "" and t != " " -%}{{ t | strip | downcase }};{%- endif -%}{%- endfor -%}{%- endcapture -%}
+{%- capture terms -%}{%- for t in raw-terms -%}{%- if t != "" and t != " " -%}{{ t | strip }};{%- endif -%}{%- endfor -%}{%- endcapture -%}
 {%- assign terms = terms | split: ";" | sort -%}
 {%- assign uniqueTerms = terms | uniq | sort -%}
 
@@ -18,7 +18,7 @@
 <script>
     /* subject terms + count */
     var terms = [
-        {% for u in uniqueTerms %}{% assign count = terms | where_exp: 'item', 'item == u' | size %}{% if count >= termsMin %}[ {{ u | jsonify }}, {{ count | jsonify }}],{% endif %}{% endfor %}[]
+        {% for u in uniqueTerms %}{% assign count = terms | where_exp: 'item', 'item == u' | size %}{% if count >= termsMin %}[ {{ u | jsonify }}, {{ count }}],{% endif %}{% endfor %}[]
     ];
     terms = terms.slice(0,-1);
 

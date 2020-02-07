@@ -14,7 +14,7 @@
         {
             "field": {{ f | jsonify }},
             "terms": { {% for u in uniqueTerms %}{% assign count = terms | where_exp: 'item', 'item == u' | size %}
-                {{ u | jsonify }}: {{ count | jsonify }}{% unless forloop.last %},{% endunless %}{% endfor %}
+                {{ u | jsonify }}: {{ count }}{% unless forloop.last %},{% endunless %}{% endfor %}
             }
         }{% unless forloop.last %},{% endunless %}
         {% endfor %}
