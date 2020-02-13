@@ -1,4 +1,5 @@
 {%- assign fields = site.data.config-metadata -%}
+<script src="{{ '/assets/lib/lightgallery/js/lightgallery-all.min.js' | relative_url }}"></script>
 <script>
 (function(){
     /* add item data */
@@ -20,7 +21,7 @@
         var format = record.format;
         var objectLink = '{{ "/objects/" | absolute_url }}' + record.filename;
         if (format.includes('image')) {
-            var itemImage = '<a href="' + objectLink + '" target="_blank"  title="Object download"><img class="img-fluid img-thumbnail" src="{{ "/objects/" | relative_url }}' + record.filename + '" alt="item thumbnail"></a>';
+            var itemImage = '<div class="gallery-img" data-src="' + objectLink + '"><img class="img-fluid img-thumbnail" src="' + objectLink + '" alt="item thumbnail"><p><small>Click to view full screen</small></p></div>';
             var itemLink = '<a href="' + objectLink + '" target="_blank" class="btn btn-dark btn-lg" title="Object download">Download Image</a>';
         } else if (format.includes('application')) {
             var itemImage = '<object data="' + objectLink + '" type="application/pdf" width="100%" height="450px"><p>The PDF is not rendering in your browser. Please use the button below to download the PDF.</p></object>';
@@ -36,6 +37,13 @@
         }
         document.getElementById("item-image").innerHTML = itemImage;
         document.getElementById("item-link").innerHTML = itemLink;
+        
+        /* trigger lightGallery for images */
+        if (format.includes('image')) {
+            $("#item-image").lightGallery({
+                selector: '.gallery-img'
+            });
+        }
 
         /* add item metadata */
         var fields = '<dl>';

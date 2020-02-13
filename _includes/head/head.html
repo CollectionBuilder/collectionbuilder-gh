@@ -18,7 +18,7 @@ Production build is automatically triggered on gh-pages {% endcomment %}
 {% if site.data.theme.font-cdn %}{{ site.data.theme.font-cdn }}{% endif %}
 <link rel="stylesheet" href="{% if site.data.theme.bootswatch %}https://stackpath.bootstrapcdn.com/bootswatch/4.4.0/{{ site.data.theme.bootswatch }}/bootstrap.min.css{% else %}{{ '/assets/lib/bootstrap.min.css' | absolute_url }}{% endif %}" type="text/css">
 <script defer src="{{ '/assets/lib/fontawesome-free/js/all.min.js' | absolute_url }}"></script>
-{% if layout.gallery == true %}<link rel="stylesheet" href="{{ '/assets/lib/lightgallery/css/lightgallery.min.css' | relative_url }}" type="text/css">{% endif %}
+{% if page.layout == 'item' or layout.gallery == true or page.gallery == true %}<link rel="stylesheet" href="{{ '/assets/lib/lightgallery/css/lightgallery.min.css' | relative_url }}" type="text/css">{% endif %}
 {% if page.layout == 'table' %}<link rel="stylesheet" type="text/css" href="{{ '/assets/lib/datatables/datatables.min.css' | absolute_url }}">{% endif %}
 {% if page.layout == 'map' %}<link rel="stylesheet" href="{{ '/assets/lib/leaflet/leaflet.css' | absolute_url }}">
 {% if site.data.theme.map-search == true %}<link rel="stylesheet" href="{{ '/assets/lib/leaflet/leaflet.fusesearch.css' | absolute_url }}">{% endif %}
