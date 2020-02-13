@@ -9,9 +9,7 @@ layout: default
         <li id="bc-title" class="breadcrumb-item active"></li>
     </ul>
 
-    <div class="">
-        <h2 id="item-title" class=""></h2>
-    </div>
+    <h2 id="item-title"></h2>
 
     <div id="loading" class="text-center">
         <div class="spinner-border text-secondary" role="status"><span class="sr-only">Loading...</span></div>
@@ -31,15 +29,15 @@ layout: default
 
     {%- if site.data.theme.browse-buttons == true -%}
     <div class="text-center">
-        <a id="prev-button"></a>
+        <a id="prev-button" class="btn btn-secondary">&laquo; Previous</a>
         <a class="btn btn-secondary" href="{{ '/browse/' | relative_url }}" role="button">| Back to browse |</a>
-        <a id="for-button"></a>
+        <a id="for-button" class="btn btn-secondary">Next &raquo;</a>
     </div>
 
     <div id="item-nav">
         <div class="d-none d-md-block">
-            <div id="back-button"></div>
-            <div id="next-button"></div>
+            <a id="back-button" class="previous btn btn-lg btn-secondary">&laquo;</a>
+            <a id="next-button" class="next btn btn-lg btn-secondary">&raquo;</a>
         </div>
     </div>
     {% else %}
