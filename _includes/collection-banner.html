@@ -29,14 +29,10 @@
     </div>{% endif %}
 </div>
 {%- else -%}
-<div class="container">
-    <div class="row mt-2">
-        <div class="col-md-12">
-            <h1 class="h3">
-                <a href="{{ '/' | absolute_url }}" class="text-dark text-uppercase">{{ site.title }}</a>
-                <small class="text-muted">| {{ site.tagline }}</small>
-            </h1>
-        </div>
-    </div>	
+<div class="container pt-2">
+    <h1 class="h3">
+        <a href="{{ '/' | absolute_url }}" class="text-dark text-uppercase">{{ site.title }}</a>
+        <small class="text-muted">| {{ site.tagline }}</small>
+    </h1>
 </div>
 {%- endif -%}
