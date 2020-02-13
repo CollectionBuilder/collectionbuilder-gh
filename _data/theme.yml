@@ -23,8 +23,6 @@ featured-locations: # separate by semi-colon(';') - if left blank, will be autom
 featured-locations-max: 3
 
 # ABOUT PAGE
-# Turn the about page on or off. "true" means you will have an about page 
-about-page: true # options [true / false] 
 # Featured image on About page - if left blank, CB will use image featured on the home page
 # give filename including folder
 about-featured-image: /objects/test001.jpg

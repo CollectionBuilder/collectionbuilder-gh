@@ -2,6 +2,7 @@
   <div class="card-body">
     <h5 class="card-title">Description</h5>
     <p class="card-text">{{ site.description }}</p>
-    {% if site.data.theme.about-page == true %}<a class="btn btn-outline-primary" href="{{ '/about/' | relative_url }}" >Learn More &raquo;</a>{% endif %}
+    {%- assign about = site.data.config-nav | where: "stub","/about/" | size -%}
+    {% if about > 0 %}<a class="btn btn-outline-primary" href="{{ '/about/' | relative_url }}" >Learn More &raquo;</a>{% endif %}
   </div>
 </div>
