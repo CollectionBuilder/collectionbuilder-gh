@@ -5,7 +5,7 @@
     /* add item data */
     var items = { 
         {%- for item in site.data[site.metadata] -%}
-        {{ item.objectid | jsonify }} : { {% for f in fields %}"{{ f.field }}": {% if item[f.field] %}{{ item[f.field] | jsonify }}{% else %}"N/A"{% endif %},{% endfor %} "format": {{ item.format | jsonify }}, "filename": {{ item.filename | jsonify }} }{% unless forloop.last %}, {% endunless %}
+        {{ item.objectid | jsonify }} : { {% for f in fields %}{% if item[f.field] %}"{{ f.field }}": {{ item[f.field] | escape | jsonify }}, {% endif %}{% endfor %}"format": {{ item.format | jsonify }}, "filename": {{ item.filename | jsonify }} }{% unless forloop.last %}, {% endunless %}
         {% endfor %}
     };
     /* get query id from URL */
