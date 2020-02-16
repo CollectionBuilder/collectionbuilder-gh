@@ -5,9 +5,9 @@
 
 // base variables
 $base-font-family: {{ site.data.theme.base-font-family | default: '""' }};
-$base-font-size: {{ site.data.theme.base-font-size | default: "1.2em" }};
-$text-color: {{ site.data.theme.text-color | default: "#191919" }};
-$link-color: {{ site.data.theme.link-color | default: "#17a2b8" }};
+$base-font-size: {{ site.data.theme.base-font-size | default: '""' }};
+$text-color: {{ site.data.theme.text-color | default: '""' }};
+$link-color: {{ site.data.theme.link-color | default: '""' }};
 
 // Width of the content area
 $content-width:    1800px;

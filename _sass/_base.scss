@@ -1,16 +1,18 @@
-/* base */
+/*  base - slight modifications to override base Bootstrap
+    these values are configurable using theme.yml > Theme Fonts area 
+    or by editing base variables in custom.scss
+*/
 body {
     @if $base-font-family != "" { font-family: $base-font-family; }
-    font-size: $base-font-size;
-    color: $text-color;
+    @if $base-font-size != "" { font-size: $base-font-size; }
+    @if $text-color != "" { color: $text-color; }
 }
 a {
-    color: $link-color;
-    text-decoration: none;
-    font-weight: normal;
-    &:hover {
-        color: $text-color;
-        text-decoration: underline;
+    @if $link-color != "" { 
+        color: $link-color; 
+        &:hover {
+            @if $text-color != "" { color: $text-color; }
+        }
     }
 }
 /* skip nav for accessibility, based on https://webaim.org/techniques/skipnav/ */
