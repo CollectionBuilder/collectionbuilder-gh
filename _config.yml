@@ -10,7 +10,7 @@ url: https://collectionbuilder.github.io
 # baseurl is your github repository's name prefixed with a /
 baseurl: /collectionbuilder-gh
 # location of code, the full url to your github repository
-source-code: https://github.com/CollectionBuilder
+source-code: https://github.com/CollectionBuilder/collectionbuilder-gh
 
 # Site settings
 # title of site appears in banner
@@ -23,7 +23,7 @@ description: "CollectionBuilder-GH is a template for creating small digital coll
 # creator of the digital collection, to appear in meta tags; we typically use our GitHub usernames but feel free to just use your name
 author: CollectionBuilder
 # collection project date, when did you publish this
-collection-date: "2019"
+collection-date: "2020"
 
 # Collection settings
 # choose metadata: this is the name of the csv file in your _data directory that describes the objects in your collection

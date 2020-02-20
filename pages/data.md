@@ -2,9 +2,11 @@
 title: Data
 layout: data
 permalink: /data/
-# see _data/datafile-config.csv for display options
+# see _data/config-table.csv for table display options
 ---
 
-## Collection as Data
+## Collection Metadata
 
-View this collection's data in a variety of formats.
+The table below provides sorting and basic search of the collection contents. 
+Use the "CSV" or "Excel" button below to download the filtered metadata you see on the page in your preferred format. 
+Alternatively, click the "Download" button at the top right to view the full collection metadata in various export formats. 
