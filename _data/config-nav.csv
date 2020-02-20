@@ -1,10 +1,10 @@
 display-text,stub
 Home,/
-Browse,/browse/
-Subjects,/subjects/
-Locations,/locations/
-Map,/map/
-Timeline,/timeline/
-Table,/table/
+Browse,/browse.html
+Subjects,/subjects.html
+Locations,/locations.html
+Map,/map.html
+Timeline,/timeline.html
+Table,/table.html
 Data,/data/
-About,/about/
+About,/about.html

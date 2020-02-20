@@ -1,7 +1,7 @@
 ---
 title: Table
 layout: table
-permalink: /table/
+permalink: /table.html
 # see _data/config-table.csv for display options
 ---
 

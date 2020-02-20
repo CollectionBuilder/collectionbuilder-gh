@@ -2,7 +2,7 @@
   <div class="card-body">
     <h5 class="card-title">Description</h5>
     <p class="card-text">{{ site.description }}</p>
-    {%- assign about = site.data.config-nav | where: "stub","/about/" | size -%}
-    {% if about > 0 %}<a class="btn btn-outline-primary" href="{{ '/about/' | relative_url }}" >Learn More &raquo;</a>{% endif %}
+    {%- assign about = site.data.config-nav | where: "stub","/about.html" | size -%}
+    {% if about > 0 %}<a class="btn btn-outline-primary" href="{{ '/about.html' | relative_url }}" >Learn More &raquo;</a>{% endif %}
   </div>
 </div>

@@ -68,8 +68,8 @@
         } else {
             forward = itemKeys[current + 1];
         }
-        var backUrl = "{{ '/browse/item.html?id=' | relative_url }}" + back;
-        var forwardUrl = "{{ '/browse/item.html?id=' | relative_url }}" + forward;
+        var backUrl = "{{ '/item.html?id=' | relative_url }}" + back;
+        var forwardUrl = "{{ '/item.html?id=' | relative_url }}" + forward;
         /* add side buttons to page */
         document.getElementById("back-button").href = backUrl;
         document.getElementById("next-button").href = forwardUrl;
@@ -93,7 +93,7 @@
     } else {
         /* no item with that ID */
         document.getElementById("bc-title").innerHTML = 'Not found?';
-        document.getElementById("item-title").innerHTML = 'Sorry, item not found. Please visit <a href="{{ "/browse/" | relative_url }}">Browse page</a> to find an item.';
+        document.getElementById("item-title").innerHTML = 'Sorry, item not found. Please visit <a href="{{ "/browse.html" | relative_url }}">Browse page</a> to find an item.';
     }
 
     /* all done, so hide loading animation */

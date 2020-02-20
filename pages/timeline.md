@@ -1,7 +1,7 @@
 ---
 title: Timeline
 layout: timeline
-permalink: /timeline/
+permalink: /timeline.html
 ---
 
 ## Collection Timeline

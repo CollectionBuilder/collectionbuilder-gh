@@ -7,7 +7,7 @@
     {%- for item in items -%}
     { 
         {% for f in fields %}{% if item[f] %}{{ f | jsonify }}: {{ item[f] | jsonify }},{% endif %}
-        {% endfor %}"reference_url": {{ '/browse/item.html' | absolute_url | append: '?id=' | append: item.objectid | jsonify }}
+        {% endfor %}"reference_url": {{ '/item.html' | absolute_url | append: '?id=' | append: item.objectid | jsonify }}
     }{% unless forloop.last %},{% endunless %}
     {% endfor %}
 ] }

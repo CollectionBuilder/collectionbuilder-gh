@@ -19,7 +19,7 @@
         "media": {
           "url": "{% if item.format contains 'audio' %}{{ '/assets/img/audio.svg' | relative_url }}{% elsif item.format contains 'application' %}{{ '/assets/img/pdf.svg' | relative_url }}{% elsif item.format contains 'video' %}{{ item.filename | prepend: 'https://i3.ytimg.com/vi/' | append: '/maxresdefault.jpg' | relative_url }}{% else %}{{ item.filename | prepend: '/objects/' | relative_url }}{% endif %}",
           "caption": {{ item.title | jsonify }},
-          "link": "{{ '/browse/item.html' | relative_url | append: '?id=' | append: item.objectid }}",
+          "link": "{{ '/item.html' | relative_url | append: '?id=' | append: item.objectid }}",
           "credit": "{{ site.title }}"
         },
         "start_date": { {% if item.date contains '-' %}{% assign dates = item.date | split: '-' %}
