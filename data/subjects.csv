@@ -16,5 +16,5 @@
 {%- assign uniqueTerms = terms | uniq | sort -%}
 subject,count,link
 {% for u in uniqueTerms %}{%- assign count = terms | where_exp: 'item', 'item == u' | size -%}
-"{{ u }}",{{ count }},"{{ u | uri_escape | prepend: "/browse/#" | absolute_url }}"
+"{{ u }}",{{ count }},"{{ u | uri_escape | prepend: "/browse.html#" | absolute_url }}"
 {% endfor %}{% endif %}

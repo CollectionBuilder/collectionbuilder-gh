@@ -38,7 +38,7 @@ layout: page
                 {%- assign inYear = items | where_exp: 'item', 'item.date contains year' -%}
                 {% for item in inYear %}
                 <div class="col-lg-4 col-md-6">
-                    <a href="{{ '/browse/item.html' | relative_url | append: '?id=' | append: item.objectid }}" >
+                    <a href="{{ '/item.html' | relative_url | append: '?id=' | append: item.objectid }}" >
                         {% if item.format contains 'application' or item.format contains 'audio' %}
                         <div class="card"> 
                             <div class="card-body text-center">

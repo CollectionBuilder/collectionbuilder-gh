@@ -71,7 +71,7 @@
         /* bind feature for search */
         feature.layer = layer;{% endif %}
         /* calculate item link */
-        var itemHref = '{{ "/browse/item.html?id=" | relative_url }}' + feature.properties.id;
+        var itemHref = '{{ "/item.html?id=" | relative_url }}' + feature.properties.id;
         /* find object thumb based on format */
         var thumbSrc;
         if (feature.properties.format.includes("audio")) {
