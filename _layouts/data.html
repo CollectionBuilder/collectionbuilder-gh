@@ -1,25 +1,20 @@
 ---
 layout: page
 ---
-{% assign datafiles = site.data.datafile-config %}
+{% assign fields = site.data.config-table | map: 'display_name' %}
+{% include data-download.html %}
 
 {{ content }}
 
-<table class="table table-bordered my-4">
-    <thead>
-        <tr>
-            <th scope="col">Data Type</th>
-            <th scope="col">Description</th>
-            <th scope="col">Download</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for datafile in datafiles %}
-        <tr class="table-font">
-            <th scope="row"><strong>{{ datafile.extended-name }}:</strong></th>
-            <td>{{ datafile.description }}</td>
-            <td class="text-center"><a class="btn btn-lg btn-outline-primary m-2" href="{% if datafile.object == 'github-link' %}{{ site.source-code }}{% else %}{{ datafile.object | prepend: '/data/' | absolute_url }}{% endif %}" target="_blank">{{ datafile.display-name }}</a></td>
-        </tr>
-        {%endfor%}
-    </tbody>
-</table>
+<div class="table-responsive-md">
+    <table id="item-table" class="table table-striped">
+        <thead>
+            <tr>
+                {% for f in fields %}
+                <th scope="col">{{ f }}</th>
+                {% endfor %}
+                <th>Link</th>
+            </tr>
+        </thead>
+    </table>
+</div>
