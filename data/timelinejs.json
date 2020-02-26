@@ -6,7 +6,7 @@
     "title": {
         "media": {
           "url": "{% include image/featured-image.html %}",
-          "caption": {{ bannerItem[0].title | jsonify }},
+          "caption": {{ featuredItem.title | jsonify }},
           "credit": {{ site.title | jsonify }}
         },
         "text": {

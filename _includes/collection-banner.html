@@ -1,10 +1,10 @@
-{% if page.layout == "home-infographic" and site.data.theme.featured-image-objectid or site.data.theme.featured-image-link %}
+{% if page.layout == "home-infographic" and site.data.theme.featured-image %}
 <style>
 #home-banner {
     background-image: url('{% include image/featured-image.html %}');
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: {{ site.data.theme.home-banner-image-position | default: center }};
+    background-position: {{ site.data.theme.home-banner-image-position | default: 'center' }};
 }
 #home-title-box {
     padding-top: {{ site.data.theme.home-title-y-padding | default: '5em' }};
@@ -24,9 +24,9 @@
             {% if site.tagline %}<p class="mb-0">{{ site.tagline }}</p>{% endif %}
         </div>
     </div>
-    {% if site.data.theme.featured-image-objectid %}<div class="text-right p-0 mt-0">
-        <small><a class="text-info featured-link" href="{{ site.data.theme.featured-image-objectid | prepend: '/item.html?id=' | relative_url }}" title="{{ bannerItem[0].title | escape }}">Featured Image</a></small>
-    </div>{% endif %}
+    {% unless site.data.theme.featured-image contains '/' %}<div class="text-right p-0 mt-0">
+        <small><a class="text-info featured-link" href="{{ site.data.theme.featured-image | prepend: '/item.html?id=' | relative_url }}" title="{{ featuredItem.title | escape }}">Featured Image</a></small>
+    </div>{% endunless %}
 </div>
 {%- else -%}
 <div class="container pt-2">
