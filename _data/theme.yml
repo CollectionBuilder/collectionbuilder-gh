@@ -2,7 +2,7 @@
 # values set here help configure details of individual pages in the website
 
 # HOME PAGE SECTION
-# featured image is used in home page banner, and in meta markup
+# featured image is used in home page banner and in meta markup to represent the collection
 # use either an objectid (from an item in this collect), a relative location of an image in this repo, or a full url to an image elsewhere
 featured-image: test011
 # optional: add extra padding around collection title for a larger image feature. 
@@ -23,7 +23,7 @@ featured-locations-max: 3
 
 # ABOUT PAGE
 # Featured image on About page - if left blank, CB will use image featured on the home page
-# give filename including folder
+# use either an objectid (from an item in this collect), a relative location of an image in this repo, or a full url to an image elsewhere
 about-featured-image: /objects/test001.jpg
 
 # BROWSE PAGE
