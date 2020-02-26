@@ -1,10 +1,12 @@
-#####
+##########
 # collectionbuilder-gh
-# a Jekyll Digital Collection Generator
-# designed for GitHub Pages
-#####
+# Jekyll Digital Collection Generator, designed for GitHub Pages
+# https://github.com/CollectionBuilder/collectionbuilder-gh
+##########
 
-# URL variables
+##########
+# URL VARIABLES
+#
 # url is your gh-pages base, following the pattern: username.github.io
 url: https://collectionbuilder.github.io
 # baseurl is your github repository's name prefixed with a /
@@ -12,7 +14,9 @@ baseurl: /collectionbuilder-gh
 # location of code, the full url to your github repository
 source-code: https://github.com/CollectionBuilder/collectionbuilder-gh
 
-# Site settings
+##########
+# SITE SETTINGS
+#
 # title of site appears in banner
 title: CollectionBuilder-GH 
 # tagline, a short phrase that will appear throughout the site in the top banner
@@ -25,24 +29,32 @@ author: CollectionBuilder
 # collection project date, when did you publish this
 collection-date: "2020"
 
-# Collection settings
+##########
+# COLLECTION SETTINGS
+#
 # choose metadata: this is the name of the csv file in your _data directory that describes the objects in your collection
 metadata: collection-metadata 
 
-# google services [optional!]
+##########
+# GOOGLE SERVICES [optional!]
+#
 # leave these blank or comment out to NOT include google code
 # google-analytics-id: "UA-74844011-1"
 # google-cse-id: "002151703305773322890:1pu3smhw1t8"
 
-# Robots exclude
+##########
+# ROBOTS EXCLUDE
+#
 # set noindex to true if you do NOT want Google to index your site
 # noindex: true 
 
+##########
+# BUILD SETTINGS 
+#
 # Note: use environment variable on build command to include analytics
 # JEKYLL_ENV=production jekyll build
 # (this is done automatically by gh-pages build)
-
-# build settings
+#
 # ignore stuff
 exclude: [docs/, Rakefile, README.md, LICENSE]
 # compress CSS output
