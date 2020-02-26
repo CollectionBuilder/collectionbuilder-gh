@@ -3,9 +3,8 @@
 
 # HOME PAGE SECTION
 # featured image is used in home page banner, and in meta markup
-# use either featured-image-objectid (image in collection) or featured-image-link (external img), not both
-featured-image-objectid: test011 # use objectid of a item from collection
-featured-image-link: # full url to img if NOT using objectid 
+# use either an objectid (from an item in this collect), a relative location of an image in this repo, or a full url to an image elsewhere
+featured-image: test011
 # optional: add extra padding around collection title for a larger image feature. 
 home-title-y-padding: # Default is 8em
 # optional: change position of background image, center, top, bottom

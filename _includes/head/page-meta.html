@@ -6,7 +6,7 @@
 <meta property="og:site_name" content="{{ site.title | escape }}" />
 <meta property="og:type" content="website" />
 <meta property="og:image" content="{% include image/featured-image.html %}" />
-<meta property="og:image:alt" content="{%- if site.data.theme.featured-image-objectid -%}{{ bannerItem[0].title | escape }}{% else %}CollectionBuilder logo{% endif %}" />
+<meta property="og:image:alt" content="{%- if site.data.theme.featured-image-objectid -%}{{ featuredItem.title | escape }}{% else %}CollectionBuilder logo{% endif %}" />
 <meta property="og:url" content="{{ page.url | absolute_url }}" />
 <meta property="og:locale" content="en_US" />
 <!-- schema.org JSON-LD -->
