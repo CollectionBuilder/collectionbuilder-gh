@@ -12,7 +12,7 @@ function makeCard(obj) {
     } else if (obj.format.includes("pdf")) {
         thumbSrc = '{{ "/assets/img/pdf.svg" | relative_url }}';
     } else if (obj.format.includes("video")) {
-        imgSrc = 'https://i3.ytimg.com/vi/' +  obj.filename + '/mqdefault.jpg';
+        imgSrc = 'https://img.youtube.com/vi/' +  obj.filename + '/hqdefault.jpg';
     } else {
         imgSrc = '{{ "/objects/" | relative_url }}' +  obj.filename;
     }  

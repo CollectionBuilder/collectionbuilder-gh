@@ -79,7 +79,7 @@
         } else if (feature.properties.format.includes("pdf")) {
             thumbSrc = '{{ "/assets/img/pdf.svg" | relative_url }}';
         } else if (feature.properties.format.includes("video")) {
-            thumbSrc = 'https://i3.ytimg.com/vi/' +  feature.properties.filename + '/mqdefault.jpg';
+            thumbSrc = 'https://img.youtube.com/vi/' +  feature.properties.filename + '/default.jpg';
         } else {
             thumbSrc = '{{ "/objects/" | relative_url }}' +  feature.properties.filename;
         }    
