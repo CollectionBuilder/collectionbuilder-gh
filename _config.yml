@@ -31,7 +31,7 @@ author: CollectionBuilder
 # COLLECTION SETTINGS
 #
 # choose metadata: this is the name of the csv file in your _data directory that describes the objects in your collection
-metadata: collection-metadata 
+metadata: demo-metadata 
 
 ##########
 # GOOGLE SERVICES [optional!]
