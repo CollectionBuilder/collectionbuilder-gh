@@ -47,7 +47,7 @@
             if (record.date.includes('-')) {
                 itemYear = record.date.split('-')[0];
             } else if (record.date.includes('/')) {
-                itemYear = record.date.split('/')[-1];
+                itemYear = (record.date.split('/')).pop();
             } else {
                 itemYear = record.date;
             }
