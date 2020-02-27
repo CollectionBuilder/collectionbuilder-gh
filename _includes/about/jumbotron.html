@@ -6,7 +6,11 @@
     background-position: center;
 }
 </style>
-<div class="jumbotron feature text-white" id="jumbo-feature">
-    <h2 class="display-4">{{ site.title }}</h2>
-    <p>{{ site.tagline }}</p>
+<div class="jumbotron feature px-0 border" id="jumbo-feature">
+    <div id="home-title-box">
+        <div class="title-card p-2 text-center">
+            <h2 class="display-4">{{ site.title }}</h2>
+            {% if site.tagline %}<p id="home-tagline">{{ site.tagline }}</p>{% endif %}
+        </div>
+    </div>
 </div>
