@@ -14,7 +14,7 @@
     {% for item in items %}
     { "type":"Feature", "geometry":{ "type":"Point", "coordinates":[{{ item.longitude | strip }},{{ item.latitude | strip }}] }, "properties":
     { "title": {{ item.title | escape | jsonify }}, 
-    {% for f in fields %}"{{ f.field | escape }}": {{ item[f.field] | escape | jsonify }},{% endfor %} 
+    {% for f in fields %}"{{ f.field | escape }}": {{ item[f.field] | escape | jsonify }},{% endfor %}{% if item.youtubeid %} "youtube": {{ item.youtubeid | jsonify }}, {% endif %}
     "format": {{ item.format | jsonify }}, "filename": {{ item.filename | jsonify }}, "id": {{ item.objectid | jsonify }} } }{% unless forloop.last %}, {% endunless %}{% endfor %}
     ]};
 
@@ -79,7 +79,7 @@
         } else if (feature.properties.format.includes("pdf")) {
             thumbSrc = '{{ "/assets/img/pdf.svg" | relative_url }}';
         } else if (feature.properties.format.includes("video")) {
-            thumbSrc = 'https://img.youtube.com/vi/' +  feature.properties.filename + '/default.jpg';
+            thumbSrc = 'https://img.youtube.com/vi/' +  feature.properties.youtube + '/default.jpg';
         } else {
             thumbSrc = '{{ "/objects/" | relative_url }}' +  feature.properties.filename;
         }    

@@ -7,14 +7,14 @@ function makeCard(obj) {
     var itemHref = "{{ '/item.html' | absolute_url | append: '?id=' }}" + obj.id;
     // find images
     var imgSrc, thumbSrc;
-    if (obj.format.includes("audio")) {
-        thumbSrc = '{{ "/assets/img/audio.svg" | relative_url }}';
+    if(obj.youtube) {
+      imgSrc = 'https://img.youtube.com/vi/' + obj.youtube + '/hqdefault.jpg';
+    } else if (obj.format.includes("audio")) {
+      thumbSrc = '{{ "/assets/img/audio.svg" | relative_url }}';
     } else if (obj.format.includes("pdf")) {
-        thumbSrc = '{{ "/assets/img/pdf.svg" | relative_url }}';
-    } else if (obj.format.includes("video")) {
-        imgSrc = 'https://img.youtube.com/vi/' +  obj.filename + '/hqdefault.jpg';
+      thumbSrc = '{{ "/assets/img/pdf.svg" | relative_url }}';
     } else {
-        imgSrc = '{{ "/objects/" | relative_url }}' +  obj.filename;
+      imgSrc = '{{ "/objects/" | relative_url }}' +  obj.filename;
     }  
     // start card
     var card = '<div class="item col-lg-4 col-md-6 col-sm-12 mb-2"><div class="card">';
@@ -85,7 +85,7 @@ function makeCard(obj) {
   /* add items */
   var items = [
     {% for i in items %}
-    { "title":{{ i.title | strip | escape | jsonify }}, "format":{% if i.format %}{{ i.format | escape | jsonify }}{% else %}""{% endif %}, {% for f in fields %}{% if i[f.field] %}{{ f.field | escape | jsonify }}:{{ i[f.field] | strip | jsonify }},{% endif %}{% endfor %} "filename": {{ i.filename | jsonify }}, "id":{{ i.objectid | jsonify }} }{% unless forloop.last %},{% endunless %}{% endfor %}
+    { "title":{{ i.title | strip | escape | jsonify }}, "format":{% if i.format %}{{ i.format | escape | jsonify }}{% else %}""{% endif %}, {% for f in fields %}{% if i[f.field] %}{{ f.field | escape | jsonify }}:{{ i[f.field] | strip | jsonify }},{% endif %}{% endfor %} {% if i.youtubeid %} "youtube": {{ i.youtubeid | jsonify }}, {% endif %}"filename": {{ i.filename | jsonify }}, "id":{{ i.objectid | jsonify }} }{% unless forloop.last %},{% endunless %}{% endfor %}
   ];
   /* randomize items once at page load */
   shuffle(items);
