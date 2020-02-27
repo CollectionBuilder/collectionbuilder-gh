@@ -2,5 +2,10 @@
 (function(){
     // init bootstrap tooltips
     $('[data-toggle="tooltip"]').tooltip()
+    // highlight year if hash
+    if(window.location.hash) {
+        var hashfilter = decodeURIComponent(location.hash.substr(1));
+        $("#" + hashfilter).addClass("bg-info");
+    }
 })();
 </script>
