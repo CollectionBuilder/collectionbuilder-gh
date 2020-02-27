@@ -6,7 +6,7 @@
     /* add item data */
     var items = { 
         {%- for item in site.data[site.metadata] -%}
-        {{ item.objectid | jsonify }} : { {% for f in fields %}{% if item[f.field] %}"{{ f.field }}": {{ item[f.field] | escape | jsonify }}, {% endif %}{% endfor %}"format": {{ item.format | jsonify }}, "filename": {{ item.filename | jsonify }} }{% unless forloop.last %}, {% endunless %}
+        {{ item.objectid | jsonify }} : { {% for f in fields %}{% if item[f.field] %}"{{ f.field }}": {{ item[f.field] | escape | jsonify }}, {% endif %}{% endfor %}{% if item.youtubeid %} "youtube": {{ item.youtubeid | jsonify }}, {% endif %}"format": {{ item.format | jsonify }}, "filename": {{ item.filename | jsonify }} }{% unless forloop.last %}, {% endunless %}
         {% endfor %}
     };
     /* get query id from URL */
@@ -32,8 +32,8 @@
             itemImage= '<audio controls class="w-100"><source src="' + objectLink + '" target="_blank" type="audio/mpeg">Your browser does not support the audio element.</audio>';
             itemLink= '<a href="' + objectLink + '" target="_blank" class="btn btn-dark" title="Object download">Download Audio File</a>';
         } else if (format.includes('video')) {
-            itemImage= '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://www.youtube-nocookie.com/embed/' + record.filename + '?rel=0&modestbranding=1" allowfullscreen></iframe></div>';
-            itemLink= '<a href="https://youtu.be/' + record.filename + '" target="_blank" class="btn btn-dark" title="Object download">View on YouTube</a>';
+            itemImage= '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://www.youtube-nocookie.com/embed/' + record.youtube + '?rel=0&modestbranding=1" allowfullscreen></iframe></div>';
+            itemLink= '<a href="https://youtu.be/' + record.youtube + '" target="_blank" class="btn btn-dark" title="Object download">View on YouTube</a>';
         } else {
             /* add warning, just for fun to debug since format field is probably wrong */
             itemImage= '<p>No preview found (issue with format field?)</p>';
