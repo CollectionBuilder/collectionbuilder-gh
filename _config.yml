@@ -26,8 +26,6 @@ tagline: a template for creating simple digital exhibits
 description: "CollectionBuilder-GH is a template for creating small digital collection exhibits on GitHub Pages designed for teaching digital library skills"
 # creator of the digital collection, to appear in meta tags; we typically use our GitHub usernames but feel free to just use your name
 author: CollectionBuilder
-# collection project date, when did you publish this
-collection-date: "2020"
 
 ##########
 # COLLECTION SETTINGS
