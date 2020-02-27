@@ -2,11 +2,10 @@
 title: About
 layout: page
 permalink: /about.html
+# Edit the markdown on in this file to describe your collection
 ---
 
 {% include about/jumbotron.html %}
-<!--Delete the bracketed "include" below when creating your own About Page, or fill out the "about-page-feature-card.html" to highlight or link to a specific feature of your collection" -->
-{% include about/feature-card.html %}
 
 # About {{ site.title }}.
 

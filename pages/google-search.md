@@ -1,6 +1,7 @@
 ---
 title: Google CSE
 layout: page
+# optional Google search page
 ---
 
 ## Google Site Search
