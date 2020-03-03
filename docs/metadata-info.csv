@@ -1,4 +1,4 @@
-Field,Display-name,Definition,dc-map,Notes,Example,Required,used-by
+Field,display_name,Definition,dc-map,Notes,Example,Required,used-by
 objectid,,a unique string with no spaces or special characters that will be used as id in the website,na,must be unique in the project,ts104,yes,everything
 filename,,the name of the corresponding file in the project’s objects directory. ,na,"Should have the extension (.jpg, .pdf, or .mp3), no spaces or special characters.",ts104.pdf,yes,Item
 youtubeid,,The YouTube ID of an item hosted on YouTube. This should be blank for all non-youtube items. It is used to access the YouTube API for images and video of the item.,na,"You can find the ID of a YouTube video by looking at the end of a Share link, e.g. in https://youtu.be/CVXQ3X6Q8oU the ID is the string after the slash. Make sure this field is empty (no spaces!) for non-youtube items!",CVXQ3X6Q8oU,yes (for youtube items only),everything

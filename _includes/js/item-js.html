@@ -74,7 +74,7 @@
 
         /* add item metadata */
         var fields = '<dl>';
-        {% for f in fields %}if (record.{{ f.field }}) { fields += '<dt class="field">{{ f.display-name }}:</dt> <dd class="field-value">' + record.{{ f.field }} + '</dd>'; }
+        {% for f in fields %}if (record.{{ f.field }}) { fields += '<dt class="field">{{ f.display_name }}:</dt> <dd class="field-value">' + record.{{ f.field }} + '</dd>'; }
         {% endfor %}
         fields += '</dl>';
         document.getElementById("item-metadata").innerHTML = fields;

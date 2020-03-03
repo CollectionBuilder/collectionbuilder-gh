@@ -32,7 +32,7 @@ function makeCard(obj) {
     card += '<p class="card-text">';
     {% for f in fields %}{% unless f.hidden == 'true' %}
     if(obj[{{ f.field | jsonify }}]){
-    {% if f.displayName %}card += '<strong>{{ f.displayName }}:</strong> ';{% endif %}
+    {% if f.display_name %}card += '<strong>{{ f.display_name }}:</strong> ';{% endif %}
     {% if f.btn == 'true' %}
     var btns = obj[{{ f.field | jsonify }}].split(";");
     for (var i = 0, len = btns.length; i < len; i++) {
