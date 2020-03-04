@@ -29,11 +29,15 @@ A quick start, step-by-step guide on how to create your own digital collection u
 
 ### Gather your digital items
 
-- Find some items you want to be in your collection! Currently, CollectionBuilder supports filetypes jpg, pdf, mp3, and has the capacity to embed YouTube videos.
-- Drop your items into your repository's `objects` directory:
-    - Click on `objects`. In the top right corner, click on "Upload Files." Drag and drop your files or browse your computer for them. 
-    {% include figure.html img="docs/objects.png" alt="objects" width="75%" %}
-    - When you're ready to commit your changes, add a message explaining what you did in the "Commit changes" box. Then click "Commit Changes." Your digital objects are now uploaded!
+Find some items you want to be in your collection! 
+Currently, CollectionBuilder supports filetypes jpg, pdf, mp3, and has the capacity to embed YouTube videos.
+Keep in mind all files should be sized to be downloaded over the web, so not too big, and the whole group should be 500MB max (hopefully smaller).
+
+When your objects are ready, upload them into your repository's `objects` directory:
+
+- Click on `objects`. In the top right corner, click on "Upload Files." Drag and drop your files or browse your computer for them. 
+{% include figure.html img="docs/objects.png" alt="objects" width="75%" %}
+- When you're ready to commit your changes, add a message explaining what you did in the "Commit changes" box. Then click "Commit Changes." Your digital objects are now uploaded!
 
 {% include figure.html img="docs/objects-commit.png" alt="objects-commit" width="75%" %}
 
@@ -41,7 +45,8 @@ A quick start, step-by-step guide on how to create your own digital collection u
 
 ### Create your metadata
 
-- Describe your objects using the [CollectionBuilder metadata template](https://docs.google.com/spreadsheets/d/1Uv9ytll0hysMOH1j-VL1lZx6PWvc1zf3L35sK_4IuzI/edit#gid=0){:target="_blank" rel="noopener"} (or in your repository as "_data/metadata-template.csv"). You can follow the example of the first record in the template (and delete it when you've added your own records), or look at the [CollectionBuilder Metadata documentation](https://collectionbuilder.github.io/docs/metadata.html){:target="_blank" rel="noopener"} for more information.
+Describe your objects using the [CollectionBuilder metadata template](https://docs.google.com/spreadsheets/d/1Uv9ytll0hysMOH1j-VL1lZx6PWvc1zf3L35sK_4IuzI/edit#gid=0){:target="_blank" rel="noopener"} (or in your repository as "_data/metadata-template.csv"). 
+You can follow the example of the first record in the template (and delete it when you've added your own records), or look at the [CollectionBuilder metadata documentation](https://collectionbuilder.github.io/docs/metadata.html){:target="_blank" rel="noopener"} for more information.
 
 {% include figure.html img="docs/metadata-template.png" alt="metadata-template" width="75%" %}
 
@@ -108,8 +113,7 @@ For further customization, see below.
 
 {% include figure.html img="docs/md-config.png" alt="md-config" width="75%" %}
 
-- Navigate to the `pages` directory and find the file `about.md`. Add some context to your collection by editing this file.
-    - Note: this page is written in [Markdown](https://guides.github.com/features/mastering-markdown/)
+- Navigate to the `pages` directory and find the file `about.md`. Add some context to your collection by editing this file which is written in [Markdown](https://guides.github.com/features/mastering-markdown/).
 
 {% include figure.html img="docs/about.png" alt="about" width="75%" %}
 
