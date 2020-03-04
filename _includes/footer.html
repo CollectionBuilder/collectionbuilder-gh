@@ -8,11 +8,17 @@
             <p class="text-white"><small>{{ site.description }}</small></p>
             <nav>
                 <ul class="nav nav-pills">
-                    {% for nav in site.data.config-nav %}
+                    {%- assign navItems = site.data.config-nav | where_exp: 'item', 'item.dropdown_parent == nil' -%}
+                    {% for nav in navItems %}
                     <li class="nav-item">
-                        <a class="nav-link text-light {% if page.url == nav.stub %}active{% endif %}" href="{{ nav.stub | relative_url }}">{{ nav.display-text }}</a>
+                    {% if nav.stub %}
+                        <a class="nav-link text-light{% if page.url == nav.stub %} active{% endif %}" href="{{ nav.stub | relative_url }}">{{ nav.display_name }}</a>
+                    {%- else -%}
+                    {% assign childStub = site.data.config-nav | where_exp: 'item', 'item.dropdown_parent == nav.display_name' | first %}
+                        <a class="nav-link text-light{% if page.url == childStub.stub %} active{% endif %}" href="{{ childStub.stub | relative_url }}">{{ nav.display_name }}</a>
+                    {% endif %}
                     </li>
-                    {% endfor %}
+                    {%- endfor -%}
                 </ul>
             </nav>
 

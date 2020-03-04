@@ -1,27 +1,26 @@
 {%- assign formats = site.data[site.metadata] | map: "format" -%}
 {%- assign types = "image;audio;video;application" | split: ";" -%}
 <div class="card mb-3" >
-  <div class="card-body">
-    <h5 class="card-title">Objects</h5>
-    <p class="card-text">
-      
-      {% for t in types %}
-      {%- assign count = formats | where_exp: 'item','item contains t' | size -%}
-      {% if count > 0 %}
-      {{ count }}
-      {% case t %}
-      {% when 'image' %} 
-      <a class="text-dark" href="{{ 'image' | strip | url_param_escape | prepend: '/browse.html#' | relative_url }}">Images <span class="far fa-image"></span></a><br>
-      {% when 'audio' %}
-      <a class="text-dark" href="{{ 'audio' | strip | url_param_escape | prepend: '/browse.html#' | relative_url }}">Audio <span class="far fa-file-audio"></span></a><br>
-      {% when 'video' %}
-      <a class="text-dark" href="{{ 'video' | strip | url_param_escape | prepend: '/browse.html#' | relative_url }}">Videos <span class="far fa-file-video"></span></a><br>
-      {% else %}
-      <a class="text-dark" href="{{ 'document' | strip | url_param_escape | prepend: '/browse.html#' | relative_url }}">Documents <span class="far fa-file"></span></a><br>
-      {%- endcase -%}
-      {%- endif -%}
-      {%- endfor -%}
-      <a class="btn btn-sm btn-outline-secondary mt-2" href="{{ '/data/' | relative_url }}">View data</a>
-    </p>
-  </div>
+    <div class="card-body">
+        <h5 class="card-title">Objects</h5>
+        <p class="card-text">
+            {% for t in types %}
+            {%- assign count = formats | where_exp: 'item','item contains t' | size -%}
+            {% if count > 0 %}
+            {{ count }}
+            {% case t %}
+            {% when 'image' %} 
+            <a class="text-dark" href="{{ 'image' | prepend: '/browse.html#' | relative_url }}">Images <span class="far fa-image"></span></a><br>
+            {% when 'audio' %}
+            <a class="text-dark" href="{{ 'audio' | prepend: '/browse.html#' | relative_url }}">Audio <span class="far fa-file-audio"></span></a><br>
+            {% when 'video' %}
+            <a class="text-dark" href="{{ 'video' | prepend: '/browse.html#' | relative_url }}">Videos <span class="far fa-file-video"></span></a><br>
+            {% else %}
+            <a class="text-dark" href="{{ 'pdf' | prepend: '/browse.html#' | relative_url }}">PDFs <span class="far fa-file"></span></a><br>
+            {% endcase %}
+            {% endif %}
+            {%- endfor -%}
+            <a class="btn btn-sm btn-outline-secondary mt-2" href="{{ '/data/' | relative_url }}">View table</a>
+        </p>
+    </div>
 </div>

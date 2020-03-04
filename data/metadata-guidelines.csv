@@ -1,4 +1,4 @@
-Field,Display-name,Definition,dc-map,Notes,Example,Required,used-by
+Field,display_name,Definition,dc-map,Notes,Example,Required,used-by
 objectid,,a unique string with no spaces or special characters that will be used as id in the website,na,must be unique in the project,ts104,yes,everything
 filename,,the name of the corresponding file in the project’s objects directory.,na,"Should have the extension (.jpg or .pdf), no spaces or special characters.",ts104.pdf,yes,Item
 title,Item Title,A name given to the resource. (OCA),dcterms:title,primary name of the object,First item,yes,"Browse,Map,Timeline,Data,Item"

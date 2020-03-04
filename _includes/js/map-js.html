@@ -48,7 +48,7 @@
     };
     L.control.layers(baseMaps).addTo(map);
     /* load base map */
-    Esri_WorldStreetMap.addTo(map);
+    {{ site.data.theme.map-base | default: 'Esri_WorldStreetMap' }}.addTo(map);
 
     {% if site.data.theme.map-search == true %}
     /* add leaflet-fusesearch */
@@ -88,9 +88,9 @@
             feature.properties.title + '</a></h4><div class="text-center"><a href="' + itemHref + 
             '" ><img class="mapthumb img-thumb" src="' +  thumbSrc + '" alt="item thumbnail"></a></div><p class="mt-1">';
         /* add metadata fields */
-        {% for f in fields %}{% if f.display %}
+        {% for f in fields %}{% if f.display_name %}
         if (feature.properties.{{ f.field }}) {
-            popupTemplate += '<strong>{{ f.display }}:</strong> ' + feature.properties.{{ f.field }} + '<br>'; 
+            popupTemplate += '<strong>{{ f.display_name }}:</strong> ' + feature.properties.{{ f.field }} + '<br>'; 
         }
         {% endif %}{% endfor %}
         /* add object link button to popup */

@@ -1,0 +1,18 @@
+{% comment %}
+    Item figure from objectid.
+    This include adds a figure to the page styled using bootstrap, https://getbootstrap.com/docs/4.4/content/figures/
+    It requires an "objectid" with the include, which is used to find the object title and image (for image or youtube objects). 
+    Optionally: 
+    - "width" will use Bootstrap sizing to set the % size, choose from "25", "50", "75", or "100"
+    - "float" will use Bootstrap float utility to add float, choose from "left" or "right"
+    - "caption" is on by default and is the title of the item, but can be turned off giving this option as "false"
+{%- endcomment -%}
+{%- assign item = site.data[site.metadata] | where: "objectid", include.objectid | first -%}
+<div class="text-center m-3 {% if include.float %}float-{{ include.float }} {% endif %}{% if include.width %}w-{{ include.width }}{% endif %}">
+    <figure class="figure">
+        <a href="{{ '/item.html' | relative_url | append: '?id=' | append: item.objectid }}">
+            <img class="figure-img img-fluid rounded lazyload" alt="{{ item.description | escape }}" data-src="{% if item.youtubeid %}{{ 'https://img.youtube.com/vi/' | append: item.youtubeid | append: '/hqdefault.jpg' | relative_url }}{% else %}{{ '/objects/' | append: item.filename | relative_url }}{% endif %}" >
+        </a>
+        {% unless include.caption == "false" %}<figcaption class="figure-caption">{{ item.title }}</figcaption>{% endunless %}
+    </figure>
+</div>
