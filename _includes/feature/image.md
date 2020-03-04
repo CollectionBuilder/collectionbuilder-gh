@@ -1,0 +1,1 @@
+<img class="img-fluid {{ include.class }}" src="{{ include.img | prepend: '/objects/' | absolute_url }}" alt="{{ include.alt | default: 'demo image' }}">
