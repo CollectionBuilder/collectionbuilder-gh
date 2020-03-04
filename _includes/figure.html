@@ -1,0 +1,4 @@
+<figure class="figure text-center p-3">
+    <img src="{{ include.img | prepend: '/objects/' | relative_url }}" alt="{{ include.alt | escape }}" {% if include.width %}style="width:{{ include.width }};" {% endif %} class="figure-img img-fluid rounded">
+    {% if include.caption %}<figcaption class="figure-caption">{{ include.caption }}</figcaption>{% endif %}
+</figure>
