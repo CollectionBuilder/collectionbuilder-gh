@@ -1,3 +1,11 @@
+{% comment %}
+    Bootstrap Modal, https://getbootstrap.com/docs/4.4/components/modal/
+    Options: 
+    - "button" = text of button to trigger modal
+    - "color" = color of modal button (primary, secondary, success, danger, warning, info, light, dark)
+    - "title" = header text for modal pop up
+    - "text" = body text for modal pop up, can use Markdown
+{%- endcomment -%}
 <!-- Button trigger modal -->
 <div class="text-center">
 <button type="button" class="btn btn-{{ include.color | default: 'primary' }}" data-toggle="modal" data-target="#exampleModal">
