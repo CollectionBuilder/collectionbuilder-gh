@@ -48,7 +48,7 @@
     };
     L.control.layers(baseMaps).addTo(map);
     /* load base map */
-    Esri_WorldStreetMap.addTo(map);
+    {{ site.data.theme.map-base | default: 'Esri_WorldStreetMap' }}.addTo(map);
 
     {% if site.data.theme.map-search == true %}
     /* add leaflet-fusesearch */
