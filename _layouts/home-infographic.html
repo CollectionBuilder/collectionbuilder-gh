@@ -13,9 +13,9 @@ layout: page
 
     {% include index/time.html %}
 
-    {% include index/featured-terms.html title="Top Subjects" featured=site.data.theme.featured-subjects field="subject" max=site.data.theme.featured-subjects-max btn-color="info" %}
+    {% include index/featured-terms.html field="subject" title="Top Subjects" btn-color="info" featured=site.data.theme.featured-subjects max=site.data.theme.featured-subjects-max %}
 
-    {% include index/featured-terms.html title="Locations" featured=site.data.theme.featured-locations field="location" max=site.data.theme.featured-locations-max btn-color="outline-secondary" %}
+    {% include index/featured-terms.html field="location" title="Locations" btn-color="outline-secondary" featured=site.data.theme.featured-locations max=site.data.theme.featured-locations-max %}
 
     {% include index/objects.html %}
 
