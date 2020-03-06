@@ -6,7 +6,7 @@
     /* add item data */
     var items = { 
         {%- for item in site.data[site.metadata] -%}
-        {{ item.objectid | jsonify }} : { {% for f in fields %}{% if item[f.field] %}"{{ f.field }}": {{ item[f.field] | escape | jsonify }}, {% endif %}{% endfor %}{% if item.youtubeid %} "youtube": {{ item.youtubeid | jsonify }}, {% endif %}"format": {{ item.format | jsonify }}, "filename": {{ item.filename | jsonify }} }{% unless forloop.last %}, {% endunless %}
+        {{ item.objectid | jsonify }} : { {% for f in fields %}{% if item[f.field] %}{{ f.field | escape | jsonify }}: {{ item[f.field] | escape | jsonify }}, {% endif %}{% endfor %}{% if item.youtubeid %} "youtube": {{ item.youtubeid | jsonify }}, {% endif %}"format": {{ item.format | jsonify }}, "filename": {{ item.filename | jsonify }} }{% unless forloop.last %}, {% endunless %}
         {% endfor %}
     };
     /* get query id from URL */
@@ -74,7 +74,7 @@
 
         /* add item metadata */
         var fields = '<dl>';
-        {% for f in fields %}if (record.{{ f.field }}) { fields += '<dt class="field">{{ f.display_name }}:</dt> <dd class="field-value">' + record.{{ f.field }} + '</dd>'; }
+        {% for f in fields %}if (record[{{ f.field | escape | jsonify }}]) { fields += '<dt class="field">{{ f.display_name }}:</dt> <dd class="field-value">' + record[{{ f.field | escape | jsonify }}] + '</dd>'; }
         {% endfor %}
         fields += '</dl>';
         document.getElementById("item-metadata").innerHTML = fields;
