@@ -5,6 +5,8 @@ A project to generate a free and simple digital collection site using [GitHub Pa
 - a CSV of collection metadata
 - a folder of JPEG images or PDF documents
 
+Click the green "use this template" button above to get started. Create your template repository, then add new metadata and configure the repository to fit your collection and settings.
+
 See [Getting Started Docs](https://collectionbuilder.github.io/docs/introduction.html) for detailed information.
 
 `collectionbuilder-gh` is intended as a simple template for hands-on teaching about digital libraries.
