@@ -1,6 +1,6 @@
 <script>
     function site_search() {
-        var query = document.getElementById("site-search").value
+        var query = document.getElementById("site-search").value;
         window.open("{{ '/search/index.html' | absolute_url }}?q=" + encodeURIComponent(query), "_self" );
     }
 </script>
