@@ -74,8 +74,20 @@
 
         /* add item metadata */
         var fields = '<dl>';
-        {% for f in fields %}if (record[{{ f.field | escape | jsonify }}]) { fields += '<dt class="field">{{ f.display_name }}:</dt> <dd class="field-value">' + record[{{ f.field | escape | jsonify }}] + '</dd>'; }
-        {% endfor %}
+        {% for f in fields %}{% if f.browse_link == "true" %}
+        if (record[{{ f.field | escape | jsonify }}]) {
+            var topics = record[{{ f.field | escape | jsonify }}].split(';');
+            var browseLinks = "";
+            for (var i = 0, len = topics.length; i < len; i++) {
+                if (topics[i] != "") {
+                    browseLinks += '<a class="btn btn-link" href="{{ '/browse.html' | relative_url }}#' + encodeURIComponent(topics[i].trim()) + '">' + topics[i].trim() + '</a> ';
+                }
+            }
+            fields += '<dt class="field">{{ f.display_name }}:</dt> <dd class="field-value">' + browseLinks + '</dd>';
+        }
+        {%- else -%}
+        if (record[{{ f.field | escape | jsonify }}]) { fields += '<dt class="field">{{ f.display_name }}:</dt> <dd class="field-value">' + record[{{ f.field | escape | jsonify }}] + '</dd>'; }
+        {% endif %}{% endfor %}
         fields += '</dl>';
         document.getElementById("item-metadata").innerHTML = fields;
 
