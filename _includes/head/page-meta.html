@@ -1,5 +1,5 @@
 <meta name="description" content="{{ site.description | escape }}">
-<meta name="author" content="{{ site.author | escape }}" >
+{% if site.author %}<meta name="author" content="{{ site.author | escape }}" >{% endif %}
 <!-- Open Graph meta -->
 <meta property="og:title" content="{% if page.title %}{{ page.title | escape }} | {% endif %}{{ site.title | escape }}" />
 <meta property="og:description" content="{{ site.description | escape }}" />
