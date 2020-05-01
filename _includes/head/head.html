@@ -6,8 +6,10 @@
 <meta name="generator" content="collectionbuilder-gh" />
 <meta http-equiv="Content-Language" content="en-us" >
 
-{% comment %} During production build ONLY add meta tags and optional analytics.
-Production build is automatically triggered on gh-pages {% endcomment %}
+{% comment %} 
+    Meta tags and analytics are adding during production build ONLY.
+    Production build environment is automatically used on gh-pages. 
+{% endcomment %}
 {%- if jekyll.environment == "production" -%}
 {% if site.noindex == true or page.noindex == true %}<meta name="robots" content="noindex">{% endif %}
 {% include head/page-meta.html %}
