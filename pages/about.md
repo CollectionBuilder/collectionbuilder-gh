@@ -7,27 +7,17 @@ permalink: /about.html
 
 {% include about/jumbotron.html %}
 
-{% include feature/nav-menu.html sections="About CollectionBuilder-GH;About the About Page" %}
+{% include feature/nav-menu.html sections="About the Collection;About the About Page" %}
 
-## About CollectionBuilder-GH
+## About the Collection
 
-This site is generated using `collectionbuilder-gh`, a project to create a free and simple digital collection using [GitHub Pages](https://pages.github.com/) from: 
+This site is generated using [`collectionbuilder-gh`](https://collectionbuilding.github.io/gh/), a project to create a free and simple digital collection using [GitHub Pages](https://pages.github.com/) from: 
 
 - a CSV of collection metadata
 - a folder of JPEG images or PDF documents
 
-`collectionbuilder-gh` is intended as a simple template for hands-on teaching about digital libraries.
-It can be used in a workshop setting to take participants through digitization and metadata creation, to having a live collection site hosted on GitHub.
+The base site features four objects from the University of Idaho Library's [Digital Collections](https://www.lib.uidaho.edu/digital). 
 
-### Learn about:
-
-- Git and GitHub basics for collaboration and project management
-- [Markdown](https://guides.github.com/features/mastering-markdown/) for plaintext writing and content creation
-- HTML, CSS, and JS literacy
-- commandline literacy
-- [Jekyll](https://jekyllrb.com/) basics
-- working in the Open, using open source software, open data, and open educational practices
-- digital libraries concepts such as "collections as data", minimal computing, data-driven design
 
 ## About the About Page
 
