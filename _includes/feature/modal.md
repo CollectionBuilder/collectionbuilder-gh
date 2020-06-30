@@ -8,7 +8,7 @@
 {%- endcomment -%}
 <!-- Button trigger modal -->
 <div class="text-center">
-<button type="button" class="btn btn-{{ include.color | default: 'primary' }}" data-toggle="modal" data-target="#exampleModal">
+<button type="button" class="btn btn-{{ include.color | default: 'primary' }} my-3" data-toggle="modal" data-target="#exampleModal">
 {{ include.button }}
 </button>
 </div>

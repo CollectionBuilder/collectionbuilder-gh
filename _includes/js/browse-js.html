@@ -168,4 +168,34 @@ function makeCard(obj) {
     filterItems(items,query);
   });
 
+
+
+/* item array sorting function */
+function sorting(json_object, key_to_sort_by) {
+    function sortByKey(a, b) {
+        var x = a[key_to_sort_by].toUpperCase();
+        var y = b[key_to_sort_by].toUpperCase();
+        return ((x==null) ? 1: (y==null) ? -1: (x < y) ? -1 : ((x > y) ? 1 : 0));
+    }
+
+    json_object.sort(sortByKey);
+};
+
+/* add sort function on click of sort options */
+$(".browse-sort-item").click(function (event) {
+    var field = $(this).data('filter'); // Get the text of the element
+    var dname = $(this).text(); // Get the text of the element
+    var query = $('#quickSearch').val();
+    $(".browse-sort-item").removeClass('active');
+    $(this).addClass('active');
+    $('#sortfilter').text(dname);
+    if (field != 'random') {
+        sorting(items, field);
+        filterItems(items, query);
+    }
+    else {
+        shuffle(items);
+        filterItems(items, query);
+    }
+}); 
 </script>

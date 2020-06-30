@@ -7,9 +7,10 @@
     - "objectid" = the given object (photo or youtube) will create a card cap image
     - "width" will use Bootstrap sizing to set the % size, choose from "25", "50", "75", or "100"
     - "float" will use Bootstrap float utility to add float, choose from "left" or "right"
+    - "centered" will put a mx-auto class on the card to center it (don't use with float!), enter "true" or leave off
 {% endcapture %}
 {%- endcomment -%}
-<div class="card mb-3 {{include.class}} {% if include.float %}float-{{ include.float }} {% endif %}{% if include.width %}w-{{ include.width }}{% endif %}">
+<div class="card mb-3 {{include.class}} {% if include.float %}float-{{ include.float }} {% endif %}{% if include.width %}w-{{ include.width }}{% endif %} {% if include.centered == 'true' %}mx-auto{% endif %}">
 {% if include.objectid %}
 {% assign item = site.data[site.metadata] | where: "objectid", include.objectid | first %}
 <img class="card-img-top" src="{% if item.youtubeid %}{{ 'https://img.youtube.com/vi/' | append: item.youtubeid | append: '/hqdefault.jpg' | relative_url }}{% else %}{{ '/objects/' | append: item.filename | relative_url }}{% endif %}" alt="{{ item.title | escape }}">
