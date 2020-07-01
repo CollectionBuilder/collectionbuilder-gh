@@ -12,7 +12,7 @@ Since `collectionbuilder-gh` uses [GitHub Pages](https://pages.github.com/), it 
 
 ## Demo CollectionBuilder with our Workshop Tutorial
 
-If you'd like to demo CollectionBuilder, we've made [a step-through tutorial](https://collectionbuilder.github.io/workshop/) using the following spreadsheet and zipped directory. 
+If you'd like to demo CollectionBuilder, we've made [a step-through tutorial](https://collectionbuilder.github.io/workshop/) using the following spreadsheet and zipped directory. (The tutorial uses items from our [Psychiana Digital Collection](https://www.lib.uidaho.edu/digital/psychiana/), which is worth a visit!)
 
 Metadata is drawn from the following Google Sheet: 
 
