@@ -21,7 +21,7 @@ The base site features four objects from the University of Idaho Library's [Digi
 
 ## About the About Page
 
-We want to make About pages exciting again, and easy to build. 
+We want to make About pages exciting, and easy to build. 
 
 The CollectionBuilder about page features a narrowed column with its own (optional) menu, featured content, and some technical information. 
 
