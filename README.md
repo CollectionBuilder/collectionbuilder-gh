@@ -7,7 +7,24 @@ A project to generate a free and simple digital collection site using [GitHub Pa
 
 Click the green "use this template" button above to get started. Create your template repository, then add new metadata and configure the repository to fit your collection and settings.
 
-See [Getting Started Docs](https://collectionbuilder.github.io/docs/introduction.html) for detailed information.
+See [Getting Started Docs](https://collectionbuilder.github.io/docs/introduction.html) for detailed information. **Note:** 
+Since `collectionbuilder-gh` uses [GitHub Pages](https://pages.github.com/), it is only suitable for small collections, with lower resolution images. GitHub repositories are limited to 1GB.
+
+## Demo CollectionBuilder with our Workshop Tutorial
+
+If you'd like to demo CollectionBuilder, we've made [a step-through tutorial](https://collectionbuilder.github.io/workshop/gh/) using the following spreadsheet and zipped directory. (The tutorial uses items from our [Psychiana Digital Collection](https://www.lib.uidaho.edu/digital/psychiana/), which is worth a visit!)
+
+Metadata is drawn from the following Google Sheet: 
+
+- [Psychiana Digital Collection Metadata](https://drive.google.com/open?id=1x48Te3duPAxh53foEihQVKTfCKUjaCCbH7TrMMd_yU4)
+
+Objects are collected in this zip file: 
+
+- [Psychiana Digital Collection Media Files](https://drive.google.com/file/d/1CPhNDv5FokC3utTCVmuXHS2OgnN9hR7q/view?usp=sharing) (Includes image files, pdfs, and mp3s)
+
+These files are stored in this [CollectionBuilder-gh Google Drive Folder](https://drive.google.com/drive/folders/1dTO8-3lusaKBdYyauyg_ziVqwLA4Fons?usp=sharing), along with some other metadata sheets and zipped object directories that can be used for other workshops and demonstrations.
+
+## More on CollectionBuilder
 
 `collectionbuilder-gh` is intended as a simple template for hands-on teaching about digital libraries.
 It can be used in a workshop setting to take participants through digitization and metadata creation, to having a live collection site hosted on GitHub.
@@ -25,9 +42,6 @@ Learn about:
 - [Jekyll](https://jekyllrb.com/) basics
 - working in the Open, open source and open data
 - digital libraries concepts such as "collections as data", minimal computing, data-driven design
-
-**Note:** 
-Since `collectionbuilder-gh` uses [GitHub Pages](https://pages.github.com/), it is only suitable for small collections, with lower resolution images. GitHub repositories are limited to 1GB.
 
 > We prefer commonly understood formats (such as CSV spreadsheets over YAML), and convention over configuration (follow the example over learn all the options).
 

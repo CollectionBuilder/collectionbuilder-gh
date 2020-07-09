@@ -86,3 +86,25 @@ a {
     z-index: 99;
     font-size: 40px; 
 }
+/* feature include tweaks */
+.feature-alert p:last-of-type { margin-bottom: 0; }
+@media (min-width: 768px) {
+    .feature-w-25 {
+        width: 25%!important;
+    }
+    .feature-w-50 {
+        width: 50%!important;
+    }
+    .feature-w-75 {
+        width: 75%!important;
+    }
+    .feature-w-100 {
+        width: 100%!important;
+    }
+    .feature-float-right {
+        float: right!important;
+    }
+    .feature-float-left {
+        float: left!important;
+    } 
+}

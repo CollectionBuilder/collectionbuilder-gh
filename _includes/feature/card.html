@@ -1,0 +1,29 @@
+{% comment %}
+
+    Bootstrap Card, https://getbootstrap.com/docs/4.5/components/card/
+
+    E.G. --> {% include feature/card.html text="Some text" header="Example item" objectid="demo_004" %}
+
+    Options:
+    - "text" = main card text, can use markdown formatting (tip: use a Liquid capture to add more complex content)
+    - "header" = card header text (in bar above card content)
+    - "title" = card title text inside card content area
+    - "objectid" = the given object (photo or youtube) will create a card cap image
+    - "width" = will use responsive sizing to set the % size on desktop (will be 100% on mobile), choose from "25", "50", "75", or "100"
+    - "float" = will use responsive float utility to add float on desktop (will not float on mobile), choose from "left" or "right"
+    - "centered" = give "true" to add mx-auto class on the card to center it (don't use with float!)
+
+{%- endcomment -%}
+<div class="card mb-3{% if include.float %} feature-float-{{ include.float }}{% endif %}{% if include.width %} feature-w-{{ include.width }}{% endif %}{% if include.centered %} mx-auto{% endif %}">
+{% if include.objectid %}
+{% assign item = site.data[site.metadata] | where: "objectid", include.objectid | first %}
+<img class="card-img-top" src="{% if item.youtubeid %}{{ 'https://img.youtube.com/vi/' | append: item.youtubeid | append: '/hqdefault.jpg' }}{% else %}{{ '/objects/' | append: item.filename | relative_url }}{% endif %}" alt="{{ item.title | escape }}">
+{%- endif -%}
+{% if include.header %}<h5 class="card-header">{{ include.header }}</h5>{% endif %}
+<div class="card-body">
+{% if include.title %}<h5 class="card-title">{{ include.title }}</h5>{% endif %}
+<div class="card-text">
+{{ include.text | markdownify }}
+</div>
+</div>
+</div>

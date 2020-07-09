@@ -1,12 +1,15 @@
 {% comment %}
-Basic Menu at Top
-Add any Header 2 as a section
-Separate sections by semi-colon(;)
 
-Options: 
-- "sections" = copied text from any H2 / ## 
+    About Page Nav Menu include,
+    add a basic nav at top of About page.
+
+    E.G. --> {% include feature/nav-menu.html sections="Background;Timeline;More Information" %}
+
+    Options: 
+    - "sections" = headers to be added to the nav separated by semicolon (;), exactly copy text from any header written in markdown on the page (i.e. ## Example header)
+
 {%- endcomment -%}
-
-
-<p class='h6 shadow-sm p-3 about-nav sticky-top bg-white' style="line-height: 1.5em;">Contents:{% assign sections = include.sections | split: ';'%}
-{% for section in sections %}<a class="mx-2" href="#{{ section | downcase | replace: ' ','-'}}">{{section}}</a> | {% endfor %}<a class="mx-2" href="#technical">Tech</a></p>
+{% assign sections = include.sections | split: ';'%}
+<p class="h6 shadow-sm p-3 about-nav sticky-top bg-white" style="line-height: 1.5em;">
+    Contents: {% for section in sections %}<a class="mx-2" href="#{{ section | slugify }}">{{ section }}</a> | {% endfor %}<a class="mx-2" href="#technical">Tech</a>
+</p>
