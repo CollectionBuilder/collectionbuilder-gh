@@ -12,16 +12,16 @@
     Options: 
     - "objectid" = an objectid of a video item in this collection that has an youtubeid
     - "caption" = by default the figure include automatically adds the title of the item from your metadata. The caption option allows you to manually add a different caption, or give the value false for none.
-    - "width" = will use Bootstrap sizing to set the % size, choose from "25", "50", "75", or "100"
+    - "width" = will use responsive sizing to set the % size on desktop (will be 100% on mobile), choose from "25", "50", "75", or "100"
     - "ratio" = use Bootstrap embed ratio options "21by9", "16by9", "4by3", or "1by1" to customize the responsive aspect ratio. 16by9 is default.
-    - "float" = will use Bootstrap float utility to add float, choose from "left" or "right"
+    - "float" = will use responsive float utility to add float on desktop (will not float on mobile), choose from "left" or "right"
 
     Note: if you have issues make sure the item is a video item and that the format is correct, e.g. video/mp4 
 
 {%- endcomment -%}
 {%- assign item = site.data[site.metadata] | where: "objectid", include.objectid | first -%}
 <div class="text-center ">
-    <figure class="figure mx-3{% if include.float %} float-{{ include.float }}{% endif %}{% if include.width %} w-{{ include.width }}{% endif %}">
+    <figure class="figure mx-3{% if include.float %} feature-float-{{ include.float }}{% endif %}{% if include.width %} feature-w-{{ include.width }}{% endif %}">
         <div class="embed-responsive embed-responsive-{{ include.ratio | default: '16by9' }}">
             {% if item.youtubeid %}
             <iframe class="embed-responsive-item lazyload" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E" data-src="https://www.youtube-nocookie.com/embed/{{ item.youtubeid }}?rel=0&modestbranding=1" allowfullscreen></iframe>
