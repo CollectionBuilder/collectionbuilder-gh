@@ -1,6 +1,6 @@
 ---
 title: About
-layout: page
+layout: about
 permalink: /about.html
 # Edit the markdown on in this file to describe your collection
 # Look in _includes/feature for options to easily add features to the page
@@ -8,23 +8,16 @@ permalink: /about.html
 
 {% include feature/jumbotron.html %}
 
-# About {{ site.title }}
+{% include feature/nav-menu.html sections="About CollectionBuilder-GH;About the About Page" %}
 
-This site is generated using `collectionbuilder-gh`, a project to create a free and simple digital collection using [GitHub Pages](https://pages.github.com/) from: 
+## About CollectionBuilder-GH
+
+This demo site features objects from the [University of Idaho Library's Digital Collections](https://www.lib.uidaho.edu/digital/) and is generated using [CollectionBuilder-GH](https://github.com/CollectionBuilder/collectionbuilder-gh), a project to create a free and simple digital collection hosted on [GitHub Pages](https://pages.github.com/) from: 
 
 - a CSV of collection metadata
 - a folder of JPEG images or PDF documents
 
 `collectionbuilder-gh` is intended as a simple template for hands-on teaching about digital libraries.
-It can be used in a workshop setting to take participants through digitization and metadata creation, to having a live collection site hosted on GitHub.
-
-Similar learning experiences use DAMS/[CMS](https://en.wikipedia.org/wiki/Content_management_system) platforms that are often overkill for one-off projects. 
-Although CMS feature familiar GUI administration interfaces, they are not simple to learn and customize.
-
-`collectionbuilder-gh` aims to be well documented and easy to configure by following the example.
-A project in "minimal computing," it provides a depth of learning opportunities, allowing users to take complete ownership over the project and make their work open to the world.
-
-This demonstration site features objects from the [University of Idaho Library's Digital Collections](https://www.lib.uidaho.edu/digital/).
 
 {% capture how-to %}
 For illustrated, step-by-step instructions on how to build your digital collection, see our: 
@@ -40,17 +33,23 @@ For those who can't wait, below are six quick steps to get you started:
 - <a target="_blank" rel="noopener" href="https://help.github.com/en/articles/configuring-a-publishing-source-for-github-pages">Activate on GitHub Pages</a> for the Repository.
 - Check out your site via the link provided on your repository's setting's page!
 
-Find complete details in the <a target="_blank" rel="noopener" href="https://collectionbuilder.github.io/docs/introduction.html">CollectionBuilder docs</a>.
+**Find complete details in the <a target="_blank" rel="noopener" href="https://collectionbuilder.github.io/docs/introduction.html">CollectionBuilder Docs</a>.**
 
 {% endcapture %}
-{% include feature/card.html header="Creating Your Collection" text=how-to %}
+{% include feature/card.html header="Create Your Collection!" text=how-to centered=true width="75" %}
 
-## Learn about:
+`collectionbuilder-gh` can be used in a workshop setting to take participants through digitization and metadata creation, to having a live collection site hosted on GitHub.
+Similar learning experiences use DAMS/[CMS](https://en.wikipedia.org/wiki/Content_management_system) platforms that are often overkill for one-off projects. 
+Although CMS feature familiar GUI administration interfaces, they are not necessarily simple to host, learn, and customize.
+
+`collectionbuilder-gh` aims to be well documented and easy to configure by following the example.
+A project in "minimal computing," it provides a depth of learning opportunities, allowing users to take complete ownership over the project and make their work open to the world.
+
+### Learn about:
 
 - Git and GitHub basics for collaboration and project management
 - [Markdown](https://guides.github.com/features/mastering-markdown/) for plaintext writing and content creation
 - HTML, CSS, and JS literacy
-- commandline literacy
 - [Jekyll](https://jekyllrb.com/) basics
 - working in the Open, open source and open data
 - digital libraries concepts such as "collections as data", minimal computing, data-driven design
@@ -81,7 +80,7 @@ To build one, a user writes in [Markdown](https://guides.github.com/features/mas
 
 {% include feature/card.html header="This is a Card" text="The card features an image from the collection as a cap" objectid="demo_004" width="25" centered=true %}
 
-- Buttons -- > `{% raw %}{% include feature/button.html text="Button Link to Somewhere" link="https://collectionbuilder.github.io/" color="success" %}{% endraw %}`
+- Buttons -- > `{% raw %}{% include feature/button.html text="Button Link to Somewhere" link="https://collectionbuilder.github.io/" color="success" centered=true %}{% endraw %}`
 
 {% include feature/button.html text="Button Link to Somewhere" link="https://collectionbuilder.github.io/" color="success" centered=true %}
   
