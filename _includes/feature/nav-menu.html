@@ -8,6 +8,8 @@
     Options: 
     - "sections" = headers to be added to the nav separated by semicolon (;), exactly copy text from any header written in markdown on the page (i.e. ## Example header)
 
+    Note: styling in _sass/_pages.scss adds 100px margin to top of h2 on the about page to accommodate the sticky-top option of this element. If you add headers other than h2 to this nav, they will likely overlap under the element when jumping to the section. Similarly, if more than a handful of sections or long section titles are added, the box will overlap the headers when jumping. Modify the spacing in the scss, or remove the "sticky-top" class to fix.
+
 {%- endcomment -%}
 {% assign sections = include.sections | split: ';'%}
 <p class="h6 shadow-sm p-3 about-nav sticky-top bg-white" style="line-height: 1.5em;">
