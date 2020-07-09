@@ -53,7 +53,7 @@
     <div id="home-title-box">
         {% unless include.heading == false and include.text == false %}
         <div class="title-card p-2 text-center">
-            {% unless include.heading == false %}<h1 class="display-4">{{ include.heading | default: site.title }}</h1>{% endunless %}
+            {% unless include.heading == false %}<h2 class="display-4">{{ include.heading | default: site.title }}</h2>{% endunless %}
             {% unless include.text == false %}<p id="home-tagline">{{ include.text | default: site.tagline }}</p>{% endunless %}
         </div>
         {% endunless %}
