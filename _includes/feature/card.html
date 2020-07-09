@@ -14,7 +14,7 @@
     - "centered" = give "true" to add mx-auto class on the card to center it (don't use with float!)
 
 {%- endcomment -%}
-<div class="card mb-3{% if include.float %} float-{{ include.float }}{% endif %}{% if include.width %} w-{{ include.width }}{% endif %}{% if include.centered == 'true' %} mx-auto{% endif %}">
+<div class="card mb-3{% if include.float %} float-{{ include.float }}{% endif %}{% if include.width %} w-{{ include.width }}{% endif %}{% if include.centered %} mx-auto{% endif %}">
 {% if include.objectid %}
 {% assign item = site.data[site.metadata] | where: "objectid", include.objectid | first %}
 <img class="card-img-top" src="{% if item.youtubeid %}{{ 'https://img.youtube.com/vi/' | append: item.youtubeid | append: '/hqdefault.jpg' }}{% else %}{{ '/objects/' | append: item.filename | relative_url }}{% endif %}" alt="{{ item.title | escape }}">
