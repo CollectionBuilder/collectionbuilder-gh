@@ -86,3 +86,5 @@ a {
     z-index: 99;
     font-size: 40px; 
 }
+/* feature include tweaks */
+.include-alert p:last-of-type { margin-bottom: 0; }
