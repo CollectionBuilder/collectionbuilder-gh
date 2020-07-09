@@ -1,0 +1,61 @@
+{% comment %}
+
+    Bootstrap Jumbotron, https://getbootstrap.com/docs/4.5/components/jumbotron/
+    This include adds a Jumbotron feature from an objectid. By default it is configured to work with the About page option "about-featured-image" set in theme.yml without any options necessary. 
+
+    E.G. --> {% include feature/jumbotron.html %}
+
+    Options:
+    - "objectid" = one objectid for a photo object in this collection, or a full link to any image. By default this is be the about-featured-image, or the featured-image set in theme.yml.
+    - "position" = set background-position, "center", "top", "bottom"
+    - "heading" = major heading to display. By default this will be the site title. Give the value false for no heading.
+    - "text" = paragraph text below heading. By default this will be the site tagline. Give the value false for no text.
+    - "padding" = additional padding added to the feature to increase size. Give value in em or px, e.g. "5em".
+
+    Note: if using a YouTube item and an error image appears, the video may not have a "maxresdefault" image available. Replace "maxresdefault.jpg" in the code below with "hqdefault.jpg"
+
+{%- endcomment -%}
+
+{% if include.objectid %}{% assign jumboId = include.objectid %}
+{% elsif site.data.theme.about-featured-image %}{% assign jumboId = site.data.theme.about-featured-image %}
+{% elsif site.data.theme.featured-image %}{% assign jumboId = site.data.theme.featured-image %}
+{% else %}{% assign jumboId = '/assets/img/collectionbuilder-logo.png' | absolute_url %}
+{%- endif -%}
+
+{% if jumboId contains '/' %}
+{% assign jumboLink = jumboId %}
+{% assign jumboSrc = jumboId %}
+{% else %}
+{% assign jumboLink = '/item.html?id=' | append: jumboId | relative_url %}
+{% assign jumboItem = site.data[site.metadata] | where: "objectid", jumboId | first %}
+{% unless jumboItem.youtubeid %}
+{% assign jumboSrc = jumboItem.filename | prepend: '/objects/' | absolute_url %}
+{% else %}
+{% assign jumboSrc = 'https://img.youtube.com/vi/' | append: jumboItem.youtubeid | append: '/maxresdefault.jpg' %}
+{%- endunless -%}
+{%- endif -%}
+
+<style>
+#jumbo-feature {
+    background-image: url({{ jumboSrc }});
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: {{ include.position | default: 'center' }};
+}
+{% if include.padding %}
+#home-title-box {
+    padding-top: {{ include.padding }};
+    padding-bottom: {{ include.padding }};
+}
+{%- endif -%}
+</style>
+<div class="jumbotron feature px-0 border" id="jumbo-feature">
+    <div id="home-title-box">
+        {% unless include.heading == false and include.text == false %}
+        <div class="title-card p-2 text-center">
+            {% unless include.heading == false %}<h1 class="display-4">{{ include.heading | default: site.title }}</h1>{% endunless %}
+            {% unless include.text == false %}<p id="home-tagline">{{ include.text | default: site.tagline }}</p>{% endunless %}
+        </div>
+        {% endunless %}
+    </div>
+</div>
