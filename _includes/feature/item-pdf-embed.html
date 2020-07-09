@@ -6,14 +6,15 @@
     E.G. --> {% include feature/item-pdf-embed.html objectid="demo_004" %}
 
     It requires an "objectid" with the include, which is used to find the object title and PDF link.
-    By default no height is necessary as it uses 1by1 Bootstrap responsive embed style, https://getbootstrap.com/docs/4.3/utilities/embed/
+    By default no height is necessary as it uses 1by1 Bootstrap responsive embed style, https://getbootstrap.com/docs/4.5/utilities/embed/
 
-    Optionally: 
-    - "height" set embed object height in px (rather than responsive size), e.g. "800px"
-    - "width" will use Bootstrap sizing to set the % size, choose from "25", "50", "75", or "100"
-    - "float" will use Bootstrap float utility to add float, choose from "left" or "right"
+    Options: 
+    - "objectid" = an objectid of an PDF item in this collection
+    - "width" = will use Bootstrap sizing to set the % size, choose from "25", "50", "75", or "100"
     - "caption" by default the figure include automatically adds the title of the item from your metadata. The caption option allows you to manually add a different caption, or give the value false for none.
-    - "ratio" use Bootstrap embed ratio options "21by9", "16by9", "4by3", or "1by1" to customize the responsive aspect ratio if not using height. 16by9 is default.
+    - "height" = set embed object height in px (rather than responsive size), e.g. "800px"
+    - "ratio" = use Bootstrap embed ratio options "21by9", "16by9", "4by3", or "1by1" to customize the responsive aspect ratio if not using height. 16by9 is default.
+    - "float" = will use Bootstrap float utility to add float, choose from "left" or "right"
 
     Note: if you have issues make sure the item is a PDF item 
 
