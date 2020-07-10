@@ -11,7 +11,7 @@
     Production build environment is automatically used on gh-pages. 
 {% endcomment %}
 {%- if jekyll.environment == "production" -%}
-{% if site.noindex == true or page.noindex == true %}<meta name="robots" content="noindex">{% endif %}
+{% if site.noindex == true or page.noindex == true or layout.noindex == true %}<meta name="robots" content="noindex">{% endif %}
 {% include head/page-meta.html %}
 {% if site.google-analytics-id %}{% include head/google-analytics.html %}{% endif %}
 {% endif %}
