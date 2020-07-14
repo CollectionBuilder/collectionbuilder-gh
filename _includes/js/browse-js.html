@@ -173,8 +173,10 @@ function makeCard(obj) {
 /* item array sorting function */
 function sorting(json_object, key_to_sort_by) {
     function sortByKey(a, b) {
-        var x = a[key_to_sort_by].toUpperCase();
-        var y = b[key_to_sort_by].toUpperCase();
+        var x = a[key_to_sort_by];
+        var y = b[key_to_sort_by];
+        if (typeof x === 'string' ) { x = x.toUpperCase(); }
+        if (typeof y === 'string' ) { y = y.toUpperCase(); }
         return ((x==null) ? 1: (y==null) ? -1: (x < y) ? -1 : ((x > y) ? 1 : 0));
     }
 
