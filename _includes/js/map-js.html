@@ -15,7 +15,7 @@
     { "type":"Feature", "geometry":{ "type":"Point", "coordinates":[{{ item.longitude | strip }},{{ item.latitude | strip }}] }, "properties":
     { "title": {{ item.title | escape | jsonify }}, 
     {% for f in fields %}{{ f.field | escape | jsonify }}: {{ item[f.field] | escape | jsonify }},{% endfor %}{% if item.youtubeid %} "youtube": {{ item.youtubeid | jsonify }}, {% endif %}
-    "format": {{ item.format | jsonify }}, "filename": {{ item.filename | jsonify }}, "id": {{ item.objectid | jsonify }} } }{% unless forloop.last %}, {% endunless %}{% endfor %}
+    "format": {{ item.format | jsonify }}, {% if  item.filename contains '/' %}"filename": "{{ item.filename }}" {% else %}"filename":{{ '/objects/' | relative_url | append: item.filename | jsonify }}{% endif %}, "id": {{ item.objectid | jsonify }} } }{% unless forloop.last %}, {% endunless %}{% endfor %}
     ]};
 
     /* init map and set zoom */
@@ -81,7 +81,7 @@
         } else if (feature.properties.format.includes("video")) {
             thumbSrc = 'https://img.youtube.com/vi/' +  feature.properties.youtube + '/default.jpg';
         } else {
-            thumbSrc = '{{ "/objects/" | relative_url }}' +  feature.properties.filename;
+            thumbSrc = feature.properties.filename;
         }    
         /* create popup content */
         var popupTemplate = '<h4><a class="text-dark" href="' + itemHref + '">' +

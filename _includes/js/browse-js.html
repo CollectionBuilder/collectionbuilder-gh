@@ -14,7 +14,7 @@ function makeCard(obj) {
     } else if (obj.format.includes("pdf")) {
       thumbSrc = '{{ "/assets/img/pdf.svg" | relative_url }}';
     } else {
-      imgSrc = '{{ "/objects/" | relative_url }}' +  obj.filename;
+      imgSrc = obj.filename;
     }  
     // start card
     var card = '<div class="item col-lg-4 col-md-6 col-sm-12 mb-2"><div class="card">';
@@ -85,7 +85,7 @@ function makeCard(obj) {
   /* add items */
   var items = [
     {% for i in items %}
-    { "title":{{ i.title | strip | escape | jsonify }}, "format":{% if i.format %}{{ i.format | escape | jsonify }}{% else %}""{% endif %}, {% for f in fields %}{% if i[f.field] %}{{ f.field | escape | jsonify }}:{{ i[f.field] | strip | jsonify }},{% endif %}{% endfor %} {% if i.youtubeid %} "youtube": {{ i.youtubeid | jsonify }}, {% endif %}"filename": {{ i.filename | jsonify }}, "id":{{ i.objectid | jsonify }} }{% unless forloop.last %},{% endunless %}{% endfor %}
+    { "title":{{ i.title | strip | escape | jsonify }}, "format":{% if i.format %}{{ i.format | escape | jsonify }}{% else %}""{% endif %}, {% for f in fields %}{% if i[f.field] %}{{ f.field | escape | jsonify }}:{{ i[f.field] | strip | jsonify }},{% endif %}{% endfor %} {% if i.youtubeid %} "youtube": {{ i.youtubeid | jsonify }}, {% endif %}{% if  i.filename contains '/' %}"filename": "{{ i.filename }}" {% else %}"filename":"{{ '/objects/' | relative_url | append: i.filename }}"{% endif %}, "id":{{ i.objectid | jsonify }} }{% unless forloop.last %},{% endunless %}{% endfor %}
   ];
   /* randomize items once at page load */
   shuffle(items);
@@ -173,8 +173,10 @@ function makeCard(obj) {
 /* item array sorting function */
 function sorting(json_object, key_to_sort_by) {
     function sortByKey(a, b) {
-        var x = a[key_to_sort_by].toUpperCase();
-        var y = b[key_to_sort_by].toUpperCase();
+        var x = a[key_to_sort_by];
+        var y = b[key_to_sort_by];
+        if (typeof x === 'string' ) { x = x.toUpperCase(); }
+        if (typeof y === 'string' ) { y = y.toUpperCase(); }
         return ((x==null) ? 1: (y==null) ? -1: (x < y) ? -1 : ((x > y) ? 1 : 0));
     }
 
