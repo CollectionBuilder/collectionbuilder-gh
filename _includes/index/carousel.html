@@ -1,4 +1,6 @@
-{%- assign carousel-items = site.data[site.metadata ] | where_exp: "item","item.format contains 'image' or item.youtubeid" -%}
+{%- assign image-items = site.data[site.metadata ] | where_exp: "item","item.format contains 'image'" -%}
+{%- assign youtube-items = site.data[site.metadata ] | where_exp: "item","item.youtubeid" -%}
+{%- assign carousel-items = image-items | concat: youtube-items -%}
 {%- assign carousel-size = carousel-items | size | at_most: 9 -%}
 <style>
     #imageCarousel .carousel-item { height: {{ site.data.theme.carousel-height | remove: "px" | default: '300' }}px; }
