@@ -1,0 +1,145 @@
+---
+# generate a datapackage.json file 
+# based on Frictionless Data "Data Package" Spec
+# https://specs.frictionlessdata.io/data-package/
+---
+{%- assign stubs = site.data.config-nav | map: 'stub' | join: ';' -%}
+{
+    "profile": "data-package",
+    "name": "{{ site.title | slugify }}-data",
+    "title": "{{ site.title | escape }} Data",
+    "description": "Metadata and data derived from {{ site.title | escape }}. {{ site.description | escape }}",
+    {% if site.keywords %}"keywords": {% assign keywords = site.keywords | split: ';' %} {{ keywords | jsonify }},{% endif %}
+    "homepage": "{{ '/' | absolute_url }}",
+    "contributors": [
+        {
+            "title": "{{ site.author | escape }}",
+            "role": "author"
+        }
+    ],
+    "image": "{% include image/featured-image.html %}",
+    "licenses": [
+        {
+            "name": "CC0-1.0",
+            "title": "CC0 1.0",
+            "path": "https://creativecommons.org/publicdomain/zero/1.0/"
+        }
+    ],
+    "resources": [
+        {% if site.data.theme.metadata-facets-fields %} 
+        {
+            "name": "facets-json",
+            "path": "facets.json",
+            "title": "{{ site.title | escape }} Metadata Facets",
+            "description":"Unique values and counts of metadata facet fields.",
+            "format":"json",
+            "profile": "data-resource"
+        },{% endif %}
+        {% if stubs contains "subject" %}
+        {
+            "name": "subject-csv",
+            "path": "subjects.csv",
+            "title": "{{ site.title | escape }} metadata subject counts in csv",
+            "description": "Unique values and counts of metadata subject fields.",
+            "format":"csv",
+            "profile":"tabular-data-resource",
+            "schema": {
+                "fields": [
+                    {
+                        "name": "subject",
+                        "type": "string",
+                        "format": "default"
+                    },
+                    {
+                        "name": "count",
+                        "type": "integer",
+                        "format": "default"
+                    },
+                    {
+                        "name": "link",
+                        "type": "string",
+                        "format": "default"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "subjects-json",
+            "path": "subjects.json",
+            "title": "{{ site.title | escape }}  metadata subject counts in json",
+            "description":"Unique values and counts of metadata subject fields.",
+            "format":"json",
+            "profile": "data-resource"
+        },{% endif %}
+        {% if stubs contains "location" %}
+        {
+            "name": "locations-csv",
+            "path": "subjects.csv",
+            "title": "{{ site.title | escape }} metadata location counts in csv",
+            "description": "Unique values and counts of metadata location fields.",
+            "format":"csv",
+            "profile":"tabular-data-resource",
+            "schema": {
+                "fields": [
+                    {
+                        "name": "location",
+                        "type": "string",
+                        "format": "default"
+                    },
+                    {
+                        "name": "count",
+                        "type": "integer",
+                        "format": "default"
+                    },
+                    {
+                        "name": "link",
+                        "type": "string",
+                        "format": "default"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "locations-json",
+            "path": "locations.json",
+            "title": "{{ site.title | escape }} metadata location counts in json",
+            "description":"Unique values and counts of metadata location fields.",
+            "format":"json",
+            "profile": "data-resource"
+        },{% endif %}
+        {% if stubs contains "map" %}
+        {
+            "name": "geodata-json",
+            "path": "geodata.json",
+            "title": "{{ site.title | escape }} geographic metadata",
+            "description": "Geojson data containing all objects with lat-longs and associated descriptive metadata.",
+            "format":"json",
+            "profile": "data-resource"
+        },{% endif %}
+        {% if stubs contains "timeline" %}
+        {
+            "name": "timeline-json",
+            "path": "timelinejs.json",
+            "title": "{{ site.title | escape }} timeline metadata",
+            "description": "Time-based metadata formatted for TimelineJS or other applications.",
+            "format":"json",
+            "profile": "data-resource"
+        },{% endif %}
+        {
+            "name": "metadata-csv",
+            "path": "metadata.csv",
+            "title": "{{ site.title | escape }} full metadata in csv",
+            "description": "Complete metadata export for {{ site.title | escape }} objects.",
+            "format":"csv",
+            "profile":"data-resource"
+        },
+        {
+            "name": "metadata-json",
+            "path": "metadata.json",
+            "title": "{{ site.title | escape }} full metadata in json",
+            "description": "Complete metadata export for {{ site.title | escape }} objects.",
+            "format":"json",
+            "profile":"data-resource"
+        }
+    ]
+}
