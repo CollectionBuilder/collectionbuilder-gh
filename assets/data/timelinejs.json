@@ -1,7 +1,7 @@
 ---
 # generate time-focused json data suitable for TimelineJS
 # Quickly curate the timeline by adding a where expression to the top line such. 
-# See https://collectionbuilder.github.io//docs/advanced.html#timelinejs for more information on how to do this.  
+# See https://collectionbuilder.github.io/docs/advanced.html#timelinejs for more information on how to do this.  
 ---
 {%- assign items = site.data[site.metadata] -%}
 {

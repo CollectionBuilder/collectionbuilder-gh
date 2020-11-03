@@ -1,0 +1,26 @@
+---
+# create collection description and stats 
+---
+{%- assign raw-dates = site.data[site.metadata] | map: 'date' | compact | uniq -%}
+{%- capture clean-years -%}{% for date in raw-dates %}{% if date contains "-" %}{{ date | strip | split: "-" | first }}{% elsif date contains "/" %}{{ date | strip | split: "/" | last }}{% else %}{{ date | strip }}{% endif %}{% unless forloop.last %};{% endunless %}{%- endfor -%}{%- endcapture -%}
+{%- assign date-range = clean-years | remove: " " | split: ";" | uniq | sort  -%}
+{%- assign formats = site.data[site.metadata] | map: 'format' -%}
+{%- assign formats_uniq = formats | uniq -%}
+{ 
+    "title": "{{ site.title }}",
+    "url": "{{ '/' | absolute_url }}",
+    "image": "{% include image/featured-image.html %}", 
+    "description": "{{ site.description }}",
+    "publisher": { 
+        "name": "{{ site.author }}"
+    },
+    "date_start": "{{ date-range | first }}",
+    "date_end": "{{ date-range | last }}",
+    "objects": {
+        {% for f in formats_uniq %}{% assign count = formats | where_exp: 'i', 'i contains f' | size %}{{ f | jsonify }}: "{{ count }}"{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+    },
+    "data": "{{ '/assets/data/datapackage.json' | absolute_url }}",
+    "last_build_date": "{{ site.time | date: '%Y-%m-%d' }}"
+}
+
