@@ -5,7 +5,7 @@
 (function(){
     $('#item-table').DataTable( {
         // use DataTables ajax load to 
-        ajax: { url: '{{ "/data/metadata.min.json" | relative_url }}', dataSrc: 'objects' },
+        ajax: { url: '{{ "/assets/js/metadata.min.json" | relative_url }}', dataSrc: 'objects' },
         // defer render to speed up large sets
         "deferRender": true,
         // enable pagination 
