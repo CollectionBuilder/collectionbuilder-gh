@@ -26,8 +26,8 @@
                     <div class="card-body">
                         <h5 class="card-title">Complete Metadata</h5>
                         <p class="card-text">All metadata fields for all collection items, available as a CSV spreadsheet (usable in Excel, Google Sheets, and similar programs) or JSON file (often used with web applications).</p>
-                        <a href="{{ '/data/metadata.csv' | absolute_url }}" class="btn btn-outline-dark" target="_blank">Metadata CSV</a>
-                        <a href="{{ '/data/metadata.json' | absolute_url }}" class="btn btn-outline-dark" target="_blank">Metadata JSON</a>
+                        <a href="{{ '/assets/data/metadata.csv' | absolute_url }}" class="btn btn-outline-dark" target="_blank">Metadata CSV</a>
+                        <a href="{{ '/assets/data/metadata.json' | absolute_url }}" class="btn btn-outline-dark" target="_blank">Metadata JSON</a>
                     </div>
                 </div>
                 {%- endif -%}
@@ -36,7 +36,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Metadata Facets</h5>
                         <p class="card-text">List of unique values and their count for specific metadata fields, useful for understanding content of the fields.</p>
-                        <a href="{{ '/data/facets.json' | absolute_url }}" class="btn btn-outline-dark" target="_blank">Facets JSON</a>
+                        <a href="{{ '/assets/data/facets.json' | absolute_url }}" class="btn btn-outline-dark" target="_blank">Facets JSON</a>
                     </div>
                 </div>
                 {%- endif -%}
@@ -45,8 +45,8 @@
                     <div class="card-body">
                         <h5 class="card-title">Subject Metadata</h5>
                         <p class="card-text">Unique values and counts of subject metadata, useful for further analyzing the content of this collection.</p>
-                        <a href="{{ '/data/subjects.csv' | absolute_url }}" class="btn btn-outline-dark" target="_blank">Subjects CSV</a>
-                        <a href="{{ '/data/subjects.json' | absolute_url }}" class="btn btn-outline-dark" target="_blank">Subjects JSON</a>
+                        <a href="{{ '/assets/data/subjects.csv' | absolute_url }}" class="btn btn-outline-dark" target="_blank">Subjects CSV</a>
+                        <a href="{{ '/assets/data/subjects.json' | absolute_url }}" class="btn btn-outline-dark" target="_blank">Subjects JSON</a>
                     </div>
                 </div>
                 {% endif %}
@@ -55,8 +55,8 @@
                     <div class="card-body">
                         <h5 class="card-title">Locations</h5>
                         <p class="card-text">Unique values and counts of location metadata, useful for further visualization and analysis of this collection's place names.</p>
-                        <a href="{{ '/data/locations.csv' | absolute_url }}" class="btn btn-outline-dark" target="_blank">Locations CSV</a>
-                        <a href="{{ '/data/locations.json' | absolute_url }}" class="btn btn-outline-dark" target="_blank">Locations JSON</a>
+                        <a href="{{ '/assets/data/locations.csv' | absolute_url }}" class="btn btn-outline-dark" target="_blank">Locations CSV</a>
+                        <a href="{{ '/assets/data/locations.json' | absolute_url }}" class="btn btn-outline-dark" target="_blank">Locations JSON</a>
                     </div>
                 </div>
                 {%- endif -%}
@@ -65,7 +65,7 @@
                     <div class="card-body">
                         <h5 class="card-title">GeoJSON</h5>
                         <p class="card-text">Metadata for all collection items that have geographic coordinates in <a href="https://en.wikipedia.org/wiki/GeoJSON" target="_blank" rel="noopener">GeoJSON</a> format, useful for further exploration and analysis of this collection through a geographical lense.</p>
-                        <a href="{{ '/data/geodata.json' | absolute_url }}" class="btn btn-outline-dark" target="_blank">Geodata JSON</a>
+                        <a href="{{ '/assets/data/geodata.json' | absolute_url }}" class="btn btn-outline-dark" target="_blank">Geodata JSON</a>
                     </div>
                 </div>
                 {%- endif -%}
@@ -74,7 +74,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Timeline</h5>
                         <p class="card-text">A time-focused JSON data export designed for use with <a href="https://timeline.knightlab.com/" target="_blank" rel="noopener">TimelineJS</a>.</p>
-                        <a href="{{ '/data/timelinejs.json' | absolute_url }}" class="btn btn-outline-dark" target="_blank">TimelineJS JSON</a>
+                        <a href="{{ '/assets/data/timelinejs.json' | absolute_url }}" class="btn btn-outline-dark" target="_blank">TimelineJS JSON</a>
                     </div>
                 </div>
                 {%- endif -%}
