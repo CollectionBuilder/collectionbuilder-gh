@@ -1,5 +1,8 @@
 # collectionbuilder-gh
 
+> This `demo-site` branch of collectionbuilder-gh contains objects and metadata used to generate a demonstration version on GitHub Pages. 
+> If starting a new project please use main/master branch instead.
+
 A project to generate a free and simple digital collection site using [GitHub Pages](https://pages.github.com/) given:
 
 - a CSV of collection metadata
