@@ -22,7 +22,9 @@ A quick start, step-by-step guide on how to create your own digital collection u
 2. Navigate to the [CollectionBuilder](https://github.com/CollectionBuilder/collectionbuilder-gh){:target="_blank" rel="noopener"} repository.
 2. Click the green "Use This Template" button.    
 3. This brings you to a "Create a new repository" form. Follow these steps:
-    - **Enter your new repository name**. It is best to use a naming convention without spaces or odd characters. We often append `_source` or `_draft` to our projects to keep track of the status. 
+    - **Enter your new repository name**. Use a lowercase name without spaces or odd characters (underscore `_` or dash `-` are okay). This name will become part of your site URL, so think through how it will look as a link. 
+    - Most users should choose "Public" repository. For hosting on GitHub Pages it *must* be public unless you upgrade to a paid account.
+    - Leave the "Include all branches" option **Unchecked**! (you do not want all branches, only the main/master branch)
     - Click on the green button "**Create repository from template**." This will take you to your new repository.
 
 ------
