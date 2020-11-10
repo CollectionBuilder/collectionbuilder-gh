@@ -2,6 +2,7 @@
 title: Google CSE
 layout: page
 # optional Google search page
+noindex: true
 ---
 
 ## Google Site Search
