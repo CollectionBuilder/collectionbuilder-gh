@@ -20,7 +20,7 @@
     {%- assign figure = site.data[site.metadata] | where: "objectid", i | first -%}
     <div class="col-md text-center">
         <figure class="figure mx-3{% if include.float %} feature-float-{{ include.float }}{% endif %}{% if include.width %} feature-w-{{ include.width }}{% endif %}">
-            <a href="{{ '/item.html' | relative_url | append: '?id=' | append: item.objectid }}">
+            <a href="{{ '/item.html' | relative_url | append: '?id=' | append: figure.objectid }}">
                 <img class="figure-img img-fluid rounded lazyload" alt="{{ figure.title | escape }}" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E" data-src="{% if figure.youtubeid %}{{ 'https://img.youtube.com/vi/' | append: figure.youtubeid | append: '/hqdefault.jpg' }}{% else %}{{ '/objects/' | append: figure.filename | relative_url }}{% endif %}" >
             </a>
             {% unless include.caption == false %}<figcaption class="figure-caption">{% if include.caption %}{{ include.caption }}{% else %}{{ figure.title }}{% endif %}</figcaption>{% endunless %}
