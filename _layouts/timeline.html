@@ -39,15 +39,15 @@ layout: page
                 {% for item in inYear %}
                 <div class="col-lg-4 col-md-6">
                     <a href="{{ '/item.html' | relative_url | append: '?id=' | append: item.objectid }}" >
-                        {% if item.format contains 'application' or item.format contains 'audio' %}
+                        {% if item.format contains 'image' or item.youtubeid %}
+                        <img class="lazyload img-thumbnail" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E" data-src="{% if item.youtubeid %}{{ 'https://img.youtube.com/vi/' | append: item.youtubeid | append: '/hqdefault.jpg' | relative_url }}{% elsif item.filename contains '/' %}{{ item.filename }}{% else %}{{ item.filename | prepend: '/objects/' | relative_url }}{% endif %}" alt="{{ item.title | escape }}" data-toggle="tooltip" data-placement="bottom" title="{{ item.title | escape }} | {{ item.date | escape }}">
+                        {% else %}
                         <div class="card"> 
                             <div class="card-body text-center">
                                 <h4 class="card-title text-dark">{{ item.title }}</h4>
-                                <img class="lazyload img-thumbnail w-50" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E" data-src="{% if item.format contains 'audio' %}{{ '/assets/img/audio.svg' | relative_url }}{% else %}{{ '/assets/img/pdf.svg' | relative_url }}{% endif %}" alt="{% if item.format contains 'audio' %}audio{% else %}PDF{% endif %} filetype thumbnail">
+                                <img class="lazyload img-thumbnail w-50" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E" data-src="{% if item.format contains 'audio' %}{{ '/assets/img/audio.svg' | relative_url }}{% elsif item.format contains 'video' %}{{ '/assets/img/video.svg' | relative_url }}{% else %}{{ '/assets/img/pdf.svg' | relative_url }}{% endif %}" alt="filetype thumbnail">
                             </div>
                         </div>
-                        {% else %}
-                        <img class="lazyload img-thumbnail" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E" data-src="{% if item.youtubeid %}{{ 'https://img.youtube.com/vi/' | append: item.youtubeid | append: '/hqdefault.jpg' | relative_url }}{% elsif item.filename contains '/' %}{{ item.filename }}{% else %}{{ item.filename | prepend: '/objects/' | relative_url }}{% endif %}" alt="{{ item.title | escape }}" data-toggle="tooltip" data-placement="bottom" title="{{ item.title | escape }} | {{ item.date | escape }}">
                         {% endif %}
                     </a>
                 </div>
