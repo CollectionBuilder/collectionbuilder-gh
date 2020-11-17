@@ -27,6 +27,6 @@
                 <p>The PDF is not rendering in your browser. Please use the link below to download the PDF.</p>
             </object>
         </div>
-        {% unless include.caption == false %}<figcaption class="figure-caption"><a href="{{ '/items/' | append: item.objectid | append: '.html' | relative_url }}">{% if include.caption %}{{ include.caption }}{% else %}{{ item.title }}{% endif %}</a></figcaption>{% endunless %}
+        {% unless include.caption == false %}<figcaption class="figure-caption"><a href="{{ '/item.html' | relative_url | append: '?id=' | append: item.objectid }}">{% if include.caption %}{{ include.caption }}{% else %}{{ item.title }}{% endif %}</a></figcaption>{% endunless %}
     </figure>
 </div>
