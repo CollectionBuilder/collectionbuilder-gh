@@ -38,34 +38,6 @@ a {
 	-webkit-transition: top .1s ease-in;
     transition: top .1s ease-in;
 }
-/* banner */
-.title-card {
-    background-color: #25242485;
-    background-color: rgba(37, 36, 36, 0.72);
-    color: white !important;
-}
-.featured-link {
-    background:rgba(0,0,0,.5);
-    padding:.5em;
-}
-#home-title-box {
-    img { height:40px; }
-}
-#home-banner {
-    @include media-query($on-palm) {
-    max-height:500px;
-    }
-}
-.display-4 {
-    @include media-query($on-palm) {
-       font-size:1.75em;
-    }
-}
-#home-tagline{
-  @include media-query($on-palm) {
-      font-size:.85em;
-    }
-}
 /* nav bar */
 .navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link:hover {
     color: rgba(255,255,255,.75);

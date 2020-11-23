@@ -1,5 +1,13 @@
 {% if page.layout == "home-infographic" and site.data.theme.featured-image %}
 <style>
+.title-card {
+    background-color: #25242485;
+    background-color: rgba(37, 36, 36, 0.72);
+    color: white !important;
+}
+.featured-link {
+    background:rgba(0,0,0,.5);
+}
 #home-banner {
     background-image: url('{% include image/featured-image.html %}');
     background-size: cover;
@@ -11,10 +19,13 @@
     padding-bottom: {{ site.data.theme.home-title-y-padding | default: '5em' }};
 }
 @media screen and (max-width: 576px) {
+    #home-banner { max-height:500px; }
     #home-title-box {
         padding-top: 5em;
         padding-bottom: 5em; 
     }
+    .display-4 { font-size:1.75em; }
+    #home-tagline { font-size:.85em; }
 }
 </style>
 <div id="home-banner" class="container-fluid mb-0 p-0">
@@ -25,7 +36,7 @@
         </div>
     </div>
     {% unless site.data.theme.featured-image contains '/' %}<div class="text-right p-0 mt-0">
-        <small><a class="text-info featured-link" href="{{ site.data.theme.featured-image | prepend: '/item.html?id=' | relative_url }}" title="{{ featuredItem.title | escape }}">Featured Image</a></small>
+        <small><a class="text-info featured-link p-2" href="{{ site.data.theme.featured-image | prepend: '/item.html?id=' | relative_url }}" title="{{ featuredItem.title | escape }}">Featured Image</a></small>
     </div>{% endunless %}
 </div>
 {%- else -%}

@@ -36,6 +36,11 @@
 {%- endif -%}
 
 <style>
+.title-card {
+    background-color: #25242485;
+    background-color: rgba(37, 36, 36, 0.72);
+    color: white !important;
+}    
 #jumbo-feature {
     background-image: url({{ jumboSrc }});
     background-size: cover;
@@ -48,6 +53,14 @@
     padding-bottom: {{ include.padding }};
 }
 {%- endif -%}
+@media screen and (max-width: 576px) {
+    #home-title-box {
+        padding-top: 5em;
+        padding-bottom: 5em; 
+    }
+    .display-4 { font-size:1.75em; }
+    #home-tagline { font-size:.85em; }
+}
 </style>
 <div class="jumbotron feature px-0 border" id="jumbo-feature">
     <div id="home-title-box">
