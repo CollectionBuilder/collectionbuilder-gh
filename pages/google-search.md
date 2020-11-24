@@ -1,7 +1,9 @@
 ---
 title: Google CSE
 layout: page
-# optional Google search page
+permalink: /search/google-search.html
+# optional Google search page, see docs/google.md
+# set google-cse-id in _config.yml
 ---
 
 ## Google Site Search
