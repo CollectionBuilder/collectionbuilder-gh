@@ -16,8 +16,10 @@ function makeCard(obj) {
       thumbSrc = '{{ "/assets/img/audio.svg" | relative_url }}';
     } else if (obj.format.includes("video")) {
       thumbSrc = '{{ "/assets/img/video.svg" | relative_url }}';  
-    } else {
+    } else if (obj.format.includes("pdf")) {
       thumbSrc = '{{ "/assets/img/pdf.svg" | relative_url }}';
+    } else {
+      thumbSrc = '{{ "/assets/img/file.svg" | relative_url }}';
     }  
     // start card
     var card = '<div class="item col-lg-4 col-md-6 col-sm-12 mb-2"><div class="card">';

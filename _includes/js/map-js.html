@@ -81,9 +81,11 @@
         } else if (feature.properties.youtube) {
             thumbSrc = 'https://img.youtube.com/vi/' +  feature.properties.youtube + '/default.jpg';
         } else if (feature.properties.format.includes("video")) {
-            thumbSrc = '{{ "/assets/img/video.svg" | relative_url }}';    
+            thumbSrc = '{{ "/assets/img/video.svg" | relative_url }}'; 
+        } else if (feature.properties.format.includes("pdf")) {
+            thumbSrc = '{{ "/assets/img/pdf.svg" | relative_url }}';    
         } else {
-            thumbSrc = '{{ "/assets/img/pdf.svg" | relative_url }}';
+            thumbSrc = '{{ "/assets/img/file.svg" | relative_url }}';
         }    
         /* create popup content */
         var popupTemplate = '<h4><a class="text-dark" href="' + itemHref + '">' +
