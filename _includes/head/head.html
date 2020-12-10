@@ -13,16 +13,6 @@
 <meta name="generator" content="collectionbuilder-gh" />
 <meta http-equiv="Content-Language" content="en-us" >
 
-{% comment %} 
-    Meta tags and analytics are adding during production build ONLY.
-    Production build environment is automatically used on gh-pages. 
-{% endcomment %}
-{%- if jekyll.environment == "production" -%}
-{% if site.noindex == true or page.noindex == true or layout.noindex == true %}<meta name="robots" content="noindex">{% endif %}
-{% include head/page-meta.html %}
-{% if site.google-analytics-id %}{% include head/google-analytics.html %}{% endif %}
-{% endif %}
-
 <!-- load style sheets -->
 {% if site.data.theme.font-cdn %}{{ site.data.theme.font-cdn }}{% endif %}
 <link rel="stylesheet" href="{% if site.data.theme.bootswatch %}https://stackpath.bootstrapcdn.com/bootswatch/4.4.0/{{ site.data.theme.bootswatch }}/bootstrap.min.css{% else %}{{ '/assets/lib/bootstrap.min.css' | absolute_url }}{% endif %}" type="text/css">
@@ -36,5 +26,15 @@
 
 <!-- load custom css last to allow overrides -->
 <link rel="stylesheet" href="{{ '/assets/css/custom.css' | absolute_url }}" type="text/css">
+
+{% comment %} 
+    Meta tags and analytics are adding during production build ONLY.
+    Production build environment is automatically used on gh-pages. 
+{% endcomment %}
+{%- if jekyll.environment == "production" -%}
+{% if site.noindex == true or page.noindex == true or layout.noindex == true %}<meta name="robots" content="noindex">{% endif %}
+{% include head/page-meta.html %}
+{% include head/analytics.html %}
+{% endif %}
 
 <!-- Last build date: {{ site.time | date: "%Y-%m-%d" }} -->

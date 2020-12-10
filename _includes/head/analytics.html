@@ -1,3 +1,8 @@
+{% comment %}
+    Paste Analytics code snippet here (for example from Matomo) or set google-analytics-id in config.yml
+{% endcomment %}
+<!-- Analytics --> 
+{% if site.google-analytics-id %}
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google-analytics-id }}"></script>
 <script>
@@ -8,3 +13,4 @@
     'anonymize_ip': true
   });
 </script>
+{%- endif -%}
