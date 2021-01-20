@@ -19,7 +19,7 @@
     "events": [
       {% for item in items %}{% if item.date %}{
         "media": {
-          "url": "{% if item.format contains 'audio' %}{{ '/assets/img/audio.svg' | relative_url }}{% elsif item.format contains 'application' %}{{ '/assets/img/pdf.svg' | relative_url }}{% elsif item.youtubeid %}{{ 'https://img.youtube.com/vi/' | append: item.youtubeid | append: '/maxresdefault.jpg' }}{% else %}{{ item.filename | prepend: '/objects/' | relative_url }}{% endif %}",
+          "url": "{% if item.format contains 'audio' %}{{ '/assets/img/audio.svg' | relative_url }}{% elsif item.format contains 'application' %}{{ '/assets/img/pdf.svg' | relative_url }}{% elsif item.youtubeid %}{{ 'https://img.youtube.com/vi/' | append: item.youtubeid | append: '/maxresdefault.jpg' }}{% elsif item.filename contains 'http' %}{{ item.filename }}{% else %}{{ item.filename | prepend: '/objects/' | relative_url }}{% endif %}",
           "caption": {{ item.title | jsonify }},
           "link": "{{ '/item.html' | relative_url | append: '?id=' | append: item.objectid }}",
           "credit": "{{ site.title }}"
