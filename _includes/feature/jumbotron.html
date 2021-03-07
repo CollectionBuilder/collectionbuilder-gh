@@ -19,7 +19,7 @@
 {% if include.objectid %}{% assign jumboId = include.objectid %}
 {% elsif site.data.theme.about-featured-image %}{% assign jumboId = site.data.theme.about-featured-image %}
 {% elsif site.data.theme.featured-image %}{% assign jumboId = site.data.theme.featured-image %}
-{% else %}{% assign jumboId = '/assets/img/collectionbuilder-logo.png' | absolute_url %}
+{% else %}{% assign jumboId = '/assets/img/collectionbuilder-logo.png' | relative_url %}
 {%- endif -%}
 
 {% if jumboId contains '/' %}
@@ -29,7 +29,7 @@
 {% assign jumboLink = '/item.html?id=' | append: jumboId | relative_url %}
 {% assign jumboItem = site.data[site.metadata] | where: "objectid", jumboId | first %}
 {% unless jumboItem.youtubeid %}
-{% assign jumboSrc = jumboItem.filename | prepend: '/objects/' | absolute_url %}
+{% assign jumboSrc = jumboItem.filename | prepend: '/objects/' | relative_url %}
 {% else %}
 {% assign jumboSrc = 'https://img.youtube.com/vi/' | append: jumboItem.youtubeid | append: '/maxresdefault.jpg' %}
 {%- endunless -%}

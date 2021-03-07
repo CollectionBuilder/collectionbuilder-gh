@@ -4,7 +4,7 @@
 
 function makeCard(obj) {
     // find item link
-    var itemHref = "{{ '/item.html' | absolute_url | append: '?id=' }}" + obj.id;
+    var itemHref = "{{ '/item.html' | relative_url | append: '?id=' }}" + obj.id;
     // find images
     var imgSrc, thumbSrc;
     // add images or thumb for objects based on format
