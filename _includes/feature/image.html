@@ -1,0 +1,28 @@
+{% comment %}
+
+    Image include (non-collection item!). 
+    This include adds an image in a figure to the page styled using bootstrap, https://getbootstrap.com/docs/4.5/content/figures/
+    If you want to use an image from your collection, please use feature/image-figure.html instead! 
+
+    It requires a URL or relative path to the image. If multiple URLs are included (separated by ; ), they will be added to a "col-md" in a row which will automatically divided equally. 
+
+    E.G. --> {% include feature/image.html src="demo_001" %}
+
+    Options: 
+    - "src" = one or more URLs or relative paths to an image file, separated by semicolon (;). e.g. "https://cdil.lib.uidaho.edu/images/palouse_sm.jpg" . To include an image that is part of this project, a relative path can be used, e.g. "/assets/img/collectionbuilder-logo.png". If you include multiple images, please do not use the other options below.
+    - "width" = will use responsive sizing to set the % size on desktop (will be 100% on mobile), choose from "25", "50", "75", or "100"
+    - "caption" = by default there is no caption. The caption option allows you to manually add a text caption.
+    - "float" = will use responsive float utility to add float on desktop (will not float on mobile), choose from "left" or "right"
+    
+{%- endcomment -%}
+{%- assign figures = include.src | split: ";" %}
+<div class="row">
+    {% for i in figures %}
+    <div class="col-md text-center">
+        <figure class="figure mx-3{% if include.float %} feature-float-{{ include.float }}{% endif %}{% if include.width %} feature-w-{{ include.width }}{% endif %}">
+            <img class="figure-img img-fluid rounded lazyload" alt="{{ figure.title | escape }}" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E" data-src="{{ i | relative_url }}" >
+            {% if include.caption %}<figcaption class="figure-caption">{{ include.caption }}</figcaption>{% endif %}
+        </figure>
+    </div>
+    {% endfor %}
+</div>
