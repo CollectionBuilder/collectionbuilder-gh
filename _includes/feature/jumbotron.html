@@ -6,7 +6,7 @@
     E.G. --> {% include feature/jumbotron.html %}
 
     Options:
-    - "objectid" = one objectid for a photo object in this collection, or a full link to any image. By default this is be the about-featured-image, or the featured-image set in theme.yml.
+    - "objectid" = one objectid for a photo object in this collection, a relative path to an image in this project, or a full url to any image. If left blank, by default this the image will be the about-featured-image, or the featured-image set in theme.yml.
     - "position" = set background-position, "center", "top", "bottom"
     - "heading" = major heading to display. By default this will be the site title. Give the value false for no heading.
     - "text" = paragraph text below heading. By default this will be the site tagline. Give the value false for no text.
@@ -23,10 +23,8 @@
 {%- endif -%}
 
 {% if jumboId contains '/' %}
-{% assign jumboLink = jumboId %}
-{% assign jumboSrc = jumboId %}
+{% assign jumboSrc = jumboId | relative_url %}
 {% else %}
-{% assign jumboLink = '/item.html?id=' | append: jumboId | relative_url %}
 {% assign jumboItem = site.data[site.metadata] | where: "objectid", jumboId | first %}
 {% unless jumboItem.youtubeid %}
 {% assign jumboSrc = jumboItem.filename | prepend: '/objects/' | relative_url %}
