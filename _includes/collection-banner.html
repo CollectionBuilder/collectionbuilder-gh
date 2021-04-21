@@ -41,9 +41,7 @@
 </div>
 {%- else -%}
 <div class="container pt-2">
-    <h1 class="h3">
-        <a href="{{ '/' | relative_url }}" class="text-dark text-uppercase font-weight-normal">{{ site.title }}</a>
-        {% if site.tagline %}<small class="text-muted">| {{ site.tagline }}</small>{% endif %}
-    </h1>
+    <h1><a class="text-dark font-weight-normal" href="{{ site.baseurl }}/" >{{ site.title }}</a></h1>	 
+            {% if site.tagline %}<p>{{ site.tagline }}</p>{% endif %}
 </div>
 {%- endif -%}
