@@ -23,7 +23,7 @@
 <div class="text-center">
     <figure class="figure border rounded p-1 feature-w-{{ include.width | default: '100' }}{% if include.float %} feature-float-{{ include.float }} mx-3{% endif %}">
         <div class="{% unless include.height %}embed-responsive embed-responsive-{{ include.ratio | default: '1by1' }}{% endunless %}">
-            <object class="embed-responsive-item" {% if include.height %}width="100%" height="{{ include.height }}"{% endif %} data="{{item.filename | prepend: 'objects/' | relative_url}}">
+            <object class="embed-responsive-item" {% if include.height %}width="100%" height="{{ include.height }}"{% endif %} data="{%if item.filename contains 'http' %}{{item.filename}}{% else %}{{item.filename | prepend: 'objects/' | relative_url}}{%endif%}">
                 <p>The PDF is not rendering in your browser. Please use the link below to download the PDF.</p>
             </object>
         </div>
