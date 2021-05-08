@@ -7,7 +7,9 @@ A project to generate a free and simple digital collection site using [GitHub Pa
 
 Click the green "use this template" button above to get started. Create your template repository, then add new metadata and configure the repository to fit your collection and settings.
 
-See [Getting Started Docs](https://collectionbuilder.github.io/docs/introduction.html) for detailed information. **Note:** 
+See [Getting Started Docs](https://collectionbuilder.github.io/docs/introduction.html) for detailed information. 
+
+**Note:** 
 Since `collectionbuilder-gh` uses [GitHub Pages](https://pages.github.com/), it is only suitable for small collections, with lower resolution images. GitHub repositories are limited to 1GB.
 
 ## Demo CollectionBuilder with our Workshop Tutorial

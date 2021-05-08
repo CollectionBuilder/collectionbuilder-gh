@@ -1,4 +1,5 @@
 {%- assign fields = site.data.config-search -%}
+{%- assign index_fields = fields | where: 'index','true' -%}
 <script src="{{ '/assets/lib/lunr.min.js' | relative_url }}"></script>
 <script src="{{ '/assets/js/lunr-store.js' | relative_url }}"></script>
 <script>
@@ -6,17 +7,17 @@
 var idx = lunr(function () {
   /* add index fields from config */
   this.ref('id')
-  {% for f in fields %}{% if f.index == 'true' %}
+  {% for f in index_fields %}
   this.field({{ f.field | escape | jsonify }})
-  {% endif %}{% endfor %}
+  {% endfor %}
 
   //this.pipeline.remove(lunr.trimmer)
 
   for (var item in store) {
     this.add({
-      {% for f in fields %}{% if f.index == 'true' %}
+      {% for f in index_fields %}
       {{ f.field | escape | jsonify }}: store[item][{{ f.field | escape | jsonify }}],
-      {% endif %}{% endfor %}
+      {% endfor %}
       id: item
     })
   }
@@ -25,7 +26,7 @@ var idx = lunr(function () {
 /* search function */
 function lunr_search () {
   var resultdiv = $('#lunrResults');
-  var query = $('#lunrSearch').val();//.toLowerCase();
+  var query = $('#lunrSearchBox').val();//.toLowerCase();
   /* basic search that supports operators */
   var result = idx.search(query); 
   /* more fuzzy search, but doesn't support operators:
@@ -52,22 +53,22 @@ function lunr_search () {
             {% for d in display %}
             {% if forloop.first %}
             '<p class="h4"><a href="{{ site.baseurl }}/item.html?id=' + store[ref].id + '">' + store[ref][{{ fields[0].field | escape | jsonify }}]  + '</a></p>' +
-            '<p class="ml-3">' +
+            '<p class="ml-3">';
               {% else %}
-              store[ref][{{ d.field | escape | jsonify }}] + '<br> ' +
+              if(store[ref][{{ d.field | escape | jsonify }}]) {
+                searchitem += store[ref][{{ d.field | escape | jsonify }}] + '<br> '; }
               {% endif %}{% endfor %}
-            '</p></td>' +
+              searchitem += '</p></td>' +
       '</tr>';
     resultdiv.append(searchitem);
   }
 }
 /* init search box and get query string */
 $(document).ready(function() {
-  $('input#lunrSearch').on('keyup', lunr_search );
   if (window.location.search) {
     var queryString = decodeURIComponent(window.location.search.substring(1).split("=")[1]);
-    $('input#lunrSearch').val(queryString);
-    lunr_search();
+    $('#lunrSearchBox').val(queryString);
+    lunr_search ();
   }
 });
 </script>
