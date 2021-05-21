@@ -4,8 +4,6 @@
 <!-- load other js -->
 <script src="{{ '/assets/lib/lazysizes.min.js' | relative_url }}" async></script>
 {% if layout.gallery == true or page.gallery == true %}{% include js/gallery-js.html %}{% endif %}
-{% if page.layout == "subjects" and site.data.theme.subjects-fields %}{% include js/cloud-js.html fields=site.data.theme.subjects-fields min=site.data.theme.subjects-min stopwords=site.data.theme.subjects-stopwords %}{% endif %}
-{% if page.layout == "locations" and site.data.theme.locations-fields %}{% include js/cloud-js.html fields=site.data.theme.locations-fields min=site.data.theme.locations-min stopwords=site.data.theme.locations-stopwords %}{% endif %}
 {% if page.custom-foot or layout.custom-foot %}
 {%- assign page_feet = page.custom-foot | split: ";" -%}
 {%- assign layout_feet = layout.custom-foot | split: ";" -%}
@@ -13,4 +11,3 @@
 {% for f in feet %}{% include {{ f }} %}
 {% endfor %}
 {%- endif -%}
-
