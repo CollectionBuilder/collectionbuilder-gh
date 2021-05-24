@@ -32,6 +32,6 @@
             </video>
             {%- endif -%}
         </div>
-        {% unless include.caption == false %}<figcaption class="figure-caption"><a href="{{ '/items/' | append: item.objectid | append: '.html' | relative_url }}">{% if include.caption %}{{ include.caption }}{% else %}{{ item.title }}{% endif %}</a></figcaption>{% endunless %}
+        {% unless include.caption == false %}<figcaption class="figure-caption"><a href="{{ '/item.html?id=' | append: item.objectid | relative_url }}">{% if include.caption %}{{ include.caption }}{% else %}{{ item.title }}{% endif %}</a></figcaption>{% endunless %}
     </figure>
 </div>
