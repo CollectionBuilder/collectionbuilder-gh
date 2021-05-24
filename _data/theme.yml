@@ -24,19 +24,6 @@ featured-locations: # separate by semi-colon(';')
 featured-locations-max: 3 # set number of top locations to display if auto generating
 
 ##########
-# ABOUT PAGE
-#
-# Featured image on About page - if left blank, CB will use image featured on the home page
-# use either an objectid (from an item in this collect), a relative location of an image in this repo (ex. /assets/img/feature.jpg), or a full url to an image elsewhere
-about-featured-image: https://cdil.lib.uidaho.edu/images/palouse_sm.jpg
-
-##########
-# BROWSE PAGE
-#
-# see _data/browse-config.csv for field display options
-# fields given the "btn" option can be multivalued with ";" such as subjects.
-
-##########
 # ITEM PAGE
 #
 # see _data/metadata-config.csv to define the metadata fields that will display.
