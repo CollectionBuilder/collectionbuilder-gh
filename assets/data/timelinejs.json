@@ -1,9 +1,10 @@
 ---
-# generate time-focused json data suitable for TimelineJS
-# Quickly curate the timeline by adding a where expression to the top line such. 
-# See https://collectionbuilder.github.io/docs/advanced.html#timelinejs for more information on how to do this.  
+# generate time-focused json data suitable for TimelineJS.
+# includes all items in metadata that have a "date" field filled.
+# Curate the timeline by adding a "where" expression to the assign on the first line.
+# For details, see https://collectionbuilder.github.io/cb-docs/docs/advanced/timelinejs/  
 ---
-{%- assign items = site.data[site.metadata] -%}
+{%- assign items = site.data[site.metadata] | where_exp: 'item', 'item.date' -%}
 {
     "title": {
         "media": {
@@ -19,9 +20,9 @@
     "events": [
       {% for item in items %}{% if item.date %}{
         "media": {
-          "url": "{% if item.format contains 'audio' %}{{ '/assets/img/audio.svg' | relative_url }}{% elsif item.format contains 'application' %}{{ '/assets/img/pdf.svg' | relative_url }}{% elsif item.youtubeid %}{{ 'https://img.youtube.com/vi/' | append: item.youtubeid | append: '/maxresdefault.jpg' }}{% elsif item.filename contains 'http' %}{{ item.filename }}{% else %}{{ item.filename | prepend: '/objects/' | relative_url }}{% endif %}",
+          "url": "{% if item.youtubeid %}{{ 'https://www.youtube.com/watch?v=' | append: item.youtubeid }}{% elsif item.vimeoid %}{{ 'https://vimeo.com/' | append: item.vimeoid }}{% elsif item.filename contains 'http' %}{{ item.filename }}{% else %}{{ item.filename | prepend: '/objects/' | absolute_url }}{% endif %}",
           "caption": {{ item.title | jsonify }},
-          "link": "{{ '/item.html' | relative_url | append: '?id=' | append: item.objectid }}",
+          "link": "{{ '/item.html' | absolute_url | append: '?id=' | append: item.objectid }}",
           "credit": "{{ site.title }}"
         },
         "start_date": { {% if item.date contains '-' %}{% assign dates = item.date | split: '-' %}
