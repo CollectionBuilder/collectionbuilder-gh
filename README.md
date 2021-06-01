@@ -5,9 +5,12 @@ A project to generate a free and simple digital collection site using [GitHub Pa
 - a CSV of collection metadata
 - a folder of JPEG images or PDF documents
 
-Click the green "use this template" button above to get started. Create your template repository, then add new metadata and configure the repository to fit your collection and settings.
+Gather your digital objects together and create your metadata using the [CollectionBuilder-GH Metadata Template](https://docs.google.com/spreadsheets/d/1Uv9ytll0hysMOH1j-VL1lZx6PWvc1zf3L35sK_4IuzI/edit?usp=sharing). 
+Then click the green "use this template" button above to create your repository, add your metadata and configure the repository to fit your collection and settings.
 
-See [Getting Started Docs](https://collectionbuilder.github.io/docs/introduction.html) for detailed information. 
+See [Getting Started Docs](https://collectionbuilder.github.io/cb-docs/) for detailed information. 
+
+View the [demo site](https://collectionbuilder.github.io/collectionbuilder-gh/).
 
 **Note:** 
 Since `collectionbuilder-gh` uses [GitHub Pages](https://pages.github.com/), it is only suitable for small collections, with lower resolution images. GitHub repositories are limited to 1GB.
@@ -60,7 +63,7 @@ Learn about:
 
 ## Build a Digital Collection! 
 
-Check out the [CollectionBuilder-GH tutorial](https://collectionbuilder.github.io/collectionbuilder-gh/documentation/) for how to get started, or visit the [CollectionBuilder home](https://collectionbuilder.github.io/) for more information.
+Check out the [CollectionBuilder docs](https://collectionbuilder.github.io/cb-docs/) for how to get started, or visit the [CollectionBuilder home](https://collectionbuilder.github.io/) for more information.
 
 If you are interested in using CollectionBuilder, or are already using it, please drop us a line (**libstatic.uidaho@gmail.com**) since we would love to learn more about it's use in the wild. 
 There are also currently opportunities to [collaborate on CollectionBuilder](https://collectionbuilder.github.io/about.html#the-grant).
