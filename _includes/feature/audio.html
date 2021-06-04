@@ -1,0 +1,26 @@
+{% comment %}
+    
+    Audio embed from an item's objectid.
+    This include adds a audio embed to the page using the html "audio" element.
+
+    E.G. --> {% include feature/audio.html objectid="demo_003" %}
+
+    It requires an "objectid" with the include, which is used to find the object title and details.
+
+    Options: 
+    - "objectid" = an objectid of a audio item in this collection (required)
+    - "caption" = by default the figure include automatically adds the title of the item from your metadata. The caption option allows you to manually add a different caption, or give the value false for none. (optional)
+
+    Note: if you have issues make sure the item is a audio item and that the format is correct, e.g. audio/mp3.
+    Audio file may not play correctly from dev server on Chrome browser! It will work in production.
+
+{%- endcomment -%}
+{%- assign item = site.data[site.metadata] | where: "objectid", include.objectid | first -%}
+{%- capture src -%}{% if  item.filename contains '/' %}{{ item.filename }}{% else %}{{ '/objects/' | append: item.filename | relative_url }}{% endif %}{% endcapture %}
+<p class="text-center my-3">
+        <audio controls class="w-100">
+            <source src="{{ src }}" type="{{ item.format | default: 'audio/mpeg' }}">
+            Your browser does not support the audio element.
+        </audio>
+        {% unless include.caption == false %}<small class="figure-caption"><a href="{{ '/item.html?id=' | append: item.objectid | relative_url }}">{% if include.caption %}{{ include.caption }}{% else %}{{ item.title }}{% endif %}</a></small>{% endunless %}
+</p>
