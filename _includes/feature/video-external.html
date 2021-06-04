@@ -1,0 +1,38 @@
+{% comment %}
+    
+    Video include (non-collection item!). 
+    This include adds an external video embed to the page using Bootstrap responsive embed styles, https://getbootstrap.com/docs/4.5/utilities/embed/
+    If you want to use a video from your collection, please use "feature/item-video-embed.html" instead! 
+
+    It requires a URL to the hosted video on YouTube or Vimeo.
+
+    E.G. --> {% include feature/video.html src="https://www.youtube.com/watch?v=dbKNr3wuiuQ" %}    
+
+    Options: 
+    - "src" = a URL to a video hosted on YouTube or Vimeo. e.g. "https://www.youtube.com/watch?v=dbKNr3wuiuQ" or "https://vimeo.com/464555587". (required)
+    - "caption" = by default there is no caption. The caption option allows you to manually add a text caption. (optional)
+    - "width" = will use responsive sizing to set the % size on desktop (will be 100% on mobile), choose from "25", "50", "75", or "100" (optional)
+    - "ratio" = use Bootstrap embed ratio options "21by9", "16by9", "4by3", or "1by1" to customize the responsive aspect ratio. 16by9 is default. (optional)
+    - "float" = will use responsive float utility to add float on desktop (will not float on mobile), choose from "left" or "right" (optional, not recommended)
+
+{%- endcomment -%}
+
+<div class="text-center ">
+    <figure class="figure mx-3{% if include.float %} feature-float-{{ include.float }}{% endif %}{% if include.width %} feature-w-{{ include.width }}{% endif %}">
+        {% if include.src contains 'vimeo' %}
+        {% assign vimeo_id = include.src | split: '/' | last %}
+        <div class="embed-responsive embed-responsive-{{ include.ratio | default: '16by9' }}">
+            <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/{{ vimeo_id }}" allowfullscreen></iframe>
+        </div>
+        {%- elsif include.src contains 'youtu' -%}
+        {% assign youtube_id = include.src | split: '/' | last %}
+        {% if youtube_id contains '?' %}{% assign youtube_id = youtube_id | split: '?' | last | split: '&' | first | replace: 'v=','' %}{% endif %}
+        <div class="embed-responsive embed-responsive-{{ include.ratio | default: '16by9' }}">
+            <iframe class="embed-responsive-item" src="https://www.youtube-nocookie.com/embed/{{ youtube_id }}?rel=0&modestbranding=1" allowfullscreen></iframe>
+        </div>
+        {% else %}
+            Your browser does not support the video tag.
+        {% endif %}
+        {% if include.caption %}<figcaption class="figure-caption">{{ include.caption }}</figcaption>{% endif %}
+    </figure>
+</div>

@@ -1,0 +1,24 @@
+{% comment %}
+
+    Image include for a non-collection item.
+    This include adds an image in a figure to the page styled using bootstrap, https://getbootstrap.com/docs/4.5/content/figures/
+    If you want to use an image from your collection, please use "feature/image.html" instead! 
+
+    It requires a URL or relative path to the image.
+
+    E.G. --> {% include feature/image-external.html src="/assets/img/demo_001.png" alt="example image" %}
+
+    Options: 
+    - "src" = a URL or relative paths to an image file. e.g. "https://cdil.lib.uidaho.edu/images/palouse_sm.jpg" . To include an image that is part of this project, a relative path can be used, e.g. "/assets/img/collectionbuilder-logo.png". (required)
+    - "alt" = alternative text describing the image. This is a required accessibility feature. (required)
+    - "width" = will use responsive sizing to set the % size on desktop (will be 100% on mobile), choose from "25", "50", "75", or "100" (optional)
+    - "caption" = by default there is no caption. The caption option allows you to manually add a text caption. (optional)
+    - "float" = will use responsive float utility to add float on desktop (will not float on mobile), choose from "left" or "right" (optional, not recommended)
+    
+{%- endcomment -%}
+<div class="my-4 text-center">
+    <figure class="figure mx-3{% if include.float %} feature-float-{{ include.float }}{% endif %}{% if include.width %} feature-w-{{ include.width }}{% endif %}">
+        <img class="figure-img img-fluid rounded lazyload" alt="{{ include.alt | escape }}" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E" data-src="{{ include.src | relative_url }}" >
+        {% if include.caption %}<figcaption class="figure-caption">{{ include.caption }}</figcaption>{% endif %}
+    </figure>
+</div>
