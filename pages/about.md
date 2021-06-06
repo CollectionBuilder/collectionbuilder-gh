@@ -17,7 +17,7 @@ credits: true
 This demo site features objects from the [University of Idaho Library's Digital Collections](https://www.lib.uidaho.edu/digital/) and is generated using [CollectionBuilder-GH](https://github.com/CollectionBuilder/collectionbuilder-gh), a project to create a free and simple digital collection hosted on [GitHub Pages](https://pages.github.com/) from: 
 
 - a CSV of collection metadata
-- a folder of JPEG images or PDF documents
+- a folder of JPG images or PDF documents
 
 `collectionbuilder-gh` is intended as a simple template for hands-on teaching about digital libraries.
 
@@ -35,7 +35,7 @@ For those who can't wait, below are six quick steps to get you started:
 - <a target="_blank" rel="noopener" href="https://help.github.com/en/articles/configuring-a-publishing-source-for-github-pages">Activate on GitHub Pages</a> for the Repository.
 - Check out your site via the link provided on your repository's setting's page!
 
-**Find complete details in the <a target="_blank" rel="noopener" href="https://collectionbuilder.github.io/docs/introduction.html">CollectionBuilder Docs</a>.**
+**Find complete details in the <a target="_blank" rel="noopener" href="https://collectionbuilder.github.io/cb-docs/">CollectionBuilder Docs</a>.**
 
 {% endcapture %}
 {% include feature/card.html header="Create Your Collection!" text=how-to centered=true width="75" %}
