@@ -1,9 +1,8 @@
 ---
 layout: default
 ---
-<div class="container mt-4 about-contents">
-  {{ content }}
+<div class="container my-4 about-contents">
+{{ content }}
 </div>
 
-{% include credits.html %}
-
+{% if page.credits == true %}{% include cb/credits.html %}{% endif %}

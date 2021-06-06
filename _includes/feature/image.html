@@ -1,0 +1,31 @@
+{% comment %}
+
+    Image embed from an item's objectid.
+    This include adds a figure to the page styled using bootstrap, https://getbootstrap.com/docs/4.5/content/figures/
+    It requires an "objectid" with the include, which is used to find the object title and image (for image or youtube objects).
+    If multiple objectids are included (separated by ; ), they will be added to a "col-md" in a row which will automatically divided equally. 
+
+    E.G. --> {% include feature/image.html objectid="demo_001" %}
+
+    Options: 
+    - "objectid" = one or more objectids from this collection, separated by semicolon ; (required)
+    - "width" = will use responsive sizing to set the % size on desktop (will be 100% on mobile), choose from "25", "50", "75", or "100" (optional)
+    - "caption" = by default the figure include automatically adds the title of the item from your metadata. The caption option allows you to manually add a different caption, or give the value false for none. (optional)
+    - "float" = will use responsive float utility to add float on desktop (will not float on mobile), choose from "left" or "right" (optional, not recommended) If you use the "float" option, you may want to "clear" the float at some point below, by adding <div class="clearfix"></div> to your content page.
+    
+{%- endcomment -%}
+{%- assign figures = include.objectid | split: ";" %}
+<div class="row">
+    {% for i in figures %}
+    {%- assign figure = site.data[site.metadata] | where: "objectid", i | first -%}
+    {%- capture src -%}{% if figure.youtubeid %}{{ 'https://img.youtube.com/vi/' | append: figure.youtubeid | append: '/hqdefault.jpg' }}{% elsif  figure.filename contains '/' %}{{ figure.filename }}{% else %}{{ '/objects/' | append: figure.filename | relative_url }}{% endif %}{% endcapture %}
+    <div class="col-md text-center">
+        <figure class="figure mx-3{% if include.float %} feature-float-{{ include.float }}{% endif %}{% if include.width %} feature-w-{{ include.width }}{% endif %}">
+            <a href="{{ '/item.html' | relative_url | append: '?id=' | append: figure.objectid }}">
+                <img class="figure-img img-fluid rounded lazyload" alt="{{ figure.title | escape }}" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E" data-src="{{ src }}" >
+            </a>
+            {% unless include.caption == false %}<figcaption class="figure-caption">{% if include.caption %}{{ include.caption }}{% else %}{{ figure.title }}{% endif %}</figcaption>{% endunless %}
+        </figure>
+    </div>
+    {% endfor %}
+</div>

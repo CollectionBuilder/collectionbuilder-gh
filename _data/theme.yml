@@ -9,6 +9,7 @@
 # featured image is used in home page banner and in meta markup to represent the collection
 # use either an objectid (from an item in this collect), a relative location of an image in this repo, or a full url to an image elsewhere
 featured-image: test011
+
 # optional: add extra padding around collection title for a larger image feature. 
 home-title-y-padding: # Default is 8em
 # optional: change position of background image, center, top, bottom
@@ -22,19 +23,6 @@ featured-subjects-max: 5 # set number of top subjects to display if auto generat
 # Same as subjects above. Leave blank for automatically generated locations. Or add locations you'd like to feature. For list see data/places.csv
 featured-locations: # separate by semi-colon(';') 
 featured-locations-max: 3 # set number of top locations to display if auto generating
-
-##########
-# ABOUT PAGE
-#
-# Featured image on About page - if left blank, CB will use image featured on the home page
-# use either an objectid (from an item in this collect), a relative location of an image in this repo, or a full url to an image elsewhere
-about-featured-image: https://cdil.lib.uidaho.edu/images/palouse_sm.jpg
-
-##########
-# BROWSE PAGE
-#
-# see _data/browse-config.csv for field display options
-# fields given the "btn" option can be multivalued with ";" such as subjects.
 
 ##########
 # ITEM PAGE

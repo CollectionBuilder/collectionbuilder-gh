@@ -1,17 +1,32 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>{{ page.title | escape }} | {{ site.title | escape }}</title>
-<link rel="shortcut icon" type="image/x-icon" href="{{ '/favicon.ico' | absolute_url }}">
-<!-- 
-   ___     _ _        _   _          ___      _ _    _         
-  / __|___| | |___ __| |_(_)___ _ _ | _ )_  _(_) |__| |___ _ _ 
- | (__/ _ \ | / -_) _|  _| / _ \ ' \| _ \ || | | / _` / -_) '_|
-  \___\___/_|_\___\__|\__|_\___/_||_|___/\_,_|_|_\__,_\___|_|  
- 
-    built with CollectionBuilder-GH https://github.com/CollectionBuilder/collectionbuilder-gh 
+<link rel="shortcut icon" type="image/x-icon" href="{{ '/favicon.ico' | relative_url }}">
+<!--
+  _____     ____        __  _           ___       _ __   __       
+ / ___/__  / / /__ ____/ /_(_)__  ___  / _ )__ __(_) /__/ /__ ____
+/ /__/ _ \/ / / -_) __/ __/ / _ \/ _ \/ _  / // / / / _  / -_) __/
+\___/\___/_/_/\__/\__/\__/_/\___/_//_/____/\_,_/_/_/\_,_/\__/_/   
+   
+    built with CollectionBuilder-GH
+    https://github.com/CollectionBuilder/collectionbuilder-gh 
 -->
 <meta name="generator" content="collectionbuilder-gh" />
 <meta http-equiv="Content-Language" content="en-us" >
+
+<!-- load style sheets -->
+{% if site.data.theme.font-cdn %}{{ site.data.theme.font-cdn }}{% endif %}
+<link rel="stylesheet" href="{% if site.data.theme.bootswatch %}https://stackpath.bootstrapcdn.com/bootswatch/4.4.0/{{ site.data.theme.bootswatch }}/bootstrap.min.css{% else %}{{ '/assets/lib/bootstrap.min.css' | relative_url }}{% endif %}" type="text/css">
+<script defer src="{{ '/assets/lib/fontawesome-free/js/all.min.js' | relative_url }}"></script>
+{% if page.layout == 'item' or layout.gallery == true or page.gallery == true %}<link rel="stylesheet" href="{{ '/assets/lib/lightgallery/css/lightgallery.min.css' | relative_url }}" type="text/css">{% endif %}
+{% if page.layout == 'data' %}<link rel="stylesheet" type="text/css" href="{{ '/assets/lib/datatables/datatables.min.css' | relative_url }}">{% endif %}
+{% if page.layout == 'map' %}<link rel="stylesheet" href="{{ '/assets/lib/leaflet/leaflet.css' | relative_url }}">
+{% if site.data.theme.map-search == true %}<link rel="stylesheet" href="{{ '/assets/lib/leaflet/leaflet.fusesearch.css' | relative_url }}">{% endif %}
+{% if site.data.theme.map-cluster == true %}<link rel="stylesheet" href="{{ '/assets/lib/leaflet/MarkerCluster.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/lib/leaflet/MarkerCluster.Default.css' | relative_url }}">{% endif %}{% endif %}
+
+<!-- load custom css last to allow overrides -->
+<link rel="stylesheet" href="{{ '/assets/css/custom.css' | relative_url }}" type="text/css">
 
 {% comment %} 
     Meta tags and analytics are adding during production build ONLY.
@@ -20,21 +35,7 @@
 {%- if jekyll.environment == "production" -%}
 {% if site.noindex == true or page.noindex == true or layout.noindex == true %}<meta name="robots" content="noindex">{% endif %}
 {% include head/page-meta.html %}
-{% if site.google-analytics-id %}{% include head/google-analytics.html %}{% endif %}
+{% include head/analytics.html %}
 {% endif %}
-
-<!-- load style sheets -->
-{% if site.data.theme.font-cdn %}{{ site.data.theme.font-cdn }}{% endif %}
-<link rel="stylesheet" href="{% if site.data.theme.bootswatch %}https://stackpath.bootstrapcdn.com/bootswatch/4.4.0/{{ site.data.theme.bootswatch }}/bootstrap.min.css{% else %}{{ '/assets/lib/bootstrap.min.css' | absolute_url }}{% endif %}" type="text/css">
-<script defer src="{{ '/assets/lib/fontawesome-free/js/all.min.js' | absolute_url }}"></script>
-{% if page.layout == 'item' or layout.gallery == true or page.gallery == true %}<link rel="stylesheet" href="{{ '/assets/lib/lightgallery/css/lightgallery.min.css' | relative_url }}" type="text/css">{% endif %}
-{% if page.layout == 'data' %}<link rel="stylesheet" type="text/css" href="{{ '/assets/lib/datatables/datatables.min.css' | absolute_url }}">{% endif %}
-{% if page.layout == 'map' %}<link rel="stylesheet" href="{{ '/assets/lib/leaflet/leaflet.css' | absolute_url }}">
-{% if site.data.theme.map-search == true %}<link rel="stylesheet" href="{{ '/assets/lib/leaflet/leaflet.fusesearch.css' | absolute_url }}">{% endif %}
-{% if site.data.theme.map-cluster == true %}<link rel="stylesheet" href="{{ '/assets/lib/leaflet/MarkerCluster.css' | absolute_url }}">
-<link rel="stylesheet" href="{{ '/assets/lib/leaflet/MarkerCluster.Default.css' | absolute_url }}">{% endif %}{% endif %}
-
-<!-- load custom css last to allow overrides -->
-<link rel="stylesheet" href="{{ '/assets/css/custom.css' | absolute_url }}" type="text/css">
 
 <!-- Last build date: {{ site.time | date: "%Y-%m-%d" }} -->

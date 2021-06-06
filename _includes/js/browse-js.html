@@ -4,17 +4,22 @@
 
 function makeCard(obj) {
     // find item link
-    var itemHref = "{{ '/item.html' | absolute_url | append: '?id=' }}" + obj.id;
+    var itemHref = "{{ '/item.html' | relative_url | append: '?id=' }}" + obj.id;
     // find images
     var imgSrc, thumbSrc;
+    // add images or thumb for objects based on format
     if(obj.youtube) {
       imgSrc = 'https://img.youtube.com/vi/' + obj.youtube + '/hqdefault.jpg';
+    } else if (obj.format.includes("image")) {
+      imgSrc = obj.filename;
     } else if (obj.format.includes("audio")) {
       thumbSrc = '{{ "/assets/img/audio.svg" | relative_url }}';
+    } else if (obj.format.includes("video")) {
+      thumbSrc = '{{ "/assets/img/video.svg" | relative_url }}';  
     } else if (obj.format.includes("pdf")) {
       thumbSrc = '{{ "/assets/img/pdf.svg" | relative_url }}';
     } else {
-      imgSrc = obj.filename;
+      thumbSrc = '{{ "/assets/img/file.svg" | relative_url }}';
     }  
     // start card
     var card = '<div class="item col-lg-4 col-md-6 col-sm-12 mb-2"><div class="card">';
@@ -116,7 +121,7 @@ function makeCard(obj) {
       var filteredItems = [];
       for (var i = 0, len = arr.length; i < len; i++) {
         var val = "";
-        for (var k in arr[i]) { val += arr[i][k]; }
+        for (var k in arr[i]) { val += arr[i][k] + " "; }
         if(val.toUpperCase().indexOf(q) != -1){
           filteredItems.push(arr[i]);
         }

@@ -17,6 +17,6 @@ Done!
 
 The favicon file is set in the `<head>` section of your web pages using this link metatag: 
 
-`<link rel="shortcut icon" type="image/x-icon" href="{{ "/favicon.ico" | absolute_url }}">`
+`<link rel="shortcut icon" type="image/x-icon" href="{{ "/favicon.ico" | relative_url }}">`
 
 In this Jekyll project, the tag is in the file `_includes/head.html`.

@@ -6,6 +6,23 @@ layout: page
 
 <div id="cloud" class="text-center my-4 bg-light border rounded p-2"></div>
 
-{% if page.cloud-fields %}
-{% include js/cloud-js.html fields=page.cloud-fields min=page.cloud-min stopwords=page.cloud-stopwords %}
+{%- comment -%}
+
+    Figure out default "Subjects" and "Locations" page cloud values as configured in in "theme.yml", 
+    and set default values for cloud include.
+
+{%- endcomment -%}
+{%- if page.cloud-fields == "site.data.theme.subjects-fields" -%}
+    {% assign fields = site.data.theme.subjects-fields %}
+    {% assign min = site.data.theme.subjects-min | default: 1 %}
+    {% assign stopwords = site.data.theme.subjects-stopwords %}
+{%- elsif page.cloud-fields == "site.data.theme.locations-fields" -%}
+    {% assign fields = site.data.theme.locations-fields %}
+    {% assign min = site.data.theme.locations-min | default: 1 %}
+    {% assign stopwords = site.data.theme.locations-stopwords %}
+{%- else -%}
+    {% assign fields = page.cloud-fields | default: "subjects" %}
+    {% assign min = page.cloud-min | default: 1 %}
+    {% assign stopwords = page.cloud-stopwords %}
 {%- endif -%}
+{% include js/cloud-js.html fields=fields min=min stopwords=stopwords %}

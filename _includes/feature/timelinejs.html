@@ -1,3 +1,18 @@
+{% comment %}
+
+    Embed a TimelineJS feature, https://timeline.knightlab.com/
+
+    E.G. --> {% include feature/timelinejs.html %}
+
+    Embeds a TimelineJS built from a JSON file appropriate for any CollectionBuilder page (such as Home or About page).
+    CB templates automatically generate a timelinejs json file in "assets/data/timelinejs.json" including all items in metadata with a value in "date" field.
+    By default, this include uses this json file. 
+
+    Options:
+    - "json" = (optional) path or link to timelinejs json file. 
+
+{% endcomment %}
+{%- assign json = include.json | default: '/assets/data/timelinejs.json' | relative_url -%}
 <!-- timelinejs, https://timeline.knightlab.com/ -->
 <link title="timeline-styles" rel="stylesheet" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
 
@@ -12,5 +27,5 @@
     // and the element must have CSS styling to give it width and height
     // optionally, a third argument with configuration options can be passed.
     // See below for more about options.
-    timeline = new TL.Timeline('timeline-embed', '{{ "/assets/data/timelinejs.json" | relative_url }}');
+    timeline = new TL.Timeline('timeline-embed', '{{ json }}');
 </script>

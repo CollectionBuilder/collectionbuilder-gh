@@ -1,12 +1,12 @@
 {% comment %}
 
     Bootstrap Jumbotron, https://getbootstrap.com/docs/4.5/components/jumbotron/
-    This include adds a Jumbotron feature from an objectid. By default it is configured to work with the About page option "about-featured-image" set in theme.yml without any options necessary. 
+    This include adds a Jumbotron feature from an objectid.
 
-    E.G. --> {% include feature/jumbotron.html %}
+    E.G. --> {% include feature/jumbotron.html objectid="demo_001" %}
 
     Options:
-    - "objectid" = one objectid for a photo object in this collection, or a full link to any image. By default this is be the about-featured-image, or the featured-image set in theme.yml.
+    - "objectid" = one objectid for a photo object in this collection, a relative path to an image in this project, or a full url to any image. If left blank, by default this the image will be the featured-image set in theme.yml.
     - "position" = set background-position, "center", "top", "bottom"
     - "heading" = major heading to display. By default this will be the site title. Give the value false for no heading.
     - "text" = paragraph text below heading. By default this will be the site tagline. Give the value false for no text.
@@ -16,26 +16,26 @@
 
 {%- endcomment -%}
 
-{% if include.objectid %}{% assign jumboId = include.objectid %}
-{% elsif site.data.theme.about-featured-image %}{% assign jumboId = site.data.theme.about-featured-image %}
-{% elsif site.data.theme.featured-image %}{% assign jumboId = site.data.theme.featured-image %}
-{% else %}{% assign jumboId = '/assets/img/collectionbuilder-logo.png' | absolute_url %}
-{%- endif -%}
-
+{% assign jumboId = include.objectid | default: site.data.theme.featured-image %}
 {% if jumboId contains '/' %}
-{% assign jumboLink = jumboId %}
-{% assign jumboSrc = jumboId %}
+{% assign jumboSrc = jumboId | relative_url %}
 {% else %}
-{% assign jumboLink = '/item.html?id=' | append: jumboId | relative_url %}
 {% assign jumboItem = site.data[site.metadata] | where: "objectid", jumboId | first %}
-{% unless jumboItem.youtubeid %}
-{% assign jumboSrc = jumboItem.filename | prepend: '/objects/' | absolute_url %}
-{% else %}
+{% if jumboItem.youtubeid %}
 {% assign jumboSrc = 'https://img.youtube.com/vi/' | append: jumboItem.youtubeid | append: '/maxresdefault.jpg' %}
-{%- endunless -%}
+{% elsif jumboItem.filename contains '/' %}
+{% assign jumboSrc = jumboItem.filename | relative_url %}
+{% else %}
+{% assign jumboSrc = jumboItem.filename | prepend: '/objects/' | relative_url %}
+{%- endif -%}
 {%- endif -%}
 
 <style>
+.title-card {
+    background-color: #25242485;
+    background-color: rgba(37, 36, 36, 0.72);
+    color: white !important;
+}    
 #jumbo-feature {
     background-image: url({{ jumboSrc }});
     background-size: cover;
@@ -48,6 +48,14 @@
     padding-bottom: {{ include.padding }};
 }
 {%- endif -%}
+@media screen and (max-width: 576px) {
+    #home-title-box {
+        padding-top: 5em;
+        padding-bottom: 5em; 
+    }
+    .display-4 { font-size:1.75em; }
+    #home-tagline { font-size:.85em; }
+}
 </style>
 <div class="jumbotron feature px-0 border" id="jumbo-feature">
     <div id="home-title-box">

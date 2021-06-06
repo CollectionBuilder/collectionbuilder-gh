@@ -5,12 +5,14 @@
 ##########
 
 ##########
-# URL VARIABLES
+# URL VARIABLES [optional if using GitHub Pages!]
 #
-# url is your gh-pages base, following the pattern: username.github.io
-url: https://collectionbuilder.github.io
-# baseurl is your github repository's name prefixed with a /
-baseurl: /collectionbuilder-gh
+# url is site domain, full URL to the production location of your collection
+# on GitHub Pages follows the pattern username.github.io
+#url: https://collectionbuilder.github.io 
+# baseurl is path to location on the domain if necessary e.g. /digital/hjccc
+# on GitHub Pages it is your github repository's name prefixed with a /
+#baseurl: /collectionbuilder-gh 
 # location of code, the full url to your github repository
 source-code: https://github.com/CollectionBuilder/collectionbuilder-gh
 
@@ -36,9 +38,12 @@ metadata: collection-metadata
 ##########
 # GOOGLE SERVICES [optional!]
 #
-# leave these blank or comment out to NOT include google code
-# google-analytics-id: "UA-74844011-1"
-# google-cse-id: "002151703305773322890:1pu3smhw1t8"
+# leave these blank or comment out to NOT include google code. See docs/google.md
+#
+# Add your google-analytics-id to automatically add the embed code, e.g. "UA-76328753-1"
+# google-analytics-id:
+# to populate a Google CSE add the id, e.g. "002151703305773322890:1pu3smhw1t8"
+# google-cse-id: 
 
 ##########
 # ROBOTS EXCLUDE
