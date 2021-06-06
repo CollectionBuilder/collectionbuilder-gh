@@ -11,4 +11,4 @@ To update demo-site from master:
 
 - checkout the branch: `git checkout demo-site`
 - make sure it is up-to-date: `git pull`
-- bring in master: `git merge master`
+- bring in master: `git merge main`
