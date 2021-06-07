@@ -32,26 +32,24 @@
     {% if include.header %}<h5 class="card-header">{{ include.header }}</h5>{% endif %}
     <div class="card-body">
         {% if include.title %}<h5 class="card-title">{{ include.title }}</h5>{% endif %}
-        <div class="row">
-            <div class="col-md-12 pb-3">
-                <div id="imageCarousel" class="carousel slide bg-dark rounded" data-ride="carousel">
-                    <ol id="carouselIndicators" class="carousel-indicators">
-                        
-                    </ol>
-                    <div id="carouselInner" class="carousel-inner">
-                        
-                    </div>
-                    <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#imageCarousel" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
+        
+        <div id="imageCarousel" class="carousel slide bg-dark rounded mb-3" data-ride="carousel">
+            <ol id="carouselIndicators" class="carousel-indicators">
+                
+            </ol>
+            <div id="carouselInner" class="carousel-inner">
+                
             </div>
+            <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#imageCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
+            
     </div>
 </div>
 {%- comment -%}
@@ -84,7 +82,7 @@
         // create indicator 
         indicator = '<li data-target="#imageCarousel" data-slide-to="' + i.toString() + '" class="' + active + '"></li>';
         // create slide
-        slide = '<div class="carousel-item text-center py-2 ' + active +'"><img class="image-fluid mx-auto h-100 lazyload" alt="image highlight" data-src="' + itemImg + '"> <div class="carousel-caption"><h5 class="carousel-item-title text-white py-2">' + carouselItems[i][0] + '</h5><a target="_blank" href="' + itemLink + '" class="btn btn-sm btn-{{ btn-color }}">View Item</a></div></div>';
+        slide = '<div class="carousel-item py-2 ' + active +'"><img class="d-block h-100 mx-auto lazyload" alt="image highlight" data-src="' + itemImg + '"> <div class="carousel-caption"><h5 class="carousel-item-title text-white py-2">' + carouselItems[i][0] + '</h5><a target="_blank" href="' + itemLink + '" class="btn btn-sm btn-{{ btn-color }}">View Item</a></div></div>';
         slides += slide;
         indicators += indicator;
     }
