@@ -13,6 +13,7 @@
     - "header" = card header text in bar above card content (optional)
     - "max" = maximum images selected for slide show (optional, default 9. Do not make too big!)
     - "btn-color" - a bootstrap color class to theme the buttons. Can be any bootstrap template color (e.g. info, success) or outline (e.g. outline-info, outline-success), including colors created in config-theme-colors. (optional, default "info")
+    - "btn-text" - the label used in the link btn to view the carousel item (optional, default "View Item")
     
 {%- endcomment -%}
 
@@ -21,6 +22,7 @@
 {%- assign carousel-items = image-items | concat: youtube-items -%}
 {%- assign carousel-max = include.max | default: 9 -%}
 {%- assign btn-color = include.btn-color | default: "primary" -%}
+{%- assign btn-text = include.btn-text | default: "View Item" -%}
 
 {%- comment -%}
     Set up carousel div
@@ -82,7 +84,7 @@
         // create indicator 
         indicator = '<li data-target="#imageCarousel" data-slide-to="' + i.toString() + '" class="' + active + '"></li>';
         // create slide
-        slide = '<div class="carousel-item py-2 ' + active +'"><img class="d-block h-100 mx-auto lazyload" alt="image highlight" data-src="' + itemImg + '"> <div class="carousel-caption"><h5 class="carousel-item-title text-white py-2">' + carouselItems[i][0] + '</h5><a target="_blank" href="' + itemLink + '" class="btn btn-sm btn-{{ btn-color }}">View Item</a></div></div>';
+        slide = '<div class="carousel-item py-2 ' + active +'"><img class="d-block h-100 mx-auto lazyload" alt="image highlight" data-src="' + itemImg + '"> <div class="carousel-caption"><h5 class="carousel-item-title text-white py-2">' + carouselItems[i][0] + '</h5><a target="_blank" href="' + itemLink + '" class="btn btn-sm btn-{{ btn-color }}">{{ btn-text }}</a></div></div>';
         slides += slide;
         indicators += indicator;
     }
