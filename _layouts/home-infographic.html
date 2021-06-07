@@ -1,13 +1,12 @@
 ---
 layout: page
-custom-foot: js/carousel-js.html
 ---
 {%- assign items = site.data[site.metadata] -%}
 <div class="row">
   <div class="col-md-8">
 
   {% include index/description.html %}
-  {% include index/carousel.html %}
+  {% include index/carousel.html title="Sample Items" %}
   
   </div>
   <div class="col-md-4">  
