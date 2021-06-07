@@ -21,11 +21,11 @@ If you'd like to demo CollectionBuilder, we've made [a step-through tutorial](ht
 
 Metadata is drawn from the following Google Sheet: 
 
-- [Psychiana Digital Collection Metadata](https://www.lib.uidaho.edu/collectionbuilder/demo-objects.zip)
+- [Psychiana Digital Collection Metadata](https://drive.google.com/open?id=1x48Te3duPAxh53foEihQVKTfCKUjaCCbH7TrMMd_yU4)
 
 Objects are collected in this zip file: 
 
-- [Psychiana Digital Collection Media Files](https://drive.google.com/file/d/1CPhNDv5FokC3utTCVmuXHS2OgnN9hR7q/view?usp=sharing) (Includes image files, pdfs, and mp3s)
+- [Psychiana Digital Collection Media Files](https://www.lib.uidaho.edu/collectionbuilder/demo-objects.zip) (Includes image files, pdfs, and mp3s)
 
 These files are stored in this [CollectionBuilder-gh Google Drive Folder](https://drive.google.com/drive/folders/1dTO8-3lusaKBdYyauyg_ziVqwLA4Fons?usp=sharing), along with some other metadata sheets and zipped object directories that can be used for other workshops and demonstrations.
 
