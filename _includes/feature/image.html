@@ -42,9 +42,9 @@
     <div class="col-md text-center">
         <figure class="figure mx-3{% if include.float %} feature-float-{{ include.float }}{% endif %}{% if include.width %} feature-w-{{ include.width }}{% endif %}">
             <a href="{{ image_link | default: image_src}}">
-                <img class="figure-img img-fluid rounded lazyload" alt="{{ image_alt | default: image_caption }}" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E" data-src="{{ image_src }}" >
+                <img class="figure-img img-fluid rounded lazyload" alt="{{ image_alt | default: image_caption }}"  title="click to see item" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E" data-src="{{ image_src }}" >
             </a>
-            {% unless include.caption == false %}<figcaption class="figure-caption">{{ image_caption }}</figcaption>{% endunless %}
+            {% unless include.caption == false %}<figcaption class="figure-caption">{% if i contains "/" %}{{ image_caption }}{% else %}<a href="{{image_link}}">{{ image_caption }}</a>{% endif %}</figcaption>{% endunless %}
         </figure>
     </div>{% endfor %}
 </div>
