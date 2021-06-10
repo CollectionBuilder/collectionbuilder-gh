@@ -20,8 +20,8 @@
 
 {%- endcomment -%}
 {%- assign item = site.data[site.metadata] | where: "objectid", include.objectid | first -%}
-<div class="text-center ">
-    <figure class="figure mx-3{% if include.float %} feature-float-{{ include.float }}{% endif %}{% if include.width %} feature-w-{{ include.width }}{% endif %}">
+<div class="text-center my-4">
+    <figure class="mx-auto{% if include.float %} feature-float-{{ include.float }}{% endif %}{% if include.width %} feature-w-{{ include.width }}{% endif %}">
         <div class="embed-responsive embed-responsive-{{ include.ratio | default: '16by9' }}">
             {% if item.youtubeid %}
             <iframe class="embed-responsive-item lazyload" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E" data-src="https://www.youtube-nocookie.com/embed/{{ item.youtubeid }}?rel=0&modestbranding=1" allowfullscreen></iframe>

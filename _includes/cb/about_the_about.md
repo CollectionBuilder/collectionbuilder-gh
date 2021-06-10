@@ -27,7 +27,7 @@ We hope this makes it easier for site builders to develop the collection AND add
 
 - Video: `{% raw %}{% include feature/video.html objectid="demo_004" %}{% endraw %}`
 
-{% include feature/video.html objectid="demo_004" %}
+{% include feature/video.html objectid="demo_004" width="75" %}
 
 #### Include a Audio
 
