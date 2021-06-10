@@ -1,3 +1,13 @@
+{% assign imagesample = site.data[site.metadata] | where_exp: 'item','item.format contains "image"' | first %}
+{% capture imagesampleid %}{{imagesample.objectid | default: "https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg"}}{% endcapture %}
+{% assign pdfsample = site.data[site.metadata] | where_exp: 'item','item.format contains "pdf"' | first %}
+{% capture pdfsampleid %}{{pdfsample.objectid | default: "https://digital.lib.uidaho.edu/utils/getfile/collection/ui_ep/id/21768/filename/uiext21768.pdf"}}{% endcapture %}
+{% assign videosample = site.data[site.metadata] | where_exp: 'item','item.format contains "video"' | first %}
+{% capture videosampleid %}{{videosample.objectid | default: "https://cdil.lib.uidaho.edu/storying-extinction/objects/trailcams/videos/ballcreek-cedarrub-birdonpath.mp4"}}{% endcapture %}
+{% assign audiosample = site.data[site.metadata] | where_exp: 'item','item.format contains "audio"' | first %}
+{% capture audiosampleid %}{{audiosample.objectid | default: "https://www.lib.uidaho.edu/digital/mp3s/Clouds.mp3"}}{% endcapture %}
+
+
 ## About the About Page
 
 We want to make About pages exciting, and easy to build. 
@@ -15,25 +25,34 @@ We hope this makes it easier for site builders to develop the collection AND add
 
 - Image --> `{% raw %}{% include feature/image.html objectid="demo_001" width="75" %}{% endraw %}`
 
-{% include feature/image.html objectid="demo_001" width="75" %}
+{% include feature/image.html objectid=imagesampleid width="75" %}
+
+{% include feature/image.html objectid="https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg;https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg" caption="this guy!;WHOA, this guy!" link="https://www.lib.uidaho.edu/" %}
+
+{% include feature/image.html objectid="demo_001;demo_004;demo_005" width="75" %}
+
+{% include feature/image.html objectid="demo_001;demo_004;demo_005" width="75" caption="demo1;nother" %}
+
 
 #### Include a PDF
 
 - PDF -- > `{% raw %}{% include feature/pdf.html objectid="demo_002"  width="50" %}{% endraw %}`
 
-{% include feature/pdf.html objectid="demo_002" width="50" %}
+{% include feature/pdf.html objectid=pdfsampleid width="50" %}
 
 #### Include a Video
 
 - Video: `{% raw %}{% include feature/video.html objectid="demo_004" %}{% endraw %}`
 
-{% include feature/video.html objectid="demo_004" width="75" %}
 
-#### Include a Audio
+{% include feature/video.html objectid=videosampleid width="75" %}
+
+
+#### Include an Audio File
 
 - Audio: `{% raw %}{% include feature/audio.html objectid="demo_003" %}{% endraw %}`
 
-{% include feature/audio.html objectid="demo_003" %}
+{% include feature/audio.html objectid=audiosampleid  %}
 
 ### Include [Bootstrap](https://getbootstrap.com/) Features
 
