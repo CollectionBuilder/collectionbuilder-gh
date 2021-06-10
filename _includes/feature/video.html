@@ -1,13 +1,12 @@
 {% comment %}
     
-    Video embed from an item's objectid.
+    Video embed from an item's objectid or external link.
     This include adds a video embed to the page using Bootstrap responsive embed styles, https://getbootstrap.com/docs/4.5/utilities/embed/
 
     E.G. --> {% include feature/video.html objectid="demo_003" %}
 
-
-    It requires an "objectid" with the include, which is used to find the object title and details.
-    Items with youtubeid will use a YouTube embed.
+    It requires an "objectid" with the include, which is used to find the video details. Alternatively, a URL to an external video can be used in "objectid".
+    YouTube and Vimeo items will use iframe embeds, file files with use html video element.
 
     Options: 
     - "objectid" = an objectid of a video item in this collection (usually that has an youtubeid or vimeoid), a full URL to a video hosted on YouTube or Vimeo, or full URL to a video file (required) e.g. "demo_003", "https://www.youtube.com/watch?v=dbKNr3wuiuQ", or "https://vimeo.com/464555587".
@@ -34,7 +33,7 @@
     {%- elsif item.youtubeid -%}
     {% assign youtube_id = item.youtubeid %}
     {% else %}
-    {%- capture src -%}{% if  item.filename contains '/' %}{{ item.filename }}{% else %}{{ '/objects/' | append: item.filename | relative_url }}{% endif %}{% endcapture %}
+    {%- capture src -%}{% if  item.filename contains '/' %}{{ item.filename | relative_url }}{% else %}{{ '/objects/' | append: item.filename | relative_url }}{% endif %}{% endcapture %}
     {% endif %}
 {%- endif -%}
 <div class="text-center my-4">
@@ -46,7 +45,7 @@
             <iframe class="embed-responsive-item" src="https://www.youtube-nocookie.com/embed/{{ youtube_id }}?rel=0&modestbranding=1" allowfullscreen></iframe>
             {% else %}
             <video class="embed-responsive-item" width="320" height="240" controls>
-                <source src="{{ include.objectid | relative_url }}">
+                <source src="{{ src }}">
                 Your browser does not support the video tag.
             </video>
             {%- endif -%}

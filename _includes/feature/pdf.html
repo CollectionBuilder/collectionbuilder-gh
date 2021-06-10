@@ -1,15 +1,15 @@
 {% comment %}
     
-    Item PDF embed from objectid.
-    This include adds a PDF embed to the page.
+    Item PDF embed from objectid or external link.
+    This include adds a PDF embed to the page using html5 "object" element.
 
-    E.G. --> {% include feature/pdf.html objectid="demo_004" %}
+    E.G. --> {% include feature/pdf.html objectid="demo_002" %}
 
-    It requires an "objectid" with the include, which is used to find the object title and PDF link.
+    It requires an "objectid" with the include, which is used to find the object details. Alternatively, a URL to an external pdf can be used in "objectid".
     By default no height is necessary as it uses 1by1 Bootstrap responsive embed style, https://getbootstrap.com/docs/4.5/utilities/embed/
 
     Options: 
-    - "objectid" = an objectid of an PDF item in this collection (required)
+    - "objectid" = (required) an objectid of an PDF item in this collection, or a URL or relative path to a PDF file. e.g. "demo_004", "https://cdil.lib.uidaho.edu/assets/pdf/CDIL-summer-grad-2021.pdf", or "/assets/example.pdf".
     - "caption" = by default the figure include automatically adds the title of the item from your metadata. The caption option allows you to manually add a different caption, or give the value false for none. (optional)
     - "width" = will use responsive sizing to set the % size on desktop (will be 100% on mobile), choose from "25", "50", "75", or "100" (optional)
     - "height" = set embed object height in px (rather than responsive size), e.g. "800px" (optional)
@@ -19,8 +19,12 @@
     Note: if you have issues make sure the item is a PDF file!
 
 {%- endcomment -%}
+{%- if include.objectid contains '/' -%}
+{%- assign src = include.objectid -%}
+{%- else -%}
 {%- assign item = site.data[site.metadata] | where: "objectid", include.objectid | first -%}
-{%- capture src -%}{% if  item.filename contains '/' %}{{ item.filename }}{% else %}{{ '/objects/' | append: item.filename | relative_url }}{% endif %}{% endcapture %}
+{%- capture src -%}{% if item.filename contains '/' %}{{ item.filename | relative_url }}{% else %}{{ '/objects/' | append: item.filename | relative_url }}{% endif %}{% endcapture %}
+{%- endif -%}
 <div class="text-center">
     <figure class="figure border rounded p-1 feature-w-{{ include.width | default: '100' }}{% if include.float %} feature-float-{{ include.float }} mx-3{% endif %}">
         <div class="{% unless include.height %}embed-responsive embed-responsive-{{ include.ratio | default: '1by1' }}{% endunless %}">
@@ -28,6 +32,10 @@
                 <p>The PDF is not rendering in your browser. Please use the link below to download the PDF.</p>
             </object>
         </div>
-        {% unless include.caption == false %}<figcaption class="figure-caption"><a href="{{ '/item.html' | relative_url | append: '?id=' | append: item.objectid }}">{% if include.caption %}{{ include.caption }}{% else %}{{ item.title }}{% endif %}</a></figcaption>{% endunless %}
+        {% unless include.caption == false %}
+        <figcaption class="figure-caption">
+            {% if include.caption %}{{ include.caption }}{% else %}
+            <a href="{{ '/item.html?id=' | append: item.objectid | relative_url }}">{{ item.title }}</a>{% endif %}
+        </figcaption>{% endunless %}
     </figure>
 </div>
