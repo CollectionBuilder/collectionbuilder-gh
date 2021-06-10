@@ -1,4 +1,4 @@
-## Include Bonanza page
+## Feature Includes Bonanza page
 
 Check all the includes. Steal Code. 
 
@@ -34,23 +34,23 @@ Example Code --> `{% raw %}{% include feature/image.html objectid="demo_001;demo
 
 #### External Image (without a caption)
 
-{% include feature/image.html objectid="https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg" width="75"%}
+{% include feature/image.html objectid="https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg" width="75" alt="headshot of Evan Williamson" %}
 
-Example Code --> `{% raw %}{% include feature/image.html objectid="https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg" width="75"%}{% endraw %}`
+Example Code --> `{% raw %}{% include feature/image.html objectid="https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg" width="75" alt="headshot of Evan Williamson" %}{% endraw %}`
 
 
 #### External Image (with a caption)
 
-{% include feature/image.html objectid="https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg" width="75" caption="this guy!" %}
+{% include feature/image.html objectid="https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg" width="75" caption="this guy!" alt="headshot of Evan Williamson"%}
 
-Example Code --> `{% raw %}{% include feature/image.html objectid="https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg" width="75" caption="this guy!" %}{% endraw %}`
+Example Code --> `{% raw %}{% include feature/image.html objectid="https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg" width="75" caption="this guy!" alt="headshot of Evan Williamson" %}{% endraw %}`
 
 
-#### Multiple External Images (with captions)
+#### Multiple External Images (with captions and a link)
 
-{% include feature/image.html objectid="https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg;https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg" caption="this guy!;WHOA, this guy!" link="https://www.lib.uidaho.edu/" %}
+{% include feature/image.html objectid="https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg;https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg" caption="this guy!;WHOA, this guy!" link="https://www.lib.uidaho.edu/" alt="headshot of Evan Williamson;another Evan Williamson headshot" %}
 
-Example Code --> `{% raw %}{% include feature/image.html objectid="https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg;https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg" caption="this guy!;WHOA, this guy!" link="https://www.lib.uidaho.edu/" %}{% endraw %}`
+Example Code --> `{% raw %}{% include feature/image.html objectid="https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg;https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg" caption="this guy!;WHOA, this guy!" link="https://www.lib.uidaho.edu/" alt="headshot of Evan Williamson;another Evan Williamson headshot" %}{% endraw %}`
 
 
 ### PDF Options
@@ -157,3 +157,33 @@ Example Code --> `{% raw %}{% include feature/audio.html objectid="https://www.l
 Example Code --> `{% raw %}{% include feature/audio.html objectid="https://www.lib.uidaho.edu/digital/mp3s/Clouds.mp3" width="50" caption="Clouds are Important!" %}{% endraw %}`
 
 
+#### Filtered Timeline
+
+{% include feature/timelinejs.html filter="item.format contains 'image'" %}
+
+
+### Include [Bootstrap](https://getbootstrap.com/) Features
+
+#### Include a Card
+
+- Card -- > `{% raw %}{% include feature/card.html header="This is a Card" text="The card features an image from the collection as a cap" objectid="demo004" width="25" centered=true %}{% endraw %}`
+
+{% include feature/card.html header="This is a Card" text="The card features an image from the collection as a cap" objectid="demo004" width="25" centered=true %}
+
+#### Include a Button 
+
+- Buttons -- > `{% raw %}{% include feature/button.html text="Button Link to Somewhere" link="https://collectionbuilder.github.io/" color="success" %}{% endraw %}`
+
+{% include feature/button.html text="Button Link to Somewhere" link="https://collectionbuilder.github.io/" color="success" centered=true %}
+  
+#### Include an Alert
+
+- Alerts -- > `{% raw %}{% include feature/alert.html text="this is an *alert* that 'warns' a user" color="warning" align="center" %}{% endraw %}`
+
+{% include feature/alert.html text="This is an *alert* that 'warns' a user with centrally aligned text." color="warning" align="center"  %}
+
+#### Include a Modal
+
+- Modals -- > `{% raw %}{% include feature/modal.html button="This is a modal using a 'primary' colored button to invite clicking" title="when clicked:" text="A Modal will pop out a box with some more information" color="primary"  %}{% endraw %}`
+
+{% include feature/modal.html button="This is a modal using a 'primary' colored button to invite clicking" title="When clicked:" text="A Modal will pop out a box with some more information" color="primary"  %} 

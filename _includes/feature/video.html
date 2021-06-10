@@ -19,41 +19,45 @@
 
 {%- endcomment -%}
 {%- if include.objectid contains '/' -%}
+    {% capture video_caption %}{{ include.caption }}{% endcapture %}
     {% if include.objectid contains 'vimeo' %}
     {% assign vimeo_id = include.objectid | split: '/' | last %}
+    {% capture video_src %}https://player.vimeo.com/video/{{ vimeo_id }}{% endcapture %}
     {%- elsif include.objectid contains 'youtu' -%}
     {% assign youtube_id = include.objectid | split: '/' | last %}
+    {% if youtube_id contains '?' %}{% assign youtube_id = youtube_id | split: '?' | last | split: '&' | first | replace: 'v=','' %}{% endif %}
+    {% capture video_src %}https://www.youtube-nocookie.com/embed/{{ youtube_id }}?rel=0&modestbranding=1{% endcapture %}
     {% else %}
-    {% assign src = include.objectid | relative_url %}
+    {% assign video_src = include.objectid | relative_url %}
     {% endif %}
 {%- else -%}
     {%- assign item = site.data[site.metadata] | where: "objectid", include.objectid | first -%}
+    {% capture video_caption %}{% if include.caption %}{{ include.caption }}{% else %}<a href="{{ '/item.html?id=' | append: item.objectid | relative_url }}">{{ item.title }}</a>{% endif %}{% endcapture %}
     {% if item.vimeoid %}
     {% assign vimeo_id = item.vimeoid %}
+    {% capture video_src%}https://player.vimeo.com/video/{{ vimeo_id }}{% endcapture %}
     {%- elsif item.youtubeid -%}
     {% assign youtube_id = item.youtubeid %}
+    {% capture video_src %}https://www.youtube-nocookie.com/embed/{{ youtube_id }}?rel=0&modestbranding=1{% endcapture %}
     {% else %}
-    {%- capture src -%}{% if  item.filename contains '/' %}{{ item.filename | relative_url }}{% else %}{{ '/objects/' | append: item.filename | relative_url }}{% endif %}{% endcapture %}
+    {%- capture video_src -%}{% if  item.filename contains '/' %}{{ item.filename | relative_url }}{% else %}{{ '/objects/' | append: item.filename | relative_url }}{% endif %}{% endcapture %}
     {% endif %}
 {%- endif -%}
 <div class="text-center my-4">
     <figure class="mx-auto{% if include.float %} feature-float-{{ include.float }}{% endif %}{% if include.width %} feature-w-{{ include.width }}{% endif %}">
         <div class="embed-responsive embed-responsive-{{ include.ratio | default: '16by9' }}">
-            {% if vimeo_id %}
-            <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/{{ vimeo_id }}" allowfullscreen></iframe>
-            {% elsif youtube_id %}
-            <iframe class="embed-responsive-item" src="https://www.youtube-nocookie.com/embed/{{ youtube_id }}?rel=0&modestbranding=1" allowfullscreen></iframe>
+            {%- if video_src contains "vimeo" or video_src contains "youtu" -%}
+            <iframe class="embed-responsive-item" src="{{ video_src }}" allowfullscreen></iframe>
             {% else %}
             <video class="embed-responsive-item" width="320" height="240" controls>
-                <source src="{{ src }}">
+                <source src="{{ video_src }}">
                 Your browser does not support the video tag.
             </video>
             {%- endif -%}
         </div>
         {% unless include.caption == false %}
         <figcaption class="figure-caption">
-            {% if include.caption %}{{ include.caption }}{% else %}
-            <a href="{{ '/item.html?id=' | append: item.objectid | relative_url }}">{{ item.title }}</a>{% endif %}
+            {{video_caption }}
         </figcaption>
         {% endunless %}
     </figure>

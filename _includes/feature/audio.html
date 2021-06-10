@@ -8,27 +8,30 @@
     It requires an "objectid" with the include, which is used to find the audio details. Alternatively, a URL to an external audio file can be used in "objectid".
 
     Options: 
-    - "objectid" = (required) an objectid of a audio item in this collection,  or a URL or relative path to an audio file. e.g. "demo_004", "https://www.lib.uidaho.edu/collectionbuilder/demo-objects/good_news_04.mp3", or "/assets/example.mp3".
+    - "objectid" = several options below (required)
+        - an objectid of an audio item in this collection, e.g. "demo_003" 
+        - an external link to an MP3 file hosted elsewhere, e.g. "https://www.lib.uidaho.edu/digital/mp3s/Clouds.mp3"   
+        - a relative link to an MP3 file somewhere else in this repository, e.g. "/assets/example.mp3"
     - "caption" = by default the figure include automatically adds the title of the item from your metadata. The caption option allows you to manually add a different caption, or give the value false for none. (optional)
 
     Note: if you have issues make sure the item is a audio item and that the format is correct, e.g. audio/mp3.
     Audio file may not play correctly from dev server on Chrome browser! It will work in production.
 
 {%- endcomment -%}
-{%- if include.objectid contains '/' -%}
-{%- assign src = include.objectid -%}
-{%- else -%}
+{% if include.objectid contains "/" %}
+{%- capture src -%}{{include.objectid}}{%- endcapture -%}
+{%- capture audio_link -%}{{src}}{%- endcapture -%}
+{%- capture audio_caption -%}{{include.caption}}{%- endcapture -%}
+{% else %}
 {%- assign item = site.data[site.metadata] | where: "objectid", include.objectid | first -%}
-{%- capture src -%}{% if  item.filename contains '/' %}{{ item.filename | relative_url }}{% else %}{{ '/objects/' | append: item.filename | relative_url }}{% endif %}{% endcapture %}
-{%- endif -%}
+{%- capture audio_link -%}{{ '/item.html' | relative_url | append: '?id=' | append: item.objectid |}}{%- endcapture -%}
+{%- capture src -%}{% if  item.filename contains '/' %}{{ item.filename }}{% else %}{{ '/objects/' | append: item.filename | relative_url }}{% endif %}{% endcapture %}
+{%- capture audio_caption -%}{% if include.caption %}{{ include.caption }}{% else %}{{ item.title }}{% endif %}{%- endcapture -%}
+{% endif %}
 <p class="text-center my-3">
-    <audio controls class="w-100">
-        <source src="{{ src }}" >
-        Your browser does not support the audio element.
-    </audio>
-    {% unless include.caption == false %}
-    <small class="figure-caption">
-        {% if include.caption %}{{ include.caption }}{% else %}
-        <a href="{{ '/item.html?id=' | append: item.objectid | relative_url }}">{{ item.title }}</a>{% endif %}
-    </small>{% endunless %}
+        <audio controls class="w-100">
+            <source src="{{ src }}" >
+            Your browser does not support the audio element.
+        </audio>
+        {% unless include.caption == false %}<small class="figure-caption"><a href="{{ audio_link }}">{{ audio_caption }}</a></small>{% endunless %}
 </p>
