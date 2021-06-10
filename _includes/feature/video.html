@@ -35,7 +35,7 @@
     {% capture video_caption %}{% if include.caption %}{{ include.caption }}{% else %}<a href="{{ '/item.html?id=' | append: item.objectid | relative_url }}">{{ item.title }}</a>{% endif %}{% endcapture %}
     {% if item.vimeoid %}
     {% assign vimeo_id = item.vimeoid %}
-    {% capture video_src%}https://player.vimeo.com/video/{{ vimeo_id }}{% endcapture %}
+    {% capture video_src %}https://player.vimeo.com/video/{{ vimeo_id }}{% endcapture %}
     {%- elsif item.youtubeid -%}
     {% assign youtube_id = item.youtubeid %}
     {% capture video_src %}https://www.youtube-nocookie.com/embed/{{ youtube_id }}?rel=0&modestbranding=1{% endcapture %}

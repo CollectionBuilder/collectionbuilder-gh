@@ -19,19 +19,19 @@
 
 {%- endcomment -%}
 {% if include.objectid contains "/" %}
-{%- capture src -%}{{include.objectid}}{%- endcapture -%}
-{%- capture audio_link -%}{{src}}{%- endcapture -%}
-{%- capture audio_caption -%}{{include.caption}}{%- endcapture -%}
+{%- capture src -%}{{ include.objectid }}{%- endcapture -%}
+{%- capture audio_link -%}{{ src }}{%- endcapture -%}
+{%- capture audio_caption -%}{{ include.caption }}{%- endcapture -%}
 {% else %}
 {%- assign item = site.data[site.metadata] | where: "objectid", include.objectid | first -%}
-{%- capture audio_link -%}{{ '/item.html' | relative_url | append: '?id=' | append: item.objectid |}}{%- endcapture -%}
-{%- capture src -%}{% if  item.filename contains '/' %}{{ item.filename }}{% else %}{{ '/objects/' | append: item.filename | relative_url }}{% endif %}{% endcapture %}
+{%- capture audio_link -%}{{ '/item.html' | relative_url | append: '?id=' | append: item.objectid }}{%- endcapture -%}
+{%- capture src -%}{% if item.filename contains '/' %}{{ item.filename }}{% else %}{{ '/objects/' | append: item.filename | relative_url }}{% endif %}{% endcapture %}
 {%- capture audio_caption -%}{% if include.caption %}{{ include.caption }}{% else %}{{ item.title }}{% endif %}{%- endcapture -%}
 {% endif %}
 <p class="text-center my-3">
-        <audio controls class="w-100">
-            <source src="{{ src }}" >
-            Your browser does not support the audio element.
-        </audio>
-        {% unless include.caption == false %}<small class="figure-caption"><a href="{{ audio_link }}">{{ audio_caption }}</a></small>{% endunless %}
+    <audio controls class="w-100">
+        <source src="{{ src }}" >
+        Your browser does not support the audio element.
+    </audio>
+    {% unless include.caption == false %}<small class="figure-caption"><a href="{{ audio_link }}">{{ audio_caption }}</a></small>{% endunless %}
 </p>
