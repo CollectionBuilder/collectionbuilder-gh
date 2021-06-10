@@ -4,4 +4,4 @@ layout: about
 permalink: /includes_options.html
 ---
 
-{% include feature/options_page.html %}
+{% include cb/options_page.html %}
