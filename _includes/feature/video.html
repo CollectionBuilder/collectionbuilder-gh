@@ -28,7 +28,7 @@
             {% else %}
             {%- capture src -%}{% if  item.filename contains '/' %}{{ item.filename }}{% else %}{{ '/objects/' | append: item.filename | relative_url }}{% endif %}{% endcapture %}
             <video class="embed-responsive-item" width="320" height="240" controls>
-                <source src="{{ src }}" type="{{ item.format }}">
+                <source src="{{ src }}">
                 Your browser does not support the video tag.
             </video>
             {%- endif -%}

@@ -19,7 +19,7 @@
 {%- capture src -%}{% if  item.filename contains '/' %}{{ item.filename }}{% else %}{{ '/objects/' | append: item.filename | relative_url }}{% endif %}{% endcapture %}
 <p class="text-center my-3">
         <audio controls class="w-100">
-            <source src="{{ src }}" type="{{ item.format | default: 'audio/mpeg' }}">
+            <source src="{{ src }}" >
             Your browser does not support the audio element.
         </audio>
         {% unless include.caption == false %}<small class="figure-caption"><a href="{{ '/item.html?id=' | append: item.objectid | relative_url }}">{% if include.caption %}{{ include.caption }}{% else %}{{ item.title }}{% endif %}</a></small>{% endunless %}
