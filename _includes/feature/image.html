@@ -3,14 +3,14 @@
     Image embed from an item's objectid or external link.
     This include adds a figure to the page styled using bootstrap, https://getbootstrap.com/docs/4.5/content/figures/
 
-    It requires an "objectid" with the include, which is used to find the object title and image (for collection items).vIf multiple collection objectids are included (separated by ; ), they will be added to a "col-md" in a row which will automatically divided equally. 
+    It requires an "objectid" with the include, which is used to find the object title and image (for collection items). If multiple collection objectids are included (separated by ; ), they will be added to a "col-md" in a row which will automatically divided equally. 
     Alternatively, a URL to an external image can be used in "objectid".
 
     E.G. --> {% include feature/image.html objectid="demo_001" %}
 
     Options: 
     - "objectid" = (required) one or more objectid from this collection (separated by semicolon ;), or a single URL or relative path to an image file. e.g. "demo_001", "https://cdil.lib.uidaho.edu/images/palouse_sm.jpg", or "/assets/img/collectionbuilder-logo.png".
-    - "alt" = alternative text describing the image. This is a required accessibility feature IF you are using an external URL--it will be automatically filled if providing an objectid. (optional)
+    - "alt" = (external link only) alternative text describing the image. This is a required accessibility feature IF you are using an external URL--it will be automatically filled if providing an objectid. (optional)
     - "width" = will use responsive sizing to set the % size on desktop (will be 100% on mobile), choose from "25", "50", "75", or "100" (optional)
     - "caption" = by default the figure include automatically adds the title of the item from your metadata. The caption option allows you to manually add a different caption, or give the value false for none. (optional)
     - "float" = will use responsive float utility to add float on desktop (will not float on mobile), choose from "left" or "right" (optional, not recommended) If you use the "float" option, you may want to "clear" the float at some point below, by adding <div class="clearfix"></div> to your content page.

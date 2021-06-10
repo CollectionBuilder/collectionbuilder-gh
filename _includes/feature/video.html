@@ -15,14 +15,16 @@
     - "ratio" = use Bootstrap embed ratio options "21by9", "16by9", "4by3", or "1by1" to customize the responsive aspect ratio. 16by9 is default. (optional)
     - "float" = will use responsive float utility to add float on desktop (will not float on mobile), choose from "left" or "right" (optional, not recommended)
 
-    Note: if you have issues make sure the item is a video item and that the format is correct, e.g. video/mp4 
-
+    Note: if you have issues make sure the item is a video item and a web friendly format
+    
 {%- endcomment -%}
 {%- if include.objectid contains '/' -%}
     {% if include.objectid contains 'vimeo' %}
     {% assign vimeo_id = include.objectid | split: '/' | last %}
     {%- elsif include.objectid contains 'youtu' -%}
     {% assign youtube_id = include.objectid | split: '/' | last %}
+    {% if youtube_id contains 'v=' %}{% assign youtube_id = youtube_id | split: 'v=' | last | split: '&' | first %}
+    {% elsif youtube_id contains '?' %}{% assign youtube_id = youtube_id | split: '?' | first %}{% endif %}
     {% else %}
     {% assign src = include.objectid | relative_url %}
     {% endif %}
@@ -42,7 +44,7 @@
             {% if vimeo_id %}
             <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/{{ vimeo_id }}" allowfullscreen></iframe>
             {% elsif youtube_id %}
-            <iframe class="embed-responsive-item" src="https://www.youtube-nocookie.com/embed/{{ youtube_id }}?rel=0&modestbranding=1" allowfullscreen></iframe>
+            <iframe class="embed-responsive-item" src="https://www.youtube-nocookie.com/embed/{{ youtube_id }}" allowfullscreen></iframe>
             {% else %}
             <video class="embed-responsive-item" width="320" height="240" controls>
                 <source src="{{ src }}">
