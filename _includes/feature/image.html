@@ -18,7 +18,6 @@
     - "caption" = for option 1 above, the figure include automatically adds the title of the item from your metadata. The caption option allows you to manually add a different caption for that option, or give the value false ('caption=false' - no quotes around false) for none. For options 2 and 3, captions will only be added if the caption variable is set. For multiple images of any option, you can also use multiple captions, by splitting them with a semi-colons (optional)
     - "link" = for option 1 above, the figure include automatically links to the item from your metadata. The link option allows you to manually add a different link for that image. For options 2 and 3, link will only be added if the link variable is set; otherwise, the link will be set to the external or relative image file. For multiple images of any option, you can also use multiple links, by splitting them with a semi-colons (optional)
     - "width" = will use responsive sizing to set the % size on desktop (will be 100% on mobile), choose from "25", "50", "75", or "100" (optional)
-    - "float" = will use responsive float utility to add float on desktop (will not float on mobile), choose from "left" or "right" (optional, not recommended) If you use the "float" option, you may want to "clear" the float at some point below, by adding <div class="clearfix"></div> to your content page.
     
 {%- endcomment -%}
 {%- assign figures = include.objectid | split: ";" %}
@@ -40,7 +39,7 @@
         {%- capture image_src -%}{% if figure.youtubeid %}{{ 'https://img.youtube.com/vi/' | append: figure.youtubeid | append: '/hqdefault.jpg' }}{% elsif figure.filename contains '/' %}{{ figure.filename }}{% else %}{{ '/objects/' | append: figure.filename | relative_url }}{% endif %}{% endcapture %}
     {% endif %}
     <div class="col-md text-center">
-        <figure class="figure mx-3{% if include.float %} feature-float-{{ include.float }}{% endif %}{% if include.width %} feature-w-{{ include.width }}{% endif %}">
+        <figure class="figure mx-3{% if include.width %} feature-w-{{ include.width }}{% endif %}">
             <a href="{{ image_link | default: image_src}}">
                 <img class="figure-img img-fluid rounded lazyload" alt="{{ image_alt | default: image_caption }}"  title="click to see item" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E" data-src="{{ image_src }}" >
             </a>
