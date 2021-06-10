@@ -6,7 +6,7 @@
     E.G. --> {% include feature/video.html objectid="demo_003" %}
 
     It requires an "objectid" with the include, which is used to find the video details. Alternatively, a URL to an external video can be used in "objectid".
-    YouTube and Vimeo items will use iframe embeds, file files with use html video element.
+    YouTube and Vimeo items will use iframe embeds, video files use html video element.
 
     Options: 
     - "objectid" = an objectid of a video item in this collection (usually that has an youtubeid or vimeoid), a full URL to a video hosted on YouTube or Vimeo, or full URL to a video file (required) e.g. "demo_003", "https://www.youtube.com/watch?v=dbKNr3wuiuQ", or "https://vimeo.com/464555587".
@@ -15,7 +15,7 @@
     - "ratio" = use Bootstrap embed ratio options "21by9", "16by9", "4by3", or "1by1" to customize the responsive aspect ratio. 16by9 is default. (optional)
     - "float" = will use responsive float utility to add float on desktop (will not float on mobile), choose from "left" or "right" (optional, not recommended)
 
-    Note: if you have issues make sure the item is a video item and that the format is correct, e.g. video/mp4 
+    Note: if you have issues make sure the item is a video item and a web friendly format
 
 {%- endcomment -%}
 {%- if include.objectid contains '/' -%}
@@ -25,8 +25,8 @@
     {% capture video_src %}https://player.vimeo.com/video/{{ vimeo_id }}{% endcapture %}
     {%- elsif include.objectid contains 'youtu' -%}
     {% assign youtube_id = include.objectid | split: '/' | last %}
-    {% if youtube_id contains '?' %}{% assign youtube_id = youtube_id | split: '?' | last | split: '&' | first | replace: 'v=','' %}{% endif %}
-    {% capture video_src %}https://www.youtube-nocookie.com/embed/{{ youtube_id }}?rel=0&modestbranding=1{% endcapture %}
+    {% if youtube_id contains 'v=' %}{% assign youtube_id = youtube_id | split: 'v=' | last | split: '&' | first %}
+    {% elsif youtube_id contains '?' %}{% assign youtube_id = youtube_id | split: '?' | first %}{% endif %}
     {% else %}
     {% assign video_src = include.objectid | relative_url %}
     {% endif %}
