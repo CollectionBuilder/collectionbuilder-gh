@@ -1,10 +1,11 @@
 ---
+# Term cloud layout
+# used by default subjects and location page
+# can be used for any metadata field cloud
 layout: page
 ---
 
 {{ content }}
-
-<div id="cloud" class="text-center my-4 bg-light border rounded p-2"></div>
 
 {%- comment -%}
 
@@ -25,4 +26,7 @@ layout: page
     {% assign min = page.cloud-min | default: 1 %}
     {% assign stopwords = page.cloud-stopwords %}
 {%- endif -%}
-{% include js/cloud-js.html fields=fields min=min stopwords=stopwords %}
+
+{% assign cloud_id = "cloud-div-" | append: fields | slugify %}
+<div id="{{ cloud_id }}" class="text-center my-4 bg-light border rounded p-2"></div>
+{% include js/cloud-js.html fields=fields min=min stopwords=stopwords shuffle=page.shuffle id=cloud_id %}
