@@ -158,9 +158,9 @@ Example Code --> `{% raw %}{% include feature/audio.html objectid="https://www.l
 
 #### Cloud Include
 
-{% include feature/cloud.html fields="subject" min="1" %}
+{% include feature/cloud.html fields="subject" min="1" background="dark" button="outline-warning" %}
 
-Example Code --> `{% raw %}{% include feature/cloud.html fields="subject" min="1" %}{% endraw %}`
+Example Code --> `{% raw %}{% include feature/cloud.html fields="subject" min="1" background="dark" button="outline-warning"  %}{% endraw %}`
 
 
 #### TimelineJS
