@@ -13,7 +13,7 @@
 {%- assign terms = terms | split: ";" | sort -%}
 {%- assign uniqueTerms = terms | uniq | sort -%}
 
-{%- assign termsMin = include.min | default: 1 -%}
+{%- assign termsMin = include.min | plus: 0 | default: 1 -%}
 
 <script>
     /* subject terms + count */

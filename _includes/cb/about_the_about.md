@@ -1,3 +1,13 @@
+{% assign imagesample = site.data[site.metadata] | where_exp: 'item','item.format contains "image"' | first %}
+{% capture imagesampleid %}{{imagesample.objectid | default: "https://www.lib.uidaho.edu/collectionbuilder/demo-objects/mg101_b6_photographs_01.jpg"}}{% endcapture %}
+{% assign pdfsample = site.data[site.metadata] | where_exp: 'item','item.format contains "pdf"' | first %}
+{% capture pdfsampleid %}{{pdfsample.objectid | default: "https://digital.lib.uidaho.edu/utils/getfile/collection/ui_ep/id/21768/filename/uiext21768.pdf"}}{% endcapture %}
+{% assign videosample = site.data[site.metadata] | where_exp: 'item','item.format contains "video"' | first %}
+{% capture videosampleid %}{{videosample.objectid | default: "https://cdil.lib.uidaho.edu/storying-extinction/objects/trailcams/videos/ballcreek-cedarrub-birdonpath.mp4"}}{% endcapture %}
+{% assign audiosample = site.data[site.metadata] | where_exp: 'item','item.format contains "audio"' | first %}
+{% capture audiosampleid %}{{audiosample.objectid | default: "https://www.lib.uidaho.edu/digital/mp3s/Clouds.mp3"}}{% endcapture %}
+
+
 ## About the About Page
 
 We want to make About pages exciting, and easy to build. 
@@ -7,7 +17,12 @@ The CollectionBuilder about page features a narrowed column with its own (option
 To build one, a user writes in [Markdown](https://guides.github.com/features/mastering-markdown/) and includes  content from the site, as well as typical [Bootstrap](https://getbootstrap.com/) features like cards and modals, using code snippets like those detailed below. 
 We hope this makes it easier for site builders to develop the collection AND add interesting and engaging contextual information. 
 
-(Each included file has several options, which are documented in the files themselves. I've given the content widths of 25% and 50% to save space, but you can feature the entire image or document.) 
+Each included file has several options, which are documented in the files themselves and briefly documented below. We've given the content widths of 25% and 50% to save space, but you can feature the entire image or document.
+
+
+You can also see a page featuring [a bonanza of feature includes options](/feature_options.html) on our CollectionBuilder-GH demo site. 
+
+{% include feature/button.html text="Feature *Includes* Bonanza page" link="/feature_options.html" color="info" size="lg" centered=true %}
 
 ### Include Collection Items
 
@@ -15,25 +30,28 @@ We hope this makes it easier for site builders to develop the collection AND add
 
 - Image --> `{% raw %}{% include feature/image.html objectid="demo_001" width="75" %}{% endraw %}`
 
-{% include feature/image.html objectid="demo_001" width="75" %}
+{% include feature/image.html objectid=imagesampleid width="75" %}
+
 
 #### Include a PDF
 
 - PDF -- > `{% raw %}{% include feature/pdf.html objectid="demo_002"  width="50" %}{% endraw %}`
 
-{% include feature/pdf.html objectid="demo_002" width="50" %}
+{% include feature/pdf.html objectid=pdfsampleid width="50" %}
 
 #### Include a Video
 
 - Video: `{% raw %}{% include feature/video.html objectid="demo_004" %}{% endraw %}`
 
-{% include feature/video.html objectid="demo_004" %}
 
-#### Include a Audio
+{% include feature/video.html objectid=videosampleid width="75" %}
+
+
+#### Include an Audio File
 
 - Audio: `{% raw %}{% include feature/audio.html objectid="demo_003" %}{% endraw %}`
 
-{% include feature/audio.html objectid="demo_003" %}
+{% include feature/audio.html objectid=audiosampleid  %}
 
 ### Include [Bootstrap](https://getbootstrap.com/) Features
 
@@ -41,7 +59,7 @@ We hope this makes it easier for site builders to develop the collection AND add
 
 - Card -- > `{% raw %}{% include feature/card.html header="This is a Card" text="The card features an image from the collection as a cap" objectid="demo004" width="25" centered=true %}{% endraw %}`
 
-{% include feature/card.html header="This is a Card" text="The card features an image from the collection as a cap" objectid="demo004" width="25" centered=true %}
+{% include feature/card.html header="This is a Card" text="The card features an image from the collection as a cap" objectid="demo_001" width="25" centered=true %}
 
 #### Include a Button 
 

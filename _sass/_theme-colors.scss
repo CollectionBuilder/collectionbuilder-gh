@@ -98,20 +98,18 @@ $yiq-text-light:            #fff !default;
 
 /* each function to create all the buttons */
 @each $color, $value in $theme-colors {
-    .btn-#{$color} {
-        @include theme-button($value, $value);
+    /* check if value is valid color to avoid errors */
+    @if type-of($value) == color {
+        /* btn classes */
+        .btn-#{$color} {
+            @include theme-button($value, $value);
+        }
+        .btn-outline-#{$color} {
+            @include theme-button-outline($value);
+        }
+        /* text classes */
+        @include theme-text(".text-#{$color}", $value);
+        /* bg classes */
+        @include theme-bg(".bg-#{$color}", $value);
     }
-}
-@each $color, $value in $theme-colors {
-    .btn-outline-#{$color} {
-        @include theme-button-outline($value);
-    }
-}
-/* each function to create text colors */
-@each $color, $value in $theme-colors {
-    @include theme-text(".text-#{$color}", $value);
-}
-/* each function to create background colors */ 
-@each $color, $value in $theme-colors {
-    @include theme-bg(".bg-#{$color}", $value);
 }
