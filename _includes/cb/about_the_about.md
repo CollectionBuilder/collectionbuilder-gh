@@ -1,5 +1,5 @@
 {% assign imagesample = site.data[site.metadata] | where_exp: 'item','item.format contains "image"' | first %}
-{% capture imagesampleid %}{{imagesample.objectid | default: "https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg"}}{% endcapture %}
+{% capture imagesampleid %}{{imagesample.objectid | default: "https://www.lib.uidaho.edu/collectionbuilder/demo-objects/mg101_b6_photographs_01.jpg"}}{% endcapture %}
 {% assign pdfsample = site.data[site.metadata] | where_exp: 'item','item.format contains "pdf"' | first %}
 {% capture pdfsampleid %}{{pdfsample.objectid | default: "https://digital.lib.uidaho.edu/utils/getfile/collection/ui_ep/id/21768/filename/uiext21768.pdf"}}{% endcapture %}
 {% assign videosample = site.data[site.metadata] | where_exp: 'item','item.format contains "video"' | first %}
@@ -17,7 +17,12 @@ The CollectionBuilder about page features a narrowed column with its own (option
 To build one, a user writes in [Markdown](https://guides.github.com/features/mastering-markdown/) and includes  content from the site, as well as typical [Bootstrap](https://getbootstrap.com/) features like cards and modals, using code snippets like those detailed below. 
 We hope this makes it easier for site builders to develop the collection AND add interesting and engaging contextual information. 
 
-(Each included file has several options, which are documented in the files themselves. I've given the content widths of 25% and 50% to save space, but you can feature the entire image or document.) 
+Each included file has several options, which are documented in the files themselves and briefly documented below. We've given the content widths of 25% and 50% to save space, but you can feature the entire image or document.
+
+
+You can also see a page featuring [a bonanza of feature includes options](/feature_options.html) on our CollectionBuilder-GH demo site. 
+
+{% include feature/button.html text="Feature *Includes* Bonanza page" link="/feature_options.html" color="info" size="lg" centered=true %}
 
 ### Include Collection Items
 
@@ -26,12 +31,6 @@ We hope this makes it easier for site builders to develop the collection AND add
 - Image --> `{% raw %}{% include feature/image.html objectid="demo_001" width="75" %}{% endraw %}`
 
 {% include feature/image.html objectid=imagesampleid width="75" %}
-
-{% include feature/image.html objectid="https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg;https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg" caption="this guy!;WHOA, this guy!" link="https://www.lib.uidaho.edu/" %}
-
-{% include feature/image.html objectid="demo_001;demo_004;demo_005" width="75" %}
-
-{% include feature/image.html objectid="demo_001;demo_004;demo_005" width="75" caption="demo1;nother" %}
 
 
 #### Include a PDF

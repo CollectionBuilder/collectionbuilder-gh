@@ -1,7 +1,7 @@
 ---
-title: Includes Options
+title: Feature Options
 layout: about
-permalink: /includes_options.html
+permalink: /feature_options.html
 ---
 
-{% include cb/options_page.html %}
+{% include cb/feature_options.md %}

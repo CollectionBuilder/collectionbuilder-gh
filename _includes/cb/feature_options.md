@@ -1,6 +1,6 @@
-## Feature Includes Bonanza page
+## Feature *Includes* Bonanza page
 
-Check all the includes. Steal Code. 
+Check all the includes. Steal Code! 
 
 ### Image Options
 
@@ -34,23 +34,23 @@ Example Code --> `{% raw %}{% include feature/image.html objectid="demo_001;demo
 
 #### External Image (without a caption)
 
-{% include feature/image.html objectid="https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg" width="75" alt="headshot of Evan Williamson" %}
+{% include feature/image.html objectid="https://www.lib.uidaho.edu/collectionbuilder/demo-objects/mg101_b6_photographs_01.jpg" width="75" alt="Frank B. Robinson at the Organ" %}
 
-Example Code --> `{% raw %}{% include feature/image.html objectid="https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg" width="75" alt="headshot of Evan Williamson" %}{% endraw %}`
+Example Code --> `{% raw %}{% include feature/image.html objectid="https://www.lib.uidaho.edu/collectionbuilder/demo-objects/mg101_b6_photographs_01.jpg" width="75" alt="Frank B. Robinson at the Organ" %}{% endraw %}`
 
 
 #### External Image (with a caption)
 
-{% include feature/image.html objectid="https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg" width="75" caption="this guy!" alt="headshot of Evan Williamson"%}
+{% include feature/image.html objectid="https://www.lib.uidaho.edu/collectionbuilder/demo-objects/mg101_b6_photographs_01.jpg" width="75" alt="Frank B. Robinson at the Organ" caption="This guy is good!"%}
 
-Example Code --> `{% raw %}{% include feature/image.html objectid="https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg" width="75" caption="this guy!" alt="headshot of Evan Williamson" %}{% endraw %}`
+Example Code --> `{% raw %}{% include feature/image.html objectid="https://www.lib.uidaho.edu/collectionbuilder/demo-objects/mg101_b6_photographs_01.jpg" width="75" alt="Frank B. Robinson at the Organ" caption="This guy is good!"%}{% endraw %}`
 
 
 #### Multiple External Images (with captions and a link)
 
-{% include feature/image.html objectid="https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg;https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg" caption="this guy!;WHOA, this guy!" link="https://www.lib.uidaho.edu/" alt="headshot of Evan Williamson;another Evan Williamson headshot" %}
+{% include feature/image.html objectid="https://www.lib.uidaho.edu/collectionbuilder/demo-objects/mg101_b6_photographs_01.jpg;https://www.lib.uidaho.edu/collectionbuilder/demo-objects/mg101_b6_psychiana_photographs_010.jpg" caption="this guy!;(was nothing without these women!)" link="https://www.lib.uidaho.edu/digital/psychiana/items/psychiana519.html;https://www.lib.uidaho.edu/digital/psychiana/items/psychiana547.html" alt="Frank B. Robinson at the Organ;Women staff members of Psychiana lined up outside the Psychiana headquarters" %}
 
-Example Code --> `{% raw %}{% include feature/image.html objectid="https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg;https://www.lib.uidaho.edu/media/headshots/williamson2018.jpg" caption="this guy!;WHOA, this guy!" link="https://www.lib.uidaho.edu/" alt="headshot of Evan Williamson;another Evan Williamson headshot" %}{% endraw %}`
+Example Code --> `{% raw %}{% include feature/image.html objectid="https://www.lib.uidaho.edu/collectionbuilder/demo-objects/mg101_b6_photographs_01.jpg;https://www.lib.uidaho.edu/collectionbuilder/demo-objects/mg101_b6_psychiana_photographs_010.jpg" caption="this guy!;(was nothing without these women!)" link="https://www.lib.uidaho.edu/digital/psychiana/items/psychiana519.html;https://www.lib.uidaho.edu/digital/psychiana/items/psychiana547.html" alt="Frank B. Robinson at the Organ;Women staff members of Psychiana lined up outside the Psychiana headquarters" %}{% endraw %}`
 
 
 ### PDF Options
