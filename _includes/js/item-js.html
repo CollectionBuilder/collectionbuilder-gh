@@ -92,7 +92,7 @@
             fields += '<dt class="field">{{ f.display_name }}:</dt> <dd class="field-value">' + browseLinks + '</dd>';
         }
         {%- else -%}
-        if (record[{{ f.field | escape | jsonify }}]) { fields += '<dt class="field">{{ f.display_name }}:</dt> <dd class="field-value">' + record[{{ f.field | escape | jsonify }}] + '</dd>'; }
+        if (record[{{ f.field | escape | jsonify }}]) { fields += '<dt class="field">{{ f.display_name }}:</dt> <dd class="field-value">{% if f.external_link == "true" %}<a href="' + record[{{ f.field | escape | jsonify }}] + '" target="_blank">' + record[{{ f.field | escape | jsonify }}] + '</a>{% else %}' + record[{{ f.field | escape | jsonify }}] + '{% endif %}</dd>'; }
         {% endif %}{% endfor %}
         fields += '</dl>';
         document.getElementById("item-metadata").innerHTML = fields;

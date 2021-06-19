@@ -1,0 +1,19 @@
+{% comment %}
+
+    Term cloud.
+    This include adds a word cloud feature based on one more metadata fields. Cloud will work best with multi-value (separated by semicolon ; ) controlled vocab type fields, such as "subject".
+
+    E.G. --> {% include feature/cloud.html fields="subject;creator" min=2 %}
+
+    Options:
+    - "fields" = one or more metadata fields to include in the cloud. (required)
+    - "min" = minimum number of times a term must appear in metadata to be displayed. Too many terms will increase load time and size of element. (optional, default 1)
+    - "stopwords" = words to remove from cloud terms (optional)
+    - "shuffle" = if "true" terms will be shuffled in random order (optional, default is alphabetical)
+    - "background" = change the background to a different a bootstrap color (primary, secondary, success, danger, warning, info, light, dark)
+    - "button" = change the button to a different a bootstrap button option (primary, secondary, success, danger, warning, info, light, dark, outline-primary, outline-secondary, outline-success, outline-danger, outline-warning, outline-info, outline-light, outline-dark)
+
+{%- endcomment -%}
+{% assign cloud_id = "cloud-div-" | append: include.fields | slugify %}
+<div id="{{ cloud_id }}" class="text-center my-4 bg-{% unless include.background %}light{% else %}{{include.background}}{% endunless %} border rounded p-2"></div>
+{% include js/cloud-js.html fields=include.fields min=include.min stopwords=include.stopwords shuffle=include.shuffle id=cloud_id button=include.button %}
