@@ -9,7 +9,12 @@
     YouTube and Vimeo items will use iframe embeds, video files use html video element.
 
     Options: 
-    - "objectid" = an objectid of a video item in this collection (usually that has an youtubeid or vimeoid), a full URL to a video hosted on YouTube or Vimeo, or full URL to a video file (required) e.g. "demo_003", "https://www.youtube.com/watch?v=dbKNr3wuiuQ", or "https://vimeo.com/464555587".
+    - "objectid" = several options below (required)
+        1. an objectid of a video item in this collection (usually that has an youtubeid or vimeoid), e.g. "demo_003"
+        2. a full URL to a video hosted on YouTube 
+        3. a full URL to a video hosted on Vimeo 
+        4. a full URL to an external video file, e.g. "https://www.lib.uidaho.edu/digital/videos/fluffyclouds.mp4"
+        5. a relative link to a video file stored in this repository (that is not included in the collection), i.e. "/assets/videos/cloudyskies.mp4"  
     - "caption" = by default the figure include automatically adds the title of the item from your metadata. The caption option allows you to manually add a different caption, or give the value false for none. (optional)
     - "width" = will use responsive sizing to set the % size on desktop (will be 100% on mobile), choose from "25", "50", "75", or "100" (optional)
     - "ratio" = use Bootstrap embed ratio options "21by9", "16by9", "4by3", or "1by1" to customize the responsive aspect ratio. 16by9 is default. (optional)
