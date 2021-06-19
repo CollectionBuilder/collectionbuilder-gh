@@ -31,6 +31,7 @@
     {% assign youtube_id = include.objectid | split: '/' | last %}
     {% if youtube_id contains 'v=' %}{% assign youtube_id = youtube_id | split: 'v=' | last | split: '&' | first %}
     {% elsif youtube_id contains '?' %}{% assign youtube_id = youtube_id | split: '?' | first %}{% endif %}
+    {% capture video_src %}https://www.youtube-nocookie.com/embed/{{ youtube_id }}?rel=0&modestbranding=1{% endcapture %}
     {% else %}
     {% assign video_src = include.objectid | relative_url %}
     {% endif %}
