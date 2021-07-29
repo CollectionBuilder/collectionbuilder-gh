@@ -15,5 +15,5 @@
 
 {%- endcomment -%}
 {% assign cloud_id = "cloud-div-" | append: include.fields | slugify %}
-<div id="{{ cloud_id }}" class="text-center my-4 bg-{% unless include.background %}light{% else %}{{include.background}}{% endunless %} border rounded p-2"></div>
-{% include js/cloud-js.html fields=include.fields min=include.min stopwords=include.stopwords shuffle=include.shuffle id=cloud_id button=include.button %}
+<div id="{{ cloud_id }}" class="text-center my-4 bg-{{ include.background | default: 'light' }} border rounded p-2"></div>
+{% include js/cloud-js.html id=cloud_id fields=include.fields min=include.min stopwords=include.stopwords shuffle=include.shuffle button=include.button %}

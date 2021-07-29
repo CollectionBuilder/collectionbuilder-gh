@@ -19,13 +19,13 @@
 
 {%- endcomment -%}
 {% if include.objectid contains "/" %}
-{%- capture src -%}{{ include.objectid }}{%- endcapture -%}
+{%- capture src -%}{{ include.objectid | relative_url }}{%- endcapture -%}
 {%- capture audio_link -%}{{ src }}{%- endcapture -%}
 {%- capture audio_caption -%}{{ include.caption }}{%- endcapture -%}
 {% else %}
 {%- assign item = site.data[site.metadata] | where: "objectid", include.objectid | first -%}
 {%- capture audio_link -%}{{ '/item.html' | relative_url | append: '?id=' | append: item.objectid }}{%- endcapture -%}
-{%- capture src -%}{% if item.filename contains '/' %}{{ item.filename }}{% else %}{{ '/objects/' | append: item.filename | relative_url }}{% endif %}{% endcapture %}
+{%- capture src -%}{% if item.filename contains '/' %}{{ item.filename | relative_url }}{% else %}{{ '/objects/' | append: item.filename | relative_url }}{% endif %}{% endcapture %}
 {%- capture audio_caption -%}{% if include.caption %}{{ include.caption }}{% else %}{{ item.title }}{% endif %}{%- endcapture -%}
 {% endif %}
 <p class="text-center my-3">
