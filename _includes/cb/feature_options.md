@@ -20,16 +20,16 @@ Example Code --> `{% raw %}{% include feature/image.html objectid="demo_001" wid
 
 #### Multiple Images from the Collection (auto caption)
 
-{% include feature/image.html objectid="demo_001;demo_004;demo_005"  %}
+{% include feature/image.html objectid="demo_001;demo_004;test014"  %}
 
 Example Code --> `{% raw %}{% include feature/image.html objectid="demo_001;demo_004;demo_005"  %}{% endraw %}`
 
 
 #### Multiple Images from the Collection (with captions)
 
-{% include feature/image.html objectid="demo_001;demo_004;demo_005" width="75" caption="demo1;nother" %}
+{% include feature/image.html objectid="demo_001;demo_004" width="75" caption="demo1;nother" %}
 
-Example Code --> `{% raw %}{% include feature/image.html objectid="demo_001;demo_004;demo_005" width="75" caption="demo1;nother" %}{% endraw %}`
+Example Code --> `{% raw %}{% include feature/image.html objectid="demo_001;demo_004" width="75" caption="demo1;nother" %}{% endraw %}`
 
 
 #### External Image (without a caption)
