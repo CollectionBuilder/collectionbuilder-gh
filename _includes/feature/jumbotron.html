@@ -15,7 +15,7 @@
     Note: if using a YouTube item and an error image appears, the video may not have a "maxresdefault" image available. Replace "maxresdefault.jpg" in the code below with "hqdefault.jpg"
 
 {%- endcomment -%}
-
+{% assign jumbo_div_id = "j-" | append: include.objectid | slugify | truncate: 12, "" %}
 {% assign jumboId = include.objectid | default: site.data.theme.featured-image %}
 {% if jumboId contains '/' %}
 {% assign jumboSrc = jumboId | relative_url %}
@@ -36,28 +36,28 @@
     background-color: rgba(37, 36, 36, 0.72);
     color: white !important;
 }    
-#jumbo-feature {
+#{{ jumbo_div_id }} {
     background-image: url({{ jumboSrc }});
     background-size: cover;
     background-repeat: no-repeat;
     background-position: {{ include.position | default: 'center' }};
 }
 {% if include.padding %}
-#home-title-box {
+.jumbo-title-box {
     padding-top: {{ include.padding }};
     padding-bottom: {{ include.padding }};
 }
 {%- endif -%}
 @media screen and (max-width: 576px) {
-    #home-title-box {
+    .jumbo-title-box {
         padding-top: 5em;
         padding-bottom: 5em; 
     }
     .display-4 { font-size:1.75em; }
-    #home-tagline { font-size:.85em; }
+    .jumbo-tagline { font-size:.85em; }
 }
 </style>
-<div class="jumbotron feature px-0 border" id="jumbo-feature">
+<div class="jumbotron feature px-0 border" id="{{ jumbo_div_id }}">
     <div id="home-title-box">
         {% unless include.heading == false and include.text == false %}
         <div class="title-card p-2 text-center">

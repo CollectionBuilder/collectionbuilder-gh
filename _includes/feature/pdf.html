@@ -22,12 +22,12 @@
 
 {%- endcomment -%}
 {% if include.objectid contains "/" %}
-{%- capture src -%}{{ include.objectid }}{%- endcapture -%}
+{%- capture src -%}{{ include.objectid | relative_url }}{%- endcapture -%}
 {%- capture pdf_link -%}{{ src }}{%- endcapture -%}
 {%- capture pdf_caption -%}{{ include.caption }}{%- endcapture -%}
 {% else %}
 {%- assign item = site.data[site.metadata] | where: "objectid", include.objectid | first -%}
-{%- capture src -%}{% if  item.filename contains '/' %}{{ item.filename }}{% else %}{{ '/objects/' | append: item.filename | relative_url }}{% endif %}{% endcapture %}
+{%- capture src -%}{% if  item.filename contains '/' %}{{ item.filename | relative_url }}{% else %}{{ '/objects/' | append: item.filename | relative_url }}{% endif %}{% endcapture %}
 {%- capture pdf_link -%}{{ '/item.html' | relative_url | append: '?id=' | append: item.objectid }}{%- endcapture -%}
 {%- capture pdf_caption -%}{% if include.caption %}{{ include.caption }}{% else %}{{ item.title }}{% endif %}{%- endcapture -%}
 {% endif %}

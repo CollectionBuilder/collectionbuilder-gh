@@ -20,9 +20,9 @@ We hope this makes it easier for site builders to develop the collection AND add
 Each included file has several options, which are documented in the files themselves and briefly documented below. We've given the content widths of 25% and 50% to save space, but you can feature the entire image or document.
 
 
-You can also see a page featuring [a bonanza of feature includes options](/feature_options.html) on our CollectionBuilder-GH demo site. 
+You can also see a page featuring [a bonanza of feature includes options](https://collectionbuilder.github.io/collectionbuilder-gh/feature_options.html) on our CollectionBuilder-GH demo site. 
 
-{% include feature/button.html text="Feature *Includes* Bonanza page" link="/feature_options.html" color="info" size="lg" centered=true %}
+{% include feature/button.html text="Feature *Includes* Bonanza page" link="https://collectionbuilder.github.io/collectionbuilder-gh/feature_options.html" color="info" size="lg" centered=true %}
 
 ### Include Collection Items
 
