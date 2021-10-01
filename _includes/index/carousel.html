@@ -60,7 +60,7 @@
 <script>
 (function(){
     /* add item data */
-    var carouselItems = [ {% for c in carousel-items %}[ {{ c.title | escape | jsonify }}, {% if c.youtubeid%}"https://img.youtube.com/vi/{{c.youtubeid}}/hqdefault.jpg"{% elsif  c.filename contains '/' %}{{ c.filename |jsonify }}{% else %}{{ '/objects/'' | relative_url | append: c.filename | jsonify}}{% endif %}, "{{ c.objectid }}" ]{% unless forloop.last %}, {% endunless %}{% endfor %}];
+    var carouselItems = [ {% for c in carousel-items %}[ {{ c.title | jsonify }}, {% if c.youtubeid %}"https://img.youtube.com/vi/{{ c.youtubeid }}/hqdefault.jpg"{% elsif c.filename contains '/' %}{{ c.filename | jsonify }}{% else %}{{ '/objects/' | relative_url | append: c.filename | jsonify }}{% endif %}, "{{ c.objectid }}" ]{% unless forloop.last %}, {% endunless %}{% endfor %}];
     /* shuffle items */
     carouselItems.sort(function() { return 0.5 - Math.random() });
  
