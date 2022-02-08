@@ -1,0 +1,177 @@
+{%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' -%}
+{%- assign fields = site.data.config-browse -%}
+<script src="{{ '/assets/lib/list.min.js' | relative_url }}"></script>
+<script>
+    /* Fisher-Yates shuffle https://bost.ocks.org/mike/shuffle/ */
+    function shuffle(array) {
+        var m = array.length, t, i;
+        while (m) {
+            i = Math.floor(Math.random() * m--);
+            t = array[m];
+            array[m] = array[i];
+            array[i] = t;
+        }
+        return array;
+    }
+    // add items
+    var listItems = [
+        {% for i in items %}
+        { "title":{{ i.title | strip | jsonify }}, "format":{% if i.format %}{{ i.format | jsonify }}{% else %}""{% endif %}, {% for f in fields %}{% if i[f.field] %}{{ f.field | jsonify }}:{{ i[f.field] | strip | jsonify }},{% endif %}{% endfor %} {% if i.youtubeid %} "youtube": {{ i.youtubeid | jsonify }}, {% endif %}{% if  i.filename contains '/' %}"filename": "{{ i.filename }}" {% else %}"filename":"{{ '/objects/' | relative_url | append: i.filename }}"{% endif %}, "id":{{ i.objectid | jsonify }} }{% unless forloop.last %},{% endunless %}{% endfor %}
+    ];
+    // shuffle items
+    shuffle(listItems);
+    
+    // function to create item cards
+    function createItemCard(values) {
+        // find item link
+        var itemHref = "{{ '/item.html' | relative_url | append: '?id=' }}" + values.id;
+        // find images
+        var imgSrc = ""; 
+        var thumbSrc = "";
+        // choose object image or icon based on format
+        if(values.youtube) {
+            imgSrc = `https://img.youtube.com/vi/${values.youtube}/hqdefault.jpg`;
+        } else if (values.format.includes("image")) {
+            imgSrc = values.filename;
+        } else if (values.format.includes("audio")) {
+            thumbSrc = '{{ "/assets/img/audio.svg" | relative_url }}';
+        } else if (values.format.includes("video")) {
+            thumbSrc = '{{ "/assets/img/video.svg" | relative_url }}';  
+        } else if (values.format.includes("pdf")) {
+            thumbSrc = '{{ "/assets/img/pdf.svg" | relative_url }}';
+        } else {
+            thumbSrc = '{{ "/assets/img/file.svg" | relative_url }}';
+        }
+        // set up image templates
+        var topImg = ""; var thumbImg = "";
+        if(imgSrc) {
+            topImg = `<a href="${itemHref}"><img class="card-img-top lazyload" data-src="${imgSrc}" alt="Image of ${values.title}"></a>`;
+        }
+        if(thumbSrc) { 
+            thumbImg = `<p><a href="${itemHref}"><img class="lazyload w-50" data-src="${thumbSrc}" alt="Image of ${values.title}"></a></p>`;
+        }
+        
+        // set up card metadata
+        var itemMetadata = "";
+        {% for f in fields %}{% unless f.hidden == 'true' %}
+        if(values[{{ f.field | jsonify }}]){
+            {% if f.display_name %}itemMetadata += '<strong>{{ f.display_name }}:</strong> ';{% endif %}
+            {% if f.btn == 'true' %}
+            var btns = values[{{ f.field | jsonify }}].split(";");
+            for (var i = 0, len = btns.length; i < len; i++) {
+                if(btns[i] != "") {
+                    itemMetadata += '<a class="btn btn-sm btn-secondary m-1 text-wrap" href="{{ '/browse.html' | relative_url }}#' + encodeURIComponent(btns[i].trim()) + '">' + btns[i].trim() + '</a>';
+                }
+            }
+            {% else %}
+            itemMetadata += values[{{ f.field | jsonify }}];
+            {% endif %}
+            itemMetadata += '<br>';
+        }{% endunless %}{% endfor %}
+
+        // set up card format display
+        var itemFormat = "";
+        if(values.format != "") {
+            // select format icon
+            var itemIcon = "";
+            if(values.format.includes('image')) {
+                itemIcon = 'far fa-image';
+            } else if (values.format.includes('audio')) {
+                itemIcon = 'far fa-file-audio';
+            } else if (values.format.includes('video')) {
+                itemIcon = 'far fa-file-video';
+            } else {
+                itemIcon = 'far fa-file';
+            }
+            // create format content
+            itemFormat = `<p class="card-text"><small>
+                <a class="btn btn-sm btn-outline-secondary" href="{{ '/browse.html' | relative_url }}#${encodeURIComponent(values.format)}">${values.format.split("/").pop().toUpperCase()} <span class="${itemIcon}"></span></a>
+                </small></p>`;
+        }
+        // item card template
+        var card = 
+            `<div class="item col-lg-4 col-md-6 col-sm-12 mb-2">
+                <div class="card">${topImg}
+                    <div class="card-body text-center">
+                        <h4 class="card-title"><a href="${itemHref}" class="text-dark">${values.title}</a></h4>${thumbImg}
+                        <p class="card-text">${itemMetadata}</p>
+                        ${itemFormat}
+                        <hr>
+                        <a href="${itemHref}" class="btn btn-sm btn-light" title="link to ${values.title}">View Full Record</a>
+                    </div>
+                </div>
+            </div>`;
+        return card;
+    }
+
+    // setup list.js options and item template
+    var listOptions = {
+        valueNames: [ 
+            'title',
+            {% for f in fields %}{{ f.field | jsonify }},{% endfor %}
+            'format',
+            'youtube',
+            'filename',
+            'id'
+        ],
+        item: createItemCard
+
+    };
+    // init list.js
+    var documentList = new List('documentList', listOptions, listItems);
+
+    // setup filter function
+    function filterByType() {
+        var filterType = document.querySelector('input[name="filterRadio"]:checked').value;
+        if (filterType == "show-all") {
+            documentList.filter();
+        } else {
+            documentList.filter(function(item) { 
+                if (item.values().format == filterType) { return true; } else { return false } 
+            });
+        }
+    }
+    // add filters to radio
+    var filterRadios = document.querySelectorAll('input[name="filterRadio"]');
+    filterRadios.forEach(radio => radio.addEventListener('click', filterByType));
+    
+    // add random shuffle
+    function shuffleList() {
+        shuffle(listItems);
+        documentList.clear();
+        documentList.add(listItems);
+        filterByType();
+    }
+    var shuffleListBtn = document.getElementById("list_shuffle");
+    shuffleListBtn.addEventListener("click", shuffleList);
+
+    // add search 
+    function searchList() {
+        var query = document.getElementById("listSearch").value;
+        documentList.search(query);
+    }
+    var searchListBtn = document.getElementById("searchListBtn");
+    searchListBtn.addEventListener("click", searchList);
+
+    /* get query string */
+    document.addEventListener('DOMContentLoaded', function(event) {
+        var queryString = new URLSearchParams(window.location.search);
+        // ?sort=
+        if (queryString.has("sort") && document.getElementById(queryString.get("sort"))) { 
+            document.getElementById(queryString.get("sort")).click();
+        }
+        // ?filter=
+        if (queryString.has("filter") && document.getElementById(queryString.get("filter"))) { 
+            document.getElementById(queryString.get("filter")).click();
+            filterByType();
+        }
+        // ?search=
+        if (queryString.has("search")) { 
+            var searchOption = queryString.get("search");
+            document.getElementById("listSearch").value = searchOption;
+            documentList.search(searchOption);
+        }
+
+    });
+
+</script>

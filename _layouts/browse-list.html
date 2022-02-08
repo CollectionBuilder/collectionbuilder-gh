@@ -1,0 +1,48 @@
+---
+layout: page
+custom-foot: js/list-js.html
+---
+
+{{ content }}
+
+<div id="documentList" class="mt-4">
+
+    <div class="input-group input-group-lg mb-3">
+        <input type="text" id="listSearch" class="form-control form-control-lg" aria-label="Text input to filter list" placeholder="Filter...">
+        <div class="input-group-append">
+            <button class="btn btn-outline-success" type="button" title="Filter items" alt="Search" id="searchListBtn" >Search</button>
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="collapse" data-target="#collapseListOptions" aria-expanded="false" aria-controls="collapseListOptions">Options</button>
+        </div>
+    </div>
+        <div class="collapse w-100" id="collapseListOptions">
+            <div class="card card-body">
+                <p>Sort by:</p>
+                <p>
+                    <input type="radio" class="btn-check" name="sort_list" id="list_shuffle" autocomplete="off" checked>
+                    <label class="btn btn-outline-info m-1" for="list_shuffle">Random</label>
+                    <input type="radio" class="btn-check sort" name="sort_list" id="list_title" autocomplete="off" data-sort="title">
+                    <label class="btn btn-outline-info m-1" for="list_title">Title</label>
+                    {% assign sort_options = site.data.config-browse | where_exp: 'i','i.sort_name != nil' %}
+                    {% for o in sort_options %}
+                    <input type="radio" class="btn-check sort" name="sort_list" id="{{ o.field | slugify }}" autocomplete="off" data-sort="{{ o.field | slugify }}">
+                    <label class="btn btn-outline-info m-1" for="{{ o.field | slugify }}">{{ o.sort_name }}</label>
+                    {% endfor %}
+                </p>
+                
+                <p>View item types:</p>
+                <p>
+                    <input type="radio" class="btn-check" name="filterRadio" id="filter-all" autocomplete="off" value="show-all" checked>
+                    <label class="btn btn-outline-primary m-1" for="filter-all">All</label>
+                    {%- assign types = site.data[site.metadata] | map: "format" | compact | uniq -%}
+                    {% for t in types %}
+                    <input type="radio" class="btn-check" name="filterRadio" id="filter-{{ t | slugify }}" autocomplete="off" value="{{ t }}">
+                    <label class="btn btn-outline-primary m-1" for="filter-{{ t | slugify }}">{{ t }}</label>
+                    {% endfor %}
+        
+                </p>
+            </div>
+        </div>
+    
+    
+    <div class="mt-5 list row"></div>
+</div>
