@@ -37,6 +37,17 @@ author: CollectionBuilder
 metadata: demo-metadata 
 
 ##########
+# Site/Organization Branding 
+#   Uncomment these and enter information for your organization (replacing the CDIL links and name below) if you'd like to brand your site with a logo
+#
+# organization-name: "Center for Digital Inquiry and Learning (CDIL)"
+# organization-link: https://cdil.lib.uidaho.edu/
+# organization-logo-banner: https://cdil.lib.uidaho.edu/storying-extinction/assets/img/cdil.png
+# organization-logo-nav: https://cdil.lib.uidaho.edu/assets/img/logo.png
+
+
+
+##########
 # GOOGLE SERVICES [optional!]
 #
 # leave these blank or comment out to NOT include google code. See docs/google.md
