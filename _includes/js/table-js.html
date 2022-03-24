@@ -1,8 +1,9 @@
 {% assign fcount = site.data.config-table | size %}
+/* load DataTables with jquery bundled */
 <script type="text/javascript" language="javascript" src="{{ '/assets/lib/datatables/datatables.min.js' | relative_url }}"></script>
 <script>
-/* use jquery to initialize DataTables and load collection data */
-(function(){
+/* initialize DataTables using jquery */
+$(document).ready( function () {
     $('#item-table').DataTable( {
         // use DataTables ajax load to 
         ajax: { url: '{{ "/assets/js/metadata.min.json" | relative_url }}', dataSrc: 'objects' },
@@ -27,5 +28,5 @@
         // sort based on the second column
         order: [[ 1, "asc" ]]
     });
-})();
+});
 </script>
