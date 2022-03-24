@@ -57,7 +57,7 @@ Learn about:
 - [jQuery](https://jquery.com/)
 - Mapping using [Leaflet.js](http://leafletjs.com/)
 - Tables using [DataTables](https://datatables.net/)
-- Galleries using [lightGallery](http://sachinchoolur.github.io/lightGallery/)
+- Galleries using [spotlight](https://github.com/nextapps-de/spotlight)
 - Simple [lunr](https://lunrjs.com/) search 
 - Rich markup using [Schema.org](http://schema.org) and [Open Graph protocol](http://ogp.me/) standards.
 
