@@ -4,19 +4,19 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        {% if site.organization-logo-nav %}<span class="d-lg-none text-right">
+        {% if site.organization-logo-nav %}<span class="d-lg-none text-end">
             <a href="{{ site.organization-link }}" target="_blank" rel="noopener">
                 <img class="img-fluid" id="mobile-nav-image" src="{{ site.organization-logo-nav | relative_url }}" title="{{ site.organization-name }}" alt="{{ site.organization-name }} home" >
             </a>
         </span>{% endif %}
         
         <div class="collapse navbar-collapse" id="page-nav">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav me-auto">
                 {%- assign navItems = site.data.config-nav | where_exp: 'item', 'item.dropdown_parent == nil' -%} 
                 {% for nav in navItems %}
                 {% if nav.stub %}
-                <li class="nav-item {% if page.url == nav.stub %}active{% endif %}">
-                    <a class="nav-link " href="{{ nav.stub | relative_url }}">{{ nav.display_name }}</a>
+                <li class="nav-item">
+                    <a class="nav-link{% if page.url == nav.stub %} active{% endif %}" href="{{ nav.stub | relative_url }}">{{ nav.display_name }}</a>
                 </li>
                 {%- else -%}
                 <li class="nav-item dropdown">
