@@ -11,8 +11,7 @@
     - "objectid" = the given object or link to external image will create a card cap image
     - "alt" = if adding an external image using objectid option, provide alt text for image
     - "width" = will use responsive sizing to set the % size on desktop (will be 100% on mobile), choose from "25", "50", "75", or "100"
-    - "centered" = give "true" to add mx-auto class on the card to center it (don't use with float!)
-    - "float" = will use responsive float utility to add float on desktop (will not float on mobile), choose from "left" or "right"
+    - "centered" = give "true" to add mx-auto class on the card to center it 
 
 {%- endcomment -%}
 {%- if include.objectid contains '/' -%}
@@ -23,7 +22,7 @@
 {%- capture src -%}{% if item.filename contains '/' %}{{ item.filename | relative_url }}{% else %}{{ '/objects/' | append: item.filename | relative_url }}{% endif %}{% endcapture %}
 {%- capture alt -%}{{ item.title | default: include.title }}{% endcapture %}
 {%- endif -%}
-<div class="card mb-3{% if include.float %} feature-float-{{ include.float }}{% endif %}{% if include.width %} feature-w-{{ include.width }}{% endif %}{% if include.centered %} mx-auto{% endif %}">
+<div class="card mb-3{% if include.width %} feature-w-{{ include.width }}{% endif %}{% if include.centered %} mx-auto{% endif %}">
     {% if src %}<img class="card-img-top" src="{{ src }}" alt="{{ alt | escape }}">{%- endif -%}
     {% if include.header %}<h5 class="card-header">{{ include.header }}</h5>{%- endif -%}
     <div class="card-body">
