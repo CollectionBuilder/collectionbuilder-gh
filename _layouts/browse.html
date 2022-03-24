@@ -7,13 +7,13 @@ custom-foot: js/browse-js.html
 
 <div class="row mb-3 justify-content-center">
     <div class="col-md-8 text-center">
-        <div class="input-group input-group-lg">
-            <input type="text" class="form-control form-control-lg" id="quickSearch" placeholder="Filter ... " aria-label="Search"> 
-            <div class="input-group-append">
-                <button class="btn btn-success" type="button" title="Filter items" alt="Search" id="goButton" >Search</button>
-                <a class="btn btn-outline-secondary filter" href="#" data-filter="">Reset</a>
+        <form class="" role="search" id="lunrSearch" onsubmit="submitFilter(); return false;">
+            <div class="input-group input-group-lg">
+                <input type="text" class="form-control" id="filterTextBox" placeholder="Filter ... " aria-label="Search"> 
+                <button class="btn btn-success" type="submit" title="Filter items" alt="Search" id="filterButton" >Search</button>
+                <button class="btn btn-outline-secondary filter" onclick="resetFilter(); return false;" data-filter="">Reset</button>
             </div>
-        </div>
+        </form>
         <div class="h2" id="numberOf"></div>
     </div>
     <div class="col-md-2">
@@ -33,7 +33,7 @@ custom-foot: js/browse-js.html
     </div>
 </div>
 
-<div id="loading" class="text-center">
+<div id="loadingIcon" class="text-center">
     <div class="spinner-border text-dark" role="status"><span class="visually-hidden">Loading...</span></div>
 </div>
 
