@@ -31,10 +31,10 @@
             itemImage= '<audio controls class="w-100"><source src="' + objectLink + '">Your browser does not support the audio element.</audio>';
             itemLink= '<a href="' + objectLink + '" target="_blank" rel="noopener" class="btn btn-dark" title="Object download">Download Audio File</a>';
         } else if (record.youtube) {
-            itemImage= '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://www.youtube-nocookie.com/embed/' + record.youtube + '?rel=0&modestbranding=1" allowfullscreen></iframe></div>';
+            itemImage= '<div class="ratio ratio-16by9"><iframe src="https://www.youtube-nocookie.com/embed/' + record.youtube + '?rel=0&modestbranding=1" allowfullscreen></iframe></div>';
             itemLink= '<a href="https://youtu.be/' + record.youtube + '" target="_blank" rel="noopener" class="btn btn-dark" title="Object download">View on YouTube</a>';
         } else if (record.vimeo) {
-            itemImage= '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://player.vimeo.com/video/' + record.vimeo + '" allowfullscreen></iframe></div>';
+            itemImage= '<div class="ratio ratio-16by9"><iframe src="https://player.vimeo.com/video/' + record.vimeo + '" allowfullscreen></iframe></div>';
             itemLink= '<a href="https://vimeo.com/' + record.vimeo + '" target="_blank" rel="noopener" class="btn btn-dark" title="Object download">View on Vimeo</a>';
         } else if (format.includes('video')) {
             itemImage= '<video controls class="w-100"><source src="' + objectLink + '">Your browser does not support the video element.</audio>';
