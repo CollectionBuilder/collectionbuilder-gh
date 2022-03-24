@@ -54,7 +54,7 @@ function lunr_search () {
             {% for d in display %}
             {% if forloop.first %}
             '<p class="h4"><a href="{{ site.baseurl }}/item.html?id=' + store[ref].id + '">' + store[ref][{{ fields[0].field | jsonify }}]  + '</a></p>' +
-            '<p class="ml-3">';
+            '<p class="ms-3">';
               {% else %}
               if(store[ref][{{ d.field | jsonify }}]) {
                 searchitem += store[ref][{{ d.field | jsonify }}] + '<br> '; }
