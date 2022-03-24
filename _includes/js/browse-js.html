@@ -135,31 +135,34 @@ function makeCard(obj) {
     for (var i = 0, len = filteredItems.length; i < len; i++) {
       cards += makeCard(filteredItems[i]);
     }
-    $("#browseItems").html(cards);
+    document.querySelector("#browseItems").innerHTML = cards;
 
     // finish
-    $("#goButton").focus();
-    $("#loading").hide();
+    document.querySelector("#goButton").focus();
+
+    // ??
+    document.querySelector("#loading").hide();
   };
 
   var query = "";
   /* filter if hash in initial URL */
   if(window.location.hash) {
     query = decodeURIComponent(location.hash.substr(1));
-    $('#quickSearch').val(query);
+    document.querySelector('#quickSearch').value = query;
     filterItems(items,query);
   } else {
     query = "";
     filterItems(items,query);
   }
   /* add hash if search button clicked */ 
-  $('#goButton').click( function() {
-    window.location.hash = encodeURIComponent($('#quickSearch').val());
+  document.querySelector('#goButton').addEventListener("click", function() {
+    window.location.hash = encodeURIComponent(document.querySelector('#quickSearch').value);
   });
   /* add hash if if enter is pressed */
-  $('#quickSearch').keypress(function(e){
+  document.querySelector('#quickSearch').addEventListener(
+  .keypress(function(e){
     if(e.which == 13){
-        window.location.hash = encodeURIComponent($('#quickSearch').val());
+        window.location.hash = encodeURIComponent(document.querySelector('#quickSearch').value);
       }
   });
   /* filter if hash changes */ 

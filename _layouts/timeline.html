@@ -15,7 +15,7 @@ custom-foot: js/timeline-js.html
 {%- assign navYears = navYears | split: ";" -%}
 {%- endif -%}
 <div class="dropdown float-right" id="year-nav">
-    <button class="btn btn-info dropdown-toggle" type="button" id="yearButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button class="btn btn-info dropdown-toggle" type="button" id="yearButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Year
     </button>
     <div class="dropdown-menu" aria-labelledby="yearButton">
@@ -41,7 +41,7 @@ custom-foot: js/timeline-js.html
                 <div class="col-lg-4 col-md-6">
                     <a href="{{ '/item.html' | relative_url | append: '?id=' | append: item.objectid }}" >
                         {% if item.format contains 'image' or item.youtubeid %}
-                        <img class="lazyload img-thumbnail" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E" data-src="{% if item.youtubeid %}{{ 'https://img.youtube.com/vi/' | append: item.youtubeid | append: '/hqdefault.jpg' | relative_url }}{% elsif item.filename contains '/' %}{{ item.filename }}{% else %}{{ item.filename | prepend: '/objects/' | relative_url }}{% endif %}" alt="{{ item.title | escape }}" data-toggle="tooltip" data-placement="bottom" title="{{ item.title | escape }} | {{ item.date | escape }}">
+                        <img class="lazyload img-thumbnail" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E" data-src="{% if item.youtubeid %}{{ 'https://img.youtube.com/vi/' | append: item.youtubeid | append: '/hqdefault.jpg' | relative_url }}{% elsif item.filename contains '/' %}{{ item.filename }}{% else %}{{ item.filename | prepend: '/objects/' | relative_url }}{% endif %}" alt="{{ item.title | escape }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ item.title | escape }} | {{ item.date | escape }}">
                         {% else %}
                         <div class="card"> 
                             <div class="card-body text-center">

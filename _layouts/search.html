@@ -4,14 +4,14 @@ custom-foot: js/lunr-js.html
 ---
 {%- assign fields = site.data.config-search | where: 'index',true | map: 'field' -%}
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-outline-info float-right" data-toggle="modal" data-target="#operators">Search Options</button>
+<button type="button" class="btn btn-outline-info float-end" data-bs-toggle="modal" data-bs-target="#operators">Search Options</button>
 <!-- Modal -->
 <div class="modal fade" id="operators" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalLabel">Lunr Search Options</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <p>These advanced options can be added to your query in the search box to refine your results:</p> 
@@ -32,11 +32,9 @@ custom-foot: js/lunr-js.html
     <form class="" role="search" id="lunrSearch" onsubmit="lunr_search(); return false;">
         <div class="input-group input-group-lg">
             <input id="lunrSearchBox" class="form-control " type="text" placeholder="Enter your search term..." >
-            <div class="input-group-append">
-                <button class="btn btn-success" type="submit">
-                    Search
-                </button>
-            </div>
+            <button class="btn btn-success" type="submit">
+                Search
+            </button>
         </div>
     </form>
     
