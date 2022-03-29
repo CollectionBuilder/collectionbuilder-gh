@@ -22,7 +22,7 @@
         var objectLink = record.filename;
         var itemImage, itemLink;
         if (format.includes('image')) {
-            itemImage= '<div class="spotlight gallery-img" data-src="' + objectLink + '"><img class="img-fluid" src="' + objectLink + '" alt="' + objectTitle + '"><p><small>Click to view full screen</small></p></div>';
+            itemImage= '<div class="spotlight gallery-img" data-download="true" data-src="' + objectLink + '"><img class="img-fluid" src="' + objectLink + '" alt="' + objectTitle + '"><p><small>Click to view full screen</small></p></div>';
             itemLink= '<a href="' + objectLink + '" target="_blank" rel="noopener" class="btn btn-dark" title="Object download">Download Image</a>';
         } else if (format.includes('pdf')) {
             itemImage= '<object data="' + objectLink + '" type="application/pdf" width="100%" height="450px"><p>The PDF is not rendering in your browser. Please use the button below to download the PDF.</p></object>';
