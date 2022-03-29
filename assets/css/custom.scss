@@ -34,14 +34,15 @@ $on-jumbo:        1200px;
 {% assign btns = site.data.config-theme-colors | where_exp: "item","item.color != nil" %}
 {% if btns != empty %}
 {% for btn in btns %}
-${{ btn.color_class | slugify }}: {{ btn.color }};
+{% assign color = btn.color | strip %}{% if color != empty %}
+${{ btn.color_class | slugify }}: {{ color }};{% endif %}
 {% endfor %}
 $theme-colors: () !default;
 $theme-colors: map-merge(
   (
-    {% for btn in btns %}
+    {% for btn in btns %}{% assign color = btn.color | strip %}{% if color != empty %}
     "{{ btn.color_class | slugify }}": ${{ btn.color_class | slugify }}{% unless forloop.last %},{% endunless %}
-    {% endfor %}
+    {% endif %}{% endfor %}
   ),
   $theme-colors
 );

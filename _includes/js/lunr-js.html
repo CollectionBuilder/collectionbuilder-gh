@@ -8,7 +8,7 @@ var idx = lunr(function () {
   /* add index fields from config */
   this.ref('id')
   {% for f in index_fields %}
-  this.field({{ f.field | escape | jsonify }})
+  this.field({{ f.field | jsonify }})
   {% endfor %}
 
   //this.pipeline.remove(lunr.trimmer)
@@ -16,7 +16,7 @@ var idx = lunr(function () {
   for (var item in store) {
     this.add({
       {% for f in index_fields %}
-      {{ f.field | escape | jsonify }}: store[item][{{ f.field | escape | jsonify }}],
+      {{ f.field | jsonify }}: store[item][{{ f.field | jsonify }}],
       {% endfor %}
       id: item
     })
@@ -52,11 +52,11 @@ function lunr_search () {
             {% assign display = fields | where: 'display','true' %}
             {% for d in display %}
             {% if forloop.first %}
-            '<p class="h4"><a href="{{ site.baseurl }}/item.html?id=' + store[ref].id + '">' + store[ref][{{ fields[0].field | escape | jsonify }}]  + '</a></p>' +
+            '<p class="h4"><a href="{{ site.baseurl }}/item.html?id=' + store[ref].id + '">' + store[ref][{{ fields[0].field | jsonify }}]  + '</a></p>' +
             '<p class="ml-3">';
               {% else %}
-              if(store[ref][{{ d.field | escape | jsonify }}]) {
-                searchitem += store[ref][{{ d.field | escape | jsonify }}] + '<br> '; }
+              if(store[ref][{{ d.field | jsonify }}]) {
+                searchitem += store[ref][{{ d.field | jsonify }}] + '<br> '; }
               {% endif %}{% endfor %}
               searchitem += '</p></td>' +
       '</tr>';

@@ -28,13 +28,14 @@ The CSE "Look and Feel" settings above will allow the CSE to integrate into the 
 
 ## Add Google Analytics
 
-Google Analytics can be automatically added by filling in the `google-analytics-id` in _config.yml. 
+Google Analytics can be automatically added by filling in the `google-analytics-id` in "_config.yml". 
+
 Set up an account at [Analytics](analytics.google.com/). 
 Multiple properties can be included and/or combined under the same account and id.
 For example, if you have an existing Analytics id used on your websites, you can use the same one on your CollectionBuilder projects.
 
-The Analytics code is contained in _includes/head/google-analytics.html.
-It uses the most recent "Global site tag" script (see [gtag docs](https://developers.google.com/analytics/devguides/collection/gtagjs/)
+The Analytics code is contained in _includes/head/analytics.html.
+It uses the "Global site tag" script (see [gtag docs](https://developers.google.com/analytics/devguides/collection/gtagjs/)
 ), with the [Anonymize IP](https://developers.google.com/analytics/devguides/collection/gtagjs/ip-anonymization) option set (provides basic privacy enhancement to your users).
 
 To avoid using Analytics during local development testing, it is only added in the template when building with `JEKYLL_ENV=production`.

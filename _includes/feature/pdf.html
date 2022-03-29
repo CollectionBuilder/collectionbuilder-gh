@@ -35,7 +35,7 @@
     <figure class="figure border rounded p-1 feature-w-{{ include.width | default: '100' }}">
         <div class="{% unless include.height %}embed-responsive embed-responsive-{{ include.ratio | default: '1by1' }}{% endunless %}">
             <object class="embed-responsive-item" {% if include.height %}width="100%" height="{{ include.height }}"{% endif %} data="{{ src }}">
-                <p>The PDF is not rendering in your browser. Please use the link below to download the PDF.</p>
+                <p>The PDF is not rendering in your browser. Please <a href="{{ src }}">download the PDF</a> to view.</p>
             </object>
         </div>
         {% unless include.caption == false %}<figcaption class="figure-caption"><a href="{{ pdf_link }}">{{ pdf_caption }}</a></figcaption>{% endunless %}

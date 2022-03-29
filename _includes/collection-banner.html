@@ -1,13 +1,5 @@
 {% if page.layout == "home-infographic" and site.data.theme.featured-image %}
 <style>
-.title-card {
-    background-color: #25242485;
-    background-color: rgba(37, 36, 36, 0.72);
-    color: white !important;
-}
-.featured-link {
-    background:rgba(0,0,0,.5);
-}
 #home-banner {
     background-image: url('{% include image/featured-image.html %}');
     background-size: cover;
@@ -18,19 +10,14 @@
     padding-top: {{ site.data.theme.home-title-y-padding | default: '5em' }};
     padding-bottom: {{ site.data.theme.home-title-y-padding | default: '5em' }};
 }
-@media screen and (max-width: 576px) {
-    #home-banner { max-height:500px; }
-    #home-title-box {
-        padding-top: 5em;
-        padding-bottom: 5em; 
-    }
-    .display-4 { font-size:1.75em; }
-    #home-tagline { font-size:.85em; }
-}
+
 </style>
 <div id="home-banner" class="container-fluid mb-0 p-0">
     <div id="home-title-box" >
         <div class="title-card p-2 text-center">
+            {% if site.organization-logo-nav %}<a class="d-none d-md-block" href="{{ site.organization-link }}" target="_blank" rel="noopener">
+                <img id="home-banner-logo" src="{{ site.organization-logo-nav | relative_url }}" alt="{{ site.organization-name }} home" >
+            </a>{% endif %}
             <h1 class="display-4">{{ site.title }}</h1>
             {% if site.tagline %}<p class="mb-0">{{ site.tagline }}</p>{% endif %}
         </div>
@@ -40,8 +27,19 @@
     </div>{% endunless %}
 </div>
 {%- else -%}
-<div class="container pt-2">
-    <h1><a class="text-dark font-weight-normal" href="{{ site.baseurl }}/" >{{ site.title }}</a></h1>	 
+<div class="container">
+    <div class="row align-items-center">
+        <div id="title" class="{% if site.organization-logo-banner %}col-md-9{% else %}col-12{% endif %}">
+            <h1><a class="text-dark font-weight-normal" href="{{ site.baseurl }}/" >{{ site.title }}</a></h1>	 
             {% if site.tagline %}<p>{{ site.tagline }}</p>{% endif %}
+        </div>
+        {% if site.organization-logo-banner %}
+        <div class="col-md-3 d-none d-lg-block text-right">
+            <a class="btn btn-outline-light" href="{{ site.organization-link }}" target="_blank" rel="noopener">
+                <img class="img-fluid" src="{{ site.organization-logo-banner | relative_url }}" title="{{ site.organization-name }}" alt="{{ site.organization-name }} home" >
+            </a>
+        </div>
+        {% endif %}
+    </div>
 </div>
 {%- endif -%}
