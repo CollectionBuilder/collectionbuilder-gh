@@ -17,7 +17,7 @@
         5. a relative link to a video file stored in this repository (that is not included in the collection), i.e. "/assets/videos/cloudyskies.mp4"  
     - "caption" = by default the figure include automatically adds the title of the item from your metadata. The caption option allows you to manually add a different caption, or give the value false for none. (optional)
     - "width" = will use responsive sizing to set the % size on desktop (will be 100% on mobile), choose from "25", "50", "75", or "100" (optional)
-    - "ratio" = use Bootstrap embed ratio options "21by9", "16by9", "4by3", or "1by1" to customize the responsive aspect ratio. 16by9 is default. (optional)
+    - "ratio" = use Bootstrap embed ratio options "21x9", "16x9", "4x3", or "1x1" to customize the responsive aspect ratio. 16by9 is default. (optional)
 
     Note: if you have issues make sure the item is a video item and a web friendly format
 
@@ -50,7 +50,7 @@
 {%- endif -%}
 <div class="text-center my-4">
     <figure class="mx-auto{% if include.width %} feature-w-{{ include.width }}{% endif %}">
-        <div class="ratio ratio-{{ include.ratio | default: '16by9' }}">
+        <div class="ratio ratio-{{ include.ratio | default: '16x9' }}">
             {%- if video_src contains "vimeo" or video_src contains "youtu" -%}
             <iframe src="{{ video_src }}" allowfullscreen></iframe>
             {% else %}
@@ -62,8 +62,9 @@
         </div>
         {% unless include.caption == false %}
         <figcaption class="figure-caption">
-            {{video_caption }}
+            {{ video_caption }}
         </figcaption>
         {% endunless %}
     </figure>
 </div>
+
