@@ -1,0 +1,54 @@
+{% comment %}
+
+    Bootstrap accordion feature, https://getbootstrap.com/docs/5.1/components/accordion/
+
+    e.g. --> {% include accordion.html title1="Example section" text1=example1 title2="Section two" text2=example2 title3="Section three" text3=example3 %}
+
+    Options:
+    - "title1", "title2", "title3" = title for each section of accordion (max three)
+    - "text1", "text2", "text3" = text for each section of accordion (max three). You will probably want to capture the text using a Liquid capture, then use the variable to provide text to this include.
+    - "open" = optional, by default is "false". Add "true" to have the first section of the accordion open.
+
+{%- endcomment -%}
+<div class="accordion mb-3" id="accordionInclude">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button{% unless include.open %} collapsed{% endunless %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="{% if include.open == true %}true{% else %}false{% endif %}" aria-controls="collapseOne">
+            {{ include.title1 }}
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse{% if include.open == true %} show{% endif %}" aria-labelledby="headingOne" data-bs-parent="#accordionInclude">
+        <div class="accordion-body">
+            {{ include.text1 | markdownify }}
+        </div>
+      </div>
+    </div>
+    {% if include.title2 %}
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            {{ include.title2 }}
+        </button>
+      </h2>
+      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionInclude">
+        <div class="accordion-body">
+            {{ include.text2 | markdownify }}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% if include.title3 %}
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingThree">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            {{ include.title3 }}
+        </button>
+      </h2>
+      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionInclude">
+        <div class="accordion-body">
+            {{ include.text3 | markdownify }}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+</div>
