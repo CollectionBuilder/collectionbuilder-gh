@@ -55,15 +55,15 @@ function makeCard(obj) {
     // media type
     if(obj.format != "") {
       card += '<p class="card-text"><small><a class="btn btn-sm btn-outline-secondary" href="{{ '/browse.html' | relative_url }}#' + encodeURIComponent(obj.format) + '">' + 
-        obj.format.split("/").pop().toUpperCase() + ' <span class="';
+        obj.format.split("/").pop().toUpperCase() + ' <svg class="bi icon-sprite"><use xlink:href="{{ "/assets/lib/cb-icons.svg" | relative_url }}#';
       if(obj.format.includes('image')){
-        card += 'far fa-image';
+        card += 'icon-image';
       } else if(obj.format.includes('audio')){
-        card += 'far fa-file-audio';
+        card += 'icon-audio';
       } else if(obj.format.includes('video')){
-        card += 'far fa-file-video';
+        card += 'icon-video';
       } else {
-        card += 'far fa-file';
+        card += 'icon-default';
       }
       card += '"></span></a></small></p>';
     }
