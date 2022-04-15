@@ -46,7 +46,7 @@ custom-foot: js/timeline-js.html
                         <div class="card"> 
                             <div class="card-body text-center">
                                 <h4 class="card-title text-dark">{{ item.title }}</h4>
-                                <img class="lazyload img-thumbnail w-50" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E" data-src="{% if item.format contains 'audio' %}{{ '/assets/img/audio.svg' | relative_url }}{% elsif item.format contains 'video' %}{{ '/assets/img/video.svg' | relative_url }}{% elsif item.format contains 'pdf' %}{{ '/assets/img/pdf.svg' | relative_url }}{% else %}{{ '/assets/img/file.svg' | relative_url }}{% endif %}" alt="filetype thumbnail">
+                                <img class="lazyload w-50" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E" data-src="{% if item.format contains 'audio' %}{{ '/assets/img/audio.svg' | relative_url }}{% elsif item.format contains 'video' %}{{ '/assets/img/video.svg' | relative_url }}{% elsif item.format contains 'pdf' %}{{ '/assets/img/pdf.svg' | relative_url }}{% else %}{{ '/assets/img/file.svg' | relative_url }}{% endif %}" alt="filetype thumbnail">
                             </div>
                         </div>
                         {% endif %}
