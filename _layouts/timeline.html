@@ -20,17 +20,17 @@ custom-foot: js/timeline-js.html
     </button>
     <div class="dropdown-menu" aria-labelledby="yearButton">
         {% for y in navYears %}
-        <a class="dropdown-item" href="#{{ y }}">{{ y }}</a>{% endfor %}
+        <a class="dropdown-item" href="#y{{ y }}">{{ y }}</a>{% endfor %}
     </div>
 </div>
 
 {{ content }}
 
-<h3><a href="#{{ uniqueYears | first }}">{{ uniqueYears | first }}</a> to <a href="#{{ uniqueYears | last }}">{{ uniqueYears | last }}</a></h3>
+<h3><a href="#y{{ uniqueYears | first }}">{{ uniqueYears | first }}</a> to <a href="#y{{ uniqueYears | last }}">{{ uniqueYears | last }}</a></h3>
 
 <table id="timeline" class="table table-striped">
     {% for year in uniqueYears %}
-    <tr id="{{ year }}">
+    <tr id="y{{ year }}">
         <th>
             <h3>{{ year }}</h3>
         </th>

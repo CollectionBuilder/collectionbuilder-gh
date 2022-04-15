@@ -9,7 +9,7 @@
     // highlight year if hash
     if(window.location.hash) {
         var hashfilter = decodeURIComponent(location.hash.substr(1));
-        $("tr#" + hashfilter).addClass("bg-info");
+        document.querySelector("tr#" + hashfilter).classList.add("bg-info");
     }
 })();
 </script>

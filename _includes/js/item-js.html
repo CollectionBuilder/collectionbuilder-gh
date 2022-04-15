@@ -56,7 +56,7 @@
             } else {
                 itemYear = record.date;
             }
-            itemLink += '<a href="{{ "/timeline.html" | relative_url }}#' + itemYear + '" class="ms-2 btn btn-outline-dark">View on Timeline</a>';
+            itemLink += '<a href="{{ "/timeline.html" | relative_url }}#y' + itemYear + '" class="ms-2 btn btn-outline-dark">View on Timeline</a>';
         }
         {%- endif -%}
         {% if stubs contains "map" %}
