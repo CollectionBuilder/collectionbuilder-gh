@@ -13,8 +13,9 @@ icons:
   icon-default: file-earmark # fall back icon
 ---
 {%- assign bs_icons = site.static_files | where_exp: 'f','f.path contains "lib/icons"' | map: "name" -%}
+{%- if site.data.theme.icons -%}{% assign icons = site.data.theme.icons %}{% else %}{% assign icons = page.icons %}{%- endif -%}
 <?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-{%- for i in page.icons -%}
+{%- for i in icons -%}
 {% capture icon_id %}<symbol id="{{ i[0] }}"{%- endcapture -%}
 {% capture icon_name %}{{ i[1] }}.svg{%- endcapture -%}
 {% if bs_icons contains icon_name %}
