@@ -1,3 +1,4 @@
+{%- if site.data.theme.icons -%}{% assign icons = site.data.theme.icons %}{% else %}{% assign icons = layout.icons %}{%- endif -%}
 {%- assign items = site.data[site.metadata] | where_exp: 'item','item.latitude' -%}
 {%- assign fields = site.data.config-map -%}
 <!-- load leaflet dependencies -->
@@ -79,13 +80,13 @@
         } else if (feature.properties.format && feature.properties.format.includes("image")) {
             thumbSrc = feature.properties.filename;
         } else if (feature.properties.format && feature.properties.format.includes("audio")) {
-            thumbSrc = '{{ "/assets/img/audio.svg" | relative_url }}';
+            thumbSrc = '{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-audio }}.svg';
         } else if (feature.properties.format && feature.properties.format.includes("video")) {
-            thumbSrc = '{{ "/assets/img/video.svg" | relative_url }}'; 
+            thumbSrc = '{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-video }}.svg'; 
         } else if (feature.properties.format && feature.properties.format.includes("pdf")) {
-            thumbSrc = '{{ "/assets/img/pdf.svg" | relative_url }}';    
+            thumbSrc = '{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-pdf }}.svg';    
         } else {
-            thumbSrc = '{{ "/assets/img/file.svg" | relative_url }}';
+            thumbSrc = '{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-default }}.svg';
         }    
         /* create popup content */
         var popupTemplate = '<h4><a class="text-dark" href="' + itemHref + '">' +
