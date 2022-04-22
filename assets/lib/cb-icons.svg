@@ -16,9 +16,9 @@
 #
 icons: 
   icon-image: image
-  icon-audio: file-play
-  icon-video: film
-  icon-pdf: file-richtext
+  icon-audio: file-earmark-play
+  icon-video: camera-video
+  icon-pdf: file-earmark-text 
   icon-default: file-earmark # fall back icon
 ---
 {%- assign bs_icons = site.static_files | where_exp: 'f','f.path contains "lib/icons"' | map: "name" -%}
