@@ -1,4 +1,6 @@
-{%- if site.data.theme.icons -%}{% assign icons = site.data.theme.icons %}{% else %}{% assign icons = layout.icons %}{%- endif -%}
+{%- if site.data.theme.icons -%}{% assign icons = site.data.theme.icons %}{% else %}
+{% assign cb_icons = site.pages | where: "name","cb-icons.svg" | first %}
+{% assign icons = cb_icons.icons %}{%- endif -%}
 {%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' -%}
 {%- assign fields = site.data.config-browse -%}
 <script>
