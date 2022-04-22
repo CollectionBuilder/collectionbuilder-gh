@@ -1,9 +1,18 @@
 ---
 # THEME ICONS
 #
-# these icons are referenced in the template.
-# the value must match an svg in the lib/icons/ folder.
-# see https://icons.getbootstrap.com/ for options.
+# default icons are set here, override using theme.yml!
+#
+# this file sets up a icon sprite file for use in the site,
+# from bootstrap icons, https://icons.getbootstrap.com/
+#
+# the default values icon-image, icon-audio, icon-video, icon-pdf, icon-default are referenced in the template.
+# the key is "id" used to reference the icon sprite
+# the value matches a svg filename from assets/lib/icons/
+# 
+# this file imports the configured icons from assets/lib/icons/
+# if the svg doesn't exist, it is skipped
+# the svg file gets processed to be set up as a icon sprite
 #
 icons: 
   icon-image: image
