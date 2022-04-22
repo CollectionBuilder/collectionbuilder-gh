@@ -1,3 +1,4 @@
+{%- if site.data.theme.icons -%}{% assign icons = site.data.theme.icons %}{% else %}{% assign icons = layout.icons %}{%- endif -%}
 {%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' -%}
 {%- assign fields = site.data.config-browse -%}
 <script>
@@ -13,13 +14,13 @@ function makeCard(obj) {
     } else if (obj.format.includes("image")) {
       imgSrc = obj.filename;
     } else if (obj.format.includes("audio")) {
-      thumbSrc = '{{ "/assets/img/audio.svg" | relative_url }}';
+      thumbSrc = '{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-audio }}.svg';
     } else if (obj.format.includes("video")) {
-      thumbSrc = '{{ "/assets/img/video.svg" | relative_url }}';  
+      thumbSrc = '{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-video }}.svg';  
     } else if (obj.format.includes("pdf")) {
-      thumbSrc = '{{ "/assets/img/pdf.svg" | relative_url }}';
+      thumbSrc = '{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-pdf }}.svg';
     } else {
-      thumbSrc = '{{ "/assets/img/file.svg" | relative_url }}';
+      thumbSrc = '{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-default }}.svg';
     }  
     // start card
     var card = '<div class="item col-lg-4 col-md-6 col-sm-12 mb-2"><div class="card">';
