@@ -64,11 +64,11 @@
 }
 </style>
 <div class="jumbotron feature px-0 border" id="{{ jumbo_div_id }}">
-    <div id="home-title-box">
+    <div id="jumbo-title-box">
         {% unless include.heading == false and include.text == false %}
         <div class="title-card p-2 text-center">
             {% unless include.heading == false %}<h2 class="display-4">{{ include.heading | default: site.title }}</h2>{% endunless %}
-            {% unless include.text == false %}<p id="home-tagline">{{ include.text | default: site.tagline }}</p>{% endunless %}
+            {% unless include.text == false %}<p id="jumbo-tagline">{{ include.text | default: site.tagline }}</p>{% endunless %}
         </div>
         {% endunless %}
     </div>
