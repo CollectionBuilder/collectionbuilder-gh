@@ -52,7 +52,7 @@
     <figure class="mx-auto{% if include.width %} feature-w-{{ include.width }}{% endif %}">
         <div class="ratio ratio-{{ include.ratio | default: '16x9' }}">
             {%- if video_src contains "vimeo" or video_src contains "youtu" -%}
-            <iframe src="{{ video_src }}" allowfullscreen></iframe>
+            <iframe title="embedded video {{ video_caption | escape }}" src="{{ video_src }}" allowfullscreen></iframe>
             {% else %}
             <video width="320" height="240" controls>
                 <source src="{{ video_src }}">
