@@ -74,9 +74,7 @@
 
 /* narrow text block for page-narrow layout */
 .page-narrow {
-    h1, h2, h3, h4, h5, h6, p, ol, ul, .footnotes, .narrow-content { 
-        max-width: 650px;
-        margin-left: auto;
-        margin-right: auto; 
-    }
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
 }
