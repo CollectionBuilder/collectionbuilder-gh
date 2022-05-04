@@ -233,7 +233,8 @@ $_luminance-list: .0008 .001 .0011 .0013 .0015 .0017 .002 .0022 .0025 .0027 .003
 /* custom mixin to create background variants */ 
 @mixin theme-bg($parent, $color) {
     #{$parent} {
-        background-color: $color !important;
+        --bs-bg-opacity: 1;
+        background-color: rgba($color, var(--bs-bg-opacity))!important;
     }
     a#{$parent},
     button#{$parent} {
