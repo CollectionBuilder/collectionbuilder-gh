@@ -10,21 +10,27 @@
     padding-top: {{ site.data.theme.home-title-y-padding | default: '5em' }};
     padding-bottom: {{ site.data.theme.home-title-y-padding | default: '5em' }};
 }
-
+@media screen and (max-width: 576px) {
+    #home-title-box {
+        max-height: 500px;
+    }
+}
 </style>
 <div id="home-banner" class="container-fluid mb-0 p-0">
-    <div id="home-title-box" >
-        <div class="title-card p-2 text-center">
-            {% if site.organization-logo-nav %}<a class="d-none d-md-block" href="{{ site.organization-link }}" target="_blank" rel="noopener">
+    <div id="home-title-box" class="position-relative" >
+        <div class="p-2 text-center text-white bg-dark bg-opacity-75">
+            {% if site.organization-logo-nav %}
+            <a class="d-none d-md-block" href="{{ site.organization-link }}" target="_blank" rel="noopener">
                 <img id="home-banner-logo" src="{{ site.organization-logo-nav | relative_url }}" alt="{{ site.organization-name }} home" >
             </a>{% endif %}
             <h1 class="display-4">{{ site.title }}</h1>
             {% if site.tagline %}<p class="mb-0">{{ site.tagline }}</p>{% endif %}
         </div>
+        {% unless site.data.theme.featured-image contains '/' %}
+        <div class="position-absolute bottom-0 end-0 px-2 bg-dark bg-opacity-75">
+            <a class="text-white fs-6" href="{{ site.data.theme.featured-image | prepend: '/item.html?id=' | relative_url }}" title="{{ featuredItem.title | escape }}">Featured Image</a>
+        </div>{% endunless %}
     </div>
-    {% unless site.data.theme.featured-image contains '/' %}<div class="text-end p-0 mt-0">
-        <small><a class="text-info featured-link p-2" href="{{ site.data.theme.featured-image | prepend: '/item.html?id=' | relative_url }}" title="{{ featuredItem.title | escape }}">Featured Image</a></small>
-    </div>{% endunless %}
 </div>
 {%- else -%}
 <div class="container">
