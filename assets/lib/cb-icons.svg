@@ -1,0 +1,35 @@
+---
+# THEME ICONS
+#
+# default icons are set here, override using theme.yml!
+#
+# this file sets up a icon sprite file for use in the site,
+# from bootstrap icons, https://icons.getbootstrap.com/
+#
+# the default values icon-image, icon-audio, icon-video, icon-pdf, icon-default are referenced in the template.
+# the key is "id" used to reference the icon sprite
+# the value matches a svg filename from assets/lib/icons/
+# 
+# this file imports the configured icons from assets/lib/icons/
+# if the svg doesn't exist, it is skipped
+# the svg file gets processed to be set up as a icon sprite
+#
+icons: 
+  icon-image: image
+  icon-audio: file-earmark-play
+  icon-video: camera-video
+  icon-pdf: file-earmark-text 
+  icon-default: file-earmark # fall back icon
+  icon-back-to-top: arrow-up-square # scroll to top icon
+---
+{%- assign bs_icons = site.static_files | where_exp: 'f','f.path contains "lib/icons"' | map: "name" -%}
+{%- if site.data.theme.icons -%}{% assign icons = site.data.theme.icons %}{% else %}{% assign icons = page.icons %}{%- endif -%}
+<?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+{%- for i in icons -%}
+{% capture icon_id %}<symbol id="{{ i[0] }}"{%- endcapture -%}
+{% capture icon_name %}{{ i[1] }}.svg{%- endcapture -%}
+{% if bs_icons contains icon_name %}
+{% capture icon_svg %}{% include_relative icons/{{ icon_name }} %}{%- endcapture -%}
+{{ icon_svg | replace: '<svg xmlns="http://www.w3.org/2000/svg"', icon_id | replace: 'width="16" height="16"','' | replace: '</svg>','</symbol>' }}{% endif %}
+{%- endfor -%}
+</svg>

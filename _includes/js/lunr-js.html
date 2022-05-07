@@ -21,12 +21,13 @@ var idx = lunr(function () {
       id: item
     })
   }
+
 });
 
 /* search function */
 function lunr_search () {
-  var resultdiv = $('#lunrResults');
-  var query = $('#lunrSearchBox').val();//.toLowerCase();
+  var resultdiv = document.querySelector('#lunrResults');
+  var query = document.querySelector('#lunrSearchBox').value;//.toLowerCase();
   /* basic search that supports operators */
   var result = idx.search(query); 
   /* more fuzzy search, but doesn't support operators:
@@ -42,8 +43,8 @@ function lunr_search () {
         }
       })
     });*/
-  resultdiv.empty();
-  resultdiv.prepend('<tr><td><h4 class="mt-3">' + result.length + ' Result(s) found</h4></td></tr>');
+  resultdiv.innerHTML = "";
+  var newresults = '<tr><td><h4 class="mt-3">' + result.length + ' Result(s) found</h4></td></tr>';
   for (var item in result) {
     var ref = result[item].ref;
     var searchitem =
@@ -53,22 +54,22 @@ function lunr_search () {
             {% for d in display %}
             {% if forloop.first %}
             '<p class="h4"><a href="{{ site.baseurl }}/item.html?id=' + store[ref].id + '">' + store[ref][{{ fields[0].field | jsonify }}]  + '</a></p>' +
-            '<p class="ml-3">';
+            '<p class="ms-3">';
               {% else %}
               if(store[ref][{{ d.field | jsonify }}]) {
                 searchitem += store[ref][{{ d.field | jsonify }}] + '<br> '; }
               {% endif %}{% endfor %}
               searchitem += '</p></td>' +
       '</tr>';
-    resultdiv.append(searchitem);
+    newresults += searchitem;
   }
+  resultdiv.innerHTML = newresults;
 }
+
 /* init search box and get query string */
-$(document).ready(function() {
-  if (window.location.search) {
-    var queryString = decodeURIComponent(window.location.search.substring(1).split("=")[1]);
-    $('#lunrSearchBox').val(queryString);
-    lunr_search ();
-  }
-});
+if (window.location.search) {
+  var queryString = decodeURIComponent(window.location.search.substring(1).split("=")[1]);
+  document.querySelector('#lunrSearchBox').value = queryString;
+  lunr_search();
+}
 </script>

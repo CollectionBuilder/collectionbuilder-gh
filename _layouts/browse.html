@@ -1,4 +1,5 @@
 ---
+# collection "Browse" page
 layout: page
 custom-foot: js/browse-js.html
 ---
@@ -7,19 +8,19 @@ custom-foot: js/browse-js.html
 
 <div class="row mb-3 justify-content-center">
     <div class="col-md-8 text-center">
-        <div class="input-group input-group-lg">
-            <input type="text" class="form-control form-control-lg" id="quickSearch" placeholder="Filter ... " aria-label="Search"> 
-            <div class="input-group-append">
-                <button class="btn btn-success" type="button" title="Filter items" alt="Search" id="goButton" >Search</button>
-                <a class="btn btn-outline-secondary filter" href="#" data-filter="">Reset</a>
+        <form class="" role="search" id="lunrSearch" onsubmit="submitFilter(); return false;">
+            <div class="input-group input-group-lg">
+                <input type="text" class="form-control" id="filterTextBox" placeholder="Filter ... " aria-label="Search"> 
+                <button class="btn btn-success" type="submit" title="Filter items" alt="Search" id="filterButton" >Search</button>
+                <button class="btn btn-outline-secondary filter" onclick="resetFilter(); return false;" data-filter="">Reset</button>
             </div>
-        </div>
+        </form>
         <div class="h2" id="numberOf"></div>
     </div>
     <div class="col-md-2">
         <div class="dropdown">
-            <button class="btn btn-secondary mt-1 dropdown-toggle" type="button" id="browseSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Sort by <span class="font-weight-bold" id="sortfilter">Random</span>
+            <button class="btn btn-secondary mt-1 dropdown-toggle" type="button" id="browseSortButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Sort by <span class="font-weight-bold" id="sortFilter">Random</span>
             </button>
             <div class="dropdown-menu browse-sort-menu" aria-labelledby="browseSortButton">
                 <button class="dropdown-item browse-sort-item active" data-filter="random">Random</button>
@@ -33,8 +34,8 @@ custom-foot: js/browse-js.html
     </div>
 </div>
 
-<div id="loading" class="text-center">
-    <div class="spinner-border text-secondary" role="status"><span class="sr-only">Loading...</span></div>
+<div id="loadingIcon" class="text-center">
+    <div class="spinner-border text-dark" role="status"><span class="visually-hidden">Loading...</span></div>
 </div>
 
 <div class="row" id="browseItems"></div>

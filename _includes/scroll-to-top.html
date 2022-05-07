@@ -9,10 +9,15 @@
     }
     // scroll to top function
     function scrollToTop() {
-        $('html, body').animate({scrollTop: 0}, 750);
+        window.scroll({
+            top: 0, 
+            left: 0, 
+            behavior: 'smooth'
+        });
     }
 </script>
 <button id="scroll-to-top" type="button" class="btn btn-link btn-lg" onclick="scrollToTop();" title="Back to Top" aria-label="Back to Top">
-    <span class="fa fa-angle-double-up fa-stack-1x" ></span>
-    <span class="sr-only">up arrow</span>
+    <svg class="bi icon-sprite" role="img" aria-label="Up Arrow">
+        <use xlink:href="{{ '/assets/lib/cb-icons.svg' | relative_url }}#icon-back-to-top"/>
+    </svg>
 </button>

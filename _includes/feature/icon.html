@@ -1,0 +1,15 @@
+{%- comment -%}
+
+    Bootstrap Icons, https://icons.getbootstrap.com/
+
+    This include adds a bootstrap icon using the SVG Sprite approach. This works similar to Icon Fonts. The svg will inherit font size and color from the parent, so can be used with other text. 
+
+    E.G. --> {% include feature/icon.html icon="file-play" label="Audio file" %}
+
+    Options:
+    - "icon" = a Bootstrap Icon name, e.g. "file-image", "file-play"
+    - "label" = a label for accessibility (optional)
+    - "class" = extra classes to add directly to the svg element (optional)
+
+{%- endcomment -%}
+<svg class="bi icon-sprite {% if include.class %}{{ include.class }}{% endif %}" {% if include.label %}role="img" aria-label="{{ include.label | escape }}"{% else %}aria-hidden="true"{% endif %}><use xlink:href="{{ '/assets/lib/icons/bootstrap-icons.svg' | relative_url }}#{{ include.icon }}" href="{{ '/assets/lib/icons/bootstrap-icons.svg' | relative_url }}#{{ include.icon }}"></use></svg>

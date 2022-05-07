@@ -53,13 +53,12 @@ Learn about:
 ## Features
 
 - [Jekyll](https://jekyllrb.com/) for GitHub Pages 
-- Layout using [Bootstrap](https://getbootstrap.com/docs/4.0/getting-started/introduction/).
-- [jQuery](https://jquery.com/)
+- Layout using [Bootstrap 5](https://getbootstrap.com/docs/5.1/getting-started/introduction/)
 - Mapping using [Leaflet.js](http://leafletjs.com/)
 - Tables using [DataTables](https://datatables.net/)
-- Galleries using [lightGallery](http://sachinchoolur.github.io/lightGallery/)
+- Galleries using [spotlight](https://github.com/nextapps-de/spotlight)
 - Simple [lunr](https://lunrjs.com/) search 
-- Rich markup using [Schema.org](http://schema.org) and [Open Graph protocol](http://ogp.me/) standards.
+- Rich markup using [Schema.org](http://schema.org) and [Open Graph protocol](http://ogp.me/) standards
 
 ## Build a Digital Collection! 
 

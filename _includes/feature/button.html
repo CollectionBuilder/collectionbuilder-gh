@@ -1,6 +1,6 @@
 {% comment %}
 
-    Bootstrap button link, https://getbootstrap.com/docs/4.5/components/button/
+    Bootstrap button link, https://getbootstrap.com/docs/5.1/components/buttons/
 
     E.G. --> {% include feature/button.html text="Example Button Link" link="https://example.com" color="success" %}
 
@@ -11,7 +11,7 @@
     - "size" = optional btn size, choose from "lg", "sm" (defaults to normal size)
     - "width" = will use Bootstrap sizing to set the % size, choose from "25", "50", "75", or "100" 
     - "centered" = give "true" to add the button to a div and center on page
-    - "float" = will use Bootstrap float utility to add float, choose from "left" or "right" (not recommended)
+    - "float" = will use Bootstrap float utility to add float, choose from "start" (left) or "end" (right) (not recommended)
 
 {%- endcomment -%}
 {% if include.centered %}<div class="text-center mb-3">{%- endif -%}

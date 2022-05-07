@@ -1,6 +1,6 @@
 {% comment %}
 
-    Bootstrap Modal, https://getbootstrap.com/docs/4.5/components/modal/
+    Bootstrap Modal, https://getbootstrap.com/docs/5.1/components/modal/
 
     E.G. --> {% include feature/modal.html button="More Info" color="info" title="Information" text="Example text" %}
 
@@ -13,7 +13,7 @@
 {%- endcomment -%}
 <!-- Button trigger modal -->
 <div class="text-center mb-3">
-    <button type="button" class="btn btn-{{ include.color | default: 'primary' }}" data-toggle="modal" data-target="#{{ include.button | slugify }}Modal">{{ include.button }}</button>
+    <button type="button" class="btn btn-{{ include.color | default: 'primary' }}" data-bs-toggle="modal" data-bs-target="#{{ include.button | slugify }}Modal">{{ include.button }}</button>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="{{ include.button | slugify }}Modal" tabindex="-1" role="dialog" aria-labelledby="{{ include.button | slugify }}ModalLabel" aria-hidden="true">
@@ -21,9 +21,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="{{ include.button | slugify }}ModalLabel">{{ include.title }}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" >
             {{ include.text | markdownify }}

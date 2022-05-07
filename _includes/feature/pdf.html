@@ -6,7 +6,7 @@
     E.G. --> {% include feature/pdf.html objectid="demo_002" %}
 
     It requires an "objectid" with the include, which is used to find the object details. Alternatively, a URL to an external pdf can be used in "objectid".
-    By default no height is necessary as it uses 1by1 Bootstrap responsive embed style, https://getbootstrap.com/docs/4.5/utilities/embed/
+    By default no height is necessary as it uses 1x1 Bootstrap ratio style, https://getbootstrap.com/docs/5.1/helpers/ratio/
 
     Options: 
     - "objectid" = several options below (required)
@@ -16,7 +16,7 @@
     - "caption" = by default the figure include automatically adds the title of the item from your metadata. The caption option allows you to manually add a different caption, or give the value false for none. (optional)
     - "width" = will use responsive sizing to set the % size on desktop (will be 100% on mobile), choose from "25", "50", "75", or "100" (optional)
     - "height" = set embed object height in px (rather than responsive size), e.g. "800px" (optional)
-    - "ratio" = use Bootstrap embed ratio options "21by9", "16by9", "4by3", or "1by1" to customize the responsive aspect ratio if not using height. 16by9 is default. (optional)
+    - "ratio" = use Bootstrap embed ratio options "21x9", "16x9", "4x3", or "1x1" to customize the responsive aspect ratio if not using height. 1x1 is default. (optional)
 
     Note: if you have issues make sure the item is a PDF file!
 
@@ -33,8 +33,8 @@
 {% endif %}
 <div class="text-center">
     <figure class="figure border rounded p-1 feature-w-{{ include.width | default: '100' }}">
-        <div class="{% unless include.height %}embed-responsive embed-responsive-{{ include.ratio | default: '1by1' }}{% endunless %}">
-            <object class="embed-responsive-item" {% if include.height %}width="100%" height="{{ include.height }}"{% endif %} data="{{ src }}">
+        <div class="{% unless include.height %}ratio ratio-{{ include.ratio | default: '1x1' }}{% endunless %}">
+            <object aria-label="pdf embed of {{ pdf_caption | escape }}" {% if include.height %}width="100%" height="{{ include.height }}"{% endif %} data="{{ src }}" type="application/pdf">
                 <p>The PDF is not rendering in your browser. Please <a href="{{ src }}">download the PDF</a> to view.</p>
             </object>
         </div>

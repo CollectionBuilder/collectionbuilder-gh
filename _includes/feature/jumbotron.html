@@ -1,6 +1,6 @@
 {% comment %}
 
-    Bootstrap Jumbotron, https://getbootstrap.com/docs/4.5/components/jumbotron/
+    Bootstrap Jumbotron, https://getbootstrap.com/docs/5.1/examples/jumbotron/
     This include adds a Jumbotron feature from an objectid.
 
     E.G. --> {% include feature/jumbotron.html objectid="demo_001" %}
@@ -31,11 +31,12 @@
 {%- endif -%}
 
 <style>
-.title-card {
-    background-color: #25242485;
-    background-color: rgba(37, 36, 36, 0.72);
-    color: white !important;
-}    
+.jumbotron {
+    padding: 4rem 2rem;
+    margin-bottom: 2rem;
+    background-color: #e9ecef;
+    border-radius: 0.3rem;
+}   
 #{{ jumbo_div_id }} {
     background-image: url({{ jumboSrc }});
     background-size: cover;
@@ -50,19 +51,17 @@
 {%- endif -%}
 @media screen and (max-width: 576px) {
     .jumbo-title-box {
-        padding-top: 5em;
-        padding-bottom: 5em; 
+        max-height: 500px; 
     }
-    .display-4 { font-size:1.75em; }
     .jumbo-tagline { font-size:.85em; }
 }
 </style>
 <div class="jumbotron feature px-0 border" id="{{ jumbo_div_id }}">
-    <div id="home-title-box">
+    <div class="jumbo-title-box">
         {% unless include.heading == false and include.text == false %}
-        <div class="title-card p-2 text-center">
+        <div class="p-2 text-center text-white bg-dark bg-opacity-75">
             {% unless include.heading == false %}<h2 class="display-4">{{ include.heading | default: site.title }}</h2>{% endunless %}
-            {% unless include.text == false %}<p id="home-tagline">{{ include.text | default: site.tagline }}</p>{% endunless %}
+            {% unless include.text == false %}<p class="jumbo-tagline">{{ include.text | default: site.tagline }}</p>{% endunless %}
         </div>
         {% endunless %}
     </div>

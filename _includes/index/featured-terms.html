@@ -14,7 +14,7 @@
     - "title" - card title text inside card content area (optional)
     - "header" = card header text in bar above card content (optional)
     - "max" - max number of terms to display if auto generating (optional, default 5)
-    - "btn-color" - a bootstrap color class to theme the buttons. Can be any bootstrap template color (e.g. info, success) or outline (e.g. outline-info, outline-success), including colors created in config-theme-colors. (optional, default "info")
+    - "btn-color" - a bootstrap color class to theme the buttons. Can be any bootstrap template color (e.g. info, success) or outline (e.g. outline-info, outline-success), including colors created in config-theme-colors. (optional, default "primary")
 
 {%- endcomment -%}
 
@@ -47,7 +47,7 @@
         {% if include.title %}<h5 class="card-title">{{ include.title }}</h5>{% endif %}
         <p class="card-text">
             {% for s in topTerms %}
-            <a class="btn btn-sm btn-{{ include.btn-color | default: 'info' }} m-1" href="{{ s | strip | url_param_escape | prepend: '/browse.html#' | relative_url }}">{{ s | strip }}</a>{% endfor %}
+            <a class="btn btn-sm btn-{{ include.btn-color | default: 'primary' }} m-1" href="{{ s | strip | url_param_escape | prepend: '/browse.html#' | relative_url }}">{{ s | strip }}</a>{% endfor %}
         </p>
     </div>
 </div>
