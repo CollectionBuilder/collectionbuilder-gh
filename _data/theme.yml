@@ -11,7 +11,7 @@
 featured-image: test011
 
 # optional: add extra padding around collection title for a larger image feature. 
-home-title-y-padding: # Default is 8em
+home-title-y-padding: 10em # Default is 8em
 # optional: change position of background image, center, top, bottom
 home-banner-image-position: # Default is center
 
@@ -83,6 +83,20 @@ bootswatch: # leave blank or comment out for plain bootstrap
 # THEME FONTS
 base-font-size: 1.2em
 text-color: "#191919"
-link-color: "#17a2b8"
+link-color: "#0d6efd"
 base-font-family: # comment out for bootstrap defaults. e.g. Roboto
 font-cdn: # add font stylesheet, e.g. <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
+# THEME ICONS [optional!]
+# cb-gh uses Bootstrap Icons, https://icons.getbootstrap.com/
+# the "icons" object below can override the default icons and add new icons
+# the default keys are icon-image, icon-audio, icon-video, icon-pdf, and icon-default
+# the values must match an icon svg name in "assets/lib/icons/"
+#
+# icons: 
+#   icon-image: image
+#   icon-audio: file-earmark-play
+#   icon-video: camera-video
+#   icon-pdf: file-earmark-text 
+#   icon-default: file-earmark # fall back icon
+#   icon-back-to-top: arrow-up-square # scroll to top icon

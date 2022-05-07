@@ -1,9 +1,8 @@
-<!-- Optional JS for Bootstrap: jQuery first, then Bootstrap bundle JS -->
-<script src="{{ '/assets/lib/jquery-3.6.0.min.js' | relative_url }}"></script>
+<!-- Bootstrap bundle JS -->
 <script src="{{ '/assets/lib/bootstrap.bundle.min.js' | relative_url }}"></script>
 <!-- load other js -->
 <script src="{{ '/assets/lib/lazysizes.min.js' | relative_url }}" async></script>
-{% if layout.gallery == true or page.gallery == true %}{% include js/gallery-js.html %}{% endif %}
+{% if layout.gallery == true or page.gallery == true %}<script src="{{ '/assets/lib/spotlight.bundle.js' | relative_url }}" defer></script>{% endif %}
 {% if page.custom-foot or layout.custom-foot %}
 {%- assign page_feet = page.custom-foot | split: ";" -%}
 {%- assign layout_feet = layout.custom-foot | split: ";" -%}

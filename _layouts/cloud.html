@@ -28,5 +28,5 @@ layout: page
 {%- endif -%}
 
 {% assign cloud_id = "cloud-div-" | append: fields | slugify %}
-<div id="{{ cloud_id }}" class="text-center my-4 bg-{% unless page.background %}light{% else %}{{page.background}}{% endunless %} border rounded p-2"></div>
+<div id="{{ cloud_id }}" class="text-center my-4 bg-{{ page.background | default: 'light' }} border rounded p-2"></div>
 {% include js/cloud-js.html fields=fields min=min stopwords=stopwords button=page.button shuffle=page.shuffle id=cloud_id %}

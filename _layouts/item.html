@@ -1,19 +1,21 @@
 ---
+# JS based item page for CB-GH
 layout: default
 custom-foot: js/item-js.html
+gallery: true
 ---
 
 <div class="container mt-2 mb-4">
     <ul class="breadcrumb h6">
         <li class="breadcrumb-item"><a class="text-dark" href="{{ '/' | relative_url }}">{{ site.title }}</a></li>
-        <li class="breadcrumb-item text-secondary"><a class="text-dark" href="{{ '/browse.html' | relative_url }}">Browse</a></li>
-        <li id="bc-title" class="breadcrumb-item active"></li>
+        <li class="breadcrumb-item"><a class="text-dark" href="{{ '/browse.html' | relative_url }}">Browse</a></li>
+        <li id="bc-title" class="breadcrumb-item active text-dark" aria-current="page"></li>
     </ul>
 
     <h2 id="item-title"></h2>
 
     <div id="loading" class="text-center">
-        <div class="spinner-border text-secondary" role="status"><span class="sr-only">Loading...</span></div>
+        <div class="spinner-border text-secondary" role="status"><span class="visually-hidden">Loading...</span></div>
     </div>
 
     <div class="row mt-3">

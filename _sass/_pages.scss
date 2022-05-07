@@ -19,7 +19,11 @@
     .previous { left:10px; }
     .next{ right:10px; }
 }
-
+.breadcrumb {
+    padding: 0.75rem 1rem;
+    background-color: rgb(248, 249, 250);
+    border-radius: 0.25rem;
+}
 /* browse */
 
 /* map */
@@ -66,4 +70,11 @@
         max-width: 650px;
     }
 
+}
+
+/* narrow text block for page-narrow layout */
+.page-narrow {
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
 }

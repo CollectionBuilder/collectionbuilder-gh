@@ -1,11 +1,15 @@
 <script>
 (function(){
     // init bootstrap tooltips
-    $('[data-toggle="tooltip"]').tooltip()
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+
     // highlight year if hash
     if(window.location.hash) {
         var hashfilter = decodeURIComponent(location.hash.substr(1));
-        $("tr#" + hashfilter).addClass("bg-info");
+        document.querySelector("tr#" + hashfilter).classList.add("bg-info");
     }
 })();
 </script>
