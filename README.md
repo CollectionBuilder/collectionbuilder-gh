@@ -21,7 +21,7 @@ If you'd like to demo CollectionBuilder, we've made [a step-through tutorial](ht
 
 Metadata is drawn from the following Google Sheet: 
 
-- [Psychiana Digital Collection Metadata](https://drive.google.com/open?id=1x48Te3duPAxh53foEihQVKTfCKUjaCCbH7TrMMd_yU4)
+- [Psychiana Digital Collection Metadata](https://docs.google.com/spreadsheets/d/1x48Te3duPAxh53foEihQVKTfCKUjaCCbH7TrMMd_yU4/copy)
 
 Objects are collected in this zip file: 
 
