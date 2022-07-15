@@ -51,6 +51,13 @@
 .tagcloud10{font-size:3.0em;}
 
 /* About */
+/* side nav toc */ 
+#about-toc {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 99;
+}
 /* creating a narrow text column */ 
 .about-contents > {
     h2 {
