@@ -3,7 +3,7 @@
 layout: default
 ---
 <div class="container my-4 about-contents">
-{{ content }}
+    {% if page.toc != false %}{% include feature/about-toc.html html=content h_min=1 h_max=3 %}{% endif %}
+    {{ content }}
+    {% if page.credits == true %}{% include cb/credits.html %}{% endif %}
 </div>
-
-{% if page.credits == true %}{% include cb/credits.html %}{% endif %}
