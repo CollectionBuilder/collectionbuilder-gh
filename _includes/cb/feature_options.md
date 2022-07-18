@@ -1,6 +1,9 @@
 ## Feature *Includes* Bonanza page
 
-Check all the includes. Steal Code! 
+Check *all* the includes--Steal the code! 
+
+The template provides includes to pull your collection objects and metadata into your interpretive pages, allowing you to write with your materials directly embedded in the content.
+Each "include" file has several options, which are documented in the files themselves--copy the examples to see how it works with your content.
 
 ### Image Options
 
@@ -170,7 +173,10 @@ Example Code --> `{% raw %}{% include feature/cloud.html fields="subject" min="1
 Example Code --> `{% raw %}{% include feature/timelinejs.html  %}{% endraw %}`
 
 
-### Include [Bootstrap](https://getbootstrap.com/) Features
+### Include Bootstrap Features
+
+The template also provides includes to make it easier to add [Bootstrap](https://getbootstrap.com/) components to your Markdown writing.
+These features allow you to better organize and highlight your content.
 
 #### Include a Card
 

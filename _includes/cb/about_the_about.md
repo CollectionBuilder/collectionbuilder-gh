@@ -24,7 +24,7 @@ You can also see a page featuring [a bonanza of feature includes options](https:
 
 ### Include Collection Items
 
-The template provides includes to pull your collection objects and metadata into your interpretive page, allowing you to write with your materials directly embedded in the content.
+The template provides includes to pull your collection objects and metadata into your interpretive pages, allowing you to write with your materials directly embedded in the content.
 
 #### Include an Image
 
