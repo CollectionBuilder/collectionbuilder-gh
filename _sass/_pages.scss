@@ -52,36 +52,64 @@
 
 /* About */
 /* side nav toc */ 
+// mobile style
 #about-toc {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
+    position: fixed;
+    left: 0;
+    bottom: 0;
     z-index: 99;
+    width: 100%;
+    background-color: var(--bs-body-bg);
 }
+#about-toc-title {
+    button { 
+        width: 100%;
+    }
+}
+#about-toc-list {
+    padding: 1rem 3rem;
+}
+.jekyll-toc-list { 
+    list-style: none;
+    padding-left: 0;
+}
+// desktop style
+@media (min-width: $xl) {
+    #about-toc {
+        float: left;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        max-width: 215px;
+    }
+    #about-toc-title { display: none; }
+    #about-toc-list { 
+        display: block; 
+        padding: 2rem 0 2rem 1rem;
+    }
+    .jekyll-toc-list { 
+        padding: 1rem;
+        border: 1px solid #dee2e6;
+        border-radius: 0.25rem;
+    }
+}
+
 /* creating a narrow text column */ 
 .about-contents > {
-    h2 {
-        font-weight: bold;
-        padding-top: 100px;
-        border-top: 1px dotted black;
-    }
-    
     h1, h2, h3, h4, h5, h6 {
-        max-width: 650px;
+        max-width: $page-narrow-width;
         margin: 1.5rem auto 1rem;
     }
-    
     p, .about-narrowed-content, .footnotes, ol, ul {
+        max-width: $page-narrow-width;
         margin-left: auto;
         margin-right: auto;
-        max-width: 650px;
     }
-
 }
 
 /* narrow text block for page-narrow layout */
 .page-narrow {
-    max-width: 650px;
+    max-width: $page-narrow-width;
     margin-left: auto;
     margin-right: auto;
 }
