@@ -53,13 +53,11 @@
 /* About */
 /* side nav toc */ 
 // mobile style
-#about-toc {
-    position: fixed;
+#about-toc-wrapper {
+    position: sticky;
+    top: 0;
     left: 0;
-    bottom: 0;
-    z-index: 99;
-    width: 100%;
-    background-color: var(--bs-body-bg);
+    margin-bottom: 1rem;
 }
 #about-toc-title {
     button { 
@@ -73,14 +71,28 @@
     list-style: none;
     padding-left: 0;
 }
+#about-contents { 
+    padding: 1rem;
+}
 // desktop style
-@media (min-width: $xl) {
+@media (min-width: $lg) {
+    #about-wrapper {
+        display: grid;
+        gap: 1.2rem;
+        grid-template-areas: "sidebar main aside";
+        grid-template-columns: 1fr 5fr 1fr;
+    }
     #about-toc {
-        float: left;
+        grid-area: sidebar;
         position: -webkit-sticky;
         position: sticky;
         top: 0;
-        max-width: 215px;
+    }
+    #about-contents {
+        grid-area: main;
+        order: 1;
+        min-width:0;
+        padding: 2rem 0 2rem 1rem;
     }
     #about-toc-title { display: none; }
     #about-toc-list { 
@@ -95,7 +107,7 @@
 }
 
 /* creating a narrow text column */ 
-.about-contents > {
+#about-contents > {
     h1, h2, h3, h4, h5, h6 {
         max-width: $page-narrow-width;
         margin: 1.5rem auto 1rem;

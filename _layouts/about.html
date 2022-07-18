@@ -7,21 +7,26 @@ layout: default
 {% if page.about_the_about == true %}{% capture about_the_about %}{% include cb/about_the_about.md %}{% endcapture %}{{ about_the_about | markdownify }}{% endif %}
 {% if page.credits == true %}{% include cb/credits.html %}{% endif %}
 {% endcapture %}
-{% unless page.toc == false %}
-<div id="about-toc">
-    <div id="about-toc-title">
-        <button class="btn btn-light" data-bs-toggle="collapse" data-bs-target="#about-toc-list" aria-expanded="false" aria-controls="about-toc-list">
-            {{ page.title }}
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-            </svg>
-        </button>
+
+<div id="about-wrapper">
+    <div id="about-toc">
+        {% unless page.toc == false %}
+        <div id="about-toc-wrapper">
+            <div id="about-toc-title">
+                <button class="btn btn-light" data-bs-toggle="collapse" data-bs-target="#about-toc-list" aria-expanded="false" aria-controls="about-toc-list">
+                    {{ page.title }}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                    </svg>
+                </button>
+            </div>
+            <div id="about-toc-list" class="collapse" >
+            {% include feature/jekyll-toc.html html=full_content h_min=1 h_max=3 skip_no_ids=true class="jekyll-toc-list" %}
+            </div>
+        </div>
+        {% endunless %}
     </div>
-    <div id="about-toc-list" class="collapse" >
-    {% include feature/jekyll-toc.html html=full_content h_min=1 h_max=3 skip_no_ids=true class="jekyll-toc-list" %}
+    <div id="about-contents">
+        {{ full_content }}
     </div>
-</div>
-{% endunless %}
-<div class="container my-4 about-contents">
-    {{ full_content }}
 </div>
