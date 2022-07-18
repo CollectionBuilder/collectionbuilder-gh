@@ -9,9 +9,9 @@ layout: default
 {% endcapture %}
 
 <div id="about-wrapper">
-    <div id="about-toc">
+    <div id="about-toc-wrapper">
         {% unless page.toc == false %}
-        <div id="about-toc-wrapper">
+        <div id="about-toc">
             <div id="about-toc-title">
                 <button class="btn btn-light" data-bs-toggle="collapse" data-bs-target="#about-toc-list" aria-expanded="false" aria-controls="about-toc-list">
                     {{ page.title }}
@@ -26,7 +26,7 @@ layout: default
         </div>
         {% endunless %}
     </div>
-    <div id="about-contents">
+    <div id="about-contents-wrapper">
         {{ full_content }}
     </div>
 </div>

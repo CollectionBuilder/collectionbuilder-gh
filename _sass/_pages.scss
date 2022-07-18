@@ -54,10 +54,12 @@
 /* side nav toc */ 
 // mobile style
 #about-toc-wrapper {
-    position: sticky;
-    top: 0;
+    position: fixed;
     left: 0;
-    margin-bottom: 1rem;
+    bottom: 0;
+    z-index: 99;
+    width: 100%;
+    background-color: var(--bs-body-bg);
 }
 #about-toc-title {
     button { 
@@ -71,7 +73,7 @@
     list-style: none;
     padding-left: 0;
 }
-#about-contents { 
+#about-contents-wrapper { 
     padding: 1rem;
 }
 // desktop style
@@ -82,17 +84,20 @@
         grid-template-areas: "sidebar main aside";
         grid-template-columns: 1fr 5fr 1fr;
     }
-    #about-toc {
+    #about-toc-wrapper {
         grid-area: sidebar;
-        position: -webkit-sticky;
-        position: sticky;
-        top: 0;
+        position: initial;
     }
-    #about-contents {
+    #about-contents-wrapper {
         grid-area: main;
         order: 1;
         min-width:0;
         padding: 2rem 0 2rem 1rem;
+    }
+    #about-toc { 
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
     }
     #about-toc-title { display: none; }
     #about-toc-list { 
@@ -107,7 +112,7 @@
 }
 
 /* creating a narrow text column */ 
-#about-contents > {
+#about-contents-wrapper > {
     h1, h2, h3, h4, h5, h6 {
         max-width: $page-narrow-width;
         margin: 1.5rem auto 1rem;
