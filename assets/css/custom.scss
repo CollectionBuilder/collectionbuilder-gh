@@ -11,24 +11,22 @@ $base-font-size: {{ site.data.theme.base-font-size | default: '""' }};
 $text-color: {{ site.data.theme.text-color | default: '""' }};
 $link-color: {{ site.data.theme.link-color | default: '""' }};
 
-// Width of the content area
-$content-width:    1800px;
-$on-palm:          576px;
-$on-laptop:        768px;
-$on-desktop:       992px;
-$on-jumbo:        1200px;
-// Use media queries like this:
-// @include media-query($on-palm) {
-//     .wrapper {
-//         padding-right: $spacing-unit / 2;
-//         padding-left: $spacing-unit / 2;
-//     }
-// }
-@mixin media-query($device) {
-    @media screen and (max-width: $device) {
-        @content;
-    }
+// Narrow page width
+$page-narrow-width: 650px;
+
+// Bootstrap breakpoints 
+$container: 1320px;
+$xs: 0;
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
+$xxl: 1400px;
+/* you may want to use Bootstrap style breakpoints in your _custom.scss like:
+@media (min-width: $lg) {
+  .example-class { padding: 2rem; }
 }
+*/
 
 /* buttons to theme */
 {% assign btns = site.data.config-theme-colors | where_exp: "item","item.color != nil" %}
