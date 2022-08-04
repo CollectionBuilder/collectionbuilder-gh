@@ -108,6 +108,8 @@
         padding: 1rem;
         border: 1px solid #dee2e6;
         border-radius: 0.25rem;
+        max-height: 90vh;
+        overflow-y: auto;
     }
 }
 
