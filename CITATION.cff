@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "CollectionBuilder-GH"
+type: software
+authors:
+  - family-names: Williamson
+    given-names: Evan Peter
+    orcid: https://orcid.org/0000-0002-7990-9924
+  - family-names: Becker
+    given-names: Devin
+    orcid: https://orcid.org/0000-0002-0974-9064
+  - family-names: Wikle
+    given-names: Olivia
+    orcid: https://orcid.org/0000-0001-8122-4169
+repository-code: 'https://github.com/CollectionBuilder/collectionbuilder-gh'
+url: 'https://collectionbuilder.github.io/'
+license: MIT
+version: 1+
+date-released: '2018-09-23'
+abstract: >-
+  CollectionBuilder is an open source tool for
+  creating digital collection and exhibit websites
+  that are driven by metadata and powered by modern
+  static web technology.
+license: MIT

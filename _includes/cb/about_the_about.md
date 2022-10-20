@@ -7,18 +7,16 @@
 {% assign audiosample = site.data[site.metadata] | where_exp: 'item','item.format contains "audio"' | first %}
 {% capture audiosampleid %}{{audiosample.objectid | default: "https://www.lib.uidaho.edu/digital/mp3s/Clouds.mp3"}}{% endcapture %}
 
-
 ## About the About Page
 
-We want to make About pages exciting, and easy to build. 
+We want to make engaging interpretive pages easier to create, so CollectionBuilder gives you tools to write *with* your collection content!
 
-The CollectionBuilder about page features a narrowed column with its own (optional) menu, featured content, and some technical information. 
-
-To build one, a user writes in [Markdown](https://guides.github.com/features/mastering-markdown/) and includes  content from the site, as well as typical [Bootstrap](https://getbootstrap.com/) features like cards and modals, using code snippets like those detailed below. 
+The template comes with a customizable "About" page layout designed for long form content with rich media embeds.
+Content is written in [Markdown](https://guides.github.com/features/mastering-markdown/) and enhanced using "includes" that pull in collection content, external media, and [Bootstrap](https://getbootstrap.com/) features like cards and modals.
 We hope this makes it easier for site builders to develop the collection AND add interesting and engaging contextual information. 
 
-Each included file has several options, which are documented in the files themselves and briefly documented below. We've given the content widths of 25% and 50% to save space, but you can feature the entire image or document.
-
+Each "include" file has several options, which are documented in the files themselves--copy the examples to see how it works with your content! 
+In the demo below, we've given display widths of 25% and 50% to save space, but you can feature the entire image or document.
 
 You can also see a page featuring [a bonanza of feature includes options](https://collectionbuilder.github.io/collectionbuilder-gh/feature_options.html) on our CollectionBuilder-GH demo site. 
 
@@ -26,12 +24,13 @@ You can also see a page featuring [a bonanza of feature includes options](https:
 
 ### Include Collection Items
 
+The template provides includes to pull your collection objects and metadata into your interpretive page, allowing you to write with your materials directly embedded in the content.
+
 #### Include an Image
 
 - Image --> `{% raw %}{% include feature/image.html objectid="demo_001" width="75" %}{% endraw %}`
 
 {% include feature/image.html objectid=imagesampleid width="75" %}
-
 
 #### Include a PDF
 
@@ -43,9 +42,7 @@ You can also see a page featuring [a bonanza of feature includes options](https:
 
 - Video: `{% raw %}{% include feature/video.html objectid="demo_004" %}{% endraw %}`
 
-
 {% include feature/video.html objectid=videosampleid width="75" %}
-
 
 #### Include an Audio File
 
@@ -53,7 +50,10 @@ You can also see a page featuring [a bonanza of feature includes options](https:
 
 {% include feature/audio.html objectid=audiosampleid  %}
 
-### Include [Bootstrap](https://getbootstrap.com/) Features
+### Include Bootstrap Features
+
+The template also provides includes to make it easier to add [Bootstrap](https://getbootstrap.com/) components to your Markdown writing.
+These features allow you to better organize and highlight your content.
 
 #### Include a Card
 
