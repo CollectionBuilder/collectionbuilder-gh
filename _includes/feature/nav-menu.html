@@ -13,5 +13,5 @@
 {%- endcomment -%}
 {% assign sections = include.sections | split: ';'%}
 <p class="h6 shadow-sm p-3 about-nav sticky-top bg-white" style="line-height: 1.5em;">
-    Contents: {% for section in sections %}<a class="mx-2" href="#{{ section | slugify }}">{{ section }}</a> | {% endfor %}<a class="mx-2" href="#technical">Tech</a>
+    Contents: {% for section in sections %}<a class="mx-2" href="#{{ section | slugify }}">{{ section }}</a> {% unless forloop.last %}| {% endunless %}{% endfor %}{% if page.credits == true %}| <a class="mx-2" href="#technical">Tech</a>{% endif %}
 </p>
