@@ -1,19 +1,22 @@
+{%- if site.data.theme.icons -%}{% assign icons = site.data.theme.icons %}{% else %}
+{% assign cb_icons = site.pages | where: "name","cb-icons.svg" | first %}
+{% assign icons = cb_icons.icons %}{%- endif -%}
 {%- assign fields = site.data.config-metadata -%}
 {%- assign stubs = site.data.config-nav | map: 'stub' | join: ';' -%}
-{%- assign items = site.data[site.metadata] | where_exp: 'item', 'item.objectid != nil' -%}
+{%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' -%}
 <script>
 (function(){
     /* add item data */
     var items = { 
-        {%- for item in items -%}
+        {%- for item in items -%}{%- unless item.parentid %}
         {{ item.objectid | jsonify }} : { {% unless fields contains 'title' %}"title": {{ item.title | jsonify }}, {% endunless %}{% for f in fields %}{% if item[f.field] %}{{ f.field | jsonify }}: {{ item[f.field] | jsonify }}, {% endif %}{% endfor %}{% if item.youtubeid %} "youtube": {{ item.youtubeid | jsonify }}, {% endif %}{% if item.vimeoid %} "vimeo": {{ item.vimeoid | jsonify }}, {% endif %}"format": {{ item.format | jsonify }}, {% if  item.filename contains '/' %}"filename": "{{ item.filename }}" {% else %}"filename":{{ '/objects/' | relative_url | append: item.filename | jsonify }}{% endif %} }{% unless forloop.last %}, {% endunless %}
-        {% endfor %}
+        {% endunless %}{% endfor %}
     };
     var children = { {%- assign parents = site.data[site.metadata] | map: 'parentid' | compact | uniq -%}{%- for p in parents -%}
         {{ p | jsonify }}: [
         {%- assign children = site.data[site.metadata] | where: 'parentid', p -%}
         {%- for c in children -%}
-        { {% if c.title %}"title": {{ c.title | jsonify }}, {% endif %}"filename": {{ c.filename | jsonify }}, {% if c.youtubeid %}"youtube": {{ c.youtubeid | jsonify }}, {% endif %}{% if c.vimeoid %} "vimeo": {{ c.vimeoid }}, {% endif %}"format": {{ c.format | jsonify }} }
+        { "id": {{ c.objectid | jsonify }}, {% if c.title %}"title": {{ c.title | jsonify }}, {% endif %}"filename": {{ c.filename | jsonify }}, {% if c.youtubeid %}"youtube": {{ c.youtubeid | jsonify }}, {% endif %}{% if c.vimeoid %} "vimeo": {{ c.vimeoid }}, {% endif %}"format": {{ c.format | jsonify }} }
         {%- unless forloop.last -%}, {%- endunless -%}{%- endfor -%}]{%- unless forloop.last -%}, {%- endunless -%}{%- endfor -%}
     };
 
@@ -31,69 +34,120 @@
         var format = "" + record.format;
         var objectLink = record.filename;
         var itemImage, itemLink;
+        // get icons for compound cards
+        var pdfIcon = '{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-pdf }}.svg';
+        var audioIcon = '{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-audio }}.svg';
+        var videoIcon = '{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-video }}.svg';
+        var defaultIcon = '{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-default }}.svg';
+
+
+        // set up compound card
+        function compoundCard(title, filename, format) {
+            console.log(title);
+            // account for items without title
+            var itemTitle = typeof title !== 'undefined' ? `<a id="#">${title.split(" ").splice(0,4).join(" ")}...</a>` : '';
+
+            // get thumb for compound card
+            var compoundThumb;
+            if (format.includes('image')) {
+                compoundThumb = filename;
+            } else if (format.includes('pdf')) {
+                compoundThumb = pdfIcon;
+            } else if (format.includes('audio')) {
+                compoundThumb = audioIcon;
+            } else if (format.includes('video')) {
+                compoundThumb = videoIcon;
+            } else {
+                compoundThumb = defaultIcon;
+            }
+
+            // return the card
+            return `
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="my-auto">
+                            <div class="p-2 text-center">
+                                ${itemTitle}
+                                <img class="img-thumbnail w-50" src="${compoundThumb}" alt="${title}">
+                            </div>
+                            <p class="text-center mb-5">
+                                <a id="#" type="button" class="btn btn-sm btn-outline-secondary small stretched-link" data-bs-toggle="modal" data-bs-target="#">${format} + Info</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            `
+        };
 
         function compoundItems(firstItem) {
             var objectCount = Object.keys(compoundObject).length + 1;
-            itemImage= '<p>View ' + objectCount + ' Items Below<br></p>' + firstItem;
+            itemImage= '<div class="row row-cols-2 row-cols-lg-4 g-2">' + firstItem; //'<p>View ' + objectCount + ' Items Below<br></p>' +
             itemLink= '<div class="dropdown d-inline"><button class="btn btn-dark dropdown-toggle" type="button" title="Object download" id="compoundButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Download Items</button> <div class="dropdown-menu" aria-labelledby="compoundButton">';
             itemLink += '<a class="dropdown-item" target="_blank" href="' + objectLink + '">Part 1 of ' + objectTitle + '</a>';
             for (let i = 0; i < compoundObject.length; i++) {
-                var compoundLink = compoundObject[i].filename;
+                var compoundSrc = compoundObject[i].filename;
                 var compoundFormat = compoundObject[i].format;
                 var compoundTitle = compoundObject[i].title;
                 var partOrder = i + 2;
-                if (compoundFormat.includes('image')) {
-                    itemImage += '<div class="spotlight gallery-img mt-4" data-src="' + compoundLink + '"><img class="img-fluid" src="' + compoundLink + '" alt="part ' + partOrder + ' of ' + objectTitle + '">'
+
+                itemImage += compoundCard(compoundTitle, compoundSrc, compoundFormat);
+
+                /*if (compoundFormat.includes('image')) {
+                    itemImage += '<div class="spotlight gallery-img mt-4" data-src="' + compoundSrc + '"><img class="img-fluid" src="' + compoundSrc + '" alt="part ' + partOrder + ' of ' + objectTitle + '">'
                 } else if (compoundFormat.includes('pdf')) {
-                    itemImage += '<object aria-label="' + compoundTitle + '" data="' + compoundLink + '" type="application/pdf" width="100%" height="450px" class="mt-4"><p>The PDF is not rendering in your browser. Please use the button below to download the PDF.</p></object>';
+                    itemImage += '<object aria-label="' + compoundTitle + '" data="' + compoundSrc + '" type="application/pdf" width="100%" height="450px" class="mt-4"><p>The PDF is not rendering in your browser. Please use the button below to download the PDF.</p></object>';
                 } else if (compoundFormat.includes('audio')) {
-                    itemImage += '<audio controls class="w-100 mt-4"><source src="' + compoundLink + '">Your browser does not support the audio element.</audio>';
+                    itemImage += '<audio controls class="w-100 mt-4"><source src="' + compoundSrc + '">Your browser does not support the audio element.</audio>';
                 } else if (compoundObject[i].youtube) {
                     itemImage += '<div class="ratio ratio-16x9 mt-4"><iframe title="part ' + partOrder + ' of ' + objectTitle + '" src="https://www.youtube-nocookie.com/embed/' + compoundObject[i].youtube + '?rel=0&modestbranding=1" allowfullscreen></iframe></div>';
-                    compoundLink = 'https://youtu.be/' + compoundObject[i].youtube;
+                    compoundSrc = 'https://youtu.be/' + compoundObject[i].youtube;
                 } else if (compoundObject[i].vimeo) {
                     itemImage += '<div class="ratio ratio-16x9 mt-4"><iframe title="part ' + partOrder + ' of ' + objectTitle + '"src="https://player.vimeo.com/video/' + compoundObject[i].vimeo + '" allowfullscreen></iframe></div>';
-                    compoundLink = 'https://vimeo.com/' + compoundObject[i].vimeo;
+                    compoundSrc = 'https://vimeo.com/' + compoundObject[i].vimeo;
                 } else if (compoundFormat.includes('video')) {
                     itemImage += '<video controls class="w-100 mt-4"><source src="' + objectLink + '">Your browser does not support the video element.</audio>';
                 } else {
-                    /* fall back to no preview if it doesn't know the format */
+                    // fall back to no preview if it doesn't know the format
                     itemImage += '<img class="w-50" src="{{ "/assets/lib/icons/file-earmark.svg" | relative_url }}" alt="No preview found">';
                 }
                 compoundTitle ? itemImage += '<p class="pt-2">' + compoundTitle + '<hr></p></div>' : itemImage += '</div>'
                 // add download dropdown
-                itemLink += '<a class="dropdown-item" target="_blank" rel="noopener" href="' + compoundLink + '">Part ' + partOrder + ' of ' + objectTitle + '</a>';
+                itemLink += '<a class="dropdown-item" target="_blank" rel="noopener" href="' + compoundSrc + '">Part ' + partOrder + ' of ' + objectTitle + '</a>';*/
             }
+            itemImage += '</div>'
             itemLink += '</div></div>';
         };
 
+        // get information for first compound item
+        var firstCompoundItem = compoundCard(objectTitle, objectLink, format);
+
         if (format.includes('image')) {
             if (compoundObject) {
-                var firstItem = '<div class="spotlight gallery-img" data-download="true" data-src="' + objectLink + '"><img class="img-fluid" src="' + objectLink + '" alt="' + objectTitle + '"></div>';
-                compoundItems(firstItem);
+                //'<div class="spotlight gallery-img" data-download="true" data-src="' + objectLink + '"><img class="img-fluid" src="' + objectLink + '" alt="' + objectTitle + '"></div>';
+                compoundItems(firstCompoundItem);
             } else {
                 itemImage= '<div class="spotlight gallery-img" data-download="true" data-src="' + objectLink + '"><img class="img-fluid" src="' + objectLink + '" alt="' + objectTitle + '"><p><small>Click to view full screen</small></p></div>';
                 itemLink= '<a href="' + objectLink + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Image</a>';
             }
         } else if (format.includes('pdf')) {
             itemImage= '<object aria-label="' + objectTitle + '" data="' + objectLink + '" type="application/pdf" width="100%" height="450px"><p>The PDF is not rendering in your browser. Please use the button below to download the PDF.</p></object>';
-            compoundObject ? compoundItems(itemImage) : itemLink= '<a href="' + objectLink + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download PDF</a>';
+            compoundObject ? compoundItems(firstCompoundItem) : itemLink= '<a href="' + objectLink + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download PDF</a>';
         } else if (format.includes('audio')) {
             itemImage= '<audio controls class="w-100"><source src="' + objectLink + '">Your browser does not support the audio element.</audio>';
-            compoundObject ? compoundItems(itemImage) : itemLink= '<a href="' + objectLink + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Audio File</a>';
+            compoundObject ? compoundItems(firstCompoundItem) : itemLink= '<a href="' + objectLink + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Audio File</a>';
         } else if (record.youtube) {
             itemImage= '<div class="ratio ratio-16x9"><iframe title="' + objectTitle + '" src="https://www.youtube-nocookie.com/embed/' + record.youtube + '?rel=0&modestbranding=1" allowfullscreen></iframe></div>';
-            compoundObject ? compoundItems(itemImage) : itemLink= '<a href="https://youtu.be/' + record.youtube + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">View on YouTube</a>';
+            compoundObject ? compoundItems(firstCompoundItem) : itemLink= '<a href="https://youtu.be/' + record.youtube + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">View on YouTube</a>';
         } else if (record.vimeo) {
             itemImage= '<div class="ratio ratio-16x9"><iframe title="' + objectTitle + '"src="https://player.vimeo.com/video/' + record.vimeo + '" allowfullscreen></iframe></div>';
-            compoundObject ? compoundItems(itemImage) : itemLink= '<a href="https://vimeo.com/' + record.vimeo + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">View on Vimeo</a>';
+            compoundObject ? compoundItems(firstCompoundItem) : itemLink= '<a href="https://vimeo.com/' + record.vimeo + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">View on Vimeo</a>';
         } else if (format.includes('video')) {
             itemImage= '<video controls class="w-100"><source src="' + objectLink + '">Your browser does not support the video element.</audio>';
-            compoundObject ? compoundItems(itemImage) : itemLink= '<a href="' + objectLink + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Video File</a>';
+            compoundObject ? compoundItems(firstCompoundItem) : itemLink= '<a href="' + objectLink + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Video File</a>';
         } else {
             /* fall back to no preview if it doesn't know the format */
             itemImage= '<img class="w-50" src="{{ "/assets/lib/icons/file-earmark.svg" | relative_url }}" alt="No preview found">';
-            compoundObject ? compoundItems(itemImage) : itemLink= '<a href="' + objectLink + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Object</a>';
+            compoundObject ? compoundItems(firstCompoundItem) : itemLink= '<a href="' + objectLink + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Object</a>';
         }
 
         {% if stubs contains "timeline" %}
