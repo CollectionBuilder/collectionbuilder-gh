@@ -29,6 +29,7 @@
         /* add item title */
         var objectTitle = record.title;
         document.getElementById("bc-title").innerHTML = objectTitle;
+        document.getElementById("item-format").innerHTML = record.format.replace("_", " ").toUpperCase() + ' (' + compoundObject.length + ' Items)';
         document.getElementById("item-title").innerHTML = objectTitle;
         /* add object */ 
         var format = "" + record.format;
@@ -43,7 +44,7 @@
         // set up compound card
         function compoundCard(title, filename, format) {
             // account for items without title
-            var itemTitle = typeof title !== 'undefined' ? `<a id="#">${title.split(" ").splice(0,4).join(" ")}...</a>` : '';
+            var itemTitle = typeof title !== 'undefined' ? `<a id="#">${title.split(" ").splice(0,4).join(" ")}...</a><br>` : '';
 
             // get thumb for compound card
             var compoundThumb;
