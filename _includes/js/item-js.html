@@ -36,10 +36,10 @@
         var objectLink = record.filename;
         var itemImage, itemLink;
         // get icons for compound cards
-        var pdfIcon = '{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-pdf }}.svg';
-        var audioIcon = '{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-audio }}.svg';
-        var videoIcon = '{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-video }}.svg';
-        var defaultIcon = '{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-default }}.svg';
+        var pdfIcon = 'icon-pdf';
+        var audioIcon = 'icon-audio';
+        var videoIcon = 'icon-video';
+        var defaultIcon = 'icon-default';
 
         // set up compound card
         function compoundCard(title, filename, format) {
@@ -60,6 +60,18 @@
                 compoundThumb = defaultIcon;
             }
 
+            var compoundImg;
+            if (format.includes('image')) {
+                compoundImg = `<img class="img-thumbnail w-50" src="${compoundThumb}" alt="${title}">`
+            } else {
+                compoundImg = `
+                    <svg class="bi compound-thumb text-body" fill="currentColor" aria-hidden="true">
+                        <use xlink:href="{{ '/assets/lib/cb-icons.svg' | relative_url }}#${compoundThumb}" />
+                    </svg>
+                    <span class="sr-only d-none">${title} - ${format}</span>
+                `
+            }
+
             // return the card
             return `
                 <div class="col">
@@ -67,7 +79,7 @@
                         <div class="my-auto">
                             <div class="p-2 text-center">
                                 ${itemTitle}
-                                <img class="img-thumbnail w-50" src="${compoundThumb}" alt="${title}">
+                                ${compoundImg}
                             </div>
                             <p class="text-center mb-5">
                                 <a id="#" type="button" class="btn btn-sm btn-outline-secondary small stretched-link" data-bs-toggle="modal" data-bs-target="#">${format} + Info</a>
