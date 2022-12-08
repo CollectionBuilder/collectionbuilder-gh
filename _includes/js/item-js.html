@@ -29,7 +29,7 @@
         /* add item title */
         var objectTitle = record.title;
         document.getElementById("bc-title").innerHTML = objectTitle;
-        document.getElementById("item-format").innerHTML = record.format.replace("_", " ").toUpperCase() + ' (' + compoundObject.length + ' Items)';
+        document.getElementById("item-format").innerHTML = compoundObject ? record.format.replace("_", " ").toUpperCase() + ' (' + compoundObject.length + ' Items)' : record.format.replace("_", " ").toUpperCase();
         document.getElementById("item-title").innerHTML = objectTitle;
         /* add object */ 
         var format = "" + record.format;
@@ -41,86 +41,149 @@
         var videoIcon = 'icon-video';
         var defaultIcon = 'icon-default';
 
-        // set up compound card
-        function compoundCard(title, filename, format) {
-            // account for items without title
-            var itemTitle = typeof title !== 'undefined' ? `<a id="#">${title.split(" ").splice(0,4).join(" ")}...</a><br>` : '';
-
-            // get thumb for compound card
-            var compoundThumb;
-            if (format.includes('image')) {
-                compoundThumb = filename;
-            } else if (format.includes('pdf')) {
-                compoundThumb = pdfIcon;
-            } else if (format.includes('audio')) {
-                compoundThumb = audioIcon;
-            } else if (format.includes('video')) {
-                compoundThumb = videoIcon;
-            } else {
-                compoundThumb = defaultIcon;
-            }
-
-            var compoundImg;
-            if (format.includes('image')) {
-                compoundImg = `<img class="img-thumbnail w-50" src="${compoundThumb}" alt="${title}">`
-            } else {
-                compoundImg = `
-                    <svg class="bi compound-thumb text-body" fill="currentColor" aria-hidden="true">
-                        <use xlink:href="{{ '/assets/lib/cb-icons.svg' | relative_url }}#${compoundThumb}" />
-                    </svg>
-                    <span class="sr-only d-none">${title} - ${format}</span>
-                `
-            }
-
-            // return the card
-            return `
-                <div class="col">
-                    <div class="card h-100">
-                        <div class="my-auto">
-                            <div class="p-2 text-center">
-                                ${itemTitle}
-                                ${compoundImg}
-                            </div>
-                            <p class="text-center mb-5">
-                                <a id="#" type="button" class="btn btn-sm btn-outline-secondary small stretched-link" data-bs-toggle="modal" data-bs-target="#">${format} + Info</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            `
-        };
-
+        // create compound cards
         function compoundItems() {
             var objectCount = Object.keys(compoundObject).length;
-            itemImage= '<div class="row row-cols-2 row-cols-lg-4 g-2">'; //'<p>View ' + objectCount + ' Items Below<br></p>' +
+            itemImage= '<div class="row row-cols-2 row-cols-lg-4 g-2">';
             itemLink= '<div class="dropdown d-inline"><button class="btn btn-dark dropdown-toggle" type="button" title="Object download" id="compoundButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Download Items</button> <div class="dropdown-menu" aria-labelledby="compoundButton">';
+
+            // generate a modal and compound card for each item in compound object
             for (let i = 0; i < compoundObject.length; i++) {
                 var compoundLink = compoundObject[i].filename;
                 var compoundFormat = compoundObject[i].format;
                 var compoundTitle = compoundObject[i].title;
                 var partOrder = i + 1;
 
-                itemImage += compoundCard(compoundTitle, compoundLink, compoundFormat);
+                // account for items without title
+                var itemTitle = typeof compoundTitle !== 'undefined' ? `<a id="${compoundObject[i].id}" onclick="window.location.hash='${compoundObject[i].id}'" type="button" class="small mb-2 text-dark" data-bs-toggle="modal" data-bs-target="#${compoundObject[i].id}Modal">${compoundTitle.split(" ").splice(0,4).join(" ")}...</a><br>` : '';
 
-                /*if (compoundFormat.includes('image')) {
-                    itemImage += '<div class="spotlight gallery-img mt-4" data-src="' + compoundLink + '"><img class="img-fluid" src="' + compoundLink + '" alt="part ' + partOrder + ' of ' + objectTitle + '">'
+                // get thumb for compound card
+                var compoundIcon, compoundThumb;
+                if (compoundFormat.includes('image')) {
+                    compoundIcon = compoundLink;
                 } else if (compoundFormat.includes('pdf')) {
-                    itemImage += '<object aria-label="' + compoundTitle + '" data="' + compoundLink + '" type="application/pdf" width="100%" height="450px" class="mt-4"><p>The PDF is not rendering in your browser. Please use the button below to download the PDF.</p></object>';
+                    compoundIcon = pdfIcon;
                 } else if (compoundFormat.includes('audio')) {
-                    itemImage += '<audio controls class="w-100 mt-4"><source src="' + compoundLink + '">Your browser does not support the audio element.</audio>';
-                } else if (compoundObject[i].youtube) {
-                    itemImage += '<div class="ratio ratio-16x9 mt-4"><iframe title="part ' + partOrder + ' of ' + objectTitle + '" src="https://www.youtube-nocookie.com/embed/' + compoundObject[i].youtube + '?rel=0&modestbranding=1" allowfullscreen></iframe></div>';
-                    compoundLink = 'https://youtu.be/' + compoundObject[i].youtube;
-                } else if (compoundObject[i].vimeo) {
-                    itemImage += '<div class="ratio ratio-16x9 mt-4"><iframe title="part ' + partOrder + ' of ' + objectTitle + '"src="https://player.vimeo.com/video/' + compoundObject[i].vimeo + '" allowfullscreen></iframe></div>';
-                    compoundLink = 'https://vimeo.com/' + compoundObject[i].vimeo;
+                    compoundIcon = audioIcon;
                 } else if (compoundFormat.includes('video')) {
-                    itemImage += '<video controls class="w-100 mt-4"><source src="' + objectLink + '">Your browser does not support the video element.</audio>';
+                    compoundIcon = videoIcon;
+                } else {
+                    compoundIcon = defaultIcon;
+                }
+
+                if (compoundFormat.includes('image')) {
+                    compoundThumb = `<img class="img-thumbnail w-50" src="${compoundIcon}" alt="${compoundTitle}">`
+                } else {
+                    compoundThumb = `
+                        <svg class="bi compound-thumb text-body" fill="currentColor" aria-hidden="true">
+                            <use xlink:href="{{ '/assets/lib/cb-icons.svg' | relative_url }}#${compoundIcon}" />
+                        </svg>
+                        <span class="sr-only d-none">${compoundTitle} - ${compoundFormat}</span>
+                    `
+                }
+
+                // capture index for previous and next modal items
+                var itemPrev = i === 0 ? compoundObject.length : i;
+                var itemNext = i + 1 === compoundObject.length ? 1 : i + 2;
+
+                // set up item display and download links
+                var itemDisplay, itemDownload;
+                if (compoundFormat.includes('image')) {
+                    itemDisplay = '<div class="spotlight gallery-img mt-4" data-src="' + compoundLink + '"><img class="img-fluid" src="' + compoundLink + '" alt="part ' + partOrder + ' of ' + objectTitle + '"></div>'
+                    itemDownload = '<a href="' + compoundLink + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Image</a>';
+                } else if (compoundFormat.includes('pdf')) {
+                    itemDisplay = '<object aria-label="' + compoundTitle + '" data="' + compoundLink + '" type="application/pdf" width="100%" height="450px" class="mt-4"><p>The PDF is not rendering in your browser. Please use the button below to download the PDF.</p></object>';
+                    itemDownload = '<a href="' + compoundLink + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download PDF</a>';
+                } else if (compoundFormat.includes('audio')) {
+                    itemDisplay = '<audio controls class="w-100 mt-4"><source src="' + compoundLink + '">Your browser does not support the audio element.</audio>';
+                    itemDownload = '<a href="' + compoundLink + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Audio File</a>';
+                } else if (compoundObject[i].youtube) {
+                    itemDisplay = '<div class="ratio ratio-16x9 mt-4"><iframe title="part ' + partOrder + ' of ' + objectTitle + '" src="https://www.youtube-nocookie.com/embed/' + compoundObject[i].youtube + '?rel=0&modestbranding=1" allowfullscreen></iframe></div>';
+                    compoundLink = 'https://youtu.be/' + compoundObject[i].youtube;
+                    itemDownload = '<a href="https://youtu.be/' + record.youtube + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">View on YouTube</a>';
+                } else if (compoundObject[i].vimeo) {
+                    itemDisplay = '<div class="ratio ratio-16x9 mt-4"><iframe title="part ' + partOrder + ' of ' + objectTitle + '"src="https://player.vimeo.com/video/' + compoundObject[i].vimeo + '" allowfullscreen></iframe></div>';
+                    compoundLink = 'https://vimeo.com/' + compoundObject[i].vimeo;
+                    itemDownload = '<a href="https://vimeo.com/' + record.vimeo + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">View on Vimeo</a>';
+                } else if (compoundFormat.includes('video')) {
+                    itemDisplay = '<video controls class="w-100 mt-4"><source src="' + compoundLink + '">Your browser does not support the video element.</audio>';
+                    itemDownload = '<a href="' + compoundLink + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Video File</a>';
                 } else {
                     // fall back to no preview if it doesn't know the format
-                    itemImage += '<img class="w-50" src="{{ "/assets/lib/icons/file-earmark.svg" | relative_url }}" alt="No preview found">';
+                    itemDisplay = '<img class="w-50" src="{{ "/assets/lib/icons/file-earmark.svg" | relative_url }}" alt="No preview found">';
+                    itemDownload = '<a href="' + compoundLink + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Object</a>';
                 }
-                compoundTitle ? itemImage += '<p class="pt-2">' + compoundTitle + '<hr></p></div>' : itemImage += '</div>'*/
+
+                // create modal
+                var itemModal = `
+                    <div class="modal fade" id="${compoundObject[i].id}Modal" tabindex="-1" role="dialog" aria-labelledby="${compoundObject[i].id}ModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document" style="max-width: 90% !important;">
+                            <div class="modal-content">
+
+                                <div class="w-100 text-right mb-0">
+                                    <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-header">
+                                    <div class="modal-title w-100" id="${compoundObject[i].id}ModalLabel">
+                                        <div class="row">
+                                            <div class="col-1 col-md-2 text-right">
+                                                <button onclick="document.getElementById('item-${itemPrev}').click();window.location.hash='item-${itemPrev}'" class="btn btn-outline-dark btn-sm">{% include feature/icon.html icon="arrow-left" label="Left arrow" %} <span class="d-none d-md-inline">Previous Item</span></button>
+                                            </div>
+                                            <div class="col-9 col-md-8 text-center">
+                                                <h5>${compoundTitle ? compoundTitle + '<span class="d-none d-md-inline"> -</span>' : ''} <span class="d-md-none"><br></span> Item ${partOrder} of ${compoundObject.length}</h5>
+                                            </div>
+                                            <div class="col-1 col-md-2 text-left">
+                                                <button onclick="document.getElementById('item-${itemNext}').click();window.location.hash='item-${itemNext}'" class="ms-md-5 btn btn-outline-dark btn-sm"><span class="d-none d-md-inline">Next Item</span> {% include feature/icon.html icon="arrow-right" label="Right arrow" %}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="card mb-4 text-center">
+                                                <div class="m-2">
+                                                    <p>${itemDisplay}</p>
+                                                </div>
+
+                                                <div class="my-2">
+                                                    ${itemDownload}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+
+                // return the card
+                itemImage += `
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="my-auto">
+                                <div class="p-2 text-center">
+                                    ${itemTitle}
+                                    ${compoundThumb}
+                                </div>
+                                <p class="text-center mb-5">
+                                    <a id="item-${i+1}" onclick="window.location.hash='${compoundObject[i].id}'" type="button" class="btn btn-sm btn-outline-secondary small stretched-link" data-bs-toggle="modal" data-bs-target="#${compoundObject[i].id}Modal">${compoundFormat.toUpperCase()} + Info</a>
+                                </p>
+                                ${itemModal}
+                            </div>
+                        </div>
+                    </div>
+                `
+
+                // compoundTitle ? itemImage += '<p class="pt-2">' + compoundTitle + '<hr></p></div>' : itemImage += '</div>'
+
                 // add download dropdown
                 itemLink += '<a class="dropdown-item" target="_blank" rel="noopener" href="' + compoundLink + '">Part ' + partOrder + ' of ' + objectTitle + '</a>';
             }
@@ -128,10 +191,7 @@
             itemLink += '</div></div>';
         };
 
-        // get information for first compound item
-        // var firstCompoundItem = compoundCard(objectTitle, objectLink, format);
-
-        // add items to page; send first compound item to compoundItems
+        // add items to page; generate compound objects if applicable
         if (format.includes('image')) {
             if (compoundObject) {
                 //'<div class="spotlight gallery-img" data-download="true" data-src="' + objectLink + '"><img class="img-fluid" src="' + objectLink + '" alt="' + objectTitle + '"></div>';
