@@ -16,7 +16,7 @@
         {{ p | jsonify }}: [
         {%- assign children = site.data[site.metadata] | where: 'parentid', p -%}
         {%- for c in children -%}
-        { "id": {{ c.objectid | jsonify }}, {% if c.title %}"title": {{ c.title | jsonify }}, {% endif %}"filename": {{ c.filename | jsonify }}, {% if c.youtubeid %}"youtube": {{ c.youtubeid | jsonify }}, {% endif %}{% if c.vimeoid %} "vimeo": {{ c.vimeoid }}, {% endif %}"format": {{ c.format | jsonify }} }
+        { "id": {{ c.objectid | jsonify }}, {% if c.title %}{% unless fields contains 'title' %}"title": {{ c.title | jsonify }}, {% endunless %}{% endif %}{% for f in fields %}{% if c[f.field] %}{{ f.field | jsonify }}: {{ c[f.field] | jsonify }}, {% endif %}{% endfor %}{% if  c.filename contains '/' %}"filename": "{{ c.filename }}" {% else %}"filename":{{ '/objects/' | relative_url | append: c.filename | jsonify }}{% endif %}, {% if c.youtubeid %}"youtube": {{ c.youtubeid | jsonify }}, {% endif %}{% if c.vimeoid %} "vimeo": {{ c.vimeoid }}, {% endif %}"format": {{ c.format | jsonify }} }
         {%- unless forloop.last -%}, {%- endunless -%}{%- endfor -%}]{%- unless forloop.last -%}, {%- endunless -%}{%- endfor -%}
     };
 
@@ -35,29 +35,50 @@
         var format = "" + record.format;
         var objectLink = record.filename;
         var itemImage, itemLink;
-        // get icons for compound cards
+        /* get icons for compound cards */
         var pdfIcon = 'icon-pdf';
         var audioIcon = 'icon-audio';
         var videoIcon = 'icon-video';
         var defaultIcon = 'icon-default';
 
-        // create compound cards
+        /* function to add item metadata */
+        function generateMetadata(item) {
+            var fields = '<dl>';
+            {% for f in fields %}{% if f.browse_link == "true" %}
+            if (item[{{ f.field | jsonify }}]) {
+                var topics = item[{{ f.field | jsonify }}].split(';');
+                var browseLinks = "";
+                for (var i = 0, len = topics.length; i < len; i++) {
+                    if (topics[i] != "") {
+                        browseLinks += '<a class="btn btn-link" href="{{ '/browse.html' | relative_url }}#' + encodeURIComponent(topics[i].trim()) + '">' + topics[i].trim() + '</a> ';
+                    }
+                }
+                fields += '<dt class="field">{{ f.display_name }}:</dt> <dd class="field-value">' + browseLinks + '</dd>';
+            }
+            {%- else -%}
+            if (item[{{ f.field | jsonify }}]) { fields += '<dt class="field">{{ f.display_name }}:</dt> <dd class="field-value">{% if f.external_link == "true" %}<a href="' + i[{{ f.field | jsonify }}] + '" target="_blank" rel="noopener">' + item[{{ f.field | jsonify }}] + '</a>{% else %}' + item[{{ f.field | jsonify }}] + '{% endif %}</dd>'; }
+            {% endif %}{% endfor %}
+            fields += '</dl>';
+            return fields;
+        };
+
+        /* create compound object cards */
         function compoundItems() {
             var objectCount = Object.keys(compoundObject).length;
             itemImage= '<div class="row row-cols-2 row-cols-lg-4 g-2">';
             itemLink= '<div class="dropdown d-inline"><button class="btn btn-dark dropdown-toggle" type="button" title="Object download" id="compoundButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Download Items</button> <div class="dropdown-menu" aria-labelledby="compoundButton">';
 
-            // generate a modal and compound card for each item in compound object
+            /* generate a modal and compound card for each item in compound object */
             for (let i = 0; i < compoundObject.length; i++) {
                 var compoundLink = compoundObject[i].filename;
                 var compoundFormat = compoundObject[i].format;
                 var compoundTitle = compoundObject[i].title;
                 var partOrder = i + 1;
 
-                // account for items without title
+                /* account for items without title */
                 var itemTitle = typeof compoundTitle !== 'undefined' ? `<a id="${compoundObject[i].id}" onclick="window.location.hash='${compoundObject[i].id}'" type="button" class="small mb-2 text-dark" data-bs-toggle="modal" data-bs-target="#${compoundObject[i].id}Modal">${compoundTitle.split(" ").splice(0,4).join(" ")}...</a><br>` : '';
 
-                // get thumb for compound card
+                /* get thumb for compound card */
                 var compoundIcon, compoundThumb;
                 if (compoundFormat.includes('image')) {
                     compoundIcon = compoundLink;
@@ -82,11 +103,11 @@
                     `
                 }
 
-                // capture index for previous and next modal items
+                /* capture index for previous and next modal items */
                 var itemPrev = i === 0 ? compoundObject.length : i;
                 var itemNext = i + 1 === compoundObject.length ? 1 : i + 2;
 
-                // set up item display and download links
+                /* create item display and download links */
                 var itemDisplay, itemDownload;
                 if (compoundFormat.includes('image')) {
                     itemDisplay = '<div class="spotlight gallery-img mt-4" data-src="' + compoundLink + '"><img class="img-fluid" src="' + compoundLink + '" alt="part ' + partOrder + ' of ' + objectTitle + '"></div>'
@@ -109,12 +130,12 @@
                     itemDisplay = '<video controls class="w-100 mt-4"><source src="' + compoundLink + '">Your browser does not support the video element.</audio>';
                     itemDownload = '<a href="' + compoundLink + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Video File</a>';
                 } else {
-                    // fall back to no preview if it doesn't know the format
+                    /* fall back to no preview if it doesn't know the format */
                     itemDisplay = '<img class="w-50" src="{{ "/assets/lib/icons/file-earmark.svg" | relative_url }}" alt="No preview found">';
                     itemDownload = '<a href="' + compoundLink + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Object</a>';
                 }
 
-                // create modal
+                /* create compound object modal */
                 var itemModal = `
                     <div class="modal fade" id="${compoundObject[i].id}Modal" tabindex="-1" role="dialog" aria-labelledby="${compoundObject[i].id}ModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document" style="max-width: 90% !important;">
@@ -155,7 +176,9 @@
                                         </div>
 
                                         <div class="col-md-4">
-
+                                            <div class="metadata">
+                                                ${generateMetadata(compoundObject[i])}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -164,7 +187,7 @@
                     </div>
                 `
 
-                // return the card
+                /* return the compound object card */
                 itemImage += `
                     <div class="col">
                         <div class="card h-100">
@@ -182,16 +205,14 @@
                     </div>
                 `
 
-                // compoundTitle ? itemImage += '<p class="pt-2">' + compoundTitle + '<hr></p></div>' : itemImage += '</div>'
-
-                // add download dropdown
+                /* add item download dropdown */
                 itemLink += '<a class="dropdown-item" target="_blank" rel="noopener" href="' + compoundLink + '">Part ' + partOrder + ' of ' + objectTitle + '</a>';
             }
             itemImage += '</div>'
             itemLink += '</div></div>';
         };
 
-        // add items to page; generate compound objects if applicable
+        /* add items to page; generate compound objects if applicable */
         if (format.includes('image')) {
             if (compoundObject) {
                 //'<div class="spotlight gallery-img" data-download="true" data-src="' + objectLink + '"><img class="img-fluid" src="' + objectLink + '" alt="' + objectTitle + '"></div>';
@@ -250,23 +271,7 @@
         // ?
 
         /* add item metadata */
-        var fields = '<dl>';
-        {% for f in fields %}{% if f.browse_link == "true" %}
-        if (record[{{ f.field | jsonify }}]) {
-            var topics = record[{{ f.field | jsonify }}].split(';');
-            var browseLinks = "";
-            for (var i = 0, len = topics.length; i < len; i++) {
-                if (topics[i] != "") {
-                    browseLinks += '<a class="btn btn-link" href="{{ '/browse.html' | relative_url }}#' + encodeURIComponent(topics[i].trim()) + '">' + topics[i].trim() + '</a> ';
-                }
-            }
-            fields += '<dt class="field">{{ f.display_name }}:</dt> <dd class="field-value">' + browseLinks + '</dd>';
-        }
-        {%- else -%}
-        if (record[{{ f.field | jsonify }}]) { fields += '<dt class="field">{{ f.display_name }}:</dt> <dd class="field-value">{% if f.external_link == "true" %}<a href="' + record[{{ f.field | jsonify }}] + '" target="_blank" rel="noopener">' + record[{{ f.field | jsonify }}] + '</a>{% else %}' + record[{{ f.field | jsonify }}] + '{% endif %}</dd>'; }
-        {% endif %}{% endfor %}
-        fields += '</dl>';
-        document.getElementById("item-metadata").innerHTML = fields;
+        document.getElementById("item-metadata").innerHTML = generateMetadata(record);
 
         {% if site.data.theme.browse-buttons == true %}
         /* add prev/next nav */
