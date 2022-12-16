@@ -35,11 +35,34 @@
         var format = "" + record.format;
         var objectLink = record.filename;
         var itemImage, itemLink;
-        /* get icons for compound cards */
-        var pdfIcon = 'icon-pdf';
-        var audioIcon = 'icon-audio';
-        var videoIcon = 'icon-video';
-        var defaultIcon = 'icon-default';
+
+        /* function to add item display */
+        var itemDisplay, itemDownload;
+        function addItem(item) {
+            if (item.format.includes('image')) {
+                itemDisplay = '<div class="spotlight gallery-img" data-download="true" data-src="' + item.filename + '"><img class="img-fluid" src="' + item.filename + '" alt="' + item.title + '"><p><small>Click to view full screen</small></p></div>';
+                itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Image</a>';
+            } else if (item.format.includes('pdf')) {
+                itemDisplay = '<object aria-label="' + item.title + '" data="' + item.filename + '" type="application/pdf" width="100%" height="450px"><p>The PDF is not rendering in your browser. Please use the button below to download the PDF.</p></object>';
+                itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download PDF</a>';
+            } else if (item.format.includes('audio')) {
+                itemDisplay = '<audio controls class="w-100"><source src="' + item.filename + '">Your browser does not support the audio element.</audio>';
+                itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Audio File</a>';
+            } else if (item.youtube) {
+                itemDisplay = '<div class="ratio ratio-16x9"><iframe title="' + item.title + '" src="https://www.youtube-nocookie.com/embed/' + item.youtube + '?rel=0&modestbranding=1" allowfullscreen></iframe></div>';
+                itemDownload = '<a href="https://youtu.be/' + item.youtube + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">View on YouTube</a>';
+            } else if (item.vimeo) {
+                itemDisplay = '<div class="ratio ratio-16x9"><iframe title="' + item.title + '"src="https://player.vimeo.com/video/' + item.vimeo + '" allowfullscreen></iframe></div>';
+                itemDownload = '<a href="https://vimeo.com/' + item.vimeo + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">View on Vimeo</a>';
+            } else if (item.format.includes('video')) {
+                itemDisplay = '<video controls class="w-100"><source src="' + item.filename + '">Your browser does not support the video element.</audio>';
+                itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Video File</a>';
+            } else {
+                /* fall back to no preview if it doesn't know the format */
+                itemDisplay = '<img class="w-50" src="{{ "/assets/lib/icons/file-earmark.svg" | relative_url }}" alt="No preview found">';
+                itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Object</a>';
+            }
+        };
 
         /* function to add item metadata */
         function generateMetadata(item) {
@@ -56,7 +79,7 @@
                 fields += '<dt class="field">{{ f.display_name }}:</dt> <dd class="field-value">' + browseLinks + '</dd>';
             }
             {%- else -%}
-            if (item[{{ f.field | jsonify }}]) { fields += '<dt class="field">{{ f.display_name }}:</dt> <dd class="field-value">{% if f.external_link == "true" %}<a href="' + i[{{ f.field | jsonify }}] + '" target="_blank" rel="noopener">' + item[{{ f.field | jsonify }}] + '</a>{% else %}' + item[{{ f.field | jsonify }}] + '{% endif %}</dd>'; }
+            if (item[{{ f.field | jsonify }}]) { fields += '<dt class="field">{{ f.display_name }}:</dt> <dd class="field-value">{% if f.external_link == "true" %}<a href="' + item[{{ f.field | jsonify }}] + '" target="_blank" rel="noopener">' + item[{{ f.field | jsonify }}] + '</a>{% else %}' + item[{{ f.field | jsonify }}] + '{% endif %}</dd>'; }
             {% endif %}{% endfor %}
             fields += '</dl>';
             return fields;
@@ -68,7 +91,7 @@
             itemImage= '<div class="row row-cols-2 row-cols-lg-4 g-2">';
             itemLink= '<div class="dropdown d-inline"><button class="btn btn-dark dropdown-toggle" type="button" title="Object download" id="compoundButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Download Items</button> <div class="dropdown-menu" aria-labelledby="compoundButton">';
 
-            /* generate a modal and compound card for each item in compound object */
+            /* generate a modal and card for each item in compound object */
             for (let i = 0; i < compoundObject.length; i++) {
                 var compoundLink = compoundObject[i].filename;
                 var compoundFormat = compoundObject[i].format;
@@ -78,18 +101,18 @@
                 /* account for items without title */
                 var itemTitle = typeof compoundTitle !== 'undefined' ? `<a id="${compoundObject[i].id}" onclick="window.location.hash='${compoundObject[i].id}'" type="button" class="small mb-2 text-dark" data-bs-toggle="modal" data-bs-target="#${compoundObject[i].id}Modal">${compoundTitle.split(" ").splice(0,4).join(" ")}...</a><br>` : '';
 
-                /* get thumb for compound card */
+                /* get thumb for card */
                 var compoundIcon, compoundThumb;
                 if (compoundFormat.includes('image')) {
                     compoundIcon = compoundLink;
                 } else if (compoundFormat.includes('pdf')) {
-                    compoundIcon = pdfIcon;
+                    compoundIcon = 'icon-pdf';
                 } else if (compoundFormat.includes('audio')) {
-                    compoundIcon = audioIcon;
+                    compoundIcon = 'icon-audio';
                 } else if (compoundFormat.includes('video')) {
-                    compoundIcon = videoIcon;
+                    compoundIcon = 'icon-video';
                 } else {
-                    compoundIcon = defaultIcon;
+                    compoundIcon = 'icon-default';
                 }
 
                 if (compoundFormat.includes('image')) {
@@ -107,33 +130,8 @@
                 var itemPrev = i === 0 ? compoundObject.length : i;
                 var itemNext = i + 1 === compoundObject.length ? 1 : i + 2;
 
-                /* create item display and download links */
-                var itemDisplay, itemDownload;
-                if (compoundFormat.includes('image')) {
-                    itemDisplay = '<div class="spotlight gallery-img mt-4" data-src="' + compoundLink + '"><img class="img-fluid" src="' + compoundLink + '" alt="part ' + partOrder + ' of ' + objectTitle + '"></div>'
-                    itemDownload = '<a href="' + compoundLink + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Image</a>';
-                } else if (compoundFormat.includes('pdf')) {
-                    itemDisplay = '<object aria-label="' + compoundTitle + '" data="' + compoundLink + '" type="application/pdf" width="100%" height="450px" class="mt-4"><p>The PDF is not rendering in your browser. Please use the button below to download the PDF.</p></object>';
-                    itemDownload = '<a href="' + compoundLink + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download PDF</a>';
-                } else if (compoundFormat.includes('audio')) {
-                    itemDisplay = '<audio controls class="w-100 mt-4"><source src="' + compoundLink + '">Your browser does not support the audio element.</audio>';
-                    itemDownload = '<a href="' + compoundLink + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Audio File</a>';
-                } else if (compoundObject[i].youtube) {
-                    itemDisplay = '<div class="ratio ratio-16x9 mt-4"><iframe title="part ' + partOrder + ' of ' + objectTitle + '" src="https://www.youtube-nocookie.com/embed/' + compoundObject[i].youtube + '?rel=0&modestbranding=1" allowfullscreen></iframe></div>';
-                    compoundLink = 'https://youtu.be/' + compoundObject[i].youtube;
-                    itemDownload = '<a href="https://youtu.be/' + record.youtube + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">View on YouTube</a>';
-                } else if (compoundObject[i].vimeo) {
-                    itemDisplay = '<div class="ratio ratio-16x9 mt-4"><iframe title="part ' + partOrder + ' of ' + objectTitle + '"src="https://player.vimeo.com/video/' + compoundObject[i].vimeo + '" allowfullscreen></iframe></div>';
-                    compoundLink = 'https://vimeo.com/' + compoundObject[i].vimeo;
-                    itemDownload = '<a href="https://vimeo.com/' + record.vimeo + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">View on Vimeo</a>';
-                } else if (compoundFormat.includes('video')) {
-                    itemDisplay = '<video controls class="w-100 mt-4"><source src="' + compoundLink + '">Your browser does not support the video element.</audio>';
-                    itemDownload = '<a href="' + compoundLink + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Video File</a>';
-                } else {
-                    /* fall back to no preview if it doesn't know the format */
-                    itemDisplay = '<img class="w-50" src="{{ "/assets/lib/icons/file-earmark.svg" | relative_url }}" alt="No preview found">';
-                    itemDownload = '<a href="' + compoundLink + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Object</a>';
-                }
+                /* create item display and item link */
+                addItem(compoundObject[i]);
 
                 /* create compound object modal */
                 var itemModal = `
