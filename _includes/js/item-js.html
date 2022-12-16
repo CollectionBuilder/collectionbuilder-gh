@@ -36,7 +36,7 @@
         var objectLink = record.filename;
         var itemImage, itemLink;
 
-        /* function to add item display */
+        /* function to add item to page */
         var itemDisplay, itemDownload;
         function addItem(item) {
             if (item.format.includes('image')) {
@@ -62,6 +62,7 @@
                 itemDisplay = '<img class="w-50" src="{{ "/assets/lib/icons/file-earmark.svg" | relative_url }}" alt="No preview found">';
                 itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Object</a>';
             }
+            if (item === record) { itemImage = itemDisplay; itemLink = itemDownload; }
         };
 
         /* function to add item metadata */
@@ -130,7 +131,7 @@
                 var itemPrev = i === 0 ? compoundObject.length : i;
                 var itemNext = i + 1 === compoundObject.length ? 1 : i + 2;
 
-                /* create item display and item link */
+                /* create item display and item download link */
                 addItem(compoundObject[i]);
 
                 /* create compound object modal */
@@ -211,34 +212,7 @@
         };
 
         /* add items to page; generate compound objects if applicable */
-        if (format.includes('image')) {
-            if (compoundObject) {
-                //'<div class="spotlight gallery-img" data-download="true" data-src="' + objectLink + '"><img class="img-fluid" src="' + objectLink + '" alt="' + objectTitle + '"></div>';
-                compoundItems();
-            } else {
-                itemImage= '<div class="spotlight gallery-img" data-download="true" data-src="' + objectLink + '"><img class="img-fluid" src="' + objectLink + '" alt="' + objectTitle + '"><p><small>Click to view full screen</small></p></div>';
-                itemLink= '<a href="' + objectLink + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Image</a>';
-            }
-        } else if (format.includes('pdf')) {
-            itemImage= '<object aria-label="' + objectTitle + '" data="' + objectLink + '" type="application/pdf" width="100%" height="450px"><p>The PDF is not rendering in your browser. Please use the button below to download the PDF.</p></object>';
-            compoundObject ? compoundItems() : itemLink= '<a href="' + objectLink + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download PDF</a>';
-        } else if (format.includes('audio')) {
-            itemImage= '<audio controls class="w-100"><source src="' + objectLink + '">Your browser does not support the audio element.</audio>';
-            compoundObject ? compoundItems() : itemLink= '<a href="' + objectLink + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Audio File</a>';
-        } else if (record.youtube) {
-            itemImage= '<div class="ratio ratio-16x9"><iframe title="' + objectTitle + '" src="https://www.youtube-nocookie.com/embed/' + record.youtube + '?rel=0&modestbranding=1" allowfullscreen></iframe></div>';
-            compoundObject ? compoundItems() : itemLink= '<a href="https://youtu.be/' + record.youtube + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">View on YouTube</a>';
-        } else if (record.vimeo) {
-            itemImage= '<div class="ratio ratio-16x9"><iframe title="' + objectTitle + '"src="https://player.vimeo.com/video/' + record.vimeo + '" allowfullscreen></iframe></div>';
-            compoundObject ? compoundItems() : itemLink= '<a href="https://vimeo.com/' + record.vimeo + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">View on Vimeo</a>';
-        } else if (format.includes('video')) {
-            itemImage= '<video controls class="w-100"><source src="' + objectLink + '">Your browser does not support the video element.</audio>';
-            compoundObject ? compoundItems() : itemLink= '<a href="' + objectLink + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Video File</a>';
-        } else {
-            /* fall back to no preview if it doesn't know the format */
-            itemImage= '<img class="w-50" src="{{ "/assets/lib/icons/file-earmark.svg" | relative_url }}" alt="No preview found">';
-            compoundObject ? compoundItems() : itemLink= '<a href="' + objectLink + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Object</a>';
-        }
+        compoundObject ? compoundItems() : addItem(record);
 
         {% if stubs contains "timeline" %}
         /* add link to view on timeline */
