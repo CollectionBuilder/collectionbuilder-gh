@@ -1,0 +1,9 @@
+<script>
+    window.addEventListener('load', function () {
+        if (window.location.hash) {
+            /* if url has a hash, it is split by comma into coordinates that set the view */
+            var hashmodal = decodeURIComponent(location.hash.substr(1));
+            document.getElementById(hashmodal).click();
+        }
+    });
+</script>
