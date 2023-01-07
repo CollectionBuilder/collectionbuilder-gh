@@ -1,9 +1,15 @@
 {%- assign cloud-fields = include.fields | split: ";" -%}
 
+{% if site.data.theme.browse-child-objects == false %}
+{%- assign items = site.data[site.metadata] | where_exp: 'item','item.parentid == nil and item.objectid != nil' -%}
+{% else %}
+{%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' -%}
+{% endif %}
+
 {% comment %} Capture all cloud terms {% endcomment %} 
 {%- assign raw-terms = "" -%}
 {%- for c in cloud-fields -%}
-{% assign new = site.data[site.metadata] | map: c | compact | join: ";" %}
+{% assign new = items | map: c | compact | join: ";" %}
 {% assign raw-terms = raw-terms | append: ";" | append: new %}
 {%- endfor -%}
 {%- assign raw-terms = raw-terms | downcase | split: ";" -%}
