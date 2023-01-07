@@ -68,8 +68,8 @@ metadata-facets-fields: "subject,creator,format"
 # Ignore this section if you are not including any compound objects
 # Note, like other items, child objects will only appear in visualizations if they have the correct metadata (lat long for map; date for timeline)
 # select true below if you'd like your compound object's child objects to appear in any of the pages or features listed
-map-child-objects: true # true / false - if true, and if child item has latitude and longitude, child objects will be displayed on map
-timeline-child-objects: true # true / false - if true, and if child object has date, child objects will appear as thumbnails on timeline page
+map-child-objects: false # true / false - if true, and if child item has latitude and longitude, child objects will be displayed on map
+timeline-child-objects: false # true / false - if true, and if child object has date, child objects will appear as thumbnails on timeline page
 data-child-objects: false # true / false - if true, child objects will appear linked in table on data page
 carousel-child-objects: false # true / false - if true, child objects will appear on homepage carousel
 browse-child-objects: false # true / false - if true, child objects will appear on browse page and child objects' metadata will populate cloud pages like Subjects page and Locations page, as well as featured terms boxes on the home page

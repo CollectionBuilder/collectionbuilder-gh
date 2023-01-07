@@ -100,13 +100,25 @@
                 } else {
                     itemYear = item.date;
                 }
-                itemLink += '<a href="{{ "/timeline.html" | relative_url }}#y' + itemYear + '" class="m-2 btn btn-outline-dark">View on Timeline</a>';
+                var timelineButton = '<a href="{{ "/timeline.html" | relative_url }}#y' + itemYear + '" class="m-2 btn btn-outline-dark">View on Timeline</a>';
+                /* add timeline link to children only if specified in theme.yml */
+                {% if site.data.timeline-child-objects == true %}
+                    itemLink += timelineButton;
+                {% else %}
+                    if (item === record) { itemLink += timelineButton; }
+                {% endif %}
             }
             {%- endif -%}
             {% if stubs contains "map" %}
             /* add link to view on map */
+            var mapButton = '<a href="{{ '/map.html' | relative_url }}#' + item.latitude + ',' + item.longitude + '" class="m-2 btn btn-outline-dark">View on Map</a>';
             if (item.latitude && item.longitude) {
-                itemLink += '<a href="{{ '/map.html' | relative_url }}#' + item.latitude + ',' + item.longitude + '" class="m-2 btn btn-outline-dark">View on Map</a>';
+                /* add map link to children only if specified in theme.yml */
+                {% if site.data.theme.map-child-objects == true %}
+                    itemLink += mapButton;
+                {% else %}
+                    if (item === record) { itemLink += mapButton; }
+                {% endif %}
             }
             {%- endif -%}
         };

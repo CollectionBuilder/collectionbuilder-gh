@@ -1,7 +1,9 @@
 {%- if site.data.theme.icons -%}{% assign icons = site.data.theme.icons %}{% else %}
 {% assign cb_icons = site.pages | where: "name","cb-icons.svg" | first %}
 {% assign icons = cb_icons.icons %}{%- endif -%}
-{%- assign items = site.data[site.metadata] | where_exp: 'item', 'item.objectid != nil' | where_exp: 'item','item.latitude' -%}
+{% if site.data.theme.map-child-objects == false %}{%- assign items = site.data[site.metadata] | where_exp: 'item','item.parentid == nil and item.objectid != nil' -%}{% else %}
+{%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' -%}{% endif %}
+{%- assign items = items | where_exp: 'item', 'item.objectid != nil' | where_exp: 'item','item.latitude' -%}
 {%- assign fields = site.data.config-map -%}
 <!-- load leaflet dependencies -->
 <script src="{{ '/assets/lib/leaflet/leaflet.js' | relative_url }}"></script>
@@ -18,7 +20,7 @@
     { "type":"Feature", "geometry":{ "type":"Point", "coordinates":[{{ item.longitude | strip }},{{ item.latitude | strip }}] }, "properties":
     { "title": {{ item.title | jsonify }}, 
     {% for f in fields %}{{ f.field | jsonify }}: {{ item[f.field] | jsonify }},{% endfor %}{% if item.youtubeid %} "youtube": {{ item.youtubeid | jsonify }}, {% endif %}
-    "format": {{ item.format | jsonify }}, {% if  item.filename contains '/' %}"filename": "{{ item.filename }}" {% else %}"filename":{{ '/objects/' | relative_url | append: item.filename | jsonify }}{% endif %}, "id": {{ item.objectid | jsonify }} } }{% unless forloop.last %}, {% endunless %}{% endfor %}
+    "format": {{ item.format | jsonify }}, {% if  item.filename contains '/' %}"filename": "{{ item.filename }}" {% else %}"filename":{{ '/objects/' | relative_url | append: item.filename | jsonify }}{% endif %}, "link": "{% if item.parentid %}{{ item.parentid }}#{{ item.objectid }}{% else %}{{ item.objectid }}{% endif %}", "id": {{ item.objectid | jsonify }} } }{% unless forloop.last %}, {% endunless %}{% endfor %}
     ]};
 
     /* init map and set zoom */
@@ -81,7 +83,7 @@
         /* bind feature for search */
         feature.layer = layer;{% endif %}
         /* calculate item link */
-        var itemHref = '{{ "/item.html?id=" | relative_url }}' + feature.properties.id;
+        var itemHref = '{{ "/item.html?id=" | relative_url }}' + feature.properties.link;
         /* find object thumb based on format */
         var thumbSrc;
         if (feature.properties.youtube) {
