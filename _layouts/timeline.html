@@ -59,6 +59,7 @@ custom-foot: js/timeline-js.html
                                 {% elsif item.format contains 'video' %}
                                 {{ '/assets/lib/icons/' | relative_url }}{{ icons.icon-video }}.svg
                                 {% elsif item.format contains 'pdf' %}{{ '/assets/lib/icons/' | relative_url }}{{ icons.icon-pdf }}.svg
+                                {% elsif item.format contains 'compound' %}{{ '/assets/lib/icons/' | relative_url }}{{ icons.icon-compound-object }}.svg
                                 {% else %}{{ '/assets/lib/icons/' | relative_url }}{{ icons.icon-default }}.svg
                                 {%- endif -%}" alt="filetype thumbnail">
                             </div>
