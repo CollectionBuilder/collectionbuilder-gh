@@ -97,7 +97,9 @@
         } else if (feature.properties.format && feature.properties.format.includes("pdf")) {
             thumbSrc = '{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-pdf }}.svg';
         } else if (feature.properties.format && feature.properties.format.includes("compound")) {
-            thumbSrc = '{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-compound-object }}.svg';        
+            thumbSrc = '{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-compound-object }}.svg';  
+        } else if (feature.properties.format && feature.properties.format.includes("multiple")) {
+            thumbSrc = '{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-multiple }}.svg';        
         } else {
             thumbSrc = '{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-default }}.svg';
         }    

@@ -16,7 +16,7 @@
         {{ p | jsonify }}: [
         {%- assign children = site.data[site.metadata] | where: 'parentid', p -%}
         {%- for c in children -%}
-        { "id": {{ c.objectid | jsonify }}, {% if c.title %}{% unless fields contains 'title' %}"title": {{ c.title | jsonify }}, {% endunless %}{% endif %}{% for f in fields %}{% if c[f.field] %}{{ f.field | jsonify }}: {{ c[f.field] | jsonify }}, {% endif %}{% endfor %}{% if  c.filename contains '/' %}"filename": "{{ c.filename }}" {% else %}"filename":{{ '/objects/' | relative_url | append: c.filename | jsonify }}{% endif %}, {% if c.youtubeid %}"youtube": {{ c.youtubeid | jsonify }}, {% endif %}{% if c.vimeoid %} "vimeo": {{ c.vimeoid }}, {% endif %}"format": {{ c.format | jsonify }} }
+        { "id": {{ c.objectid | jsonify }}, {% if c.title %}{% unless fields contains 'title' %}"title": {{ c.title | jsonify }}, {% endunless %}{% endif %}{% for f in fields %}{% if c[f.field] %}{{ f.field | jsonify }}: {{ c[f.field] | jsonify }}, {% endif %}{% endfor %}{% if c.filename contains '/' %}"filename": "{{ c.filename }}" {% else %}"filename":{{ '/objects/' | relative_url | append: c.filename | jsonify }}{% endif %}, {% if c.youtubeid %}"youtube": {{ c.youtubeid | jsonify }}, {% endif %}{% if c.vimeoid %} "vimeo": {{ c.vimeoid }}, {% endif %}"format": {{ c.format | jsonify }} }
         {%- unless forloop.last -%}, {%- endunless -%}{%- endfor -%}]{%- unless forloop.last -%}, {%- endunless -%}{%- endfor -%}
     };
 
@@ -40,7 +40,8 @@
         var itemDisplay, itemDownload;
         function addItem(item) {
             if (item.format.includes('image')) {
-                itemDisplay = '<div class="spotlight gallery-img" data-download="true" data-src="' + item.filename + '"><img class="img-fluid" src="' + item.filename + '" alt="' + item.title + '"><p class="text-center"><small>Click to view full screen</small></p></div>';
+                itemDisplay = '<div class="spotlight gallery-img" data-download="true" data-src="' + item.filename + '"><img class="img-fluid" src="' + item.filename + '" alt="' + item.title + '">';
+                itemDisplay += record.format.includes('multiple') ? '</div>' : '<p class="text-center"><small>Click to view full screen</small></p></div>';
                 itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Image</a>';
             } else if (item.format.includes('pdf')) {
                 itemDisplay = '<object aria-label="' + item.title + '" data="' + item.filename + '" type="application/pdf" width="100%" height="450px"><p>The PDF is not rendering in your browser. Please use the button below to download the PDF.</p></object>';
@@ -88,7 +89,7 @@
 
         /* function to add download, timeline, and map links */
         function addButtons(item) {
-            itemLink = item.format.includes('compound_object') ? compoundDownload : itemDownload;
+            itemLink = item.format.includes('compound_object') || item.format.includes('multiple') ? compoundDownload : itemDownload;
             {% if stubs contains "timeline" %}
             /* add link to view on timeline */
             if (item.date) {
@@ -126,8 +127,8 @@
         /* create compound object cards */
         function compoundItems() {
             var objectCount = Object.keys(compoundObject).length;
-            itemImage= '<div class="row row-cols-2 row-cols-lg-4 g-2">';
-            compoundDownload= '<div class="dropdown d-inline"><button class="btn btn-dark dropdown-toggle" type="button" title="Object download" id="compoundButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Download Items</button> <div class="dropdown-menu" aria-labelledby="compoundButton">';
+            itemImage = format.includes('compound_object') ? '<div class="row row-cols-2 row-cols-lg-4 g-2">' : "";
+            compoundDownload = '<div class="dropdown d-inline"><button class="btn btn-dark dropdown-toggle" type="button" title="Object download" id="compoundButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Download Items</button> <div class="dropdown-menu" aria-labelledby="compoundButton">';
 
             /* generate a modal and card for each item in compound object */
             for (let i = 0; i < compoundObject.length; i++) {
@@ -174,80 +175,96 @@
                 /* create timeline button and map button */
                 addButtons(compoundObject[i]);
 
-                /* create compound object modal */
-                var itemModal = `
-                    <div class="modal fade" id="${compoundObject[i].id}Modal" tabindex="-1" role="dialog" aria-labelledby="${compoundObject[i].id}ModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document" style="max-width: 90% !important;">
-                            <div class="modal-content">
+                /* function to add item download link to dropdown */
+                function addDownloadLink() {
+                    compoundDownload += `<a class="dropdown-item" target="_blank" rel="noopener" href="${compoundLink}">${compoundTitle ? compoundTitle.split(" ").splice(0,3).join(" ") + '... (' + compoundFormat + ')' : 'Part ' + partOrder + ' of ' + objectTitle}</a>`;
+                };
 
-                                <div class="w-100 text-right mb-0">
-                                    <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
+                if (format.includes('multiple')) {
+                    /* add full size item to page */
+                    itemImage += `
+                        <div id="${compoundObject[i].id}">
+                            ${itemDisplay + `<p class="text-secondary text-center"><small>${compoundTitle ? compoundTitle : 'Part ' + partOrder + ' of ' + objectTitle}</small></p>`}
+                        </div>
+                    `
+                    /* add item download link to dropdown */
+                    addDownloadLink();
+                } else if (format.includes('compound_object')) {
+                    /* create compound object modal */
+                    var itemModal = `
+                        <div class="modal fade" id="${compoundObject[i].id}Modal" tabindex="-1" role="dialog" aria-labelledby="${compoundObject[i].id}ModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document" style="max-width: 90% !important;">
+                                <div class="modal-content">
 
-                                <div class="modal-header">
-                                    <div class="modal-title w-100" id="${compoundObject[i].id}ModalLabel">
+                                    <div class="w-100 text-right mb-0">
+                                        <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+
+                                    <div class="modal-header">
+                                        <div class="modal-title w-100" id="${compoundObject[i].id}ModalLabel">
+                                            <div class="row">
+                                                <div class="col-1 col-md-2 text-right">
+                                                    <button onclick="document.getElementById('item-${itemPrev}').click();window.location.hash='item-${itemPrev}'" class="btn btn-outline-dark btn-sm">{% include feature/icon.html icon="arrow-left" label="Left arrow" %} <span class="d-none d-md-inline">Previous Item</span></button>
+                                                </div>
+                                                <div class="col-9 col-md-8 text-center">
+                                                    <h5>${compoundTitle ? compoundTitle + '<span class="d-none d-md-inline"> -</span>' : ''} <span class="d-md-none"><br></span> Item ${partOrder} of ${compoundObject.length}</h5>
+                                                </div>
+                                                <div class="col-1 col-md-2 text-left">
+                                                    <button onclick="document.getElementById('item-${itemNext}').click();window.location.hash='item-${itemNext}'" class="ms-md-5 btn btn-outline-dark btn-sm"><span class="d-none d-md-inline">Next Item</span> {% include feature/icon.html icon="arrow-right" label="Right arrow" %}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-body">
                                         <div class="row">
-                                            <div class="col-1 col-md-2 text-right">
-                                                <button onclick="document.getElementById('item-${itemPrev}').click();window.location.hash='item-${itemPrev}'" class="btn btn-outline-dark btn-sm">{% include feature/icon.html icon="arrow-left" label="Left arrow" %} <span class="d-none d-md-inline">Previous Item</span></button>
-                                            </div>
-                                            <div class="col-9 col-md-8 text-center">
-                                                <h5>${compoundTitle ? compoundTitle + '<span class="d-none d-md-inline"> -</span>' : ''} <span class="d-md-none"><br></span> Item ${partOrder} of ${compoundObject.length}</h5>
-                                            </div>
-                                            <div class="col-1 col-md-2 text-left">
-                                                <button onclick="document.getElementById('item-${itemNext}').click();window.location.hash='item-${itemNext}'" class="ms-md-5 btn btn-outline-dark btn-sm"><span class="d-none d-md-inline">Next Item</span> {% include feature/icon.html icon="arrow-right" label="Right arrow" %}</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                            <div class="col-md-8">
+                                                <div class="card mb-4 text-center">
+                                                    <div class="m-2">
+                                                        <p>${itemDisplay}</p>
+                                                    </div>
 
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <div class="card mb-4 text-center">
-                                                <div class="m-2">
-                                                    <p>${itemDisplay}</p>
-                                                </div>
-
-                                                <div class="my-2">
-                                                    ${itemLink}
+                                                    <div class="my-2">
+                                                        ${itemLink}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div class="col-md-4">
-                                            <div class="metadata">
-                                                ${generateMetadata(compoundObject[i])}
+                                            <div class="col-md-4">
+                                                <div class="metadata">
+                                                    ${generateMetadata(compoundObject[i])}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                `
+                    `
 
-                /* return the compound object card */
-                itemImage += `
-                    <div class="col">
-                        <div class="card h-100">
-                            <div class="my-auto">
-                                <div class="p-2 text-center">
-                                    ${itemTitle}
-                                    ${compoundThumb}
+                    /* return the compound object card */
+                    itemImage += `
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="my-auto">
+                                    <div class="p-2 text-center">
+                                        ${itemTitle}
+                                        ${compoundThumb}
+                                    </div>
+                                    <p class="text-center mb-5">
+                                        <a id="item-${i+1}" onclick="window.location.hash='${compoundObject[i].id}'" type="button" class="btn btn-sm btn-outline-secondary small stretched-link" data-bs-toggle="modal" data-bs-target="#${compoundObject[i].id}Modal">${compoundFormat.toUpperCase()} + Info</a>
+                                    </p>
+                                    ${itemModal}
                                 </div>
-                                <p class="text-center mb-5">
-                                    <a id="item-${i+1}" onclick="window.location.hash='${compoundObject[i].id}'" type="button" class="btn btn-sm btn-outline-secondary small stretched-link" data-bs-toggle="modal" data-bs-target="#${compoundObject[i].id}Modal">${compoundFormat.toUpperCase()} + Info</a>
-                                </p>
-                                ${itemModal}
                             </div>
                         </div>
-                    </div>
-                `
+                    `
 
-                /* add item download dropdown */
-                compoundDownload += `<a class="dropdown-item" target="_blank" rel="noopener" href="${compoundLink}">${compoundTitle ? compoundTitle.split(" ").splice(0,3).join(" ") + '... (' + compoundFormat + ')' : 'Part ' + partOrder + ' of ' + objectTitle}</a>`;
+                    /* add item download link to dropdown */
+                    addDownloadLink();
+                }
             }
-            itemImage += '</div>'
+            if (format.includes('compound_object')) { itemImage += '</div>'; }
             compoundDownload += '</div></div>';
         };
 
