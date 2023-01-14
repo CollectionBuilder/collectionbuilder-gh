@@ -37,7 +37,7 @@
     {% endif %}
 {%- else -%}
     {%- assign item = site.data[site.metadata] | where: "objectid", include.objectid | first -%}
-    {% capture video_caption %}{% if include.caption %}{{ include.caption }}{% else %}<a href="{{ '/item.html?id=' | append: item.objectid | relative_url }}">{{ item.title }}</a>{% endif %}{% endcapture %}
+    {% capture video_caption %}{% if include.caption %}{{ include.caption }}{% else %}<a href="{% if item.parentid %}{{ item.objectid | prepend: '#' | prepend: item.parentid | prepend: '/item.html?id=' | relative_url }}{% else %}{{ item.objectid | prepend: '/item.html?id=' | relative_url }}{% endif %}">{{ item.title }}</a>{% endif %}{% endcapture %}
     {% if item.vimeoid %}
     {% assign vimeo_id = item.vimeoid %}
     {% capture video_src %}https://player.vimeo.com/video/{{ vimeo_id }}{% endcapture %}

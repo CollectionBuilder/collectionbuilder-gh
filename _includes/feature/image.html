@@ -33,7 +33,7 @@
         {%- capture image_link -%}{{ links[forloop.index0] | default: image_src }}{%- endcapture -%}
     {% else %}
         {%- assign figure = site.data[site.metadata] | where: "objectid", i | first -%}
-        {%- capture image_link -%}{{ '/item.html' | relative_url | append: '?id=' | append: figure.objectid }}{% endcapture %}
+        {%- capture image_link -%}{% if figure.parentid %}{{ figure.objectid | prepend: '#' | prepend: figure.parentid | prepend: '/item.html?id=' | relative_url }}{% else %}{{ figure.objectid | prepend: '/item.html?id=' | relative_url }}{% endif %}{% endcapture %}
         {%- capture image_caption -%}{{ captions[forloop.index0] | default: figure.title }}{%- endcapture -%}
         {%- capture image_alt -%}{{ alts[forloop.index0] | default: figure.title }}{%- endcapture -%}
         {%- capture image_src -%}{% if figure.youtubeid %}{{ 'https://img.youtube.com/vi/' | append: figure.youtubeid | append: '/hqdefault.jpg' }}{% elsif figure.filename contains '/' %}{{ figure.filename | relative_url }}{% else %}{{ '/objects/' | append: figure.filename | relative_url }}{% endif %}{% endcapture %}
