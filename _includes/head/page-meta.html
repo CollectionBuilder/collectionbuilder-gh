@@ -1,9 +1,9 @@
 <meta name="description" content="{{ site.description | escape }}">
-{% if site.author %}<meta name="author" content="{{ site.author | escape }}" >{% endif %}
+{% if site.author or site.organization-name %}<meta name="author" content="{% if site.author %}{{ site.author | escape }}; {% endif %}{{ site.organization-name | escape }}" >{% endif %}
 <!-- DC meta --> 
 <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
 <meta name="DCTERMS.title" content="{{ page.title | escape }}, {{ site.title | escape }}" xml:lang="en" />
-{% if site.author %}<meta name="DCTERMS.creator" content="{{ site.author | escape }}" xml:lang="en" />{% endif %}
+{% if site.author or site.organization-name %}<meta name="DCTERMS.creator" content="{{ site.author | default: site.organization-name | escape }}" xml:lang="en" />{% endif %}
 {% if site.organization-name %}<meta name="DCTERMS.publisher" content="{{ site.organization-name | escape }}" xml:lang="en" />{% endif %}
 <meta name="DCTERMS.date" content="{{ site.time | date: '%Y' }}" xml:lang="en" />
 <meta name="DCTERMS.description" content="{{ site.description | escape }}" xml:lang="en" />
