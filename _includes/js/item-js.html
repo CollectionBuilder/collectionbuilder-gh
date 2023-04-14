@@ -44,7 +44,7 @@
                 itemDisplay += record.format.includes('multiple') ? '</div>' : '<p class="text-center"><small>Click to view full screen</small></p></div>';
                 itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Image</a>';
             } else if (item.format.includes('pdf')) {
-                itemDisplay = '<object aria-label="' + item.title + '" data="' + item.filename + '" type="application/pdf" width="100%" height="450px"><p>The PDF is not rendering in your browser. Please use the button below to download the PDF.</p></object>';
+                itemDisplay = '<object title="PDF file of ' + item.title + '" data="' + item.filename + '" type="application/pdf" width="100%" height="450px"><p>The PDF is not rendering in your browser. Please use the button below to download the PDF.</p></object>';
                 itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download PDF</a>';
             } else if (item.format.includes('audio')) {
                 itemDisplay = '<audio controls class="w-100"><source src="' + item.filename + '">Your browser does not support the audio element.</audio>';
@@ -155,14 +155,13 @@
                 }
 
                 if (compoundFormat.includes('image')) {
-                    compoundThumb = `<img class="img-thumbnail w-50" src="${compoundIcon}" alt="image of ${compoundTitle ? compoundTitle : objectTitle + ', part ' + partOrder}">`
+                    compoundThumb = `<img class="img-thumbnail w-50" src="${compoundIcon}" alt="image of ${compoundTitle ? compoundTitle : objectTitle + ', part ' + partOrder}">`;
                 } else {
                     compoundThumb = `
                         <svg class="bi compound-thumb text-body" fill="currentColor" aria-hidden="true">
                             <use xlink:href="{{ '/assets/lib/cb-icons.svg' | relative_url }}#${compoundIcon}" />
                         </svg>
-                        <span class="sr-only d-none">${compoundTitle ? compoundTitle : 'Part ' + partOrder + ' of ' + objectTitle} - ${compoundFormat}</span>
-                    `
+                        <span class="sr-only d-none">${compoundTitle ? compoundTitle : 'Part ' + partOrder + ' of ' + objectTitle} - ${compoundFormat}</span>`;
                 }
 
                 /* capture index for previous and next modal items */
@@ -185,8 +184,7 @@
                     itemImage += `
                         <div id="${compoundObject[i].id}">
                             ${itemDisplay + `<p class="text-secondary text-center"><small>${compoundTitle ? compoundTitle : 'Part ' + partOrder + ' of ' + objectTitle}</small></p>`}
-                        </div>
-                    `
+                        </div>`;
                     /* add item download link to dropdown */
                     addDownloadLink();
                 } else if (format.includes('compound_object')) {
@@ -240,7 +238,7 @@
                                 </div>
                             </div>
                         </div>
-                    `
+                    `;
 
                     /* return the compound object card */
                     itemImage += `
@@ -258,7 +256,7 @@
                                 </div>
                             </div>
                         </div>
-                    `
+                    `;
 
                     /* add item download link to dropdown */
                     addDownloadLink();
