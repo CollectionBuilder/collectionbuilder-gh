@@ -19,13 +19,14 @@
 <link rel="stylesheet" href="{% if site.data.theme.bootswatch %}https://cdn.jsdelivr.net/npm/bootswatch@5.1.3/dist/{{ site.data.theme.bootswatch }}/bootstrap.min.css{% else %}{{ '/assets/lib/bootstrap.min.css' | relative_url }}{% endif %}" type="text/css">
 {% if page.layout == 'data' %}<link rel="stylesheet" type="text/css" href="{{ '/assets/lib/datatables/datatables.min.css' | relative_url }}">{% endif %}
 {% if page.layout == 'map' %}<link rel="stylesheet" href="{{ '/assets/lib/leaflet/leaflet.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/lib/leaflet/leaflet.fullscreen.css' | relative_url }}">
 {% if site.data.theme.map-search == true %}<link rel="stylesheet" href="{{ '/assets/lib/leaflet/leaflet.fusesearch.css' | relative_url }}">{% endif %}
 {% if site.data.theme.map-cluster == true %}<link rel="stylesheet" href="{{ '/assets/lib/leaflet/MarkerCluster.css' | relative_url }}">
 <link rel="stylesheet" href="{{ '/assets/lib/leaflet/MarkerCluster.Default.css' | relative_url }}">{% endif %}{% endif %}
 {% if layout.gallery == true or page.gallery == true %}<link rel="preload" href="{{ '/assets/lib/spotlight.bundle.js' | relative_url }}" as="script">{% endif %}
 
 <!-- load custom css last to allow overrides -->
-<link rel="stylesheet" href="{{ '/assets/css/custom.css' | relative_url }}" type="text/css">
+<link rel="stylesheet" href="{{ '/assets/css/cb.css' | relative_url }}" type="text/css">
 
 {% comment %} 
     Meta tags and analytics are adding during production build ONLY.

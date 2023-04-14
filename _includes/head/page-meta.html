@@ -1,7 +1,15 @@
 <meta name="description" content="{{ site.description | escape }}">
-{% if site.author %}<meta name="author" content="{{ site.author | escape }}" >{% endif %}
+{% if site.author or site.organization-name %}<meta name="author" content="{% if site.author %}{{ site.author | escape }}; {% endif %}{{ site.organization-name | escape }}" >{% endif %}
+<!-- DC meta --> 
+<link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+<meta name="DCTERMS.title" content="{{ page.title | escape }}, {{ site.title | escape }}" xml:lang="en" />
+{% if site.author or site.organization-name %}<meta name="DCTERMS.creator" content="{{ site.author | default: site.organization-name | escape }}" xml:lang="en" />{% endif %}
+{% if site.organization-name %}<meta name="DCTERMS.publisher" content="{{ site.organization-name | escape }}" xml:lang="en" />{% endif %}
+<meta name="DCTERMS.date" content="{{ site.time | date: '%Y' }}" xml:lang="en" />
+<meta name="DCTERMS.description" content="{{ site.description | escape }}" xml:lang="en" />
+
 <!-- Open Graph meta -->
-<meta property="og:title" content="{% if page.title %}{{ page.title | escape }} | {% endif %}{{ site.title | escape }}" />
+<meta property="og:title" content="{% if page.title %}{{ page.title | escape }}, {% endif %}{{ site.title | escape }}" />
 <meta property="og:description" content="{{ site.description | escape }}" />
 <meta property="og:site_name" content="{{ site.title | escape }}" />
 <meta property="og:type" content="website" />
@@ -10,4 +18,4 @@
 <meta property="og:url" content="{{ page.url | absolute_url }}" />
 <meta property="og:locale" content="en_US" />
 <!-- schema.org JSON-LD -->
-<script type="application/ld+json">{"@context":"http://schema.org","@type":"WebPage","headline":"{% if page.title %}{{ page.title | escape }} | {% endif %}{{ site.title | escape }}","publisher":"{{ site.author | escape }}","description":{{ site.description | jsonify }},"image":"{% include image/featured-image.html %}","url":"{{ page.url | absolute_url }}"}</script> 
+<script type="application/ld+json">{"@context":"http://schema.org","@type":"WebPage","headline":"{% if page.title %}{{ page.title | escape }}, {% endif %}{{ site.title | escape }}","publisher":"{{ site.organization-name | default: site.author | escape }}","description":{{ site.description | jsonify }},"image":"{% include image/featured-image.html %}","url":"{{ page.url | absolute_url }}"}</script> 
