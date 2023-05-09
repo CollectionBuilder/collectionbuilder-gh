@@ -30,7 +30,7 @@
         var objectTitle = record.title;
         document.getElementById("bc-title").innerHTML = objectTitle;
         document.getElementById("item-format").innerHTML = compoundObject ? record.format.replace("_", " ").toUpperCase() + ' (' + compoundObject.length + ' Items)' : record.format.replace("_", " ").toUpperCase();
-        document.getElementById("item-title").innerHTML = objectTitle;
+        document.getElementById("item-title").innerHTML = objectTitle + '<a href="#item-metadata" class="ms-5 btn btn-sm btn-outline-dark small">Item Info {% include feature/icon.html icon="arrow-down" label="Down arrow" %}</a>';
         /* add object */ 
         var format = "" + record.format;
         var objectLink = record.filename;
@@ -138,7 +138,7 @@
                 var partOrder = i + 1;
 
                 /* account for items without title */
-                var itemTitle = typeof compoundTitle !== 'undefined' ? `<a id="${compoundObject[i].id}" onclick="window.location.hash='${compoundObject[i].id}'" type="button" class="small mb-2 text-dark" data-bs-toggle="modal" data-bs-target="#${compoundObject[i].id}Modal">${compoundTitle.split(" ").splice(0,4).join(" ")}...</a><br>` : '';
+                var itemTitle = typeof compoundTitle !== 'undefined' ? `<div class="small text-dark mb-2">${compoundTitle.split(" ").splice(0,4).join(" ")}...</div>` : '';
 
                 /* get thumb for card */
                 var compoundIcon, compoundThumb;
@@ -155,18 +155,18 @@
                 }
 
                 if (compoundFormat.includes('image')) {
-                    compoundThumb = `<img class="img-thumbnail w-50" src="${compoundIcon}" alt="image of ${compoundTitle ? compoundTitle : objectTitle + ', part ' + partOrder}">`;
+                    compoundThumb = `<img class="img-thumbnail compound-thumb" src="${compoundIcon}" alt="image of ${compoundTitle ? compoundTitle : objectTitle + ', part ' + partOrder}">`;
                 } else {
                     compoundThumb = `
-                        <svg class="bi compound-thumb text-body" fill="currentColor" aria-hidden="true">
+                        <svg class="bi text-body compound-thumb" fill="currentColor" aria-hidden="true">
                             <use xlink:href="{{ '/assets/lib/cb-icons.svg' | relative_url }}#${compoundIcon}" />
                         </svg>
                         <span class="sr-only d-none">${compoundTitle ? compoundTitle : 'Part ' + partOrder + ' of ' + objectTitle} - ${compoundFormat}</span>`;
                 }
 
                 /* capture index for previous and next modal items */
-                var itemPrev = i === 0 ? compoundObject.length : i;
-                var itemNext = i + 1 === compoundObject.length ? 1 : i + 2;
+                var itemPrev = i === 0 ? compoundObject[compoundObject.length - 1].id : compoundObject[i - 1].id;
+                var itemNext = i + 1 === compoundObject.length ? compoundObject[0].id : compoundObject[i + 1].id;
 
                 /* create item display and item download link */
                 addItem(compoundObject[i]);
@@ -190,25 +190,37 @@
                 } else if (format.includes('compound_object')) {
                     /* create compound object modal */
                     var itemModal = `
-                        <div class="modal fade" id="${compoundObject[i].id}Modal" tabindex="-1" role="dialog" aria-labelledby="${compoundObject[i].id}ModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document" style="max-width: 90% !important;">
-                                <div class="modal-content">
-
-                                    <div class="w-100 text-right mb-0">
-                                        <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
+                        <div class="modal fade" id="${compoundObject[i].id}" tabindex="-1" role="dialog" aria-labelledby="${compoundObject[i].id}ModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-xxl">
+                                <div class="modal-content text-start">
 
                                     <div class="modal-header">
                                         <div class="modal-title w-100" id="${compoundObject[i].id}ModalLabel">
                                             <div class="row">
-                                                <div class="col-1 col-md-2 text-right">
-                                                    <button onclick="document.getElementById('item-${itemPrev}').click();window.location.hash='item-${itemPrev}'" class="btn btn-outline-dark btn-sm">{% include feature/icon.html icon="arrow-left" label="Left arrow" %} <span class="d-none d-md-inline">Previous Item</span></button>
+                                                <div class="col-12 text-end">
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="history.pushState('', '', window.location.href.replace(/#.*$/, ''))"></button>
+                                                </div>
+                                                <div class="col-1 col-md-2">
+                                                    <button data-bs-target="#${itemPrev}" data-bs-toggle="modal" onclick="window.location.hash='${itemPrev}'" class="btn btn-outline-dark btn-sm prev-child-button" >
+                                                        <svg class="bi icon-sprite" role="img" aria-label="Previous Item">
+                                                            <use xlink:href="{{ '/assets/lib/cb-icons.svg' | relative_url }}#arrow-left"/>
+                                                        </svg>
+                                                        <span class="d-none d-md-inline">Previous Item</span>
+                                                    </button>
                                                 </div>
                                                 <div class="col-9 col-md-8 text-center">
-                                                    <h5>${compoundTitle ? compoundTitle + '<span class="d-none d-md-inline"> -</span>' : ''} <span class="d-md-none"><br></span> Item ${partOrder} of ${compoundObject.length}</h5>
+                                                    <h3 class="h5">${objectTitle}
+                                                        <span class="d-none d-md-inline">-</span><span class="d-md-none"><br></span>
+                                                        Item ${partOrder} of ${compoundObject.length}
+                                                    </h3>
                                                 </div>
-                                                <div class="col-1 col-md-2 text-left">
-                                                    <button onclick="document.getElementById('item-${itemNext}').click();window.location.hash='item-${itemNext}'" class="ms-md-5 btn btn-outline-dark btn-sm"><span class="d-none d-md-inline">Next Item</span> {% include feature/icon.html icon="arrow-right" label="Right arrow" %}</button>
+                                                <div class="col-1 col-md-2 text-end">
+                                                    <button data-bs-target="#${itemNext}" data-bs-toggle="modal" onclick="window.location.hash='${itemNext}'" class="btn btn-outline-dark btn-sm next-child-button">
+                                                        <span class="d-none d-md-inline">Next Item</span>
+                                                        <svg class="bi icon-sprite" role="img" aria-label="Next Item">
+                                                            <use xlink:href="{{ '/assets/lib/cb-icons.svg' | relative_url }}#arrow-right"/>
+                                                        </svg>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -245,14 +257,23 @@
                         <div class="col">
                             <div class="card h-100">
                                 <div class="my-auto">
-                                    <div class="p-2 text-center">
+                                    <div class="card-body text-center" id="${compoundObject[i].id}Card">
                                         ${itemTitle}
-                                        ${compoundThumb}
+                                        <div class="mb-2">
+                                            ${compoundThumb}
+                                        </div>
+                                        
+                                        <a id="item-${i+1}"
+                                            role="button"
+                                            data-bs-toggle="modal"
+                                            href="#${compoundObject[i].id}"
+                                            onclick="window.location.hash='${compoundObject[i].id}'"
+                                            class="btn btn-sm btn-outline-secondary small stretched-link">
+                                            ${compoundFormat.toUpperCase()} <svg class="bi icon-sprite text-body" fill="currentColor" aria-hidden="true"><use xlink:href="{{ '/assets/lib/cb-icons.svg' | relative_url }}#${compoundFormat.includes('image') ? 'icon-image' : compoundIcon}"/></svg>
+                                        </a>
+
+                                        ${itemModal}
                                     </div>
-                                    <p class="text-center mb-5">
-                                        <a id="item-${i+1}" onclick="window.location.hash='${compoundObject[i].id}'" type="button" class="btn btn-sm btn-outline-secondary small stretched-link" data-bs-toggle="modal" data-bs-target="#${compoundObject[i].id}Modal">${compoundFormat.toUpperCase()} + Info</a>
-                                    </p>
-                                    ${itemModal}
                                 </div>
                             </div>
                         </div>
@@ -307,17 +328,77 @@
         document.getElementById("prev-button").href = backUrl;
         document.getElementById("for-button").href = forwardUrl;
 
-        /* add back forward key press */
-        document.onkeydown = function(evt) {
-        evt = evt || window.event;
-        switch (evt.keyCode) {
-            case 37:
-            location.href = backUrl;
-                break;
-            case 39:
-            location.href = forwardUrl;
-                break;
-        }};
+        /* add back forward key functionality for modal arrows */
+        function leftModalArrowPressed() {
+            /* Get the modal element. */
+            var modalshow = document.querySelector(".modal.show");
+            /* If the modal exists, get the prev button element. */
+            if (modalshow) {
+                const prevButton = modalshow.querySelector(".prev-child-button");
+                /* If the prev button exists, click it. */
+                if (prevButton) {
+                    prevButton.click();
+                }
+            }
+        };
+
+        function rightModalArrowPressed() {
+            /* Get the modal element. */
+            var modalshow = document.querySelector(".modal.show");
+            /* If the modal exists, get the prev button element. */
+            if (modalshow) {
+                const nextButton = modalshow.querySelector(".next-child-button");
+                /* If the prev button exists, click it. */
+                if (nextButton) {
+                    nextButton.click();
+                }
+            }
+        };
+
+        function isModalShown() {
+            /* Get the modal element. */
+            const modal = document.querySelector(".modal.show");
+            /* Check if the modal has the "show" class. */
+            return modal && modal.classList.contains("show");
+        };
+
+        function isSpotlightModalShown() {
+            /* Get the modal element. */
+            const spotlight = document.getElementById("spotlight");
+            /* Check if the modal has the "show" class. */
+            return spotlight && spotlight.classList.contains("show");
+        }
+
+        document.onkeydown = function (evt) {
+            if (isSpotlightModalShown()) {
+
+            } else if (isModalShown()) {
+                /* The modal is shown. */
+                /* add back forward key press to modal */
+                evt = evt || window.event;
+                switch (evt.keyCode) {
+                    case 37:
+                    leftModalArrowPressed();
+                        break;
+                    case 39:
+                    rightModalArrowPressed();
+                        break;
+                }
+            }
+            else {
+                /* The modal is not shown. */
+                /* add back forward key press to page */
+                evt = evt || window.event;
+                switch (evt.keyCode) {
+                    case 37:
+                    location.href = backUrl;
+                        break;
+                    case 39:
+                    location.href = forwardUrl;
+                        break;
+                }
+            }
+        };
         {%- endif -%}
         
     } else {
