@@ -42,29 +42,29 @@
             if (item.format.includes('image')) {
                 itemDisplay = '<a class="spotlight gallery-img" data-download="true" href="' + item.filename + '"><img class="img-fluid" src="' + item.filename + '" alt="' + item.title + '">';
                 itemDisplay += record.format.includes('multiple') ? '</a>' : '<div><small class="text-dark">Click to view full screen</small></div></a>';
-                itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Image</a>';
+                itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download Image</a>';
             } else if (item.format.includes('pdf')) {
                 itemDisplay = '<div class="ratio ratio-4x3"><object title="PDF file of ' + item.title + '" data="' + item.filename + '" type="application/pdf" width="100%"><p>The PDF is not rendering in your browser. Please use the button below to download the PDF.</p></object></div>';
-                itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download PDF</a>';
+                itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download PDF</a>';
             } else if (item.format.includes('audio')) {
                 itemDisplay = '<audio controls class="w-100"><source src="' + item.filename + '">Your browser does not support the audio element.</audio>';
-                itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Audio File</a>';
+                itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download Audio File</a>';
             } else if (item.youtube) {
                 itemDisplay = '<div class="ratio ratio-16x9"><iframe title="video embed ' + item.title + '" src="https://www.youtube-nocookie.com/embed/' + item.youtube + '?rel=0&modestbranding=1" allowfullscreen></iframe></div>';
-                itemDownload = '<a href="https://youtu.be/' + item.youtube + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">View on YouTube</a>';
+                itemDownload = '<a href="https://youtu.be/' + item.youtube + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">View on YouTube</a>';
             } else if (item.vimeo) {
                 itemDisplay = '<div class="ratio ratio-16x9"><iframe title="video embed ' + item.title + '"src="https://player.vimeo.com/video/' + item.vimeo + '" allowfullscreen></iframe></div>';
-                itemDownload = '<a href="https://vimeo.com/' + item.vimeo + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">View on Vimeo</a>';
+                itemDownload = '<a href="https://vimeo.com/' + item.vimeo + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">View on Vimeo</a>';
             } else if (item.format.includes('video')) {
                 itemDisplay = '<video controls class="w-100"><source src="' + item.filename + '">Your browser does not support the video element.</audio>';
-                itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Video File</a>';
+                itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download Video File</a>';
             } else if (item.format.includes('record')) {
                 itemDisplay = '';
-                itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Object</a>';
+                itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download Object</a>';
             } else {
                 /* fall back to no preview if it doesn't know the format */
                 itemDisplay = '<img class="w-50" src="{{ "/assets/lib/icons/file-earmark.svg" | relative_url }}" alt="No preview found">';
-                itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="m-2 btn btn-dark" title="Object download">Download Object</a>';
+                itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download Object</a>';
             }
             if (item === record) { itemImage = itemDisplay; }
         };
@@ -92,7 +92,8 @@
 
         /* function to add download, timeline, and map links */
         function addButtons(item) {
-            itemLink = item.format.includes('compound_object') || item.format.includes('multiple') ? compoundDownload : itemDownload;
+            //itemLink = item.format.includes('compound_object') || item.format.includes('multiple') ? compoundDownload : itemDownload;
+            itemLink = '<div class="btn-group" role="group" aria-label="Item options">'
             {% if stubs contains "timeline" %}
             /* add link to view on timeline */
             if (item.date) {
@@ -104,9 +105,9 @@
                 } else {
                     itemYear = item.date;
                 }
-                var timelineButton = '<a href="{{ "/timeline.html" | relative_url }}#y' + itemYear + '" class="m-2 btn btn-outline-dark">View on Timeline</a>';
+                var timelineButton = '<a href="{{ "/timeline.html" | relative_url }}#y' + itemYear + '" class="btn btn-outline-primary">View on Timeline</a>';
                 /* add timeline link to children only if specified in theme.yml */
-                {% if site.data.timeline-child-objects == true %}
+                {% if site.data.theme.timeline-child-objects == true %}
                     itemLink += timelineButton;
                 {% else %}
                     if (item === record) { itemLink += timelineButton; }
@@ -115,7 +116,7 @@
             {%- endif -%}
             {% if stubs contains "map" %}
             /* add link to view on map */
-            var mapButton = '<a href="{{ '/map.html' | relative_url }}#' + item.latitude + ',' + item.longitude + '" class="m-2 btn btn-outline-dark">View on Map</a>';
+            var mapButton = '<a href="{{ '/map.html' | relative_url }}#' + item.latitude + ',' + item.longitude + '" class="btn btn-outline-primary">View on Map</a>';
             if (item.latitude && item.longitude) {
                 /* add map link to children only if specified in theme.yml */
                 {% if site.data.theme.map-child-objects == true %}
@@ -125,13 +126,15 @@
                 {% endif %}
             }
             {%- endif -%}
+            itemLink += item.format.includes('compound_object') || item.format.includes('multiple') ? compoundDownload : itemDownload;
+            itemLink += '</div>'
         };
 
         /* create compound object cards */
         function compoundItems() {
             var objectCount = Object.keys(compoundObject).length;
             itemImage = format.includes('compound_object') ? '<div class="row row-cols-2 row-cols-lg-4 g-2">' : "";
-            compoundDownload = '<div class="dropdown d-inline"><button class="btn btn-dark dropdown-toggle" type="button" title="Object download" id="compoundButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Download Items</button> <div class="dropdown-menu" aria-labelledby="compoundButton">';
+            compoundDownload = '<div class="btn-group" role="group"><button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Download</button> <ul class="dropdown-menu">';
 
             /* generate a modal and card for each item in compound object */
             for (let i = 0; i < compoundObject.length; i++) {
@@ -179,13 +182,13 @@
 
                 /* function to add item download link to dropdown */
                 function addDownloadLink() {
-                    compoundDownload += `<a class="dropdown-item" target="_blank" rel="noopener" href="${compoundLink}">${compoundTitle ? compoundTitle.split(" ").splice(0,3).join(" ") + '... (' + compoundFormat + ')' : 'Part ' + partOrder + ' of ' + objectTitle}</a>`;
+                    compoundDownload += `<li><a class="dropdown-item" target="_blank" rel="noopener" href="${compoundLink}">${compoundTitle ? compoundTitle.split(" ").splice(0,3).join(" ") + '... (' + compoundFormat + ')' : 'Item ' + partOrder + ' (' + compoundFormat + ')'}</a></li>`;
                 };
 
                 if (format.includes('multiple')) {
                     /* add full size item to page */
                     itemImage += `
-                        <div id="${compoundObject[i].id}" mb-4>
+                        <div id="${compoundObject[i].id}" class="mb-4">
                             ${itemDisplay}
                             ${compoundTitle ? `<div><small class="text-dark">${compoundTitle}</small></div>` : ''}
                         </div>`;
@@ -288,7 +291,7 @@
                 }
             }
             if (format.includes('compound_object')) { itemImage += '</div>'; }
-            compoundDownload += '</div></div>';
+            compoundDownload += '</ul></div></div>';
         };
 
         /* add items to page; generate compound objects if applicable */
