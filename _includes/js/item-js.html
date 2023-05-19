@@ -29,7 +29,18 @@
         /* add item title */
         var objectTitle = record.title;
         document.getElementById("bc-title").innerHTML = objectTitle;
-        document.getElementById("item-format").innerHTML = compoundObject ? record.format.replace("_", " ").toUpperCase() + ' (' + compoundObject.length + ' Items)' : record.format.replace("_", " ").toUpperCase();
+        /* get item format for item title */
+        var itemFormat;
+        if (compoundObject) {
+            itemFormat = record.format.replace("_", " ").toUpperCase() + ' (' + compoundObject.length + ' Items)';
+        } else if (record.format.includes("pdf")) {
+            itemFormat = "PDF";
+        } else if (record.format.includes("/")) {
+            itemFormat = record.format.split("/")[0].toUpperCase();
+        } else {
+            itemFormat = record.format.replace("_", " ").toUpperCase();
+        }
+        document.getElementById("item-format").innerHTML = itemFormat
         document.getElementById("item-title").innerHTML = record.format.includes('record') ? objectTitle : objectTitle + '<a href="#item-metadata" class="ms-5 btn btn-sm btn-outline-dark small">Item Info {% include feature/icon.html icon="arrow-down" label="Down arrow" %}</a>';
         /* add object */ 
         var format = "" + record.format;
@@ -42,13 +53,13 @@
             if (item.format.includes('image')) {
                 itemDisplay = '<a class="spotlight gallery-img" data-download="true" href="' + item.filename + '"><img class="img-fluid" src="' + item.filename + '" alt="' + item.title + '">';
                 itemDisplay += record.format.includes('multiple') ? '</a>' : '<div><small class="text-dark">Click to view full screen</small></div></a>';
-                itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download Image</a>';
+                itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download ' + item.format.split("/").pop().toUpperCase() + '</a>';
             } else if (item.format.includes('pdf')) {
                 itemDisplay = '<div class="ratio ratio-4x3"><object title="PDF file of ' + item.title + '" data="' + item.filename + '" type="application/pdf" width="100%"><p>The PDF is not rendering in your browser. Please use the button below to download the PDF.</p></object></div>';
                 itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download PDF</a>';
             } else if (item.format.includes('audio')) {
                 itemDisplay = '<audio controls class="w-100"><source src="' + item.filename + '">Your browser does not support the audio element.</audio>';
-                itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download Audio File</a>';
+                itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download ' + item.format.split("/").pop().toUpperCase() + '</a>';
             } else if (item.youtube) {
                 itemDisplay = '<div class="ratio ratio-16x9"><iframe title="video embed ' + item.title + '" src="https://www.youtube-nocookie.com/embed/' + item.youtube + '?rel=0&modestbranding=1" allowfullscreen></iframe></div>';
                 itemDownload = '<a href="https://youtu.be/' + item.youtube + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">View on YouTube</a>';
@@ -57,10 +68,10 @@
                 itemDownload = '<a href="https://vimeo.com/' + item.vimeo + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">View on Vimeo</a>';
             } else if (item.format.includes('video')) {
                 itemDisplay = '<video controls class="w-100"><source src="' + item.filename + '">Your browser does not support the video element.</audio>';
-                itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download Video File</a>';
+                itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download ' + item.format.split("/").pop().toUpperCase() + '</a>';
             } else if (item.format.includes('record')) {
                 itemDisplay = '';
-                itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download Object</a>';
+                itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Link to Object</a>';
             } else {
                 /* fall back to no preview if it doesn't know the format */
                 itemDisplay = '<img class="w-50" src="{{ "/assets/lib/icons/file-earmark.svg" | relative_url }}" alt="No preview found">';
@@ -276,7 +287,7 @@
                                             href="#${compoundObject[i].id}"
                                             onclick="window.location.hash='${compoundObject[i].id}'"
                                             class="btn btn-sm btn-outline-secondary small stretched-link">
-                                            ${compoundFormat.toUpperCase()} <svg class="bi icon-sprite text-body" fill="currentColor" aria-hidden="true"><use xlink:href="{{ '/assets/lib/cb-icons.svg' | relative_url }}#${compoundFormat.includes('image') ? 'icon-image' : compoundIcon}"/></svg>
+                                            ${compoundFormat.includes("image") ? compoundFormat.split("/")[0].toUpperCase() : compoundFormat.split("/").pop().toUpperCase()} <svg class="bi icon-sprite text-body" fill="currentColor" aria-hidden="true"><use xlink:href="{{ '/assets/lib/cb-icons.svg' | relative_url }}#${compoundFormat.includes('image') ? 'icon-image' : compoundIcon}"/></svg>
                                         </a>
 
                                         ${itemModal}
