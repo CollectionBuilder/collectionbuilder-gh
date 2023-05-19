@@ -73,13 +73,17 @@ function makeCard(obj) {
     // media type
     if(obj.format != "") {
         card += '<p class="card-text"><small><a class="btn btn-sm btn-outline-secondary" href="{{ '/browse.html' | relative_url }}#' + encodeURIComponent(obj.format) + '">' + 
-        obj.format.split("/").pop().toUpperCase() + ' <svg class="bi icon-sprite"><use xlink:href="{{ "/assets/lib/cb-icons.svg" | relative_url }}#';
+        obj.format.split("/").pop().replace("_", " ").toUpperCase() + ' <svg class="bi icon-sprite"><use xlink:href="{{ "/assets/lib/cb-icons.svg" | relative_url }}#';
         if(obj.format.includes('image')){
             card += 'icon-image';
         } else if(obj.format.includes('audio')){
             card += 'icon-audio';
         } else if(obj.format.includes('video')){
             card += 'icon-video';
+        } else if(obj.format.includes('multiple')){
+            card += 'icon-multiple';
+        } else if(obj.format.includes('compound')){
+            card += 'icon-compound-object';
         } else {
             card += 'icon-default';
         }
