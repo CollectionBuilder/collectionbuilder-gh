@@ -186,7 +186,8 @@
                     /* add full size item to page */
                     itemImage += `
                         <div id="${compoundObject[i].id}" mb-4>
-                            ${itemDisplay + `<div><small class="text-dark">${compoundTitle ? compoundTitle : 'Part ' + partOrder + ' of ' + objectTitle}</small></div>`}
+                            ${itemDisplay}
+                            ${compoundTitle ? `<div><small class="text-dark">${compoundTitle}</small></div>` : ''}
                         </div>`;
                     /* add item download link to dropdown */
                     addDownloadLink();
@@ -297,7 +298,7 @@
         addButtons(record);
 
         /* add content to item display area */
-        if (compoundObject) {
+        if (compoundObject && !record.format.includes('multiple')) {
             itemContent = `
                 <div class="mb-4">
                     ${itemImage}
