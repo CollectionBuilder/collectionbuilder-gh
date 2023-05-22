@@ -79,7 +79,25 @@
 
     {% if site.data.theme.map-cluster == true %}
     /* create cluster group */
-    var markers = L.markerClusterGroup({ maxClusterRadius: {{ site.data.theme.cluster-radius | default: 15 }}, singleMarkerMode: true {% if site.data.theme.map-search == true %}, removeOutsideVisibleBounds: false{% endif %} });{% endif %}
+    var markers = L.markerClusterGroup({ 
+        maxClusterRadius: {{ site.data.theme.map-cluster-radius | default: 15 }}, 
+        singleMarkerMode: true,
+        iconCreateFunction: function(cluster) {
+            /* custom icon function, tweak default to add more alt text */
+            var childCount = cluster.getChildCount();
+            var csize;
+            if (childCount < 10) {
+                csize = 'small';
+            } else if (childCount < 100) {
+                csize = 'medium';
+            } else {
+                csize = 'large';
+            }
+            var c = ' marker-cluster-' + csize;
+            return new L.DivIcon({ html: '<div><span class="visually-hidden">' + csize +' cluster of </span><span>' + childCount + '</span><span class="visually-hidden"> items</span></div>', className: 'marker-cluster' + c, iconSize: new L.Point(40, 40) });
+        }
+        {% if site.data.theme.map-search == true %}, removeOutsideVisibleBounds: false{% endif %} 
+    });{% endif %}
 
     /* function to create object popups */
     function objectPopups(feature, layer) {
