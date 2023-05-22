@@ -24,16 +24,14 @@
     "format": {{ item.format | jsonify }}, {% if  item.filename contains '/' %}"filename": "{{ item.filename }}" {% else %}"filename":{{ '/objects/' | relative_url | append: item.filename | jsonify }}{% endif %}, "link": "{% if item.parentid %}{{ item.parentid }}#{{ item.objectid }}{% else %}{{ item.objectid }}{% endif %}", "id": {{ item.objectid | jsonify }} } }{% unless forloop.last %}, {% endunless %}{% endfor %}
     ]};
 
-    /* init map and set zoom */
-    if (window.location.hash) {
-        /* if url has a hash, it is split by comma into coordinates that set the view */
-        var hashfilter = decodeURIComponent(location.hash.substr(1));
-        var latitudeHash = hashfilter.split(',')[0]
-        var longitudeHash = hashfilter.split(',')[1]
-        var map = L.map('map').setView([latitudeHash,longitudeHash],16);
-    } else {
-        var map = L.map('map').setView([{{ site.data.theme.latitude | default: 46.727485 }},{{ site.data.theme.longitude | default: -117.014185 }}],{{ site.data.theme.zoom-level | default: 5 }});
-    }
+    /* check for url parameters and set initial view options */ 
+    let url = new URL(window.location);
+    var mapCenter = url.searchParams.get('location') ? url.searchParams.get('location').split(',') : [{{ site.data.theme.latitude | default: 46.727485 }}, {{ site.data.theme.longitude | default: -117.014185 }}];
+    var mapZoom = url.searchParams.get('location') ? 16 : {{ site.data.theme.zoom-level | default: 5 }};
+    var markerFilter = url.searchParams.get('marker') ? url.searchParams.get('marker') : "";
+
+    /* init map, set center and zoom */
+    var map = L.map('map').setView(mapCenter, mapZoom);
 
     /* add map layer options */
     var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
@@ -164,6 +162,27 @@
         markers.enableClustering();
         document.querySelector('input.search-input').value = "";
     });{% endif %}
+
+    /* show popup if id in URL query */ 
+    if (markerFilter != "") {
+        {% if site.data.theme.map-cluster == true %}
+        markers.eachLayer(layer => {
+            if (layer.feature.properties.id === markerFilter) {
+                /* uncluster clusters, then show */ 
+                if (markers.getVisibleParent(layer)["_childCount"]) {
+                    markers.getVisibleParent(layer).spiderfy();
+                } 
+                layer.openPopup();
+            }
+        });
+        {% else %}
+        mapFeatures.eachLayer(layer => {
+            if (layer.feature.properties.id === markerFilter) {
+                layer.openPopup();
+            }
+        });
+        {% endif %}
+    }
 
 })();
 </script>

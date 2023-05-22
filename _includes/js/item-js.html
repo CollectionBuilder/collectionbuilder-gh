@@ -127,7 +127,8 @@
             {%- endif -%}
             {% if stubs contains "map" %}
             /* add link to view on map */
-            var mapButton = '<a href="{{ '/map.html' | relative_url }}#' + item.latitude + ',' + item.longitude + '" class="btn btn-outline-primary">View on Map</a>';
+            var itemMarker = item.id ? item.id : queryString;
+            var mapButton = '<a href="{{ '/map.html' | relative_url }}?location=' + item.latitude + ',' + item.longitude + '&marker=' + itemMarker +'" class="btn btn-outline-primary">View on Map</a>';
             if (item.latitude && item.longitude) {
                 /* add map link to children only if specified in theme.yml */
                 {% if site.data.theme.map-child-objects == true %}
