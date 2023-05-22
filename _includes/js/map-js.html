@@ -146,7 +146,7 @@
     }
 
     /* use geoJson features to add objects to map */
-    L.geoJson(geodata, {
+    var mapFeatures = L.geoJson(geodata, {
         onEachFeature: objectPopups,
         pointToLayer: objectMarkers
     }){% if site.data.theme.map-cluster != true %}.addTo(map);{% else %};
