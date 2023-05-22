@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="{% if site.data.theme.bootswatch %}https://cdn.jsdelivr.net/npm/bootswatch@5.1.3/dist/{{ site.data.theme.bootswatch }}/bootstrap.min.css{% else %}{{ '/assets/lib/bootstrap.min.css' | relative_url }}{% endif %}" type="text/css">
 {% if page.layout == 'data' %}<link rel="stylesheet" type="text/css" href="{{ '/assets/lib/datatables/datatables.min.css' | relative_url }}">{% endif %}
 {% if page.layout == 'map' %}<link rel="stylesheet" href="{{ '/assets/lib/leaflet/leaflet.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/lib/leaflet/leaflet.fullscreen.css' | relative_url }}">
 {% if site.data.theme.map-search == true %}<link rel="stylesheet" href="{{ '/assets/lib/leaflet/leaflet.fusesearch.css' | relative_url }}">{% endif %}
 {% if site.data.theme.map-cluster == true %}<link rel="stylesheet" href="{{ '/assets/lib/leaflet/MarkerCluster.css' | relative_url }}">
 <link rel="stylesheet" href="{{ '/assets/lib/leaflet/MarkerCluster.Default.css' | relative_url }}">{% endif %}{% endif %}
