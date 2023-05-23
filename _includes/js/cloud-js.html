@@ -1,9 +1,9 @@
 {%- assign cloud-fields = include.fields | split: ";" -%}
 
-{% if site.data.theme.browse-child-objects == false %}
-{%- assign items = site.data[site.metadata] | where_exp: 'item','item.parentid == nil and item.objectid != nil' -%}
-{% else %}
+{% if site.data.theme.browse-child-objects == true %}
 {%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' -%}
+{% else %}
+{%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid and item.parentid == nil' -%}
 {% endif %}
 
 {% comment %} Capture all cloud terms {% endcomment %} 

@@ -17,14 +17,14 @@
     
 {%- endcomment -%}
 
-{%- assign image-items = site.data[site.metadata ] | where_exp: 'item', 'item.objectid != nil' | where_exp: "item","item.format contains 'image'" -%}
-{%- assign youtube-items = site.data[site.metadata ] | where_exp: 'item', 'item.objectid != nil' | where_exp: "item","item.youtubeid" -%}
+{%- assign image-items = site.data[site.metadata ] | where_exp: 'item', 'item.objectid' | where_exp: "item","item.format contains 'image'" -%}
+{%- assign youtube-items = site.data[site.metadata ] | where_exp: 'item', 'item.objectid' | where_exp: "item","item.youtubeid" -%}
 {%- if youtube-items -%}{%- assign carousel-items = image-items | concat: youtube-items -%}{%- else -%}{%- assign carousel-items = image-items -%}{% endif %}
 
-{% if site.data.theme.carousel-child-objects == false %}
-{%- assign carousel-items = carousel-items | where_exp: 'item','item.parentid == nil' -%}
-{% else %}
+{% if site.data.theme.carousel-child-objects == true %}
 {%- assign carousel-items = carousel-items | where_exp: 'item','item.title != nil' -%}
+{% else %}
+{%- assign carousel-items = carousel-items | where_exp: 'item','item.parentid == nil' -%}
 {% endif %}
 
 {%- assign carousel-max = include.max | default: 9 -%}
