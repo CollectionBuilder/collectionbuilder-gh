@@ -1,6 +1,6 @@
 /*  base - slight modifications to override base Bootstrap
     these values are configurable using theme.yml > Theme Fonts area 
-    or by editing base variables in custom.scss
+    or by editing base variables in cb.scss
 */
 body {
     @if $base-font-family != "" { font-family: $base-font-family; }

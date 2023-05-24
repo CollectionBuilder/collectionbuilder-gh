@@ -69,7 +69,11 @@
 .tagcloud9{font-size:2.8em;}
 .tagcloud10{font-size:3.0em;}
 
+
 /* About */
+.about-nav {
+    z-index: 999;
+}
 /* creating a narrow text column */ 
 .about-contents > {
     h2 {

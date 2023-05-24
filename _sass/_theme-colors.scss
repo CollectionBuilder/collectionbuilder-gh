@@ -245,7 +245,7 @@ $_luminance-list: .0008 .001 .0011 .0013 .0015 .0017 .002 .0022 .0025 .0027 .003
 }
 
 /* 
-    each function to create all the buttons from the values passed by custom.scss
+    each function to create all the buttons from the values passed by cb.scss
 */
 @each $color, $value in $theme-colors {
     /* check if value is valid color to avoid errors */
