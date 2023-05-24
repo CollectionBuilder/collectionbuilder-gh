@@ -170,6 +170,8 @@
                     compoundIcon = 'icon-audio';
                 } else if (compoundFormat.includes('video')) {
                     compoundIcon = 'icon-video';
+                } else if (compoundFormat.includes('record')) {
+                    compoundIcon = 'icon-record';
                 } else {
                     compoundIcon = 'icon-default';
                 }
@@ -286,6 +288,7 @@
                                             ${compoundThumb}
                                         </div>
                                         
+                                        <!-- child object modal button -->
                                         <a id="item-${i+1}"
                                             role="button"
                                             data-bs-toggle="modal"
@@ -295,7 +298,9 @@
                                             ${compoundFormat.includes("image") ? compoundFormat.split("/")[0].toUpperCase() : compoundFormat.split("/").pop().toUpperCase()} <svg class="bi icon-sprite text-body" fill="currentColor" aria-hidden="true"><use xlink:href="{{ '/assets/lib/cb-icons.svg' | relative_url }}#${compoundFormat.includes('image') ? 'icon-image' : compoundIcon}"/></svg>
                                         </a>
 
+                                        <!-- child object modal -->
                                         ${itemModal}
+                                        <!-- end child modal -->
                                     </div>
                                 </div>
                             </div>
