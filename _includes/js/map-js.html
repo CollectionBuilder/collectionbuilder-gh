@@ -132,8 +132,8 @@
             thumbSrc = '{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-default }}.svg';
         }    
         /* create popup content */
-        var popupTemplate = '<h4><a class="text-dark" href="' + itemHref + '">' +
-            feature.properties.title + '</a></h4><div class="text-center"><a href="' + itemHref + 
+        var popupTemplate = '<h2><a class="text-dark h4" href="' + itemHref + '">' +
+            feature.properties.title + '</a></h2><div class="text-center"><a href="' + itemHref + 
             '" ><img class="mapthumb img-thumb" src="' +  thumbSrc + '" alt="item thumbnail"></a></div><p class="mt-1">';
         /* add metadata fields */
         {% for f in fields %}{% if f.display_name %}
