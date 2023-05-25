@@ -3,7 +3,9 @@
         if (window.location.hash) {
             /* if url has a hash, open the related item modal */
             var hashModal = decodeURIComponent(location.hash.substr(1));
-            document.querySelector('#' + hashModal + 'Card a').click();
+            if (document.querySelector('#' + hashModal + 'Card a')) {
+                document.querySelector('#' + hashModal + 'Card a').click();
+            }
         }
     });
-    </script>
+</script>
