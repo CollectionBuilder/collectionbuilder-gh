@@ -31,7 +31,12 @@
 {% comment %} 
     Liquid below cleans and counts unique terms 
 {% endcomment %}
-{% assign rawTerms = site.data[site.metadata] | map: termsField | join: ";" | split: ";" %}
+{% if site.data.theme.browse-child-objects == false %}
+{%- assign items = site.data[site.metadata] | where_exp: 'item','item.parentid == nil and item.objectid != nil' -%}
+{% else %}
+{%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' -%}
+{% endif %}
+{% assign rawTerms = items | map: termsField | join: ";" | split: ";" %}
 {% capture terms %}{% for t in rawTerms %}{% if t != "" and t != " " %}{{ t | strip | downcase }};{% endif %}{% endfor %}{% endcapture %}
 {% assign terms = terms | split: ";" %}
 {% assign uniqueTerms = terms | uniq | sort %}
