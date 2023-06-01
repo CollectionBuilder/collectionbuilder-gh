@@ -2,7 +2,7 @@
 # create lunr store for search page
 ---
 {% if site.data.theme.search-child-objects == false %}
-{%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid and item.parentid == nil' -%}
+{%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' | where_exp: 'item','item.parentid == nil' -%}
 {% else %}
 {%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' -%}
 {% endif %}
