@@ -22,13 +22,7 @@ This demo site features objects from the [University of Idaho Library's Digital 
 `collectionbuilder-gh` is intended as a simple template for hands-on teaching about digital libraries.
 
 {% capture how-to %}
-For detailed instructions on how to use CollectionBuilder-GH, check our <a href="https://collectionbuilder.github.io/cb-docs/">CB Docs site</a>.
-
-<!--
-For illustrated, step-by-step instructions on how to build your digital collection, see our: 
-
-<p class="text-center"><a class="btn btn-success my-2" href="{{ '/documentation/' | absolute_url }}">CollectionBuilder-GH How-To Guide</a></p>
--->
+For detailed instructions on how to use CollectionBuilder-GH, check our <a href="https://collectionbuilder.github.io/cb-docs/">CB Docs site</a> and <a href="https://collectionbuilder.github.io/cb-docs/docs/walkthroughs/gh-walkthrough/">CollectionBuilder-GH Walkthrough</a>.
 
 For those who really can't wait, below are six quick steps to get you started:
 
