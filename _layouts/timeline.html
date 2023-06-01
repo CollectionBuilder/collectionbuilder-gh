@@ -6,8 +6,12 @@ custom-foot: js/timeline-js.html
 {%- if site.data.theme.icons -%}{% assign icons = site.data.theme.icons %}{% else %}
 {% assign cb_icons = site.pages | where: "name","cb-icons.svg" | first %}
 {% assign icons = cb_icons.icons %}{%- endif -%}
-{%- assign items = site.data[site.metadata] -%}
-{%- assign raw-dates = site.data[site.metadata] | map: 'date' | compact | uniq -%}
+{% if site.data.theme.timeline-child-objects == false %}
+{%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid and item.parentid == nil' -%}
+{% else %}
+{%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' -%}
+{% endif %}
+{%- assign raw-dates = items | where_exp: 'item', 'item.objectid != nil' | map: 'date' | compact | uniq -%}
 {%- capture clean-years -%}{% for date in raw-dates %}{% if date contains "-" %}{{ date | strip | split: "-" | first }}{% elsif date contains "/" %}{{ date | strip | split: "/" | last }}{% else %}{{ date | strip }}{% endif %}{% unless forloop.last %};{% endunless %}{%- endfor -%}{%- endcapture -%}
 {%- assign uniqueYears = clean-years | remove: " " | split: ";" | uniq | sort -%}
 {%- if site.data.theme.year-navigation -%}
@@ -43,18 +47,20 @@ custom-foot: js/timeline-js.html
                 {%- assign inYear = items | where_exp: 'item', 'item.date contains year' -%}
                 {% for item in inYear %}
                 <div class="col-lg-4 col-md-6">
-                    <a href="{{ '/item.html' | relative_url | append: '?id=' | append: item.objectid }}" >
+                    <a href="{% if item.parentid == nil %}{{ '/item.html' | relative_url | append: '?id=' | append: item.objectid }}{% elsif item.parentid %}{{ '/item.html' | relative_url | append: '?id=' | append: item.parentid | relative_url }}#{{ item.objectid }}{% endif %}" >
                         {% if item.format contains 'image' or item.youtubeid %}
-                        <img class="lazyload img-thumbnail" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E" data-src="{% if item.youtubeid %}{{ 'https://img.youtube.com/vi/' | append: item.youtubeid | append: '/hqdefault.jpg' | relative_url }}{% elsif item.filename contains '/' %}{{ item.filename }}{% else %}{{ item.filename | prepend: '/objects/' | relative_url }}{% endif %}" alt="{{ item.title | escape }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ item.title | escape }} | {{ item.date | escape }}">
+                        <img class="lazyload img-thumbnail timeline-thumb" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E" data-src="{% if item.youtubeid %}{{ 'https://img.youtube.com/vi/' | append: item.youtubeid | append: '/hqdefault.jpg' | relative_url }}{% elsif item.filename contains '/' %}{{ item.filename }}{% else %}{{ item.filename | prepend: '/objects/' | relative_url }}{% endif %}" alt="{{ item.title | escape }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ item.title | escape }} | {{ item.date | escape }}">
                         {% else %}
                         <div class="card"> 
                             <div class="card-body text-center">
-                                <h4 class="card-title text-dark">{{ item.title }}</h4>
+                                <div class="h5 text-dark">{{ item.title }}</div>
                                 <img class="lazyload w-50" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E" data-src="{% if item.format contains 'audio' %}
                                 {{ '/assets/lib/icons/' | relative_url }}{{ icons.icon-audio }}.svg
                                 {% elsif item.format contains 'video' %}
                                 {{ '/assets/lib/icons/' | relative_url }}{{ icons.icon-video }}.svg
                                 {% elsif item.format contains 'pdf' %}{{ '/assets/lib/icons/' | relative_url }}{{ icons.icon-pdf }}.svg
+                                {% elsif item.format contains 'compound' %}{{ '/assets/lib/icons/' | relative_url }}{{ icons.icon-compound-object }}.svg
+                                {% elsif item.format contains 'multiple' %}{{ '/assets/lib/icons/' | relative_url }}{{ icons.icon-multiple }}.svg
                                 {% else %}{{ '/assets/lib/icons/' | relative_url }}{{ icons.icon-default }}.svg
                                 {%- endif -%}" alt="filetype thumbnail">
                             </div>

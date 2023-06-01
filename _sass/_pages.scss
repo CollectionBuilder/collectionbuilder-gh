@@ -24,6 +24,22 @@
     background-color: rgb(248, 249, 250);
     border-radius: 0.25rem;
 }
+.compound-thumb {
+    max-height: 110px;
+    max-width: 90%;
+}
+// compound object big modal class
+@media (min-width:576px){
+    .modal-xxl{ max-width:90%; } 
+}
+@media (min-width:992px){
+    .modal-xxl{ max-width:90%; } 
+}
+@media (min-width:1200px){ 
+    .modal-xxl{ max-width: 90%;  }
+}
+
+
 /* browse */
 
 /* map */
@@ -36,7 +52,10 @@
 }
 
 /* timeline */
-
+.timeline-thumb {
+    max-height: 250px;
+    max-width: 100%;
+}
 /* subjects */
 .tagcloud0{font-size:0.4em;}
 .tagcloud1{font-size:0.5em;}
@@ -50,9 +69,11 @@
 .tagcloud9{font-size:2.8em;}
 .tagcloud10{font-size:3.0em;}
 
+
 /* About */
 .about-nav {
-    z-index: 999;
+    line-height: 1.5em; 
+    z-index: 10;
 }
 /* creating a narrow text column */ 
 .about-contents > {
@@ -71,6 +92,10 @@
         margin-left: auto;
         margin-right: auto;
         max-width: 650px;
+    }
+
+    blockquote {
+        font-size: 1.75rem;
     }
 
 }

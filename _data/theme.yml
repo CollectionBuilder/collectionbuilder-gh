@@ -41,8 +41,8 @@ locations-stopwords: # set of subjects separated by ; that will be removed from 
 # see _data/map-config.csv for field display options
 latitude: 46.727485 #to determine center of map
 longitude: -117.014185 #to determine center of map
-zoom-level: 7 # zoom level for map 
-map-base: Esri_WorldStreetMap # set default base map, choose from: Esri_WorldStreetMap, Esri_NatGeoWorldMap, Esri_WorldImagery
+zoom-level: 5 # zoom level for map 
+map-base: Esri_WorldStreetMap # set default base map, choose from: Esri_WorldStreetMap, Esri_NatGeoWorldMap, Esri_WorldImagery, OpenStreetMap_Mapnik
 map-search: true # true/false, not suggested with large collections
 map-search-fuzziness: 0.35 # fuzzy search range from 1 = anything to 0 = exact match only
 map-cluster: true # true/false, suggested for large collection or with many items in same location
@@ -62,6 +62,19 @@ year-nav-increment: 5 # set increments when auto gen nav years
 metadata-export-fields: "title,creator,date,description,subject,location,latitude,longitude,source,identifier,type,format,language,rights,rightsstatement"
 # generate a facets list for given fields, comma delimited
 metadata-facets-fields: "subject,creator,format"
+
+##########
+# COMPOUND OBJECTS
+# 
+# Ignore this section if you are not including any compound objects
+# Note, like other items, child objects will only appear in visualizations if they have the correct metadata (lat long for map; date for timeline)
+# select true below if you'd like your compound object's child objects to appear in any of the pages or features listed
+map-child-objects: true # true / false - if true, and if child item has latitude and longitude, child objects will be displayed on map
+timeline-child-objects: true # true / false - if true, and if child object has date, child objects will appear as thumbnails on timeline page
+data-child-objects: false # true / false - if true, child objects will appear linked in table on data page
+carousel-child-objects: false # true / false - if true, child objects will appear on homepage carousel
+browse-child-objects: false # true / false - if true, child objects will appear on browse page and child objects' metadata will populate cloud pages like Subjects page and Locations page, as well as featured terms boxes on the home page
+search-child-objects: true # true / false - if true, child objects will appear on on search page along with parent objects
 
 ##########
 # ADVANCED OPTIONS
@@ -95,8 +108,11 @@ font-cdn: # add font stylesheet, e.g. <link href="https://fonts.googleapis.com/c
 #
 # icons: 
 #   icon-image: image
-#   icon-audio: file-earmark-play
-#   icon-video: camera-video
-#   icon-pdf: file-earmark-text 
+#   icon-audio: soundwave
+#   icon-video: film
+#   icon-pdf: file-pdf
+#   icon-record: file-text
+#   icon-compound-object: collection
+#   icon-multiple: postcard
 #   icon-default: file-earmark # fall back icon
 #   icon-back-to-top: arrow-up-square # scroll to top icon
