@@ -31,10 +31,10 @@
 {% comment %} 
     Liquid below cleans and counts unique terms 
 {% endcomment %}
-{% if site.data.theme.browse-child-objects == false %}
-{%- assign items = site.data[site.metadata] | where_exp: 'item','item.parentid == nil' | where_exp: 'item','item.objectid' -%}
-{% else %}
+{% if site.data.theme.browse-child-objects == true %}
 {%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' -%}
+{% else %}
+{%- assign items = site.data[site.metadata] | where_exp: 'item','item.parentid == nil' | where_exp: 'item','item.objectid' -%}
 {% endif %}
 {% assign rawTerms = items | map: termsField | join: ";" | split: ";" %}
 {% capture terms %}{% for t in rawTerms %}{% if t != "" and t != " " %}{{ t | strip | downcase }};{% endif %}{% endfor %}{% endcapture %}
