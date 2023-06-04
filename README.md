@@ -24,6 +24,9 @@ For larger collections or those that require more customization, check out the [
 
 Follow the [CollectionBuilder-GH Walkthrough](https://collectionbuilder.github.io/cb-docs/docs/walkthroughs/gh-walkthrough/) to set up a collection quickly using demo metadata and objects. 
 
+- [Demo Metadata](https://docs.google.com/spreadsheets/d/1x48Te3duPAxh53foEihQVKTfCKUjaCCbH7TrMMd_yU4/copy)
+- [Demo Objects](https://www.lib.uidaho.edu/collectionbuilder/demo-objects.zip)
+
 ## Teaching and Learning with CollectionBuilder-GH
 
 CollectionBuilder-GH is intended as a simple template for hands-on teaching about digital libraries.
