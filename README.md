@@ -61,7 +61,7 @@ The basic theme is created using [Bootstrap](https://getbootstrap.com/).
 Metadata visualizations are built using open source libraries such as [DataTables](https://datatables.net/), [Leafletjs](http://leafletjs.com/), [Spotlight gallery](https://github.com/nextapps-de/spotlight), [lazysizes](https://github.com/aFarkas/lazysizes), and [Lunr.js](https://lunrjs.com/).
 Object metadata is exposed using [Schema.org](http://schema.org) and [Open Graph protocol](http://ogp.me/) standards.
 
-Questions can be directed to **libstatic.uidaho@gmail.com**
+Questions can be directed to **collectionbuilder.team@gmail.com**
 
 ## License
 
