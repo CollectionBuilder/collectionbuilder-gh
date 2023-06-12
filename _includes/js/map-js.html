@@ -1,10 +1,10 @@
 {%- if site.data.theme.icons -%}{% assign icons = site.data.theme.icons %}{% else %}
 {% assign cb_icons = site.pages | where: "name","cb-icons.svg" | first %}
 {% assign icons = cb_icons.icons %}{%- endif -%}
-{% if site.data.theme.map-child-objects == false %}
-{%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' | where_exp: 'item','item.parentid == nil' -%}
-{% else %}
+{% if site.data.theme.map-child-objects == true %}
 {%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' -%}
+{% else %}
+{%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' | where_exp: 'item','item.parentid == nil' -%}
 {% endif %}
 {%- assign items = items | where_exp: 'item', 'item.objectid != nil' | where_exp: 'item','item.latitude' -%}
 {%- assign fields = site.data.config-map -%}

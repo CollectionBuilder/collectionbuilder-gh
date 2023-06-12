@@ -27,6 +27,9 @@ For larger collections or those that require more customization, check out the [
 
 Follow the [CollectionBuilder-GH Walkthrough](https://collectionbuilder.github.io/cb-docs/docs/walkthroughs/gh-walkthrough/) to set up a collection quickly using demo metadata and objects. 
 
+- [Demo Metadata](https://docs.google.com/spreadsheets/d/1x48Te3duPAxh53foEihQVKTfCKUjaCCbH7TrMMd_yU4/copy)
+- [Demo Objects](https://www.lib.uidaho.edu/collectionbuilder/demo-objects.zip)
+
 ## Teaching and Learning with CollectionBuilder-GH
 
 CollectionBuilder-GH is intended as a simple template for hands-on teaching about digital libraries.
@@ -61,7 +64,7 @@ The basic theme is created using [Bootstrap](https://getbootstrap.com/).
 Metadata visualizations are built using open source libraries such as [DataTables](https://datatables.net/), [Leafletjs](http://leafletjs.com/), [Spotlight gallery](https://github.com/nextapps-de/spotlight), [lazysizes](https://github.com/aFarkas/lazysizes), and [Lunr.js](https://lunrjs.com/).
 Object metadata is exposed using [Schema.org](http://schema.org) and [Open Graph protocol](http://ogp.me/) standards.
 
-Questions can be directed to **libstatic.uidaho@gmail.com**
+Questions can be directed to **collectionbuilder.team@gmail.com**
 
 ## License
 
