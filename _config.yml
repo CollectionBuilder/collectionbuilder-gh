@@ -52,7 +52,7 @@ metadata: demo-metadata
 #
 # leave these blank or comment out to NOT include google code. See docs/google.md
 #
-# Add your google-analytics-id to automatically add the embed code, e.g. "UA-76328753-1"
+# Add your google-analytics-id to automatically add the embed code, e.g. "G-123XXXXXX"
 # google-analytics-id:
 # to populate a Google CSE add the id, e.g. "002151703305773322890:1pu3smhw1t8"
 # google-cse-id: 
