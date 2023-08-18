@@ -9,15 +9,18 @@
     /* add item data */
     var items = { 
         {%- for item in items -%}{%- unless item.parentid %}
-        {{ item.objectid | jsonify }} : { {% unless fields contains 'title' %}"title": {{ item.title | jsonify }}, {% endunless %}{% for f in fields %}{% if item[f.field] %}{{ f.field | jsonify }}: {{ item[f.field] | jsonify }}, {% endif %}{% endfor %}{% if item.youtubeid %} "youtube": {{ item.youtubeid | jsonify }}, {% endif %}{% if item.vimeoid %} "vimeo": {{ item.vimeoid | jsonify }}, {% endif %}"format": {{ item.format | jsonify }}, {% if  item.filename contains '/' %}"filename": "{{ item.filename }}" {% else %}"filename":{{ '/objects/' | relative_url | append: item.filename | jsonify }}{% endif %} }{% unless forloop.last %}, {% endunless %}
+        {{ item.objectid | jsonify }} : { {% unless fields contains 'title' %}"title": {{ item.title | jsonify }}, {% endunless %}{% for f in fields %}{% if item[f.field] %}{{ f.field | jsonify }}: {{ item[f.field] | jsonify }}, {% endif %}{% endfor %}{% if item.youtubeid %} "youtube": {{ item.youtubeid | jsonify }}, {% endif %}{% if item.vimeoid %} "vimeo": {{ item.vimeoid | jsonify }}, {% endif %}"format": {{ item.format | jsonify }}, "filename": {% if item.filename %}{% if item.filename contains '/' %}"{{ item.filename }}"{% else %}"{{ '/objects/' | relative_url }}{{ item.filename }}"{% endif %}{% else %}""{% endif %} }{% unless forloop.last %}, {% endunless %}
         {% endunless %}{% endfor %}
     };
-    var children = { {%- assign parents = site.data[site.metadata] | map: 'parentid' | compact | uniq -%}{%- for p in parents -%}
+    var children = { {%- assign parents = site.data[site.metadata] | map: 'parentid' | compact | uniq -%}
+        {%- for p in parents -%}
         {{ p | jsonify }}: [
-        {%- assign children = site.data[site.metadata] | where: 'parentid', p -%}
-        {%- for c in children -%}
-        { "id": {{ c.objectid | jsonify }}, {% if c.title %}{% unless fields contains 'title' %}"title": {{ c.title | jsonify }}, {% endunless %}{% endif %}{% for f in fields %}{% if c[f.field] %}{{ f.field | jsonify }}: {{ c[f.field] | jsonify }}, {% endif %}{% endfor %}{% if c.filename contains '/' %}"filename": "{{ c.filename }}" {% else %}"filename":{{ '/objects/' | relative_url | append: c.filename | jsonify }}{% endif %}, {% if c.youtubeid %}"youtube": {{ c.youtubeid | jsonify }}, {% endif %}{% if c.vimeoid %} "vimeo": {{ c.vimeoid }}, {% endif %}"format": {{ c.format | jsonify }} }
-        {%- unless forloop.last -%}, {%- endunless -%}{%- endfor -%}]{%- unless forloop.last -%}, {%- endunless -%}{%- endfor -%}
+            {%- assign children = site.data[site.metadata] | where: 'parentid', p -%}
+            {%- for c in children -%}
+            { "id": {{ c.objectid | jsonify }}, {% if c.title %}{% unless fields contains 'title' %}"title": {{ c.title | jsonify }}, {% endunless %}{% endif %}{% for f in fields %}{% if c[f.field] %}{{ f.field | jsonify }}: {{ c[f.field] | jsonify }}, {% endif %}{% endfor %}  {% if c.youtubeid %}"youtube": {{ c.youtubeid | jsonify }}, {% endif %}{% if c.vimeoid %} "vimeo": {{ c.vimeoid }}, {% endif %}"format": {{ c.format | jsonify }}, "filename": {% if c.filename %}{% if c.filename contains '/' %}"{{ c.filename }}"{% else %}"{{ '/objects/' | relative_url }}{{ c.filename }}"{% endif %}{% else %}""{% endif %} }{% unless forloop.last %}, {% endunless %}
+            {% endfor %}
+        ]{% unless forloop.last %}, {% endunless %}
+        {% endfor %}
     };
 
     /* get query id from URL */
@@ -71,7 +74,7 @@
                 itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download ' + item.format.split("/").pop().toUpperCase() + '</a>';
             } else if (item.format.includes('record')) {
                 itemDisplay = item === record ? '' : '<img class="w-25" src="{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-record }}.svg" alt="No preview found">';
-                itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Link to Object</a>';
+                itemDownload = item.filename != "" ? '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Link to Object</a>' : '';
             } else {
                 /* fall back to no preview if it doesn't know the format */
                 itemDisplay = '<img class="w-50" src="{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-default }}.svg" alt="No preview found">';
