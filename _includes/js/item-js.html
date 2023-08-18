@@ -74,7 +74,7 @@
                 itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download ' + item.format.split("/").pop().toUpperCase() + '</a>';
             } else if (item.format.includes('record')) {
                 itemDisplay = item === record ? '' : '<img class="w-25" src="{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-record }}.svg" alt="No preview found">';
-                itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Link to Object</a>';
+                itemDownload = item.filename != "" ? '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Link to Object</a>' : '';
             } else {
                 /* fall back to no preview if it doesn't know the format */
                 itemDisplay = '<img class="w-50" src="{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-default }}.svg" alt="No preview found">';
