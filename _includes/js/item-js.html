@@ -3,19 +3,20 @@
 {% assign icons = cb_icons.icons %}{%- endif -%}
 {%- assign fields = site.data.config-metadata -%}
 {%- assign stubs = site.data.config-nav | map: 'stub' | join: ';' -%}
-{%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' -%}
+{%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' | where_exp: 'item', 'item.parentid == null' -%}
+{%- assign child_items = site.data[site.metadata] | where_exp: 'item','item.parentid' -%}
 <script>
 (function(){
     /* add item data */
     var items = { 
-        {%- for item in items -%}{%- unless item.parentid %}
+        {%- for item in items -%}
         {{ item.objectid | jsonify }} : { {% unless fields contains 'title' %}"title": {{ item.title | jsonify }}, {% endunless %}{% for f in fields %}{% if item[f.field] %}{{ f.field | jsonify }}: {{ item[f.field] | jsonify }}, {% endif %}{% endfor %}{% if item.youtubeid %} "youtube": {{ item.youtubeid | jsonify }}, {% endif %}{% if item.vimeoid %} "vimeo": {{ item.vimeoid | jsonify }}, {% endif %}"format": {{ item.format | jsonify }}, "filename": {% if item.filename %}{% if item.filename contains '/' %}"{{ item.filename }}"{% else %}"{{ '/objects/' | relative_url }}{{ item.filename }}"{% endif %}{% else %}""{% endif %} }{% unless forloop.last %}, {% endunless %}
-        {% endunless %}{% endfor %}
+        {% endfor %}
     };
-    var children = { {%- assign parents = site.data[site.metadata] | map: 'parentid' | compact | uniq -%}
+    var children = { {%- assign parents = child_items | map: 'parentid' | compact | uniq -%}
         {%- for p in parents -%}
         {{ p | jsonify }}: [
-            {%- assign children = site.data[site.metadata] | where: 'parentid', p -%}
+            {%- assign children = child_items | where: 'parentid', p -%}
             {%- for c in children -%}
             { "id": {{ c.objectid | jsonify }}, {% if c.title %}{% unless fields contains 'title' %}"title": {{ c.title | jsonify }}, {% endunless %}{% endif %}{% for f in fields %}{% if c[f.field] %}{{ f.field | jsonify }}: {{ c[f.field] | jsonify }}, {% endif %}{% endfor %}  {% if c.youtubeid %}"youtube": {{ c.youtubeid | jsonify }}, {% endif %}{% if c.vimeoid %} "vimeo": {{ c.vimeoid }}, {% endif %}"format": {{ c.format | jsonify }}, "filename": {% if c.filename %}{% if c.filename contains '/' %}"{{ c.filename }}"{% else %}"{{ '/objects/' | relative_url }}{{ c.filename }}"{% endif %}{% else %}""{% endif %} }{% unless forloop.last %}, {% endunless %}
             {% endfor %}
