@@ -31,6 +31,7 @@
         /* add item title */
         var objectTitle = record.title;
         document.getElementById("bc-title").innerHTML = objectTitle;
+
         /* get item format for item title */
         var itemFormat;
         if (compoundObject) {
@@ -42,8 +43,9 @@
         } else {
             itemFormat = record.format.replace("_", " ").toUpperCase();
         }
-        document.getElementById("item-format").innerHTML = itemFormat
-        document.getElementById("item-title").innerHTML = record.format.includes('record') ? objectTitle : objectTitle + '<a href="#item-metadata" class="ms-5 btn btn-sm btn-outline-dark small">Item Info {% include feature/icon.html icon="arrow-down" label="Down arrow" %}</a>';
+        document.getElementById("item-format").innerHTML = itemFormat;
+        document.getElementById("item-title").innerHTML = record.format.includes('record') ? objectTitle : objectTitle + '<a href="#item-metadata" class="ms-5 btn btn-sm btn-outline-dark small">Item Info <svg class="bi icon-sprite" role="img" aria-label="Jump to Item Info"><use xlink:href="{{ "/assets/lib/cb-icons.svg" | relative_url }}#arrow-down"/></svg></a>';
+        
         /* add object */ 
         var format = "" + record.format;
         var objectLink = record.filename;
@@ -331,7 +333,7 @@
                         ${itemLink}
                     </div>
                 </div>
-            `
+            `;
         } else if (record.format.includes('record')) {
             itemContent = `
                 <div class="mb-4 text-center">
@@ -339,7 +341,7 @@
                         ${itemLink}
                     </div>
                 </div>
-            `
+            `;
         } else if (record.format.includes('multiple')) {
             itemContent = `
                 <div class="mb-4 text-center">
@@ -348,7 +350,7 @@
                         ${itemLink}
                     </div>
                 </div>
-            `
+            `;
         } else if (record.format.includes('video')|| record.format.includes('audio')) {
             itemContent = `
                 <div class="card mb-4 text-center">
@@ -359,7 +361,7 @@
                         </div>
                     </div>
                 </div>
-            `
+            `;
         } else if (record.format.includes('pdf')) {
             itemContent = `
                 <div class="card mb-4 text-center">
@@ -372,7 +374,7 @@
                         </div>
                     </div>
                 </div>
-            `
+            `;
         } else {
             itemContent = `
                 <div class="card mb-4 text-center">
@@ -381,7 +383,7 @@
                         ${itemLink}
                     </div>
                 </div>
-            `
+            `;
         }
         document.getElementById("item-content").innerHTML = itemContent;
         
@@ -471,7 +473,6 @@
             }
         };
         {%- endif -%}
-
     }
 
 
