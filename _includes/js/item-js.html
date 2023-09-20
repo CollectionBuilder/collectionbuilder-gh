@@ -8,11 +8,11 @@
 <script>
 (function(){
     /* add item data */
-    var items = { 
+    var cb_items = [ 
         {%- for item in items -%}
-        {{ item.objectid | jsonify }} : { {% unless fields contains 'title' %}"title": {{ item.title | jsonify }}, {% endunless %}{% for f in fields %}{% if item[f.field] %}{{ f.field | jsonify }}: {{ item[f.field] | jsonify }}, {% endif %}{% endfor %}{% if item.youtubeid %} "youtube": {{ item.youtubeid | jsonify }}, {% endif %}{% if item.vimeoid %} "vimeo": {{ item.vimeoid | jsonify }}, {% endif %}"format": {{ item.format | jsonify }}, "filename": {% if item.filename %}{% if item.filename contains '/' %}"{{ item.filename }}"{% else %}"{{ '/objects/' | relative_url }}{{ item.filename }}"{% endif %}{% else %}""{% endif %} }{% unless forloop.last %}, {% endunless %}
+        { "objectid": {{ item.objectid | jsonify }}, {% unless fields contains 'title' %}"title": {{ item.title | jsonify }}, {% endunless %}{% for f in fields %}{% if item[f.field] %}{{ f.field | jsonify }}: {{ item[f.field] | jsonify }}, {% endif %}{% endfor %}{% if item.youtubeid %} "youtube": {{ item.youtubeid | jsonify }}, {% endif %}{% if item.vimeoid %} "vimeo": {{ item.vimeoid | jsonify }}, {% endif %}"format": {{ item.format | jsonify }}, "filename": {% if item.filename %}{% if item.filename contains '/' %}"{{ item.filename }}"{% else %}"{{ '/objects/' | relative_url }}{{ item.filename }}"{% endif %}{% else %}""{% endif %} }{% unless forloop.last %}, {% endunless %}
         {% endfor %}
-    };
+    ];
     var children = { {%- assign parents = child_items | map: 'parentid' | compact | uniq -%}
         {%- for p in parents -%}
         {{ p | jsonify }}: [
@@ -24,12 +24,10 @@
         {% endfor %}
     };
 
-    /* get query id from URL */
-    var queryString = window.location.search.substring(1).split("=")[1];
-    var record = items[queryString];
-    var compoundObject = children[queryString];
+    /* function to create item page features */ 
 
-    if (record) {
+    function displayItem(record, prev_id, next_id) { 
+
         /* add item title */
         var objectTitle = record.title;
         document.getElementById("bc-title").innerHTML = objectTitle;
@@ -130,7 +128,7 @@
             {%- endif -%}
             {% if stubs contains "map" %}
             /* add link to view on map */
-            var itemMarker = item.id ? item.id : queryString;
+            var itemMarker = item.id ? item.id : itemPageId;
             var mapButton = '<a href="{{ '/map.html' | relative_url }}?location=' + item.latitude + ',' + item.longitude + '&marker=' + itemMarker +'" class="btn btn-outline-primary">View on Map</a>';
             if (item.latitude && item.longitude) {
                 /* add map link to children only if specified in theme.yml */
@@ -387,30 +385,13 @@
         }
         document.getElementById("item-content").innerHTML = itemContent;
         
-        /* trigger Gallery for images */
-        // ?
-
         /* add item metadata */
         document.getElementById("item-metadata").innerHTML = generateMetadata(record);
 
         {% if site.data.theme.browse-buttons == true %}
-        /* add prev/next nav */
-        var itemKeys = Object.keys(items);
-        var current = itemKeys.indexOf(queryString);
-        var last = itemKeys.length - 1;
-        var back, forward;
-        if (current === 0) {
-            back = itemKeys[last];
-        } else { 
-            back = itemKeys[current - 1];
-        }
-        if (current === last) {
-            forward = itemKeys[0];
-        } else {
-            forward = itemKeys[current + 1];
-        }
-        var backUrl = "{{ '/item.html?id=' | relative_url }}" + back;
-        var forwardUrl = "{{ '/item.html?id=' | relative_url }}" + forward;
+        /* add prev+next nav */
+        var backUrl = "{{ '/item.html?id=' | relative_url }}" + prev_id;
+        var forwardUrl = "{{ '/item.html?id=' | relative_url }}" + next_id;
         /* add side buttons to page */
         document.getElementById("back-button").href = backUrl;
         document.getElementById("next-button").href = forwardUrl;
@@ -490,7 +471,40 @@
             }
         };
         {%- endif -%}
-        
+
+    }
+
+
+    /* initiate the Item page */ 
+
+    /* get objectid from URL */
+    let url = new URL(window.location);
+    var itemPageId = url.searchParams.get('id');
+    /* find the item by objectid */
+    var record_index = cb_items.findIndex(item => item.objectid == itemPageId); 
+    /* find any related children if applicable */ 
+    var compoundObject = children[itemPageId];
+
+    // display if item exists
+    if (record_index != -1) {
+        {% if site.data.theme.browse-buttons == true %}
+        // find next and previous record
+        var last = cb_items.length - 1;
+        var prev_id, next_id;
+        if (record_index === 0) {
+            prev_id = cb_items[last].objectid;
+        } else { 
+            prev_id = cb_items[record_index - 1].objectid;
+        }
+        if (record_index === last) {
+            next_id = cb_items[0].objectid;
+        } else {
+            next_id = cb_items[record_index + 1].objectid;
+        }{% endif %}
+
+        // display item
+        displayItem(cb_items[record_index], prev_id, next_id);
+
     } else {
         /* no item with that ID */
         document.getElementById("bc-title").innerHTML = 'Not found?';
