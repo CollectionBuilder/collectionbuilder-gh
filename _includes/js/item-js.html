@@ -3,32 +3,35 @@
 {% assign icons = cb_icons.icons %}{%- endif -%}
 {%- assign fields = site.data.config-metadata -%}
 {%- assign stubs = site.data.config-nav | map: 'stub' | join: ';' -%}
-{%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' -%}
+{%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' | where_exp: 'item', 'item.parentid == null' -%}
+{%- assign child_items = site.data[site.metadata] | where_exp: 'item','item.parentid' -%}
 <script>
 (function(){
     /* add item data */
-    var items = { 
-        {%- for item in items -%}{%- unless item.parentid %}
-        {{ item.objectid | jsonify }} : { {% unless fields contains 'title' %}"title": {{ item.title | jsonify }}, {% endunless %}{% for f in fields %}{% if item[f.field] %}{{ f.field | jsonify }}: {{ item[f.field] | jsonify }}, {% endif %}{% endfor %}{% if item.youtubeid %} "youtube": {{ item.youtubeid | jsonify }}, {% endif %}{% if item.vimeoid %} "vimeo": {{ item.vimeoid | jsonify }}, {% endif %}"format": {{ item.format | jsonify }}, {% if  item.filename contains '/' %}"filename": "{{ item.filename }}" {% else %}"filename":{{ '/objects/' | relative_url | append: item.filename | jsonify }}{% endif %} }{% unless forloop.last %}, {% endunless %}
-        {% endunless %}{% endfor %}
-    };
-    var children = { {%- assign parents = site.data[site.metadata] | map: 'parentid' | compact | uniq -%}{%- for p in parents -%}
+    var cb_items = [ 
+        {%- for item in items -%}
+        { "objectid": {{ item.objectid | jsonify }}, {% unless fields contains 'title' %}"title": {{ item.title | jsonify }}, {% endunless %}{% for f in fields %}{% if item[f.field] %}{{ f.field | jsonify }}: {{ item[f.field] | jsonify }}, {% endif %}{% endfor %}{% if item.youtubeid %} "youtube": {{ item.youtubeid | jsonify }}, {% endif %}{% if item.vimeoid %} "vimeo": {{ item.vimeoid | jsonify }}, {% endif %}"format": {{ item.format | jsonify }}, "filename": {% if item.filename %}{% if item.filename contains '/' %}"{{ item.filename }}"{% else %}"{{ '/objects/' | relative_url }}{{ item.filename }}"{% endif %}{% else %}""{% endif %} }{% unless forloop.last %}, {% endunless %}
+        {% endfor %}
+    ];
+    var children = { {%- assign parents = child_items | map: 'parentid' | compact | uniq -%}
+        {%- for p in parents -%}
         {{ p | jsonify }}: [
-        {%- assign children = site.data[site.metadata] | where: 'parentid', p -%}
-        {%- for c in children -%}
-        { "id": {{ c.objectid | jsonify }}, {% if c.title %}{% unless fields contains 'title' %}"title": {{ c.title | jsonify }}, {% endunless %}{% endif %}{% for f in fields %}{% if c[f.field] %}{{ f.field | jsonify }}: {{ c[f.field] | jsonify }}, {% endif %}{% endfor %}{% if c.filename contains '/' %}"filename": "{{ c.filename }}" {% else %}"filename":{{ '/objects/' | relative_url | append: c.filename | jsonify }}{% endif %}, {% if c.youtubeid %}"youtube": {{ c.youtubeid | jsonify }}, {% endif %}{% if c.vimeoid %} "vimeo": {{ c.vimeoid }}, {% endif %}"format": {{ c.format | jsonify }} }
-        {%- unless forloop.last -%}, {%- endunless -%}{%- endfor -%}]{%- unless forloop.last -%}, {%- endunless -%}{%- endfor -%}
+            {%- assign children = child_items | where: 'parentid', p -%}
+            {%- for c in children -%}
+            { "id": {{ c.objectid | jsonify }}, {% if c.title %}{% unless fields contains 'title' %}"title": {{ c.title | jsonify }}, {% endunless %}{% endif %}{% for f in fields %}{% if c[f.field] %}{{ f.field | jsonify }}: {{ c[f.field] | jsonify }}, {% endif %}{% endfor %}  {% if c.youtubeid %}"youtube": {{ c.youtubeid | jsonify }}, {% endif %}{% if c.vimeoid %} "vimeo": {{ c.vimeoid }}, {% endif %}"format": {{ c.format | jsonify }}, "filename": {% if c.filename %}{% if c.filename contains '/' %}"{{ c.filename }}"{% else %}"{{ '/objects/' | relative_url }}{{ c.filename }}"{% endif %}{% else %}""{% endif %} }{% unless forloop.last %}, {% endunless %}
+            {% endfor %}
+        ]{% unless forloop.last %}, {% endunless %}
+        {% endfor %}
     };
 
-    /* get query id from URL */
-    var queryString = window.location.search.substring(1).split("=")[1];
-    var record = items[queryString];
-    var compoundObject = children[queryString];
+    /* function to create item page features */ 
 
-    if (record) {
+    function displayItem(record, prev_id, next_id) { 
+
         /* add item title */
         var objectTitle = record.title;
         document.getElementById("bc-title").innerHTML = objectTitle;
+
         /* get item format for item title */
         var itemFormat;
         if (compoundObject) {
@@ -40,8 +43,9 @@
         } else {
             itemFormat = record.format.replace("_", " ").toUpperCase();
         }
-        document.getElementById("item-format").innerHTML = itemFormat
-        document.getElementById("item-title").innerHTML = record.format.includes('record') ? objectTitle : objectTitle + '<a href="#item-metadata" class="ms-5 btn btn-sm btn-outline-dark small">Item Info {% include feature/icon.html icon="arrow-down" label="Down arrow" %}</a>';
+        document.getElementById("item-format").innerHTML = itemFormat;
+        document.getElementById("item-title").innerHTML = record.format.includes('record') ? objectTitle : objectTitle + '<a href="#item-metadata" class="ms-5 btn btn-sm btn-outline-dark small">Item Info <svg class="bi icon-sprite" role="img" aria-label="Jump to Item Info"><use xlink:href="{{ "/assets/lib/cb-icons.svg" | relative_url }}#arrow-down"/></svg></a>';
+        
         /* add object */ 
         var format = "" + record.format;
         var objectLink = record.filename;
@@ -71,7 +75,7 @@
                 itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download ' + item.format.split("/").pop().toUpperCase() + '</a>';
             } else if (item.format.includes('record')) {
                 itemDisplay = item === record ? '' : '<img class="w-25" src="{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-record }}.svg" alt="No preview found">';
-                itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Link to Object</a>';
+                itemDownload = item.filename != "" ? '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Link to Object</a>' : '';
             } else {
                 /* fall back to no preview if it doesn't know the format */
                 itemDisplay = '<img class="w-50" src="{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-default }}.svg" alt="No preview found">';
@@ -126,7 +130,7 @@
             {%- endif -%}
             {% if stubs contains "map" %}
             /* add link to view on map */
-            var itemMarker = item.id ? item.id : queryString;
+            var itemMarker = item.id ? item.id : itemPageId;
             var mapButton = '<a href="{{ '/map.html' | relative_url }}?location=' + item.latitude + ',' + item.longitude + '&marker=' + itemMarker +'" class="btn btn-outline-primary">View on Map</a>';
             if (item.latitude && item.longitude) {
                 /* add map link to children only if specified in theme.yml */
@@ -329,7 +333,7 @@
                         ${itemLink}
                     </div>
                 </div>
-            `
+            `;
         } else if (record.format.includes('record')) {
             itemContent = `
                 <div class="mb-4 text-center">
@@ -337,7 +341,7 @@
                         ${itemLink}
                     </div>
                 </div>
-            `
+            `;
         } else if (record.format.includes('multiple')) {
             itemContent = `
                 <div class="mb-4 text-center">
@@ -346,7 +350,7 @@
                         ${itemLink}
                     </div>
                 </div>
-            `
+            `;
         } else if (record.format.includes('video')|| record.format.includes('audio')) {
             itemContent = `
                 <div class="card mb-4 text-center">
@@ -357,7 +361,7 @@
                         </div>
                     </div>
                 </div>
-            `
+            `;
         } else if (record.format.includes('pdf')) {
             itemContent = `
                 <div class="card mb-4 text-center">
@@ -370,7 +374,7 @@
                         </div>
                     </div>
                 </div>
-            `
+            `;
         } else {
             itemContent = `
                 <div class="card mb-4 text-center">
@@ -379,34 +383,17 @@
                         ${itemLink}
                     </div>
                 </div>
-            `
+            `;
         }
         document.getElementById("item-content").innerHTML = itemContent;
         
-        /* trigger Gallery for images */
-        // ?
-
         /* add item metadata */
         document.getElementById("item-metadata").innerHTML = generateMetadata(record);
 
         {% if site.data.theme.browse-buttons == true %}
-        /* add prev/next nav */
-        var itemKeys = Object.keys(items);
-        var current = itemKeys.indexOf(queryString);
-        var last = itemKeys.length - 1;
-        var back, forward;
-        if (current === 0) {
-            back = itemKeys[last];
-        } else { 
-            back = itemKeys[current - 1];
-        }
-        if (current === last) {
-            forward = itemKeys[0];
-        } else {
-            forward = itemKeys[current + 1];
-        }
-        var backUrl = "{{ '/item.html?id=' | relative_url }}" + back;
-        var forwardUrl = "{{ '/item.html?id=' | relative_url }}" + forward;
+        /* add prev+next nav */
+        var backUrl = "{{ '/item.html?id=' | relative_url }}" + prev_id;
+        var forwardUrl = "{{ '/item.html?id=' | relative_url }}" + next_id;
         /* add side buttons to page */
         document.getElementById("back-button").href = backUrl;
         document.getElementById("next-button").href = forwardUrl;
@@ -486,7 +473,39 @@
             }
         };
         {%- endif -%}
-        
+    }
+
+
+    /* initiate the Item page */ 
+
+    /* get objectid from URL */
+    let url = new URL(window.location);
+    var itemPageId = url.searchParams.get('id');
+    /* find the item by objectid */
+    var record_index = cb_items.findIndex(item => item.objectid == itemPageId); 
+    /* find any related children if applicable */ 
+    var compoundObject = children[itemPageId];
+
+    // display if item exists
+    if (record_index != -1) {
+        {% if site.data.theme.browse-buttons == true %}
+        // find next and previous record
+        var last = cb_items.length - 1;
+        var prev_id, next_id;
+        if (record_index === 0) {
+            prev_id = cb_items[last].objectid;
+        } else { 
+            prev_id = cb_items[record_index - 1].objectid;
+        }
+        if (record_index === last) {
+            next_id = cb_items[0].objectid;
+        } else {
+            next_id = cb_items[record_index + 1].objectid;
+        }{% endif %}
+
+        // display item
+        displayItem(cb_items[record_index], prev_id, next_id);
+
     } else {
         /* no item with that ID */
         document.getElementById("bc-title").innerHTML = 'Not found?';

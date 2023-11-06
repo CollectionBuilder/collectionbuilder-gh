@@ -13,7 +13,7 @@ custom-foot: js/timeline-js.html
 {% endif %}
 {%- assign raw-dates = items | where_exp: 'item', 'item.objectid != nil' | map: 'date' | compact | uniq -%}
 {%- capture clean-years -%}{% for date in raw-dates %}{% if date contains "-" %}{{ date | strip | split: "-" | first }}{% elsif date contains "/" %}{{ date | strip | split: "/" | last }}{% else %}{{ date | strip }}{% endif %}{% unless forloop.last %};{% endunless %}{%- endfor -%}{%- endcapture -%}
-{%- assign uniqueYears = clean-years | remove: " " | split: ";" | uniq | sort -%}
+{%- assign uniqueYears = clean-years | remove: " " | replace: ";;",";" | split: ";" | uniq | sort -%}
 {%- if site.data.theme.year-navigation -%}
 {%- assign navYears = site.data.theme.year-navigation | split: ";" -%}
 {%- else -%}

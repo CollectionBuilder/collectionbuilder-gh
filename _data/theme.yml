@@ -116,3 +116,6 @@ font-cdn: # add font stylesheet, e.g. <link href="https://fonts.googleapis.com/c
 #   icon-multiple: postcard
 #   icon-default: file-earmark # fall back icon
 #   icon-back-to-top: arrow-up-square # scroll to top icon
+#   arrow-left: arrow-left
+#   arrow-right: arrow-right
+#   arrow-down: arrow-down
