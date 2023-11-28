@@ -3,28 +3,21 @@
 {% assign icons = cb_icons.icons %}{%- endif -%}
 {%- assign fields = site.data.config-metadata -%}
 {%- assign stubs = site.data.config-nav | map: 'stub' | join: ';' -%}
-{%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' | where_exp: 'item', 'item.parentid == null' -%}
-{%- assign child_items = site.data[site.metadata] | where_exp: 'item','item.parentid' -%}
+{%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' -%}
 <script>
 /* add item data */
 var cb_items = [ 
     {%- for item in items -%}
-    { "objectid": {{ item.objectid | jsonify }}, {% unless fields contains 'title' %}"title": {{ item.title | jsonify }}, {% endunless %}{% for f in fields %}{% if item[f.field] %}{{ f.field | jsonify }}: {{ item[f.field] | jsonify }}, {% endif %}{% endfor %}{% if item.youtubeid %} "youtube": {{ item.youtubeid | jsonify }}, {% endif %}{% if item.vimeoid %} "vimeo": {{ item.vimeoid | jsonify }}, {% endif %}"format": {{ item.format | jsonify }}, "filename": {% if item.filename %}{% if item.filename contains '/' %}"{{ item.filename }}"{% else %}"{{ '/objects/' | relative_url }}{{ item.filename }}"{% endif %}{% else %}""{% endif %} }{% unless forloop.last %}, {% endunless %}
+    { "objectid": {{ item.objectid | jsonify }}, {% if item.parentid %}"parentid": {{ item.parentid | jsonify }}, {% endif %}{% unless fields contains 'title' %}"title": {{ item.title | jsonify }}, {% endunless %}{% for f in fields %}{% if item[f.field] %}{{ f.field | jsonify }}: {{ item[f.field] | jsonify }}, {% endif %}{% endfor %}{% if item.youtubeid %} "youtubeid": {{ item.youtubeid | jsonify }}, {% endif %}{% if item.vimeoid %} "vimeoid": {{ item.vimeoid | jsonify }}, {% endif %}"format": {{ item.format | jsonify }}, "filename": {% if item.filename %}"{{ item.filename }}"{% else %}""{% endif %} }{% unless forloop.last %}, {% endunless %}
     {% endfor %}
 ];
-var children = { {%- assign parents = child_items | map: 'parentid' | compact | uniq -%}
-    {%- for p in parents -%}
-    {{ p | jsonify }}: [
-        {%- assign children = child_items | where: 'parentid', p -%}
-        {%- for c in children -%}
-        { "id": {{ c.objectid | jsonify }}, {% if c.title %}{% unless fields contains 'title' %}"title": {{ c.title | jsonify }}, {% endunless %}{% endif %}{% for f in fields %}{% if c[f.field] %}{{ f.field | jsonify }}: {{ c[f.field] | jsonify }}, {% endif %}{% endfor %}  {% if c.youtubeid %}"youtube": {{ c.youtubeid | jsonify }}, {% endif %}{% if c.vimeoid %} "vimeo": {{ c.vimeoid }}, {% endif %}"format": {{ c.format | jsonify }}, "filename": {% if c.filename %}{% if c.filename contains '/' %}"{{ c.filename }}"{% else %}"{{ '/objects/' | relative_url }}{{ c.filename }}"{% endif %}{% else %}""{% endif %} }{% unless forloop.last %}, {% endunless %}
-        {% endfor %}
-    ]{% unless forloop.last %}, {% endunless %}
-    {% endfor %}
-};
 
+/* function to find links to objects from filename field */ 
+function findFileLink(record) {
+    var fileLink = record.filename.includes('/') ? record.filename : "{{ '/objects/' | relative_url }}" + record.filename;
+    return fileLink;
+}
 /* function to create item page features */ 
-
 function displayItem(record, prev_id, next_id, compound_object) { 
 
     /* add item title */
@@ -33,7 +26,7 @@ function displayItem(record, prev_id, next_id, compound_object) {
 
     /* get item format for item title */
     var itemFormat;
-    if (compound_object) {
+    if (compound_object.length > 0) {
         itemFormat = record.format.replace("_", " ").toUpperCase() + ' (' + compound_object.length + ' Items)';
     } else if (record.format.includes("pdf")) {
         itemFormat = "PDF";
@@ -47,38 +40,38 @@ function displayItem(record, prev_id, next_id, compound_object) {
     
     /* add object */ 
     var format = "" + record.format;
-    var objectLink = record.filename;
+    var objectLink = findFileLink(record);
     var itemImage, itemLink;
 
     /* function to add item to page */
     var itemDisplay, itemDownload;
     function addItem(item) {
         if (item.format.includes('image')) {
-            itemDisplay = '<a class="spotlight gallery-img" data-download="true" href="' + item.filename + '"><img class="img-fluid" src="' + item.filename + '" alt="' + item.title + '">';
+            itemDisplay = '<a class="spotlight gallery-img" data-download="true" href="' + findFileLink(item) + '"><img class="img-fluid" src="' + findFileLink(item) + '" alt="' + item.title + '">';
             itemDisplay += record.format.includes('multiple') ? '</a>' : '<div><small class="text-dark">Click to view full screen</small></div></a>';
-            itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download ' + item.format.split("/").pop().toUpperCase() + '</a>';
+            itemDownload = '<a href="' + findFileLink(item) + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download ' + item.format.split("/").pop().toUpperCase() + '</a>';
         } else if (item.format.includes('pdf')) {
-            itemDisplay = '<div class="ratio ratio-4x3"><object title="PDF file of ' + item.title + '" data="' + item.filename + '" type="application/pdf" width="100%"><p>The PDF is not rendering in your browser. Please use the button below to download the PDF.</p></object></div>';
-            itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download PDF</a>';
+            itemDisplay = '<div class="ratio ratio-4x3"><object title="PDF file of ' + item.title + '" data="' + findFileLink(item) + '" type="application/pdf" width="100%"><p>The PDF is not rendering in your browser. Please use the button below to download the PDF.</p></object></div>';
+            itemDownload = '<a href="' + findFileLink(item) + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download PDF</a>';
         } else if (item.format.includes('audio')) {
-            itemDisplay = '<audio controls class="w-100"><source src="' + item.filename + '">Your browser does not support the audio element. Please <a href="' + item.filename + '">download the audio file</a>.</audio>';
-            itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download ' + item.format.split("/").pop().toUpperCase() + '</a>';
-        } else if (item.youtube) {
-            itemDisplay = '<div class="ratio ratio-16x9"><iframe title="video embed ' + item.title + '" src="https://www.youtube-nocookie.com/embed/' + item.youtube + '?rel=0&modestbranding=1" allowfullscreen></iframe></div>';
-            itemDownload = '<a href="https://youtu.be/' + item.youtube + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">View on YouTube</a>';
-        } else if (item.vimeo) {
-            itemDisplay = '<div class="ratio ratio-16x9"><iframe title="video embed ' + item.title + '"src="https://player.vimeo.com/video/' + item.vimeo + '" allowfullscreen></iframe></div>';
-            itemDownload = '<a href="https://vimeo.com/' + item.vimeo + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">View on Vimeo</a>';
+            itemDisplay = '<audio controls class="w-100"><source src="' + findFileLink(item) + '">Your browser does not support the audio element. Please <a href="' + findFileLink(item) + '">download the audio file</a>.</audio>';
+            itemDownload = '<a href="' + findFileLink(item) + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download ' + item.format.split("/").pop().toUpperCase() + '</a>';
+        } else if (item.youtubeid) {
+            itemDisplay = '<div class="ratio ratio-16x9"><iframe title="video embed ' + item.title + '" src="https://www.youtube-nocookie.com/embed/' + item.youtubeid + '?rel=0&modestbranding=1" allowfullscreen></iframe></div>';
+            itemDownload = '<a href="https://youtu.be/' + item.youtubeid + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">View on YouTube</a>';
+        } else if (item.vimeoid) {
+            itemDisplay = '<div class="ratio ratio-16x9"><iframe title="video embed ' + item.title + '"src="https://player.vimeo.com/video/' + item.vimeoid + '" allowfullscreen></iframe></div>';
+            itemDownload = '<a href="https://vimeo.com/' + item.vimeoid + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">View on Vimeo</a>';
         } else if (item.format.includes('video')) {
-            itemDisplay = '<video controls class="w-100"><source src="' + item.filename + '">Your browser does not support the video tag. Please <a href="' + item.filename + '">download the video file</a>.</video>';
-            itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download ' + item.format.split("/").pop().toUpperCase() + '</a>';
+            itemDisplay = '<video controls class="w-100"><source src="' + findFileLink(item) + '">Your browser does not support the video tag. Please <a href="' + findFileLink(item) + '">download the video file</a>.</video>';
+            itemDownload = '<a href="' + findFileLink(item) + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download ' + item.format.split("/").pop().toUpperCase() + '</a>';
         } else if (item.format.includes('record')) {
             itemDisplay = item === record ? '' : '<img class="w-25" src="{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-record }}.svg" alt="No preview found">';
-            itemDownload = item.filename != "" ? '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Link to Object</a>' : '';
+            itemDownload = findFileLink(item) != "" ? '<a href="' + findFileLink(item) + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Link to Object</a>' : '';
         } else {
             /* fall back to no preview if it doesn't know the format */
             itemDisplay = '<img class="w-50" src="{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-default }}.svg" alt="No preview found">';
-            itemDownload = '<a href="' + item.filename + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download Object</a>';
+            itemDownload = '<a href="' + findFileLink(item) + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download Object</a>';
         }
         if (item === record) { itemImage = itemDisplay; }
     };
@@ -129,7 +122,7 @@ function displayItem(record, prev_id, next_id, compound_object) {
         {%- endif -%}
         {% if stubs contains "map" %}
         /* add link to view on map */
-        var itemMarker = item.id ? item.id : itemPageId;
+        var itemMarker = item.parentid ? item.parentid : itemPageId;
         var mapButton = '<a href="{{ '/map.html' | relative_url }}?location=' + item.latitude + ',' + item.longitude + '&marker=' + itemMarker +'" class="btn btn-outline-primary">View on Map</a>';
         if (item.latitude && item.longitude) {
             /* add map link to children only if specified in theme.yml */
@@ -154,7 +147,7 @@ function displayItem(record, prev_id, next_id, compound_object) {
 
         /* generate a modal and card for each item in compound object */
         for (let i = 0; i < compoundItem.length; i++) {
-            var compoundLink = compoundItem[i].filename;
+            var compoundLink = findFileLink(compoundItem[i]);
             var compoundFormat = compoundItem[i].format;
             var compoundTitle = compoundItem[i].title;
             var partOrder = i + 1;
@@ -190,8 +183,8 @@ function displayItem(record, prev_id, next_id, compound_object) {
             }
 
             /* capture index for previous and next modal items */
-            var itemPrev = i === 0 ? compoundItem[compoundItem.length - 1].id : compoundItem[i - 1].id;
-            var itemNext = i + 1 === compoundItem.length ? compoundItem[0].id : compoundItem[i + 1].id;
+            var itemPrev = i === 0 ? compoundItem[compoundItem.length - 1].objectid : compoundItem[i - 1].objectid;
+            var itemNext = i + 1 === compoundItem.length ? compoundItem[0].objectid : compoundItem[i + 1].objectid;
 
             /* create item display and item download link */
             addItem(compoundItem[i]);
@@ -203,19 +196,19 @@ function displayItem(record, prev_id, next_id, compound_object) {
             if (format.includes('multiple')) {
                 /* add full size item to page */
                 itemImage += `
-                    <div id="${compoundItem[i].id}" class="mb-4">
+                    <div id="${compoundItem[i].objectid}" class="mb-4">
                         ${itemDisplay}
                         ${compoundTitle ? `<div><small class="text-dark">${compoundTitle}</small></div>` : ''}
                     </div>`;
             } else if (format.includes('compound_object')) {
                 /* create compound object modal */
                 var itemModal = `
-                    <div class="modal fade" id="${compoundItem[i].id}" tabindex="-1" role="dialog" aria-labelledby="${compoundItem[i].id}ModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="${compoundItem[i].objectid}" tabindex="-1" role="dialog" aria-labelledby="${compoundItem[i].objectid}ModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-xxl">
                             <div class="modal-content text-start">
 
                                 <div class="modal-header">
-                                    <div class="modal-title w-100" id="${compoundItem[i].id}ModalLabel">
+                                    <div class="modal-title w-100" id="${compoundItem[i].objectid}ModalLabel">
                                         <div class="row">
                                             <div class="col-12 text-end">
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="history.pushState('', '', window.location.href.replace(/#.*$/, ''))"></button>
@@ -277,7 +270,7 @@ function displayItem(record, prev_id, next_id, compound_object) {
                     <div class="col">
                         <div class="card h-100">
                             <div class="my-auto">
-                                <div class="card-body text-center" id="${compoundItem[i].id}Card">
+                                <div class="card-body text-center" id="${compoundItem[i].objectid}Card">
                                     ${itemTitle}
                                     <div class="mb-2">
                                         ${compoundThumb}
@@ -287,8 +280,8 @@ function displayItem(record, prev_id, next_id, compound_object) {
                                     <a id="item-${i+1}"
                                         role="button"
                                         data-bs-toggle="modal"
-                                        href="#${compoundItem[i].id}"
-                                        onclick="window.location.hash='${compoundItem[i].id}'"
+                                        href="#${compoundItem[i].objectid}"
+                                        onclick="window.location.hash='${compoundItem[i].objectid}'"
                                         class="btn btn-sm btn-outline-secondary small stretched-link">
                                         ${compoundFormat.includes("image") ? compoundFormat.split("/")[0].toUpperCase() : compoundFormat.split("/").pop().toUpperCase()} <svg class="bi icon-sprite" fill="currentColor" aria-hidden="true"><use xlink:href="{{ '/assets/lib/cb-icons.svg' | relative_url }}#${compoundFormat.includes('image') ? 'icon-image' : compoundIcon}"/></svg>
                                     </a>
@@ -311,13 +304,17 @@ function displayItem(record, prev_id, next_id, compound_object) {
     };
 
     /* add items to page; generate compound objects if applicable */
-    compound_object ? compoundItems(compound_object) : addItem(record);
+    if(compound_object.length > 0) { 
+        compoundItems(compound_object);
+    } else {
+        addItem(record);
+    }
 
     /* add timeline, map, and download button links */
     addButtons(record);
 
     /* add content to item display area; page layout depends on item format */
-    if (compound_object && !record.format.includes('multiple')) {
+    if (compound_object.length > 0 && !record.format.includes('multiple')) {
         itemContent = `
             <div class="mb-4">
                 ${itemImage}
@@ -387,11 +384,14 @@ function displayItem(record, prev_id, next_id, compound_object) {
     var backUrl = "{{ '/item.html?id=' | relative_url }}" + prev_id;
     var forwardUrl = "{{ '/item.html?id=' | relative_url }}" + next_id;
     /* add side buttons to page */
-    document.getElementById("back-button").href = backUrl;
-    document.getElementById("next-button").href = forwardUrl;
+    document.getElementById("item-nav").innerHTML = `<div class="d-none d-md-block">
+            <a id="back-button" class="previous btn btn-lg btn-secondary" href="${backUrl}">&laquo;</a>
+            <a id="next-button" class="next btn btn-lg btn-secondary" href="${forwardUrl}">&raquo;</a>
+        </div>`;
     /* add bottom buttons to page */
-    document.getElementById("prev-button").href = backUrl;
-    document.getElementById("for-button").href = forwardUrl;
+    document.getElementById("browse-buttons").innerHTML = `<a id="prev-button" class="btn btn-secondary" href="${backUrl}">&laquo; Previous</a>
+        <a class="btn btn-secondary" href="{{ '/browse.html' | relative_url }}">Back to browse</a>
+        <a id="for-button" class="btn btn-secondary" href="${forwardUrl}">Next &raquo;</a>`;
 
     /* add back forward key functionality for modal arrows */
     function leftModalArrowPressed() {
@@ -475,27 +475,35 @@ var itemPageId = url.searchParams.get('id');
 /* find the item by objectid */
 var record_index = cb_items.findIndex(item => item.objectid == itemPageId); 
 /* find any related children if applicable */ 
-var compoundObject = children[itemPageId];
+var child_records = cb_items.filter(item => item.parentid == itemPageId);
 
-// display if item exists
-if (record_index != -1) {
-    {% if site.data.theme.browse-buttons == true %}
-    // find next and previous record
-    var last = cb_items.length - 1;
+if (record_index != -1 && cb_items[record_index].parentid) {
+    // provide redirect for child items of compound objects
+    document.getElementById("bc-title").innerHTML = 'Child Item Error!';
+    document.getElementById("item-title").innerHTML = 'This id is a child item in a compound object, please visit the <a href="{{ "/item.html" | relative_url }}?id=' + cb_items[record_index].parentid + '#' + cb_items[record_index].objectid + '">parent item page to view</a>.';
+
+} else if (record_index != -1) {
+    // display item if it exists
     var prev_id, next_id;
-    if (record_index === 0) {
-        prev_id = cb_items[last].objectid;
+    {% if site.data.theme.browse-buttons == true %}
+    // find parents only 
+    var parent_items = cb_items.filter(item => !item.parentid );
+    var parent_record_index = parent_items.findIndex(item => item.objectid == itemPageId); 
+    // find next and previous record
+    var last = parent_items.length - 1;
+    if (parent_record_index === 0) {
+        prev_id = parent_items[last].objectid;
     } else { 
-        prev_id = cb_items[record_index - 1].objectid;
+        prev_id = parent_items[parent_record_index - 1].objectid;
     }
-    if (record_index === last) {
-        next_id = cb_items[0].objectid;
+    if (parent_record_index === last) {
+        next_id = parent_items[0].objectid;
     } else {
-        next_id = cb_items[record_index + 1].objectid;
+        next_id = parent_items[parent_record_index + 1].objectid;
     }{% endif %}
 
     // display item
-    displayItem(cb_items[record_index], prev_id, next_id, compoundObject);
+    displayItem(cb_items[record_index], prev_id, next_id, child_records);
 
 } else {
     /* no item with that ID */
