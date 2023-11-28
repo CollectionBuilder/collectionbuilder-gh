@@ -37,40 +37,42 @@ custom-foot: js/timeline-js.html
 <h3><a href="#y{{ uniqueYears | first }}">{{ uniqueYears | first }}</a> to <a href="#y{{ uniqueYears | last }}">{{ uniqueYears | last }}</a></h3>
 
 <table id="timeline" class="table table-striped">
-    {% for year in uniqueYears %}
-    <tr id="y{{ year }}">
-        <th>
-            <h3>{{ year }}</h3>
-        </th>
-        <td>
-            <div class="row">
-                {%- assign inYear = items | where_exp: 'item', 'item.date contains year' -%}
-                {% for item in inYear %}
-                <div class="col-lg-4 col-md-6">
-                    <a href="{% if item.parentid == nil %}{{ '/item.html' | relative_url | append: '?id=' | append: item.objectid }}{% elsif item.parentid %}{{ '/item.html' | relative_url | append: '?id=' | append: item.parentid | relative_url }}#{{ item.objectid }}{% endif %}" >
-                        {% if item.format contains 'image' or item.youtubeid %}
-                        <img class="lazyload img-thumbnail timeline-thumb" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E" data-src="{% if item.youtubeid %}{{ 'https://img.youtube.com/vi/' | append: item.youtubeid | append: '/hqdefault.jpg' | relative_url }}{% elsif item.filename contains '/' %}{{ item.filename }}{% else %}{{ item.filename | prepend: '/objects/' | relative_url }}{% endif %}" alt="{{ item.title | escape }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ item.title | escape }} | {{ item.date | escape }}">
-                        {% else %}
-                        <div class="card"> 
-                            <div class="card-body text-center">
-                                <div class="h5 text-dark">{{ item.title }}</div>
-                                <img class="lazyload w-50" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E" data-src="{% if item.format contains 'audio' %}
-                                {{ '/assets/lib/icons/' | relative_url }}{{ icons.icon-audio }}.svg
-                                {% elsif item.format contains 'video' %}
-                                {{ '/assets/lib/icons/' | relative_url }}{{ icons.icon-video }}.svg
-                                {% elsif item.format contains 'pdf' %}{{ '/assets/lib/icons/' | relative_url }}{{ icons.icon-pdf }}.svg
-                                {% elsif item.format contains 'compound' %}{{ '/assets/lib/icons/' | relative_url }}{{ icons.icon-compound-object }}.svg
-                                {% elsif item.format contains 'multiple' %}{{ '/assets/lib/icons/' | relative_url }}{{ icons.icon-multiple }}.svg
-                                {% else %}{{ '/assets/lib/icons/' | relative_url }}{{ icons.icon-default }}.svg
-                                {%- endif -%}" alt="filetype thumbnail">
+    <tbody>
+        {% for year in uniqueYears %}
+        <tr id="y{{ year }}">
+            <th>
+                <h3>{{ year }}</h3>
+            </th>
+            <td>
+                <div class="row">
+                    {%- assign inYear = items | where_exp: 'item', 'item.date contains year' -%}
+                    {% for item in inYear %}
+                    <div class="col-lg-4 col-md-6">
+                        <a href="{% if item.parentid == nil %}{{ '/item.html' | relative_url | append: '?id=' | append: item.objectid }}{% elsif item.parentid %}{{ '/item.html' | relative_url | append: '?id=' | append: item.parentid | relative_url }}#{{ item.objectid }}{% endif %}" >
+                            {% if item.format contains 'image' or item.youtubeid %}
+                            <img class="lazyload img-thumbnail timeline-thumb" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E" data-src="{% if item.youtubeid %}{{ 'https://img.youtube.com/vi/' | append: item.youtubeid | append: '/hqdefault.jpg' | relative_url }}{% elsif item.filename contains '/' %}{{ item.filename }}{% else %}{{ item.filename | prepend: '/objects/' | relative_url }}{% endif %}" alt="{{ item.title | escape }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ item.title | escape }} | {{ item.date | escape }}">
+                            {% else %}
+                            <div class="card"> 
+                                <div class="card-body text-center">
+                                    <div class="h5 text-dark">{{ item.title }}</div>
+                                    <img class="lazyload w-50" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E" data-src="{% if item.format contains 'audio' %}
+                                    {{ '/assets/lib/icons/' | relative_url }}{{ icons.icon-audio }}.svg
+                                    {% elsif item.format contains 'video' %}
+                                    {{ '/assets/lib/icons/' | relative_url }}{{ icons.icon-video }}.svg
+                                    {% elsif item.format contains 'pdf' %}{{ '/assets/lib/icons/' | relative_url }}{{ icons.icon-pdf }}.svg
+                                    {% elsif item.format contains 'compound' %}{{ '/assets/lib/icons/' | relative_url }}{{ icons.icon-compound-object }}.svg
+                                    {% elsif item.format contains 'multiple' %}{{ '/assets/lib/icons/' | relative_url }}{{ icons.icon-multiple }}.svg
+                                    {% else %}{{ '/assets/lib/icons/' | relative_url }}{{ icons.icon-default }}.svg
+                                    {%- endif -%}" alt="filetype thumbnail">
+                                </div>
                             </div>
-                        </div>
-                        {% endif %}
-                    </a>
+                            {% endif %}
+                        </a>
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
-            </div>
-        </td>
-    </tr>
-    {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
 </table>
