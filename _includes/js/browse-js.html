@@ -62,7 +62,7 @@ function makeCard(obj) {
     var btns = obj[{{ f.field | jsonify }}].split(";");
     for (var i = 0, len = btns.length; i < len; i++) {
       if(btns[i] != "") {
-        card += '<a class="btn btn-sm btn-secondary m-1 text-wrap" href="{{ '/browse.html' | relative_url }}#' + encodeURIComponent(btns[i].trim()) + '">' + btns[i].trim() + '</a>';
+        card += '<a class="btn btn-sm btn-secondary m-1 text-wrap" href="{{ page.url | relative_url }}#' + encodeURIComponent(btns[i].trim()) + '">' + btns[i].trim() + '</a>';
       }
     }
     {% else %}
@@ -74,7 +74,7 @@ function makeCard(obj) {
     card += '</p>';
     // media type
     if(obj.format != "") {
-        card += '<p class="card-text"><small><a class="btn btn-sm btn-outline-secondary" href="{{ '/browse.html' | relative_url }}#' + encodeURIComponent(obj.format) + '">' + 
+        card += '<p class="card-text"><small><a class="btn btn-sm btn-outline-secondary" href="{{ page.url | relative_url }}#' + encodeURIComponent(obj.format) + '">' + 
         obj.format.split("/").pop().replace("_", " ").toUpperCase() + ' <svg class="bi icon-sprite"><use xlink:href="{{ "/assets/lib/cb-icons.svg" | relative_url }}#';
         if(obj.format.includes('image')){
             card += 'icon-image';
