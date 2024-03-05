@@ -1,16 +1,5 @@
 {% comment %}
-    Paste Analytics code snippet here (for example from Matomo) or set google-analytics-id in config.yml
+    Paste analytics code snippet here as provided by your platform (for example from Google Analytics or Matomo).
+    To avoid collecting stats from your development server, this code will be added to the head of every page ONLY during production build! 
 {% endcomment %}
 <!-- Analytics --> 
-{% if site.google-analytics-id %}
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google-analytics-id }}"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', '{{ site.google-analytics-id }}', {
-    'anonymize_ip': true
-  });
-</script>
-{%- endif -%}
