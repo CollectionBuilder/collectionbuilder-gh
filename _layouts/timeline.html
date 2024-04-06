@@ -6,22 +6,25 @@ custom-foot: js/timeline-js.html
 {%- if site.data.theme.icons -%}{% assign icons = site.data.theme.icons %}{% else %}
 {% assign cb_icons = site.pages | where: "name","cb-icons.svg" | first %}
 {% assign icons = cb_icons.icons %}{%- endif -%}
+{%- assign field = site.data.theme.timeline-field | default: page.timeline-field | default: "date" -%}
 {% if site.data.theme.timeline-child-objects == true %}
 {%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' -%}
 {% else %}
 {%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' | where_exp: 'item','item.parentid == nil' -%}
 {% endif %}
-{%- assign raw-dates = items | where_exp: 'item', 'item.objectid != nil' | map: 'date' | compact | uniq -%}
+{%- assign items = items | where_exp: 'item','item[field]' -%}
+{%- assign raw-dates = items | map: field | compact | uniq -%}
 {%- capture clean-years -%}{% for date in raw-dates %}{% if date contains "-" %}{{ date | strip | split: "-" | first }}{% elsif date contains "/" %}{{ date | strip | split: "/" | last }}{% else %}{{ date | strip }}{% endif %}{% unless forloop.last %};{% endunless %}{%- endfor -%}{%- endcapture -%}
-{%- assign uniqueYears = clean-years | remove: " " | replace: ";;",";" | split: ";" | uniq | sort -%}
+{%- assign uniqueYears = clean-years | replace: ";;",";" | split: ";" | compact | uniq | sort -%}
 {%- if site.data.theme.year-navigation -%}
 {%- assign navYears = site.data.theme.year-navigation | split: ";" -%}
-{%- else -%}
+{%- elsif site.data.theme.year-nav-increment -%}
 {%- capture navYears -%}
 {%- for i in uniqueYears -%}{%- assign t = i | modulo: site.data.theme.year-nav-increment -%}
 {%- if t == 0 -%}{{ i }}{% unless forloop.last %};{% endunless %}{% endif %}{% endfor %}{%- endcapture -%}
 {%- assign navYears = navYears | split: ";" -%}
 {%- endif -%}
+{%- if navYears -%}
 <div class="dropdown float-end" id="year-nav">
     <button class="btn btn-primary dropdown-toggle" type="button" id="yearButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Year
@@ -31,6 +34,7 @@ custom-foot: js/timeline-js.html
         <a class="dropdown-item" href="#y{{ y }}">{{ y }}</a>{% endfor %}
     </div>
 </div>
+{%- endif -%}
 
 {{ content }}
 
@@ -45,7 +49,7 @@ custom-foot: js/timeline-js.html
             </th>
             <td>
                 <div class="row">
-                    {%- assign inYear = items | where_exp: 'item', 'item.date contains year' -%}
+                    {%- assign inYear = items | where_exp: 'item', 'item[field] contains year' -%}
                     {% for item in inYear %}
                     <div class="col-lg-4 col-md-6">
                         <a href="{% if item.parentid == nil %}{{ '/item.html' | relative_url | append: '?id=' | append: item.objectid }}{% elsif item.parentid %}{{ '/item.html' | relative_url | append: '?id=' | append: item.parentid | relative_url }}#{{ item.objectid }}{% endif %}" >
