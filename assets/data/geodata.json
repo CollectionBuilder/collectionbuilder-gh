@@ -1,7 +1,7 @@
 ---
 # generate geojson data for collection items with lat-longs
 ---
-{%- assign items = site.data[site.metadata] | where_exp: 'item','item.latitude' -%}
+{%- assign items = site.data[site.metadata] | where_exp: 'item','item.latitude' | where_exp: 'item','item.longitude' -%}
 {%- assign fields = site.data.theme.metadata-export-fields | split: "," -%}
 {
     "type": "FeatureCollection",

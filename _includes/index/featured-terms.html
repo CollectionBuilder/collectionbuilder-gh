@@ -34,7 +34,7 @@
 {% if site.data.theme.browse-child-objects == true %}
 {%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' -%}
 {% else %}
-{%- assign items = site.data[site.metadata] | where_exp: 'item','item.parentid == nil' | where_exp: 'item','item.objectid' -%}
+{%- assign items = site.data[site.metadata] | where_exp: 'item', 'item.objectid'| where_exp: 'item','item.parentid == nil' -%}
 {% endif %}
 {% assign rawTerms = items | map: termsField | join: ";" | split: ";" %}
 {% capture terms %}{% for t in rawTerms %}{% if t != "" and t != " " %}{{ t | strip | downcase }};{% endif %}{% endfor %}{% endcapture %}

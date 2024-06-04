@@ -1,7 +1,7 @@
 {% if site.data.theme.timeline-child-objects == true %}
 {%- assign date-items = site.data[site.metadata] | where_exp: 'item','item.objectid' -%}
 {% else %}
-{%- assign date-items = site.data[site.metadata] | where_exp: 'item','item.parentid == nil and item.objectid != nil' -%}
+{%- assign date-items = site.data[site.metadata] | where_exp: 'item', 'item.objectid' | where_exp: 'item','item.parentid == nil' -%}
 {% endif %}
 {%- assign raw-dates = date-items | map: 'date' | compact | uniq  -%}
 {%- capture clean-years -%}{% for date in raw-dates %}{% if date contains "-" %}{{ date | strip | split: "-" | first }}{% elsif date contains "/" %}{{ date | strip | split: "/" | last }}{% else %}{{ date | strip }}{% endif %}{% unless forloop.last %};{% endunless %}{%- endfor -%}{%- endcapture -%}
