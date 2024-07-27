@@ -1,0 +1,22 @@
+{% comment %}
+
+    Bootstrap collapse feature, https://getbootstrap.com/docs/5.3/components/collapse/
+
+    e.g. --> {% include feature/collapse.html button="Learn More" color="success" text="Such an interesting story!" %}
+
+    Options:
+    - "button" = text of the button that triggers the collapse to open (required)
+    - "text" = text inside the collapse, Markdown is supported (required, hint: use a capture statement to add more complex text!)
+    - "color" = color for the trigger button (optional, default: primary)
+   
+{%- endcomment -%}
+<p>
+    <button class="btn btn-{{ include.color | default: 'primary' }}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ include.button | slugify }}" aria-expanded="false" aria-controls="collapse{{ include.button | slugify }}">
+        {{ include.button }}
+    </button>
+</p>
+<div class="collapse narrow-content mb-3" id="collapse{{ include.button | slugify }}">
+    <div class="card card-body">
+    {{ include.text | markdownify }}
+    </div>
+</div>
