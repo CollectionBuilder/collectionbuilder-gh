@@ -57,7 +57,7 @@ function displayItem(record, prev_id, next_id, compound_object) {
             itemDisplay = '<audio controls class="w-100"><source src="' + findFileLink(item) + '">Your browser does not support the audio element. Please <a href="' + findFileLink(item) + '">download the audio file</a>.</audio>';
             itemDownload = '<a href="' + findFileLink(item) + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download ' + item.format.split("/").pop().toUpperCase() + '</a>';
         } else if (item.youtubeid) {
-            itemDisplay = '<div class="ratio ratio-16x9"><iframe title="video embed ' + item.title + '" src="https://www.youtube-nocookie.com/embed/' + item.youtubeid + '?rel=0&modestbranding=1" allowfullscreen></iframe></div>';
+            itemDisplay = '<div class="ratio ratio-16x9"><iframe title="video embed ' + item.title + '" src="https://www.youtube-nocookie.com/embed/' + item.youtubeid + '?enablejsapi=1&rel=0&modestbranding=1" allowfullscreen></iframe></div>';
             itemDownload = '<a href="https://youtu.be/' + item.youtubeid + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">View on YouTube</a>';
         } else if (item.vimeoid) {
             itemDisplay = '<div class="ratio ratio-16x9"><iframe title="video embed ' + item.title + '"src="https://player.vimeo.com/video/' + item.vimeoid + '" allowfullscreen></iframe></div>';
@@ -211,10 +211,10 @@ function displayItem(record, prev_id, next_id, compound_object) {
                                     <div class="modal-title w-100" id="${compoundItem[i].objectid}ModalLabel">
                                         <div class="row">
                                             <div class="col-12 text-end">
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="history.pushState('', '', window.location.href.replace(/#.*$/, ''))"></button>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="stopMedia();history.pushState('', '', window.location.href.replace(/#.*$/, ''))"></button>
                                             </div>
                                             <div class="col-1 col-md-2">
-                                                <button data-bs-target="#${itemPrev}" data-bs-toggle="modal" onclick="window.location.hash='${itemPrev}'" class="btn btn-outline-dark btn-sm prev-child-button" >
+                                                <button data-bs-target="#${itemPrev}" data-bs-toggle="modal" onclick="stopMedia();window.location.hash='${itemPrev}'" class="btn btn-outline-dark btn-sm prev-child-button" >
                                                     <svg class="bi icon-sprite" role="img" aria-label="Previous Item">
                                                         <use xlink:href="{{ '/assets/lib/cb-icons.svg' | relative_url }}#arrow-left"/>
                                                     </svg>
@@ -228,7 +228,7 @@ function displayItem(record, prev_id, next_id, compound_object) {
                                                 </h3>
                                             </div>
                                             <div class="col-1 col-md-2 text-end">
-                                                <button data-bs-target="#${itemNext}" data-bs-toggle="modal" onclick="window.location.hash='${itemNext}'" class="btn btn-outline-dark btn-sm next-child-button">
+                                                <button data-bs-target="#${itemNext}" data-bs-toggle="modal" onclick="stopMedia();window.location.hash='${itemNext}'" class="btn btn-outline-dark btn-sm next-child-button">
                                                     <span class="d-none d-md-inline">Next Item</span>
                                                     <svg class="bi icon-sprite" role="img" aria-label="Next Item">
                                                         <use xlink:href="{{ '/assets/lib/cb-icons.svg' | relative_url }}#arrow-right"/>
@@ -513,5 +513,31 @@ if (record_index != -1 && cb_items[record_index].parentid) {
 
 /* all done, so hide loading animation */
 document.getElementById("loading").style.display = "none";
+
+/* function to stop video/audio/youtube/vimeo when the user clicks the next button, the previous button, or close button on a compound object modal */
+function stopMedia() {
+    // Stop any playing <video> or <audio> elements
+    const mediaElements = document.querySelectorAll('video, audio');
+    mediaElements.forEach(media => {
+        if (!media.paused) {
+            media.pause();
+            media.currentTime = 0; // Optional: Reset video/audio to start
+        }
+    });
+
+    // Stop any playing YouTube videos
+    const iframes = document.querySelectorAll('iframe');
+    iframes.forEach(iframe => {
+        const src = iframe.src;
+        if (src.includes('youtube')) {
+            // Assuming the iframe is a YouTube video
+            const message = JSON.stringify({ event: 'command', func: 'pauseVideo', args: '' });
+            iframe.contentWindow.postMessage(message, '*');
+        } else if (src.includes('vimeo')) {
+            // Assuming the iframe is a Vimeo video
+            iframe.src = iframe.src;
+        }
+    });
+}
 
 </script>
