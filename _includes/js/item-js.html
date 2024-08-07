@@ -4,6 +4,7 @@
 {%- assign fields = site.data.config-metadata -%}
 {%- assign stubs = site.data.config-nav | map: 'stub' | join: ';' -%}
 {%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' -%}
+<script src="https://player.vimeo.com/api/player.js"></script>
 <script>
 /* add item data */
 var cb_items = [ 
@@ -192,6 +193,20 @@ function displayItem(record, prev_id, next_id, compound_object) {
             /* create and add timeline button and map button; add item download link button*/
             addButtons(compoundItem[i]);
 
+            /* define media type for stopMedia() function */
+            var mediaType;
+            if (compoundItem[i].youtubeid) {
+                mediaType = "youtube"
+            } else if (compoundItem[i].vimeoid) {
+                mediaType = "vimeo"
+            } else if (compoundItem[i].format.includes('video')) {
+                mediaType = "video"
+            } else if (compoundItem[i].format.includes('audio')) {
+                mediaType = "audio"
+            } else {
+                mediaType = "nomedia"
+            }
+
             /* add multiples or compound objects to page */
             if (format.includes('multiple')) {
                 /* add full size item to page */
@@ -211,10 +226,10 @@ function displayItem(record, prev_id, next_id, compound_object) {
                                     <div class="modal-title w-100" id="${compoundItem[i].objectid}ModalLabel">
                                         <div class="row">
                                             <div class="col-12 text-end">
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="stopMedia();history.pushState('', '', window.location.href.replace(/#.*$/, ''))"></button>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="stopMedia('${mediaType}', '${compoundItem[i].objectid}');history.pushState('', '', window.location.href.replace(/#.*$/, ''))"></button>
                                             </div>
                                             <div class="col-1 col-md-2">
-                                                <button data-bs-target="#${itemPrev}" data-bs-toggle="modal" onclick="stopMedia();window.location.hash='${itemPrev}'" class="btn btn-outline-dark btn-sm prev-child-button" >
+                                                <button data-bs-target="#${itemPrev}" data-bs-toggle="modal" onclick="stopMedia('${mediaType}', '${compoundItem[i].objectid}');window.location.hash='${itemPrev}'" class="btn btn-outline-dark btn-sm prev-child-button" >
                                                     <svg class="bi icon-sprite" role="img" aria-label="Previous Item">
                                                         <use xlink:href="{{ '/assets/lib/cb-icons.svg' | relative_url }}#arrow-left"/>
                                                     </svg>
@@ -228,7 +243,7 @@ function displayItem(record, prev_id, next_id, compound_object) {
                                                 </h3>
                                             </div>
                                             <div class="col-1 col-md-2 text-end">
-                                                <button data-bs-target="#${itemNext}" data-bs-toggle="modal" onclick="stopMedia();window.location.hash='${itemNext}'" class="btn btn-outline-dark btn-sm next-child-button">
+                                                <button data-bs-target="#${itemNext}" data-bs-toggle="modal" onclick="stopMedia('${mediaType}', '${compoundItem[i].objectid}');window.location.hash='${itemNext}'" class="btn btn-outline-dark btn-sm next-child-button">
                                                     <span class="d-none d-md-inline">Next Item</span>
                                                     <svg class="bi icon-sprite" role="img" aria-label="Next Item">
                                                         <use xlink:href="{{ '/assets/lib/cb-icons.svg' | relative_url }}#arrow-right"/>
@@ -515,29 +530,36 @@ if (record_index != -1 && cb_items[record_index].parentid) {
 document.getElementById("loading").style.display = "none";
 
 /* function to stop video/audio/youtube/vimeo when the user clicks the next button, the previous button, or close button on a compound object modal */
-function stopMedia() {
-    // Stop any playing <video> or <audio> elements
-    const mediaElements = document.querySelectorAll('video, audio');
-    mediaElements.forEach(media => {
-        if (!media.paused) {
-            media.pause();
-            media.currentTime = 0; // Optional: Reset video/audio to start
+function stopMedia(avType, modalId) {
+    /* identify the correct modal */
+    var modalElement = document.getElementById(modalId);
+    /* function to stop av elements */
+    var pauseElement = (element) => {
+        if (!element.paused) {
+            element.pause();
+            element.currentTime = 0;
         }
-    });
-
-    // Stop any playing YouTube videos
-    const iframes = document.querySelectorAll('iframe');
-    iframes.forEach(iframe => {
-        const src = iframe.src;
-        if (src.includes('youtube')) {
-            // Assuming the iframe is a YouTube video
-            const message = JSON.stringify({ event: 'command', func: 'pauseVideo', args: '' });
-            iframe.contentWindow.postMessage(message, '*');
-        } else if (src.includes('vimeo')) {
-            // Assuming the iframe is a Vimeo video
-            iframe.src = iframe.src;
-        }
-    });
-}
+    };
+    /* select the corresponding element */
+    var mediaElement;
+    switch (avType) {
+        case "youtube":
+        case "vimeo": mediaElement = modalElement.querySelector("iframe");
+        break;
+        case "video": mediaElement = modalElement.querySelector("video");
+        break;
+        case "audio": mediaElement = modalElement.querySelector("audio");
+        break;
+    }
+    /* pause or stop playback depending on element type */
+    if (avType == "youtube") {
+        var message = JSON.stringify({ event: 'command', func: 'pauseVideo', args: '' });
+        mediaElement.contentWindow.postMessage(message, '*');
+    } else if (avType == "vimeo") {
+        mediaElement.src = mediaElement.src;
+    } else if (avType == 'video' || avType == 'audio') {
+        pauseElement(mediaElement);
+    }
+};
 
 </script>
