@@ -4,7 +4,6 @@
 {%- assign fields = site.data.config-metadata -%}
 {%- assign stubs = site.data.config-nav | map: 'stub' | join: ';' -%}
 {%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' -%}
-<script src="https://player.vimeo.com/api/player.js"></script>
 <script>
 /* add item data */
 var cb_items = [ 
