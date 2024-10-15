@@ -532,13 +532,6 @@ document.getElementById("loading").style.display = "none";
 function stopMedia(avType, modalId) {
     /* identify the correct modal */
     var modalElement = document.getElementById(modalId);
-    /* function to stop av elements */
-    var pauseElement = (element) => {
-        if (!element.paused) {
-            element.pause();
-            element.currentTime = 0;
-        }
-    };
     /* select the corresponding element */
     var mediaElement;
     switch (avType) {
@@ -555,9 +548,9 @@ function stopMedia(avType, modalId) {
         var message = JSON.stringify({ event: 'command', func: 'pauseVideo', args: '' });
         mediaElement.contentWindow.postMessage(message, '*');
     } else if (avType == "vimeo") {
-        mediaElement.src = mediaElement.src;
+        mediaElement.contentWindow.postMessage('{"method":"pause"}', '*');
     } else if (avType == 'video' || avType == 'audio') {
-        pauseElement(mediaElement);
+        mediaElement.pause();
     }
 };
 
