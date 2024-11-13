@@ -12,7 +12,7 @@
         
         <div class="collapse navbar-collapse" id="page-nav">
             <ul class="navbar-nav me-auto">
-                {%- assign navItems = site.data.config-nav | where_exp: 'item', 'item.dropdown_parent == nil' -%} 
+                {%- assign navItems = site.data.config-nav | where_exp: 'item', 'item.display_name' | where_exp: 'item', 'item.dropdown_parent == nil' -%} 
                 {% for nav in navItems %}
                 {% if nav.stub %}
                 <li class="nav-item">
