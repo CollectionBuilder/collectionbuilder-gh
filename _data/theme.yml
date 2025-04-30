@@ -8,7 +8,7 @@
 #
 # featured image is used in home page banner and in meta markup to represent the collection
 # use either an objectid (from an item in this collect), a relative location of an image in this repo (ex. /assets/img/feature.jpg), or a full url to an image elsewhere
-featured-image: demo_001
+featured-image: leefc00001
 # optional: add extra padding around collection title for a larger image feature. 
 home-title-y-padding: 10em # Default is 8em
 # optional: change position of background image, center, top, bottom
@@ -37,7 +37,7 @@ locations-stopwords: # set of subjects separated by ; that will be removed from 
 ##########
 # MAP PAGE
 #
-# see _data/map-config.csv for field display options
+see _data/map-config.csv for field display options
 latitude: 46.727485 #to determine center of map
 longitude: -117.014185 #to determine center of map
 zoom-level: 5 # zoom level for map 
