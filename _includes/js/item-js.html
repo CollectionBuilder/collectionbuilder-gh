@@ -8,7 +8,7 @@
 /* add item data */
 var cb_items = [ 
     {%- for item in items -%}
-    { "objectid": {{ item.objectid | jsonify }}, {% if item.parentid %}"parentid": {{ item.parentid | jsonify }}, {% endif %}{% unless fields contains 'title' %}"title": {{ item.title | jsonify }}, {% endunless %}{% for f in fields %}{% if item[f.field] %}{{ f.field | jsonify }}: {{ item[f.field] | jsonify }}, {% endif %}{% endfor %}{% if item.youtubeid %} "youtubeid": {{ item.youtubeid | jsonify }}, {% endif %}{% if item.vimeoid %} "vimeoid": {{ item.vimeoid | jsonify }}, {% endif %}"format": {{ item.format | jsonify }}, "filename": {% if item.filename %}"{{ item.filename }}"{% else %}""{% endif %} }{% unless forloop.last %}, {% endunless %}
+    { "objectid": {{ item.objectid | jsonify }}, {% if item.parentid %}"parentid": {{ item.parentid | jsonify }}, {% endif %}{% if item.title %}{% unless fields contains 'title' %}"title": {{ item.title | jsonify }}, {% endunless %}{% endif %}{% for f in fields %}{% if item[f.field] %}{{ f.field | jsonify }}: {{ item[f.field] | jsonify }}, {% endif %}{% endfor %}{% if item.youtubeid %} "youtubeid": {{ item.youtubeid | jsonify }}, {% endif %}{% if item.vimeoid %} "vimeoid": {{ item.vimeoid | jsonify }}, {% endif %}"format": {{ item.format | jsonify }}, "filename": {% if item.filename %}"{{ item.filename }}"{% else %}""{% endif %} }{% unless forloop.last %}, {% endunless %}
     {% endfor %}
 ];
 
