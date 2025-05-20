@@ -1,15 +1,21 @@
 <script>
 (function(){
     // init bootstrap tooltips
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
+    });
 
-    // highlight year if hash
-    if(window.location.hash) {
-        var hashfilter = decodeURIComponent(location.hash.substr(1));
-        document.querySelector("tr#" + hashfilter).classList.add("bg-info");
+    // highlight active year row
+    function highlightYear() {
+        var hashfilter = "tr#" + decodeURIComponent(location.hash.substr(1));
+        document.querySelectorAll("table#timeline tr").forEach(row => { row.classList.remove('table-info'); });
+        if (document.querySelector(hashfilter)) { document.querySelector(hashfilter).classList.add("table-info"); }
     }
+    // if in initial hash
+    if (window.location.hash) { highlightYear(); }
+    // on hash change
+    window.addEventListener("hashchange", highlightYear);
+
 })();
 </script>
