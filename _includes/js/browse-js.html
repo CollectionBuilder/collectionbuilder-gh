@@ -112,7 +112,9 @@ function filterItems(arr,q) {
         var filteredItems = [];
         for (var i = 0, len = arr.length; i < len; i++) {
             var val = "";
-        for (var k in arr[i]) { val += arr[i][k] + " "; }
+            for (var k in arr[i]) { 
+                if (k != "img") { val += arr[i][k] + " "; }
+            }
             if(val.toUpperCase().indexOf(q) != -1){
                 filteredItems.push(arr[i]);
             }
@@ -129,7 +131,9 @@ function filterItems(arr,q) {
     browseItemsDiv.innerHTML = cards;
 
     // finish
-    filterButton.focus();
+    if (q != "") {
+        filterTextBox.focus();
+    }
     loadingIcon.classList.add("d-none");
 };
 
@@ -159,7 +163,12 @@ var browseItemsDiv = document.querySelector("#browseItems");
 /* filter if hash in initial URL */
 var query = "";
 if(window.location.hash) {
-    query = decodeURIComponent(location.hash.substr(1));
+    var hashValue = decodeURIComponent(location.hash.substr(1));
+    if (hashValue != 'maincontent') { 
+        query = hashValue;
+    } else {
+        query = "";
+    }
     filterTextBox.value = query;
     filterItems(items,query);
 } else {
