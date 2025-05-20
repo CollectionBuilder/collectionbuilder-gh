@@ -112,7 +112,7 @@
         /* bind feature for search */
         feature.layer = layer;{% endif %}
         /* calculate item link */
-        var itemHref = '{{ "/item.html?id=" | relative_url }}' + feature.properties.link;
+        var itemHref = '{{ "/item.html" | relative_url }}?id=' + feature.properties.link;
         /* find object thumb based on format */
         var thumbSrc;
         if (feature.properties.youtube) {
