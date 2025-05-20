@@ -1,16 +1,31 @@
+{% comment %}
+
+    Collection time span.
+    Extracts all content of "date" field, displays the smallest and largest.
+    You may encounter issues if you do not have a correctly ISO formatted "date" field.
+
+    E.G. --> {% include index/time.html %}
+
+    Options:
+
+    - "date_field" - optionally change the field used for date range. Only ISO or year-only dates are supported. (optional, default "date")
+    - "btn-color" - a bootstrap color class to theme the buttons. Can be any bootstrap template color (e.g. info, success) or outline (e.g. outline-info, outline-success), including colors created in config-theme-colors. (optional, default "outline-secondary")
+    - "heading_level" = customize the level of the heading if necessary for accessibility, choose "h1", "h2", "h3", etc (optional, default "h2")
+
+{%- endcomment -%}
+{% assign date_field = include.date_field | default: 'date' %}
 {% if site.data.theme.timeline-child-objects == true %}
 {%- assign date-items = site.data[site.metadata] | where_exp: 'item','item.objectid' -%}
 {% else %}
 {%- assign date-items = site.data[site.metadata] | where_exp: 'item', 'item.objectid' | where_exp: 'item','item.parentid == nil' -%}
 {% endif %}
-{%- assign raw-dates = date-items | map: 'date' | compact | uniq  -%}
+{%- assign raw-dates = date-items | map: date_field | compact | uniq -%}
 {%- capture clean-years -%}{% for date in raw-dates %}{% if date contains "-" %}{{ date | strip | split: "-" | first }}{% elsif date contains "/" %}{{ date | strip | split: "/" | last }}{% else %}{{ date | strip }}{% endif %}{% unless forloop.last %};{% endunless %}{%- endfor -%}{%- endcapture -%}
 {%- assign date-range = clean-years | remove: " " | split: ";" | uniq | sort  -%}
 <div class="card mb-3">
-  <div class="card-body">
-    <h5 class="card-title">Time Span</h5>
-    <p class="card-text h5">{{ date-range | first }} to {{ date-range | last }}
-      <br/><a href="{{ '/timeline.html' | relative_url }}" class="btn btn-sm btn-outline-secondary mt-2">View Timeline</a>
-    </p>
-  </div>
+    <div class="card-body">
+        <{{ include.heading_level | default: 'h2' | strip }} class="card-title h5">Time Span</{{ include.heading_level | default: 'h2' | strip }}>
+        <p class="card-text h5">{{ date-range | first }} to {{ date-range | last }}
+        <br><a href="{{ '/timeline.html' | relative_url }}" class="btn btn-sm btn-{{ include.btn-color | default: 'outline-secondary' }} mt-2">View Timeline</a></p>
+    </div>
 </div>
