@@ -11,6 +11,7 @@
     - "heading" = major heading to display. By default this will be the site title. Give the value false for no heading.
     - "text" = paragraph text below heading. By default this will be the site tagline. Give the value false for no text.
     - "padding" = additional padding added to the feature to increase size. Give value in em or px, e.g. "5em".
+    - "heading_level" = customize the level of the heading if necessary for accessibility, choose "h1", "h2", "h3", etc (optional, default "h2")
 
     Note: if using a YouTube item and an error image appears, the video may not have a "maxresdefault" image available. Replace "maxresdefault.jpg" in the code below with "hqdefault.jpg"
 
@@ -60,7 +61,7 @@
     <div class="jumbo-title-box">
         {% unless include.heading == false and include.text == false %}
         <div class="p-2 text-center text-white bg-dark bg-opacity-75">
-            {% unless include.heading == false %}<h2 class="display-4">{{ include.heading | default: site.title }}</h2>{% endunless %}
+            {% unless include.heading == false %}<{{ include.heading_level | default: 'h2' | strip }} class="display-4">{{ include.heading | default: site.title }}</{{ include.heading_level | default: 'h2' | strip }}>{% endunless %}
             {% unless include.text == false %}<p class="jumbo-tagline">{{ include.text | default: site.tagline }}</p>{% endunless %}
         </div>
         {% endunless %}

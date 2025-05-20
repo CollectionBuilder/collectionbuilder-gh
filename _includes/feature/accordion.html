@@ -8,15 +8,16 @@
     - "title1", "title2", "title3" = title for each section of accordion (max three)
     - "text1", "text2", "text3" = text for each section of accordion (max three). You will probably want to capture the text using a Liquid capture, then use the variable to provide text to this include.
     - "open" = optional, by default is "false". Add "true" to have the first section of the accordion open.
+    - "heading_level" = customize the level of the heading if necessary for accessibility, choose "h1", "{{ include.heading_level | default: 'h2' | strip }}", "h3", etc (optional, default "{{ include.heading_level | default: 'h2' | strip }}")
 
 {%- endcomment -%}
 <div class="accordion mb-3" id="accordionInclude">
     <div class="accordion-item">
-      <h2 class="accordion-header" id="headingOne">
+      <{{ include.heading_level | default: 'h2' | strip }} class="accordion-header" id="headingOne">
         <button class="accordion-button{% unless include.open %} collapsed{% endunless %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="{% if include.open == true %}true{% else %}false{% endif %}" aria-controls="collapseOne">
             {{ include.title1 }}
         </button>
-      </h2>
+      </{{ include.heading_level | default: 'h2' | strip }}>
       <div id="collapseOne" class="accordion-collapse collapse{% if include.open == true %} show{% endif %}" aria-labelledby="headingOne" data-bs-parent="#accordionInclude">
         <div class="accordion-body">
             {{ include.text1 | markdownify }}
@@ -25,11 +26,11 @@
     </div>
     {% if include.title2 %}
     <div class="accordion-item">
-      <h2 class="accordion-header" id="headingTwo">
+      <{{ include.heading_level | default: 'h2' | strip }} class="accordion-header" id="headingTwo">
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
             {{ include.title2 }}
         </button>
-      </h2>
+      </{{ include.heading_level | default: 'h2' | strip }}>
       <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionInclude">
         <div class="accordion-body">
             {{ include.text2 | markdownify }}
@@ -39,11 +40,11 @@
     {% endif %}
     {% if include.title3 %}
     <div class="accordion-item">
-      <h2 class="accordion-header" id="headingThree">
+      <{{ include.heading_level | default: 'h2' | strip }} class="accordion-header" id="headingThree">
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
             {{ include.title3 }}
         </button>
-      </h2>
+      </{{ include.heading_level | default: 'h2' | strip }}>
       <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionInclude">
         <div class="accordion-body">
             {{ include.text3 | markdownify }}
