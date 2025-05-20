@@ -5,14 +5,14 @@
         </button>
 
         {% if site.organization-logo-nav %}<span class="d-lg-none text-end">
-            <a href="{{ site.organization-link }}" target="_blank" rel="noopener">
+            <a href="{{ site.organization-link }}">
                 <img class="img-fluid" id="mobile-nav-image" src="{{ site.organization-logo-nav | relative_url }}" title="{{ site.organization-name }}" alt="{{ site.organization-name }} home" >
             </a>
         </span>{% endif %}
         
         <div class="collapse navbar-collapse" id="page-nav">
             <ul class="navbar-nav me-auto">
-                {%- assign navItems = site.data.config-nav | where_exp: 'item', 'item.dropdown_parent == nil' -%} 
+                {%- assign navItems = site.data.config-nav | where_exp: 'item', 'item.display_name' | where_exp: 'item', 'item.dropdown_parent == nil' -%} 
                 {% for nav in navItems %}
                 {% if nav.stub %}
                 <li class="nav-item">

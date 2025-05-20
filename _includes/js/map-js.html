@@ -27,14 +27,15 @@
     "format": {{ item.format | jsonify }}, {% if  item.filename contains '/' %}"filename": "{{ item.filename }}" {% else %}"filename":{{ '/objects/' | relative_url | append: item.filename | jsonify }}{% endif %}, "link": "{% if item.parentid %}{{ item.parentid }}#{{ item.objectid }}{% else %}{{ item.objectid }}{% endif %}", "id": {{ item.objectid | jsonify }} } }{% unless forloop.last %}, {% endunless %}{% endfor %}
     ]};
 
-    /* check for url parameters and set initial view options */ 
+    /* check for url parameters and setup initial view options */ 
     let url = new URL(window.location);
-    var mapCenter = url.searchParams.get('location') ? url.searchParams.get('location').split(',') : [{{ site.data.theme.latitude | default: 46.727485 }}, {{ site.data.theme.longitude | default: -117.014185 }}];
-    var mapZoom = url.searchParams.get('location') ? 16 : {{ site.data.theme.zoom-level | default: 5 }};
+    const locationSearchParams = url.searchParams.get('location');
+    var mapCenter = locationSearchParams ? locationSearchParams.split(',') : [{{ site.data.theme.latitude | default: 46.727485 }}, {{ site.data.theme.longitude | default: -117.014185 }}];
+    var mapZoom = locationSearchParams ? 16 : {{ site.data.theme.zoom-level | default: 5 }};
     var markerFilter = url.searchParams.get('marker') ? url.searchParams.get('marker') : "";
 
-    /* init map, set center and zoom */
-    var map = L.map('map').setView(mapCenter, mapZoom);
+    /* init map */
+    var map = L.map('map');
 
     /* add map layer options */
     var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
@@ -111,7 +112,7 @@
         /* bind feature for search */
         feature.layer = layer;{% endif %}
         /* calculate item link */
-        var itemHref = '{{ "/item.html?id=" | relative_url }}' + feature.properties.link;
+        var itemHref = '{{ "/item.html" | relative_url }}?id=' + feature.properties.link;
         /* find object thumb based on format */
         var thumbSrc;
         if (feature.properties.youtube) {
@@ -134,7 +135,7 @@
         /* create popup content */
         var popupTemplate = '<h2 class="h4"><a class="text-dark" href="' + itemHref + '">' +
             feature.properties.title + '</a></h2><div class="text-center"><a href="' + itemHref + 
-            '" ><img class="mapthumb img-thumb" src="' +  thumbSrc + '" alt="item thumbnail"></a></div><p>';
+            '" ><img class="map-thumb img-thumb" src="' +  thumbSrc + '" alt="item thumbnail"></a></div><p>';
         /* add metadata fields */
         {% for f in fields %}{% if f.display_name %}
         if (feature.properties[{{ f.field | jsonify }}]) {
@@ -159,6 +160,22 @@
         pointToLayer: objectMarkers
     }){% if site.data.theme.map-cluster != true %}.addTo(map);{% else %};
     map.addLayer(markers);{% endif %}
+
+    {% if site.data.theme.auto-center-map == true %}
+    /* if no location was specified in the URL query parameters, auto center the map */
+    if (locationSearchParams === null) {
+        const featureBounds = mapFeatures.getBounds()
+        if (featureBounds?.isValid()) {
+            map.fitBounds(featureBounds);
+        }
+    } else {
+        /* set map view based on URL parameters */
+        map.setView(mapCenter, mapZoom);
+    }
+    {% else %}
+    /* set map view based on configuration or URL parameters */
+    map.setView(mapCenter, mapZoom);
+    {% endif %}
     
     {% if site.data.theme.map-cluster == true and site.data.theme.map-search == true %}
     /* uncluster when search is clicked */
@@ -193,4 +210,5 @@
     }
 
 })();
+
 </script>

@@ -44,8 +44,9 @@
 
 /* map */
 #map { height: 750px; z-index: 98; }
-.mapthumb {
+.map-thumb {
     height: 100px;
+    max-width: 100%;
 }
 .leaflet-fusesearch-panel .header {
     padding-bottom: 1.5em;
@@ -69,7 +70,6 @@
 .tagcloud9{font-size:2.8em;}
 .tagcloud10{font-size:3.0em;}
 
-
 /* About */
 .about-nav {
     line-height: 1.5em; 
@@ -88,21 +88,17 @@
         margin: 1.5rem auto 1rem;
     }
     
-    p, .about-narrowed-content, .footnotes, ol, ul, blockquote {
+    p, .about-narrowed-content, .narrow-content, hr, .footnotes, ol, ul, blockquote {
         margin-left: auto;
         margin-right: auto;
         max-width: 650px;
-    }
-
-    blockquote {
-        font-size: 1.75rem;
     }
 
 }
 
 /* narrow text block for page-narrow layout */
 .page-narrow {
-    max-width: 650px;
+    max-width: 750px;
     margin-left: auto;
     margin-right: auto;
 }

@@ -1,7 +1,10 @@
 ---
 # limits the content block to narrow size
+# max-width is set in _pages.scss using .page-narrow selector
 layout: default
 ---
-<div class="container my-4 page-narrow">
+<div class="container my-4">
+  <div class="page-narrow">
   {{ content }}
+  </div>
 </div>

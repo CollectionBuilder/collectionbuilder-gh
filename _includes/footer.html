@@ -2,9 +2,9 @@
 
     <div class="row border-bottom border-white pb-4 mb-2">
 
-        <div class="col-md-7  px-4 mt-2">
+        <div class="col-md-7 px-4 mt-3">
 
-            <h2 class="h4"><a href="{{ '/' | relative_url }}" class="text-white font-weight-normal">{{ site.title }}</a></h2>
+            <h2 class="h4"><a href="{{ '/' | relative_url }}" class="text-white">{{ site.title }}</a></h2>
             <p class="text-white"><small>{{ site.description }}</small></p>
             <nav>
                 <ul id="footer-nav" class="nav nav-pills ">
@@ -24,18 +24,18 @@
 
         </div>
 
-        <div class="col-md-5 mt-2 text-end">
+        <div class="col-md-5 mt-3 text-center">
 
-           {% if site.organization-logo-nav %} <p class="text-end">
-                <a href="{{ site.organization-link }}" target="_blank" rel="noopener">
-                    <img id="footer-logo" class="img-fluid" src="{{ site.organization-logo-nav | relative_url }}" alt="{{ site.organization-name }} home">
+           {% if site.organization-logo-nav %} <p class="text-md-end">
+                <a href="{{ site.organization-link }}">
+                    <img id="footer-logo" class="img-fluid" src="{{ site.organization-logo-nav | relative_url }}" alt="{{ site.organization-name | escape }} home">
                 </a>
             </p>
             {% endif %}
-            <p class="text-white" id="footer-credits">
+            <p class="text-white text-md-end" id="footer-credits">
                 <small><em>built with</em>
-                    <a href="https://collectionbuilder.github.io/" target="_blank" rel="noopener" title="CollectionBuilder">
-                        <img src="{{ '/assets/img/collectionbuilder-logo.png' | relative_url }}" class="img-fluid" alt="CollectionBuilder logo" >
+                    <a href="https://collectionbuilder.github.io/" title="CollectionBuilder">
+                        <img src="{{ '/assets/img/collectionbuilder-logo.png' | relative_url }}" class="img-fluid" alt="CollectionBuilder" >
                     </a>
                 </small>
             </p>
